@@ -1,10 +1,17 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-        name: "subs-api-service"
+  labels:
+    role: submission
+  name: ingest-api-service
 spec:
-        ports:
-                - port: 80
-                  targetPort: 8080
-        selector:
-                app: subs-api
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: ingest-api
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
