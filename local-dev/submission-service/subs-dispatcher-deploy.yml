@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ingest-api-support
+  name: subs-dispatcher
   labels:
     role: submission
 spec:
@@ -12,12 +12,12 @@ spec:
   template: # create pods using pod definition in this template
     metadata:
       labels:
-        app: ingest-api-support
+        app: subs-dispatcher
     spec:
       containers:
-         - name: ingest-api-support
+         - name: subs-dispatcher
+           image: subs-dispatcher:latest
            imagePullPolicy: IfNotPresent
-           image: ingest-api-support:latest
            env:
              - name: MONGO_URI
                value: mongodb://${MONGO_SERVICE_SERVICE_HOST}:${MONGO_SERVICE_SERVICE_PORT}
