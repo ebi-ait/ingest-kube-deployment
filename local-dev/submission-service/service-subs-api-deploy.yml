@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+        name: "subs-api-service"
+spec:
+        ports:
+                - port: 80
+                  targetPort: 8080
+        selector:
+                app: subs-api

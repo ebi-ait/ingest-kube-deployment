@@ -1,0 +1,28 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: subs-api
+  labels:
+    role: submission
+spec:
+  replicas: 1 
+  strategy: # we should have a rolling update strategy i.e changes deployed automatically
+    type: "RollingUpdate"
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: subs-api 
+    spec:
+      containers:
+         - name: subs-api
+           image: subs-api:local
+           env:
+             - name: MONGO_URI
+               value: mongodb://${MONGO_SERVICE_HOST}:${MONGO_SERVICE_PORT}
+             - name: RABBIT_HOST
+               value: mac-subs-001.ebi.ac.uk
+             - name: RABBIT_PORT
+               value: "5672"
+           ports:
+             - containerPort: 8080
