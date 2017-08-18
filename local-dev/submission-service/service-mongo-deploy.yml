@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     role: submission
-  name: mongo
+  name: mongo-service
 spec:
   ports:
     - port: 27017
