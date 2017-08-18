@@ -1,10 +1,17 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-        name: "mongo-service"
+  labels:
+    role: submission
+  name: mongo
 spec:
-        ports:
-                - port: 27127
-                  targetPort: 27127
-        selector:
-                app: mongo
+  ports:
+    - port: 27017
+      protocol: TCP
+      targetPort: 27017
+  selector:
+    app: mongo
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
