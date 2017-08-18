@@ -17,12 +17,13 @@ spec:
       containers:
          - name: ingest-api
            image: ingest-api:local
+           imagePullPolicy: Always
            env:
              - name: MONGO_URI
                value: mongodb://${MONGO_SERVICE_SERVICE_HOST}:${MONGO_SERVICE_SERVICE_PORT}
              - name: RABBIT_HOST
-               value: mac-subs-001.ebi.ac.uk
+               value: ${RABBIT_SERVICE_SERVICE_HOST}
              - name: RABBIT_PORT
-               value: "5672"
+               value: ${RABBIT_SERVICE_SERVICE_PORT}
            ports:
              - containerPort: 8080

@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
          - name: rabbit
-           image: rabbit:3.6.9
+           image: rabbitmq:3.6.9
            ports:
              - containerPort: 5672
