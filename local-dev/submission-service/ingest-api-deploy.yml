@@ -17,7 +17,6 @@ spec:
       containers:
          - name: ingest-api
            image: ingest-api:local
-           imagePullPolicy: Always
            env:
              - name: MONGO_URI
                value: mongodb://${MONGO_SERVICE_SERVICE_HOST}:${MONGO_SERVICE_SERVICE_PORT}
