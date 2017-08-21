@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: validator-status-flipper
+  name: validator-flipper
   labels:
     role: validation
 spec:
@@ -12,10 +12,10 @@ spec:
   template: # create pods using pod definition in this template
     metadata:
       labels:
-        app: validator-status-flipper
+        app: validator-flipper
     spec:
       containers:
-         - name: validator-status-flipper
+         - name: validator-flipper
            imagePullPolicy: IfNotPresent
            image: validator-status-flipper:latest
            env:
