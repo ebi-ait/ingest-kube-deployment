@@ -1,3 +1,18 @@
 # kube-deployment
 
-config files for deploying the Ingeston Service on kubernetes clusters
+config files for deploying the Ingestion Service on kubernetes clusters
+
+## Local deployment with Minikube
+1. Install Docker
+2. Install Minikube and prerequisites: [https://kubernetes.io/docs/tasks/tools/install-minikube/](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+3. Start the Minikube cluster: `minikube start`
+4. Set up a shell to use the Minikube docker-daemon: `eval $(minikube docker-env)`
+5. Clone and build each repository. `cd` into each and run `docker build -t <repository-name>:latest .`
+6. `cd` into kube-deployment/local-dev
+6. Apply each of the kubernetes deployment configs in submission-service and validation-service. Be sure to do the service-...-deploy.yml configs in kube-deployment/submission-service first: `kubectl apply -f <yml config>`
+7. Confirm that the Ingestion Service submission API is accessible. Run `minikube service ingest-service-api --url` and browse to the /api endpoint on the returned URL
+
+## Dev deployment (aws)
+1. Set up a kubernetes cluster on AWS using kops: [https://github.com/kubernetes/kops/blob/master/docs/aws.md](https://github.com/kubernetes/kops/blob/master/docs/aws.md)
+2. Once the cluster has been set up and verified, `cd` into kube-deployment/dev
+3. Perform step 6 as above
