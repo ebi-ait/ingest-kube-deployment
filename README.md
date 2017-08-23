@@ -13,7 +13,7 @@ config files for deploying the Ingestion Service on kubernetes clusters
 7. Confirm that the Ingestion Service submission API is accessible. Run `minikube service ingest-service-api --url` and browse to the /api endpoint on the returned URL
 
 ### Modifying a component's source code and redeploying
-1. Run `./gradlew assemble in the root of the source repository`
+1. Run `./gradlew assemble` in the root of the source repository
 2. Run step 4 as above to ensure that the image is built into the Minikube registry
 3. Run `docker build -t <repository-name>:latest -f localdevDockerfile .`
 4. Redeploy the component on kubernetes: `kubectl apply -f <component deploy yml config>`
