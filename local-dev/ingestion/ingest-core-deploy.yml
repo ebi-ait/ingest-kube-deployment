@@ -20,5 +20,9 @@ spec:
            env:
              - name: MONGO_URI
                value: mongodb://${MONGO_SERVICE_SERVICE_HOST}:${MONGO_SERVICE_SERVICE_PORT}/admin
+             - name: RABBIT_HOST
+               value: ${RABBIT_SERVICE_SERVICE_HOST}
+             - name: RABBIT_PORT
+               value: ${RABBIT_SERVICE_SERVICE_PORT}
            ports:
              - containerPort: 8080
