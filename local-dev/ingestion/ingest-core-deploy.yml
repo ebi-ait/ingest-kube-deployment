@@ -1,0 +1,24 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ingest-core
+  labels:
+    role: ingestion
+spec:
+  replicas: 1
+  strategy: 
+    type: "RollingUpdate"
+  template: 
+    metadata:
+      labels:
+        app: ingest-core
+    spec:
+      containers:
+         - name: ingest-core
+           image: ingest-core:local
+           env:
+             - name: MONGO_URI
+               value: mongodb://${MONGO_SERVICE_SERVICE_HOST}:${MONGO_SERVICE_SERVICE_PORT}/admin
+           ports:
+             - containerPort: 8080
