@@ -7,7 +7,7 @@ metadata:
   name: ingest-demo-service
 spec:
   ports:
-  - port: 5000
+  - port: 80
     protocol: TCP
     targetPort: 5000
   selector:
