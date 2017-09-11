@@ -19,6 +19,6 @@ spec:
            image: quay.io/humancellatlas/ingest-demo
            env:
              - name: INGEST_API
-               value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
+               value: http://api.ingest.dev.data.humancellatlas.org:80
            ports:
              - containerPort: 5000
