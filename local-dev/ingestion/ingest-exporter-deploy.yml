@@ -3,7 +3,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: ingest-exporter
-  namespace: dev-environment
   labels:
     role: ingestion
 spec:
