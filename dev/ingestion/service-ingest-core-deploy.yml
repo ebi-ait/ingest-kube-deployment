@@ -5,6 +5,7 @@ metadata:
   labels:
     role: ingestion
   name: ingest-core-service
+  namespace: dev-environment
 spec:
   ports:
   - port: 80

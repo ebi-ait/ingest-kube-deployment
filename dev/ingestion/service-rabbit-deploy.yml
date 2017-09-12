@@ -4,6 +4,7 @@ metadata:
   labels:
     role: submission
   name: rabbit-service
+  namespace: dev-environment
 spec:
   ports:
     - name: service

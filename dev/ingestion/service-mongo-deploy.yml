@@ -4,6 +4,7 @@ metadata:
   labels:
     role: ingestion
   name: mongo-service
+  namespace: dev-environment
 spec:
   ports:
     - port: 27017
