@@ -16,7 +16,7 @@ spec:
         app: ingest-exporter
     spec:
       containers:
-         - name: ingest-demo
+         - name: ingest-exporter
            image: quay.io/humancellatlas/ingest-exporter
            env:
              - name: INGEST_API
