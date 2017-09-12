@@ -22,4 +22,4 @@ spec:
              - name: INGEST_API
                value: http://api.staging.dev.data.humancellatlas.org:80
              - name: RABBIT_URL
-               value: amqp://{RABBIT_SERVICE_SERVICE_HOST}:{RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+               value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}

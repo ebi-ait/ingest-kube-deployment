@@ -23,6 +23,6 @@ spec:
              - name: RABBIT_HOST
                value: ${RABBIT_SERVICE_SERVICE_HOST}
              - name: RABBIT_PORT
-               value: ${RABBIT_SERVICE_SERVICE_PORT}
+               value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
            ports:
              - containerPort: 8080

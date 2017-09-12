@@ -21,4 +21,4 @@ spec:
              - name: INGEST_API
                value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
              - name: RABBIT_URL
-               value: amqp://{RABBIT_SERVICE_SERVICE_HOST}:{RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+               value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
