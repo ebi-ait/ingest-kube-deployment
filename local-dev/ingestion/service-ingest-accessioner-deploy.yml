@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: ingestion
+  name: ingest-accessioner-service
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: ingest-accessioner
+  sessionAffinity: None
+  type: NodePort
