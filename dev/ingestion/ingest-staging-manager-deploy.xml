@@ -1,0 +1,25 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ingest-staging-manager
+  namespace: dev-environment
+  labels:
+    role: ingestion
+spec:
+  replicas: 1
+  strategy: 
+    type: "RollingUpdate"
+  template: 
+    metadata:
+      labels:
+        app: ingest-staging-manager
+    spec:
+      containers:
+         - name: ingest-staging-manager
+           image: quay.io/humancellatlas/ingest-staging-manager
+           env:
+             - name: INGEST_API
+               value: http://api.ingest.dev.data.humancellatlas.org:80
+             - name: RABBIT_URL
+               value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
