@@ -2,7 +2,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ingest-demo
+  name: ingest-staging-manager
   namespace: staging-environment
   labels:
     role: ingestion
@@ -13,13 +13,13 @@ spec:
   template: 
     metadata:
       labels:
-        app: ingest-demo
+        app: ingest-staging-manager
     spec:
       containers:
-         - name: ingest-demo
-           image: quay.io/humancellatlas/ingest-demo:v0.0.1.rc
+         - name: ingest-staging-manager
+           image: quay.io/humancellatlas/ingest-staging-manager:v0.0.1.rc
            env:
              - name: INGEST_API
                value: http://api.ingest.staging.data.humancellatlas.org:80
-           ports:
-             - containerPort: 5000
+             - name: RABBIT_URL
+               value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
