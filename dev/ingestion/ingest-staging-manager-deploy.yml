@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
          - name: ingest-staging-manager
-           image: quay.io/humancellatlas/ingest-staging-manager
+           imagePullPolicy: Always
+           image: quay.io/humancellatlas/ingest-staging-manager:v0.0.1.rc
            env:
              - name: INGEST_API
                value: http://api.ingest.dev.data.humancellatlas.org:80
