@@ -23,3 +23,10 @@ spec:
                value: http://api.ingest.dev.data.humancellatlas.org:80
              - name: RABBIT_URL
                value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+             - name: STAGING_API
+               value: https://staging.dev.data.humancellatlas.org
+             - name: INGEST_API_KEY
+               valueFrom:
+                 secretKeyRef:
+                   name: api-keys
+                   key: staging-api-key 

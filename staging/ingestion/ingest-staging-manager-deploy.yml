@@ -17,9 +17,16 @@ spec:
     spec:
       containers:
          - name: ingest-staging-manager
-           image: quay.io/humancellatlas/ingest-staging-manager:v0.0.1.rc
+           image: quay.io/humancellatlas/ingest-staging-manager:master
            env:
              - name: INGEST_API
                value: http://api.ingest.staging.data.humancellatlas.org:80
              - name: RABBIT_URL
                value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+             - name: STAGING_API
+               value: https://staging.staging.data.humancellatlas.org
+             - name: INGEST_API_KEY
+               valueFrom:
+                 secretKeyRef:
+                   name: api-keys
+                   key: staging-api-key 
