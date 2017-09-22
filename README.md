@@ -21,7 +21,7 @@ config files for deploying the Ingestion Service on kubernetes clusters
 ## Dev deployment (aws)
 1. Set up a kubernetes cluster on AWS using kops: [https://github.com/kubernetes/kops/blob/master/docs/aws.md](https://github.com/kubernetes/kops/blob/master/docs/aws.md)
 2. Once the cluster has been set up and verified, `cd` into kube-deployment/dev
-3. Apply the namespace configuration for the staging environment. `kubectl apply -f ingestion/dev-namespace.yml`
+3. Apply the namespace configuration for the dev environment. `kubectl apply -f ingestion/dev-namespace.yml`
 4. `cd` into the secrets folder. Open `api-key-secrets.yml` in a text editor. Replace the placeholders with the relevant secret, base64 encoded: `echo -n mysecretpasssword | base64` .(NOTE: even if the secret is itself a base64 encoded string, it still needs to be base64 encoded again since kubernetes will attempt to base64 decode any secrets defined in this file). Apply the secret to the cluster with `kubectl apply -f api-key-secrets.yml`
 5. `cd` into kube-deployment/dev/ingestion.
 6. Apply each `service-....yml` file. `kubectl apply -f service-....yml`
@@ -33,7 +33,7 @@ Similar to dev deployment. If a cluster has already been created using kops it c
 
 1. If not already setup, set up a kubernetes cluster on AWS using kops: [https://github.com/kubernetes/kops/blob/master/docs/aws.md](https://github.com/kubernetes/kops/blob/master/docs/aws.md)
 2. Once the cluster has been set up and verified, `cd` into kube-deployment/staging
-3. Apply the namespace configuration for the dev environment. `kubectl apply -f ingestion/staging-namespace.yml`
+3. Apply the namespace configuration for the staging environment. `kubectl apply -f ingestion/staging-namespace.yml`
 4. `cd` into the secrets folder. Open `api-key-secrets.yml` in a text editor. Replace the placeholders with the relevant secret, base64 encoded: `echo -n mysecretpasssword | base64` (NOTE: even if the secret is itself a base64 encoded string, it still needs to be base64 encoded again since kubernetes will attempt to base64 decode any secrets defined in this file). Apply the secret to the cluster with `kubectl apply -f api-key-secrets.yml`
 5. `cd` into kube-deployment/staging/ingestion.
 6. Apply each `service-....yml` file. `kubectl apply -f service-....yml`
