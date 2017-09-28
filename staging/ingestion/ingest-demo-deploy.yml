@@ -8,9 +8,9 @@ metadata:
     role: ingestion
 spec:
   replicas: 1
-  strategy: 
+  strategy:
     type: "RollingUpdate"
-  template: 
+  template:
     metadata:
       labels:
         app: ingest-demo
@@ -18,7 +18,7 @@ spec:
       containers:
          - name: ingest-demo
            imagePullPolicy: Always
-           image: quay.io/humancellatlas/ingest-demo:v0.0.2.rc
+           image: quay.io/humancellatlas/ingest-demo:v0.0.3.rc
            env:
              - name: INGEST_API
                value: http://api.ingest.staging.data.humancellatlas.org:80
