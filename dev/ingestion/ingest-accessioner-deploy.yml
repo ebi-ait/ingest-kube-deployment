@@ -8,9 +8,7 @@ metadata:
     role: ingestion
 spec:
   replicas: 10
-  strategy: 
-    type: "RollingUpdate"
-  template: 
+  template:
     metadata:
       labels:
         app: ingest-accessioner

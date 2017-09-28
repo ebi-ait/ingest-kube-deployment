@@ -8,9 +8,7 @@ metadata:
     role: ingestion
 spec:
   replicas: 50
-  strategy: 
-    type: "RollingUpdate"
-  template: 
+  template:
     metadata:
       labels:
         app: ingest-validator
