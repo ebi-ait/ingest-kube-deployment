@@ -27,7 +27,7 @@ spec:
              - name: DSS_API
                value: https://dss.staging.data.humancellatlas.org
              - name: STAGING_API
-               value: https://staging.staging.data.humancellatlas.org
+               value: https://upload.staging.data.humancellatlas.org
              - name: INGEST_API_KEY
                valueFrom:
                  secretKeyRef:
