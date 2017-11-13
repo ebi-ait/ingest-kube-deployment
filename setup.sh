@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # clone all git repos
+git clone git@github.com:HumanCellAtlas/ingest-kube-deployment.git
 git clone git@github.com:HumanCellAtlas/ingest-core.git
 git clone git@github.com:HumanCellAtlas/ingest-broker.git
 git clone git@github.com:HumanCellAtlas/ingest-accessioner.git
@@ -38,4 +39,4 @@ minikube dashboard
 # Check Ingest API
 minikube service ingest-core-service --url
 # Check Demo UP
-http://192.168.99.100:30795
+minikube service ingest-demo-service --url
