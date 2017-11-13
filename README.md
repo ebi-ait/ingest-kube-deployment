@@ -1,22 +1,49 @@
 # kube-deployment
 
-config files for deploying the Ingestion Service on kubernetes clusters
+Config files for deploying the Ingestion Service on [Kubernetes](https://kubernetes.io/) clusters
 
 ## Local deployment with Minikube
-1. Install Docker
+1. [Install Docker] (https://docs.docker.com/engine/installation/)
 2. Install Minikube and prerequisites: [https://kubernetes.io/docs/tasks/tools/install-minikube/](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+    * [Install Virtual Box](https://www.virtualbox.org/wiki/Downloads)
+    * [Install kubecrl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+    * [Intall Minikube](https://github.com/kubernetes/minikube/releases)
 3. Start the Minikube cluster: `minikube start`
 4. Set up a shell to use the Minikube docker-daemon: `eval $(minikube docker-env)`
 5. Clone and build each repository. `cd` into each and run `docker build -t <repository-name>:latest .`
-7. `cd` into kube-deployment/local-dev
-8. Apply each of the kubernetes deployment configs in submission-service and validation-service. Be sure to do the service-...-deploy.yml configs in kube-deployment/submission-service first: `kubectl apply -f <yml config>`
-9. Confirm that the Ingestion Service submission API is accessible. Run `minikube service ingest-service-api --url` and browse to the /api endpoint on the returned URL
+    * ingest-core `docker build -t ingest-core:local .`
+    * ingest-broker `docker build -t ingest-demo:local .`
+    * ingest-accessioner `docker build -t ingest-accessioner:local .`
+    * ingest-validator `docker build -t ingest-validator:local .`
+    * ingest-exporter `docker build -t ingest-exporter:local .`
+    * ingest-staging-manager `docker build -t ingest-staging-manager:local .`    
+6. `cd` into ingest-kube-deployment/local-dev/ingestion
+7. Apply each of the kubernetes deployment config:
+    * First service-<*>-deploy.yml:
+        * `kubectl apply -f service-rabbit-deploy.yml`
+        * `kubectl apply -f service-mongo-deploy.yml`
+        * `kubectl apply -f service-ingest-core-deploy.yml`
+        * `kubectl apply -f service-ingest-demo-deploy.yml`
+    * Then:
+        * `kubectl apply -f rabbit-deploy.yml`
+        * `kubectl apply -f mongo-deploy.yml`
+    * Then ingest-<*>-deploy.yml:
+        * `kubectl apply -f ingest-core-deploy.yml`
+        * `kubectl apply -f ingest-demo-deploy.yml`
+        * `kubectl apply -f ingest-accessioner-deploy.yml`
+        * `kubectl apply -f ingest-validator-deploy.yml`
+        * `kubectl apply -f ingest-exporter-deploy.yml`
+        * `kubectl apply -f ingest-staging-manager-deploy.yml`
+8. Check with Minikube Dashboard `minikube dashboard`
+9. Confirm that the Ingestion Service submission API is accessible. Run `minikube service ingest-core-service --url` and browse to the /api endpoint on the returned URL
+10. Access the demo service Run `minikube service ingest-demo-service --url` and browse to the URL given
 
 ### Modifying a component's source code and redeploying
 1. Run `./gradlew assemble` in the root of the source repository
 2. Run step 4 as above to ensure that the image is built into the Minikube registry
-3. Run `docker build -t <repository-name>:latest -f localdevDockerfile .`
-4. Redeploy the component on kubernetes: `kubectl apply -f <component deploy yml config>`
+3. Run `docker build -t <repository-name>:local -f localdevDockerfile .`
+4. Delete the current deployment if it is already running
+5. Redeploy the component on kubernetes: `kubectl apply -f <component deploy yml config>`
 
 ## Dev deployment (aws)
 1. Set up a kubernetes cluster on AWS using kops: [https://github.com/kubernetes/kops/blob/master/docs/aws.md](https://github.com/kubernetes/kops/blob/master/docs/aws.md)
