@@ -1,16 +1,16 @@
-# kube-deployment
+# Ingest Service Deployment
 
-Config files for deploying the Ingestion Service on [Kubernetes](https://kubernetes.io/) clusters
+Configuration files for deploying the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
 
 ## Local deployment with Minikube
-1. [Install Docker] (https://docs.docker.com/engine/installation/)
-2. Install Minikube and prerequisites: [https://kubernetes.io/docs/tasks/tools/install-minikube/](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+1. [Install Docker](https://docs.docker.com/engine/installation/)
+2. [Install Minikube and prerequisites](https://kubernetes.io/docs/tasks/tools/install-minikube/):
     * [Install Virtual Box](https://www.virtualbox.org/wiki/Downloads)
     * [Install kubecrl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-    * [Intall Minikube](https://github.com/kubernetes/minikube/releases)
+    * [Install Minikube](https://github.com/kubernetes/minikube/releases)
 3. Start the Minikube cluster: `minikube start`
 4. Set up a shell to use the Minikube docker-daemon: `eval $(minikube docker-env)`
-5. Clone and build each repository. `cd` into each and run `docker build -t <repository-name>:latest .`
+5. Clone and build each repository. `cd` into each and run `docker build -t <repository-name>:local .`
     * ingest-core `docker build -t ingest-core:local .`
     * ingest-broker `docker build -t ingest-demo:local .`
     * ingest-accessioner `docker build -t ingest-accessioner:local .`
