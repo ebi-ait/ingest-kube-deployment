@@ -45,7 +45,7 @@ For the next steps there is a script that can be run: [setup.sh](setup.sh). This
 1. Run `./gradlew assemble` in the root of the source repository
 2. Run step 4 as above to ensure that the image is built into the Minikube registry
 3. Run `docker build -t <repository-name>:local -f localdevDockerfile .`
-4. Delete the current deployment if it is already running
+4. Delete the current deployment if it is already running `kubectl delete deployment <deployment name>`
 5. Redeploy the component on kubernetes: `kubectl apply -f <component deploy yml config>`
 
 ## Dev deployment (aws)
