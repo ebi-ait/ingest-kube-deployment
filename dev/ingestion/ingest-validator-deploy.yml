@@ -25,3 +25,9 @@ spec:
                value: ingest.metadata.accession.queue
              - name: RABBITMQ_VALIDATION_QUEUE
                value: ingest.metadata.validation.queue
+             - name: JSON_SCHEMA_VALIDATION
+               value: ACTIVE
+             - name: OLS_VALIDATION
+               value: INACTIVE
+             - name: ONTOLOGY_SCHEMA_BASE_URL
+               value: https://github.com/HumanCellAtlas/metadata-schema/tree/4.2.0/json_schema/ontology_json
