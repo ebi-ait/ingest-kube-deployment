@@ -3,7 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: ingest-archiver
-  namespace: dev-environment
+  namespace: staging-environment
   labels:
     role: ingestion
 spec:
@@ -18,7 +18,7 @@ spec:
       containers:
          - name: ingest-archiver
            imagePullPolicy: Always
-           image: quay.io/humancellatlas/ingest-archiver
+           image: quay.io/humancellatlas/ingest-archiver:v0.1.0.rc
            env:
              - name: INGEST_API
                value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}

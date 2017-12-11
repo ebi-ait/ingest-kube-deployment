@@ -18,7 +18,7 @@ spec:
       containers:
          - name: ingest-demo
            imagePullPolicy: Always
-           image: quay.io/humancellatlas/ingest-demo:xlsbroker_v4update
+           image: quay.io/humancellatlas/ingest-demo
            env:
              - name: INGEST_API
                value: http://api.ingest.integration.data.humancellatlas.org:80

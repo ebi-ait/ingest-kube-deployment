@@ -21,5 +21,9 @@ spec:
            env:
              - name: INGEST_API
                value: http://api.ingest.dev.data.humancellatlas.org:80
+             - name: SCHEMA_URL
+               value: https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/%s/json_schema/
+             - name: SCHEMA_VERSION
+               value: 4.4.0
            ports:
              - containerPort: 5000
