@@ -5,8 +5,8 @@ git clone git@github.com:HumanCellAtlas/ingest-core.git
 git clone git@github.com:HumanCellAtlas/ingest-broker.git
 git clone git@github.com:HumanCellAtlas/ingest-accessioner.git
 git clone git@github.com:HumanCellAtlas/ingest-validator.git
-git clone git@github.com:HumanCellAtlas/ingest-exporter.git
-git clone git@github.com:HumanCellAtlas/ingest-staging-manager.git
+git clone --recursive git@github.com:HumanCellAtlas/ingest-exporter.git
+git clone --recursive git@github.com:HumanCellAtlas/ingest-staging-manager.git
 # build images
 cd ingest-core
 docker build -t ingest-core:local .
