@@ -6,7 +6,7 @@ Configuration files for deploying the Ingestion Service on  [Kubernetes](https:/
 1. [Install Docker](https://docs.docker.com/engine/installation/)
 2. [Install Minikube and prerequisites](https://kubernetes.io/docs/tasks/tools/install-minikube/):
     * [Install Virtual Box](https://www.virtualbox.org/wiki/Downloads)
-    * [Install kubecrl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+    * [Install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
     * [Install Minikube](https://github.com/kubernetes/minikube/releases)
 3. Start the Minikube cluster: `minikube start`
 4. Set up a shell to use the Minikube docker-daemon: `eval $(minikube docker-env)`
