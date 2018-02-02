@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# clone all git repos
-git clone git@github.com:HumanCellAtlas/ingest-kube-deployment.git
-git clone git@github.com:HumanCellAtlas/ingest-core.git
-git clone git@github.com:HumanCellAtlas/ingest-broker.git
-git clone git@github.com:HumanCellAtlas/ingest-accessioner.git
-git clone git@github.com:HumanCellAtlas/ingest-validator.git
-git clone --recursive git@github.com:HumanCellAtlas/ingest-exporter.git
-git clone --recursive git@github.com:HumanCellAtlas/ingest-staging-manager.git
+# clone all git repos (via HTTPS)
+git clone https://github.com:HumanCellAtlas/ingest-kube-deployment.git
+git clone https://github.com:HumanCellAtlas/ingest-core.git
+git clone https://github.com:HumanCellAtlas/ingest-broker.git
+git clone https://github.com:HumanCellAtlas/ingest-accessioner.git
+git clone https://github.com:HumanCellAtlas/ingest-validator.git
+git clone --recursive https://github.com:HumanCellAtlas/ingest-exporter.git
+git clone --recursive https://github.com:HumanCellAtlas/ingest-staging-manager.git
 # build images
 cd ingest-core
 docker build -t ingest-core:local .
