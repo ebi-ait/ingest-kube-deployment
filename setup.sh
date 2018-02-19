@@ -1,22 +1,23 @@
 #!/usr/bin/env bash
+
 # clone all git repos (via HTTPS)
-git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
-git clone https://github.com/HumanCellAtlas/ingest-core.git
-git clone https://github.com/HumanCellAtlas/ingest-broker.git
-git clone https://github.com/HumanCellAtlas/ingest-accessioner.git
-git clone https://github.com/HumanCellAtlas/ingest-validator.git
+git clone https://github.com/IGS/ingest-kube-deployment.git
+git clone https://github.com/IGS/ingest-core.git
+git clone https://github.com/IGS/ingest-broker.git
+git clone https://github.com/IGS/ingest-accessioner.git
+git clone https://github.com/IGS/ingest-validator.git
 
 # The following 2 repos make use of git submodules that would normally require
 # a git clone with a --recursive flag. However, the submodules are defined with
 # github URLs that require ssh keys. Here we work around that by obtaining the
 # code and cloning it into an "ingestbroker" subdirectory.
-git clone https://github.com/HumanCellAtlas/ingest-exporter.git && \
+git clone https://github.com/IGS/ingest-exporter.git && \
     pushd ingest-exporter && \
-    git clone http://github.com/HumanCellAtlas/ingest-broker.git ingestbroker && \
+    git clone http://github.com/IGS/ingest-broker.git ingestbroker && \
     popd
-git clone https://github.com/HumanCellAtlas/ingest-staging-manager.git && \
+git clone https://github.com/IGS/ingest-staging-manager.git && \
     pushd ingest-staging-manager && \
-    git clone https://github.com/HumanCellAtlas/ingest-broker.git ingestbroker && \
+    git clone https://github.com/IGS/ingest-broker.git ingestbroker && \
     popd
 
 # build images
