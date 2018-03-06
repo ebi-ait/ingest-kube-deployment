@@ -17,12 +17,15 @@ spec:
     spec:
       containers:
          - name: ingest-validator
-           image: quay.io/humancellatlas/ingest-validator:v0.1.1.rc
+           imagePullPolicy: Always
+           image: quay.io/humancellatlas/ingest-validator:v0.1.7.rc
            env:
              - name: INGEST_API
                value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
              - name: RABBIT_URL
                value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+             - name: UPLOAD_API_URL
+               value: https://upload.staging.data.humancellatlas.org
              - name: RABBITMQ_ACCESSION_QUEUE
                value: ingest.metadata.accession.queue
              - name: RABBITMQ_VALIDATION_QUEUE
@@ -30,6 +33,13 @@ spec:
              - name: JSON_SCHEMA_VALIDATION
                value: ACTIVE
              - name: OLS_VALIDATION
-               value: INACTIVE
+               value: ACTIVE
+             - name: FILE_VALIDATION
+               value: ACTIVE
              - name: ONTOLOGY_SCHEMA_BASE_URL
-               value: https://github.com/HumanCellAtlas/metadata-schema/tree/4.2.0/json_schema/ontology_json
+               value: https://github.com/HumanCellAtlas/metadata-schema/tree/4.6.1/json_schema/ontology_json
+             - name: UPLOAD_API_KEY
+               valueFrom:
+                 secretKeyRef:
+                   name: api-keys
+                   key: staging-api-key

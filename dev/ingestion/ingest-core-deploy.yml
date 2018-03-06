@@ -7,7 +7,7 @@ metadata:
   labels:
     role: ingestion
 spec:
-  replicas: 1
+  replicas: 2
   strategy: 
     type: "RollingUpdate"
   template: 
@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
          - name: ingest-core
-           image: quay.io/humancellatlas/ingest-core
+           image: quay.io/humancellatlas/ingest-core:jittered_backoff
+           imagePullPolicy: Always
            env:
              - name: MONGO_URI
                value: mongodb://${MONGO_SERVICE_SERVICE_HOST}:${MONGO_SERVICE_SERVICE_PORT}/admin
