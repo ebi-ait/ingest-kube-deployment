@@ -8,8 +8,6 @@ metadata:
     role: ingestion
 spec:
   replicas: 1
-  strategy: 
-    type: "RollingUpdate"
   template: 
     metadata:
       labels:
@@ -17,14 +15,10 @@ spec:
     spec:
       containers:
          - name: ingest-demo
-           image: quay.io/humancellatlas/ingest-demo
+           image: quay.io/humancellatlas/ingest-demo:v5_upgrade
            imagePullPolicy: Always
            env:
              - name: INGEST_API
                value: http://api.ingest.dev.data.humancellatlas.org:80
-             - name: SCHEMA_URL
-               value: https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/%s/json_schema/
-             - name: SCHEMA_VERSION
-               value: 4.6.1
            ports:
              - containerPort: 5000

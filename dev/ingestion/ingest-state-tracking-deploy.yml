@@ -2,29 +2,29 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ingest-core
+  name: ingest-state-tracking
   namespace: dev-environment
   labels:
     role: ingestion
 spec:
-  replicas: 2
+  replicas: 1
   strategy: 
     type: "RollingUpdate"
   template: 
     metadata:
       labels:
-        app: ingest-core
+        app: ingest-state-tracking
     spec:
       containers:
-         - name: ingest-core
-           image: quay.io/humancellatlas/ingest-core:merge-v5
+         - name: ingest-state-tracking
+           image: quay.io/humancellatlas/ingest-state-tracking
            imagePullPolicy: Always
            env:
-             - name: MONGO_URI
-               value: mongodb://${MONGO_SERVICE_SERVICE_HOST}:${MONGO_SERVICE_SERVICE_PORT}/admin
              - name: RABBIT_HOST
                value: ${RABBIT_SERVICE_SERVICE_HOST}
              - name: RABBIT_PORT
                value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
-           ports:
-             - containerPort: 8080
+             - name: INGEST_API_ROOT
+               value: http://api.ingest.dev.data.humancellatlas.org
+             - name: UPDATER_PERIOD_SECONDS
+               value: "1"
