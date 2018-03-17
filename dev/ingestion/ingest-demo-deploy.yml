@@ -8,14 +8,14 @@ metadata:
     role: ingestion
 spec:
   replicas: 1
-  template: 
+  template:
     metadata:
       labels:
         app: ingest-demo
     spec:
       containers:
          - name: ingest-demo
-           image: quay.io/humancellatlas/ingest-demo:v5_upgrade
+           image: quay.io/humancellatlas/ingest-demo:v5_upgrade_and_wrapper_processes
            imagePullPolicy: Always
            env:
              - name: INGEST_API

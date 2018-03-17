@@ -7,10 +7,10 @@ metadata:
   labels:
     role: ingestion
 spec:
-  replicas: 2
-  strategy: 
+  replicas: 1
+  strategy:
     type: "RollingUpdate"
-  template: 
+  template:
     metadata:
       labels:
         app: ingest-core
