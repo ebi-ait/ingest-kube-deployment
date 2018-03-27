@@ -1,0 +1,26 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ingest-demo
+  namespace: prod-environment
+  labels:
+    role: ingestion
+spec:
+  replicas: 1
+  strategy: 
+    type: "RollingUpdate"
+  template: 
+    metadata:
+      labels:
+        app: ingest-demo
+    spec:
+      containers:
+         - name: ingest-demo
+           image: quay.io/humancellatlas/ingest-demo:develop_5
+           imagePullPolicy: Always
+           env:
+             - name: INGEST_API
+               value: http://a7eb0ae9030e811e8ba3812a89cac94e-447667582.us-east-1.elb.amazonaws.com
+           ports:
+             - containerPort: 5000

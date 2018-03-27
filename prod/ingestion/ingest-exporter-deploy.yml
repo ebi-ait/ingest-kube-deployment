@@ -1,0 +1,39 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ingest-exporter
+  namespace: prod-environment
+  labels:
+    role: ingestion
+spec:
+  replicas: 15
+  strategy: 
+    type: "RollingUpdate"
+  template: 
+    metadata:
+      labels:
+        app: ingest-exporter
+    spec:
+      containers:
+         - name: ingest-exporter
+           imagePullPolicy: Always
+           image: quay.io/humancellatlas/ingest-exporter:stable_5
+           env:
+             - name: INGEST_API
+               value: http://api.ingest.data.humancellatlas.org:80
+             - name: RABBIT_URL
+               value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+             - name: STAGING_API
+               value: https://upload.data.humancellatlas.org
+             - name: DSS_API
+               value: https://dss.integration.data.humancellatlas.org
+             - name: BUNDLE_SCHEMA_BASE_URL
+               value: https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/%s/json_schema/
+             - name: SCHEMA_VERSION
+               value: 4.6.1
+             - name: INGEST_API_KEY
+               valueFrom:
+                 secretKeyRef:
+                   name: api-keys
+                   key: staging-api-key 

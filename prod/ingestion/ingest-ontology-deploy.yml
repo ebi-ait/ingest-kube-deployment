@@ -1,0 +1,23 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ingest-ontology
+  namespace: prod-environment
+  labels:
+    role: ingestion
+spec:
+  replicas: 1
+  strategy: 
+    type: "RollingUpdate"
+  template: 
+    metadata:
+      labels:
+        app: ingest-ontology
+    spec:
+      containers:
+         - name: ontology
+           imagePullPolicy: Always
+           image: quay.io/humancellatlas/ontology
+           ports:
+             - containerPort: 8080
