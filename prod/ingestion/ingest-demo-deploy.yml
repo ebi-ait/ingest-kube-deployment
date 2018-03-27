@@ -21,6 +21,6 @@ spec:
            imagePullPolicy: Always
            env:
              - name: INGEST_API
-               value: http://a7eb0ae9030e811e8ba3812a89cac94e-447667582.us-east-1.elb.amazonaws.com
+               value: http://api.ingest.data.humancellatlas.org
            ports:
              - containerPort: 5000
