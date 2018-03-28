@@ -9,13 +9,22 @@ spec:
       template:
         spec:
           containers:
-          - name: aws-copier
+          - name: copy-to-aws
             image: ?
+            env:
+            - name: AWS_ACCESS_KEY_ID
+              value: ***
+            - name: AWS_SECRET_ACCESS_KEY
+              value: ***
+            - name: S3_BUCKET
+              value: ingest-backup
             volumeMounts:
             - name: backup
               mountPath: /data/sync
-          - name: mongo-dumper
-            image: ?
+          - name: dump-from-mongo
+            image: mongo
+            command: [ "mongodump" ]
+            args: [ "--host", "mongo-service",  "--gzip", "--out", "/data/db/dump/$(date '+%Y-%m-%dT%H_%M').gz" ]
             volumeMounts:
             - name: backup
               mountPath: /data/db/dump
