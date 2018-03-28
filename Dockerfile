@@ -7,6 +7,8 @@ RUN pip install awscli
 
 VOLUME /data/sync
 
+ENV S3_BUCKET ""
+
 COPY src/monitor-backup.sh /opt/monitor
 
 RUN chmod +x /opt/monitor
