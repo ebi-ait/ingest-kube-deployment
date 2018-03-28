@@ -15,10 +15,11 @@ spec:
       labels:
         app: ingest-exporter
     spec:
+      dnsPolicy: Default
       containers:
          - name: ingest-exporter
            imagePullPolicy: Always
-           image: quay.io/humancellatlas/ingest-exporter:stable_5
+           image: quay.io/humancellatlas/ingest-exporter:develop_5
            env:
              - name: INGEST_API
                value: http://api.ingest.data.humancellatlas.org:80

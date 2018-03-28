@@ -13,6 +13,7 @@ spec:
       labels:
         app: ingest-validator
     spec:
+      dnsPolicy: Default
       containers:
          - name: ingest-validator
            imagePullPolicy: Always

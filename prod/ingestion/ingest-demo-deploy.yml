@@ -21,6 +21,6 @@ spec:
            imagePullPolicy: Always
            env:
              - name: INGEST_API
-               value: http://api.ingest.data.humancellatlas.org
+               value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}
            ports:
              - containerPort: 5000
