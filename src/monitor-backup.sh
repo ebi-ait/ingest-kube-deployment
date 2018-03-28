@@ -1,5 +1,6 @@
 #!/bin/sh
 
-while inotifywait -e modify /data/sync; do 
-    echo 'new file!'
+inotifywait -mrq -e modify --format '%f' /data/sync/ | while read FILE
+do 
+    echo "new file [$FILE]!"
 done
