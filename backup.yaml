@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: copy-to-aws
-            image: ?
+            image: quay.io/rdgoite/ingest-backup
             env:
             - name: AWS_ACCESS_KEY_ID
               value: ***
