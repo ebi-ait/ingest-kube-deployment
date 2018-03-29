@@ -6,7 +6,7 @@ RUN apt-get update && \
 
 RUN pip install awscli
 
-VOLUME /data/sync
+RUN mkdir -p /data/db/dump
 
 COPY src/monitor-backup.sh /opt/backup
 

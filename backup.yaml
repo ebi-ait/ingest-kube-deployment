@@ -8,9 +8,9 @@ spec:
     spec:
       template:
         spec:
-          initContainers:
-          - name: copy-to-aws
-            image: quay.io/rdgoite/ingest-backup
+          containers:
+          - name: backup
+            image: rdgoite/ingest-backup:latest
             env:
             - name: AWS_ACCESS_KEY_ID
               value: ***
@@ -20,18 +20,5 @@ spec:
               value: ingest-backup
             - name: BACKUP_DIR
               value: dev
-            volumeMounts:
-            - name: backup
-              mountPath: /data/sync
-          containers:
-          - name: dump-from-mongo
-            image: mongo
-            command: [ "mongodump" ]
-            args: [ "--host", "mongo-service",  "--gzip", "--out", "/data/db/dump/$(date '+%Y-%m-%dT%H_%M').gz" ]
-            volumeMounts:
-            - name: backup
-              mountPath: /data/db/dump
-          volumes:
-          - name: backup
-            emptyDir: {}
           restartPolicy: OnFailure
+          

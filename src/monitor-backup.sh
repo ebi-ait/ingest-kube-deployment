@@ -1,13 +1,13 @@
 #!/bin/sh
 
-BACKUP_DIR=/data/db/dump/$(date '+%Y-%m-%dT%H_%M')
+DB_DUMP=/data/db/dump/$(date '+%Y-%m-%dT%H_%M')
 
 mongodump \
 --host mongo-service \
---out $BACKUP_DIR
+--out $DB_DUMP
 
-BACKUP_FILE=$BACKUP_DIR.tar.gz
-tar -zcvf $BACKUP_DIR $BACKUP_FILE
+BACKUP_FILE=$DB_DUMP.tar.gz
+tar -zcvf $BACKUP_FILE $DB_DUMP
 
 if [ -z "$S3_BUCKET" ]; then
     echo "S3 Bucket not specified!"
