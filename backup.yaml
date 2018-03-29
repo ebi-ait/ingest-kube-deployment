@@ -13,15 +13,9 @@ spec:
             image: rdgoite/ingest-backup:latest
             env:
             - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  name: aws-credentials
-                  key: accessKey
+              value: ***
             - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: aws-credentials
-                  key: secretAccessKey
+              value: ***
             - name: S3_BUCKET
               value: ingest-backup
             - name: BACKUP_DIR
