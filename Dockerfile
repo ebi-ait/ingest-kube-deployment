@@ -1,14 +1,15 @@
-FROM python:3.6-alpine
+FROM ubuntu
 
-RUN apk update && \
-    apk add inotify-tools
+RUN apt-get update && \
+    apt-get install -y python3 python-pip && \
+    apt-get install -y mongodb-clients
 
 RUN pip install awscli
 
 VOLUME /data/sync
 
-COPY src/monitor-backup.sh /opt/monitor
+COPY src/monitor-backup.sh /opt/backup
 
-RUN chmod +x /opt/monitor
+RUN chmod +x /opt/backup
 
-ENTRYPOINT /opt/monitor
+ENTRYPOINT /opt/backup

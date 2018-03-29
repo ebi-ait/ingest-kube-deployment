@@ -8,7 +8,7 @@ spec:
     spec:
       template:
         spec:
-          containers:
+          initContainers:
           - name: copy-to-aws
             image: quay.io/rdgoite/ingest-backup
             env:
@@ -19,10 +19,11 @@ spec:
             - name: S3_BUCKET
               value: ingest-backup
             - name: BACKUP_DIR
-              value: prod
+              value: dev
             volumeMounts:
             - name: backup
               mountPath: /data/sync
+          containers:
           - name: dump-from-mongo
             image: mongo
             command: [ "mongodump" ]
