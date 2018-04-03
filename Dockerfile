@@ -8,7 +8,7 @@ RUN pip install awscli
 
 RUN mkdir -p /data/db/dump
 
-COPY src/monitor-backup.sh /opt/backup
+COPY src/backup.sh /opt/backup
 
 RUN chmod +x /opt/backup
 
