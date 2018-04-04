@@ -11,6 +11,7 @@ spec:
           containers:
           - name: backup
             image: rdgoite/ingest-backup:latest
+            imagePullPolicy: Always
             env:
             - name: AWS_ACCESS_KEY_ID
               value: ***
