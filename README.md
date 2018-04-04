@@ -50,20 +50,20 @@ To check if the backups contain correct information, the following general strat
 
 1) Connect to source Mongo DB instance, through a shell for example. As the Mongo instance is on a Kubernetes cluster, the shell can be invoked through the `exec` utility of `kubectl`:
 
-    kubectl -n <namespace> exec -it <mongo-pod> -- /bin/bash
+        kubectl -n <namespace> exec -it <mongo-pod> -- /bin/bash
 
 2) Create a new Mongo DB instance to which the backup data will be restored. This process can easily be done by running a new Mongo container through Docker. It is advised that when running a new Mongo instance for testing the backup data is first decompressed (using tools like `tar` described above), and the resulting directory is used as a host volume:
 
-    docker run -d --name mongo-test -v $PWD/data/db:/data/db mongo
+        docker run -d --name mongo-test -v $PWD/data/db:/data/db mongo
 
 3) Connect to the new Mongo instance through the Docker exec utility:
 
-    docker exec -it mongo-test /bin/bash
+        docker exec -it mongo-test /bin/bash
 
 4) While connected to the new container hosting the new Mongo DB instance, the backup can be restored through `mongorestore` tool:
 
-    mongorestore data/db/dump/2018-04-04T11_37
+        mongorestore data/db/dump/2018-04-04T11_37
 
 5) To verify that the restored data is consistent with the source, connect to the new Mongo DB instance (perhaps using `mongo` client) and verify that the data match with the source. As a simple test, `show collections` should display the same collections in both the source DB and the new one. Each collection in the source should contain the same number of documents as its counterpart on the new DB. This can be checked using the `count` method of each collection:
 
-    db.<collection_name>.count()
+        db.<collection_name>.count()
