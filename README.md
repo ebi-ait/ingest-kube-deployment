@@ -6,7 +6,7 @@ The backup strategies devised in here is to ensure availability, and prevent sig
 While the strategies were created with HCA infrastructure specifically in mind, the tools may be reused to accommodate any system that uses Mongo DB deployed as part of of a cluster of Docker containers.
 
 ## Assumptions
-Ingest infrastructure is deployed as a system of multiple self contained microservices through Docker with the use of Kubernetes. The backup system is deployed as a Docker container that has direct access to a predefined `mongo-service` Kubernetes service, from which it gets the data it backs up to an S3 bucket defined through the `S3_BUCKET` environment variable.
+Ingest infrastructure is deployed as a system of multiple self contained microservices through Docker with the use of Kubernetes. The backup system is deployed as a Docker container that has direct access to a predefined Kubernetes service, named `mongo-service` from which it gets the data it backs up to an S3 bucket defined through the `S3_BUCKET` environment variable.
 
 ## Usage
 
@@ -30,3 +30,14 @@ The first 2 environment variables above (access keys) are directly exposed varia
 The backup system takes the output of Mongo's `mongodump` utility and puts them into a compressed directory (tarball), which are moved to the specified S3 bucket. They are preserved in format that Mongo utilities should be able to process and understand.
 
 ### Restoring Data
+The compressed directories of database backups available in the S3 bucket can be decompressed using the `tar` utility as follows:
+
+    tar -xzvf 2018-04-04T11_37.tar.gz
+
+This will create a directory named `2018-04-04T11_37` which contains the output of the `mongodump`. The `tar` utility provides more options documented in its manual (`man tar`).
+
+To restore the backup data, the `mongorestore` utility is used:
+
+    mongorestore 2018-04-04T11_37
+
+The [official documentation for `mongorestore`](https://docs.mongodb.com/manual/reference/program/mongorestore/) tool lists more options for customising the restoration process.
