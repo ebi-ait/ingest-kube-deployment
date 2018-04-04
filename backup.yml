@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: backup
-            image: rdgoite/ingest-backup:latest
+            image: quay.io/humancellatlas/ingest-backup:latest
             imagePullPolicy: Always
             env:
             - name: AWS_ACCESS_KEY_ID
