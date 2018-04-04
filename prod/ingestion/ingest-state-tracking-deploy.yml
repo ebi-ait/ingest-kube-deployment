@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
          - name: ingest-state-tracking
-           image: quay.io/humancellatlas/ingest-state-tracking
+           image: quay.io/humancellatlas/ingest-state-tracking:develop_5
            imagePullPolicy: Always
            env:
              - name: RABBIT_HOST

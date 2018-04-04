@@ -28,7 +28,7 @@ spec:
              - name: STAGING_API
                value: https://upload.data.humancellatlas.org
              - name: DSS_API
-               value: https://dss.integration.data.humancellatlas.org
+               value: https://dss.data.humancellatlas.org
              - name: BUNDLE_SCHEMA_BASE_URL
                value: https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/%s/json_schema/
              - name: SCHEMA_VERSION
