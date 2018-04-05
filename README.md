@@ -68,7 +68,7 @@ To check if the backups contain correct information, the following general strat
 
 4) While connected to the new container hosting the new Mongo DB instance, the backup can be restored through `mongorestore` tool:
 
-        mongorestore data/db/dump/2018-04-04T11_37
+        mongorestore /data/db/dump/2018-04-04T11_37
 
 5) To verify that the restored data is consistent with the source, connect to the new Mongo DB instance (perhaps using `mongo` client) and verify that the data match with the source. As a simple test, `show collections` should display the same collections in both the source DB and the new one. Each collection in the source should contain the same number of documents as its counterpart on the new DB. This can be checked using the `count` method of each collection:
 
