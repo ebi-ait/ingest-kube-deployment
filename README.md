@@ -11,7 +11,13 @@ Ingest infrastructure is deployed as a system of multiple self contained microse
 ## Usage
 
 ### Backing Up
-By default, the backup system is set to run every second hour of the day between 0000H to 2300H, or, in other terms, on hours of the day divisible by 2 (`hour % 2 == 0`). This can be configured by updating the cron schedule in the `backup.yml` file to match another preferred schedule.
+By default, the backup system is set to run every second hour of the day between 0000H to 2300H, or, in other terms, on hours of the day divisible by 2 (`hour % 2 == 0`). This can be configured by updating the cron schedule in the `backup.yml` file to match another preferred schedule. Alternatively, for intances of ingest backup already deployed through Kubernetes, the schedule can be patched by updating the `spec.schedule` property of the cron job:
+
+```
+kubectl patch cronjob <job_name> -p '{  "spec": { "schedule": "0 0-23/4 * * *"  }  }'
+```
+
+The patch above will reset the schedule to be every 4 hours instead of every 2 hours.
 
 #### Security Credentials
 The backup system uses Amazon's AWS CLI tools to copy data to AWS. As the backup data will be dumped into a remote S3 bucket, the process running the backups need to be configured to have access to the bucket in question. Security credentials should be set through the environment variables to get the backup system working correctly. AWS provides documentation on [how to setup security credentials for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html).
