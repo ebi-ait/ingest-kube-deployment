@@ -18,7 +18,7 @@ spec:
       containers:
          - name: ingest-demo
            imagePullPolicy: Always
-           image: quay.io/humancellatlas/ingest-demo:debugging
+           image: quay.io/humancellatlas/ingest-demo:v0.4.0.rc
            env:
              - name: INGEST_API
                value: http://api.ingest.staging.data.humancellatlas.org:80

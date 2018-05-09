@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
          - name: ingest-demo
-           image: quay.io/humancellatlas/ingest-demo:v5_upgrade_and_wrapper_processes
+           image: quay.io/humancellatlas/ingest-demo:master
            imagePullPolicy: Always
            env:
              - name: INGEST_API

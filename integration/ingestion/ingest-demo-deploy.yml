@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
          - name: ingest-demo
-           image: quay.io/humancellatlas/ingest-demo
+           image: quay.io/humancellatlas/ingest-demo:integration
            imagePullPolicy: Always
            env:
              - name: INGEST_API
