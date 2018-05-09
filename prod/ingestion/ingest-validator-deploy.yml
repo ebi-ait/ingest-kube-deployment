@@ -17,7 +17,7 @@ spec:
       containers:
          - name: ingest-validator
            imagePullPolicy: Always
-           image: quay.io/humancellatlas/ingest-validator:stable_5
+           image: quay.io/humancellatlas/ingest-validator:v0.4.0.rc
            env:
              - name: INGEST_API
                value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
