@@ -1,17 +1,17 @@
----
 apiVersion: v1
 kind: Service
 metadata:
+  annotations: {}
   labels:
     role: ingestion
-  name: ingest-core-service
+  name: mongo-service
   namespace: dev-environment
 spec:
   ports:
-  - port: 80
+  - port: 27017
     protocol: TCP
-    targetPort: 8080
+    targetPort: 27017
   selector:
-    app: ingest-core
+    app: mongo
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP

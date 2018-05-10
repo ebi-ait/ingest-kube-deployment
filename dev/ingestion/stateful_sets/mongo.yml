@@ -1,35 +1,36 @@
----
 apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
-  name: mongo
-  namespace: dev-environment
+  annotations: {}
   labels:
     role: ingestion
+  name: mongo
+  namespace: dev-environment
 spec:
-  serviceName: "mongo-service"
   replicas: 1
   selector:
     matchLabels:
       app: mongo
+  serviceName: mongo-service
   template:
     metadata:
       labels:
         app: mongo
     spec:
       containers:
-      - name: mongo
-        image: mongo:3.4.3
+      - image: mongo:3.4.3
+        name: mongo
         ports:
         - containerPort: 27017
         volumeMounts:
-        - name: mongo-data
-          mountPath: /data/db
+        - mountPath: /data/db
+          name: mongo-data
   volumeClaimTemplates:
   - metadata:
       name: mongo-data
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes:
+      - ReadWriteOnce
       resources:
         requests:
           storage: 5Gi
