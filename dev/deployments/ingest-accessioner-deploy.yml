@@ -21,6 +21,6 @@ spec:
           value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
         - name: RABBITMQ_ACCESSION_QUEUE
           value: ingest.metadata.accession.queue
-        image: quay.io/humancellatlas/ingest-accessioner:develop_5
+        image: quay.io/humancellatlas/ingest-accessioner:master
         imagePullPolicy: Always
         name: ingest-accessioner

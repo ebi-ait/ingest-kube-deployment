@@ -4,7 +4,7 @@ metadata:
   annotations: {}
   labels:
     role: ingestion
-  name: ingest-demo-service
+  name: ingest-broker-service
   namespace: dev-environment
 spec:
   ports:
@@ -12,6 +12,6 @@ spec:
     protocol: TCP
     targetPort: 5000
   selector:
-    app: ingest-demo
+    app: ingest-broker
   sessionAffinity: None
   type: LoadBalancer

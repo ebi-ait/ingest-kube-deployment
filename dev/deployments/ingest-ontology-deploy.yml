@@ -16,7 +16,7 @@ spec:
         app: ingest-ontology
     spec:
       containers:
-      - image: quay.io/humancellatlas/ontology
+      - image: quay.io/humancellatlas/ontology:master
         imagePullPolicy: Always
         name: ontology
         ports:
