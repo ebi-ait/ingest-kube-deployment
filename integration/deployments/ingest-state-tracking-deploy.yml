@@ -25,6 +25,6 @@ spec:
           value: http://api.ingest.integration.data.humancellatlas.org
         - name: UPDATER_PERIOD_SECONDS
           value: "1"
-        image: quay.io/humancellatlas/ingest-state-tracking:stable_5
+        image: quay.io/humancellatlas/ingest-state-tracking:integration
         imagePullPolicy: Always
         name: ingest-state-tracking

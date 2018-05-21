@@ -38,7 +38,7 @@ spec:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
-        image: quay.io/humancellatlas/ingest-validator
+        image: quay.io/humancellatlas/ingest-validator:integration
         imagePullPolicy: Always
         name: ingest-validator
       dnsPolicy: Default
