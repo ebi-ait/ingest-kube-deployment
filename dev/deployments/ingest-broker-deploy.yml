@@ -4,21 +4,22 @@ metadata:
   annotations: {}
   labels:
     role: ingestion
-  name: ingest-demo
+  name: ingest-broker
   namespace: dev-environment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: ingest-demo
+        app: ingest-broker
     spec:
       containers:
       - env:
         - name: INGEST_API
           value: http://api.ingest.dev.data.humancellatlas.org:80
-        image: quay.io/humancellatlas/ingest-demo:task_import-hca-ingest
+        image: quay.io/humancellatlas/ingest-broker:master
         imagePullPolicy: Always
-        name: ingest-demo
+        name: ingest-broker
         ports:
         - containerPort: 5000
+      dnsPolicy: Default

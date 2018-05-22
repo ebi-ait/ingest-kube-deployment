@@ -24,3 +24,4 @@ spec:
         name: ingest-demo
         ports:
         - containerPort: 5000
+      dnsPolicy: Default
