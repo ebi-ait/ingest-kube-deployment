@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Deployment configs
 kubectl apply -f $environment/deployments/ingest-accessioner-deploy.yml
 kubectl apply -f $environment/deployments/ingest-archiver-deploy.yml
