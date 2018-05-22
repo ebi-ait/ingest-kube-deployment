@@ -25,6 +25,10 @@ spec:
           value: http://api.ingest.dev.data.humancellatlas.org
         - name: UPDATER_PERIOD_SECONDS
           value: "3"
+        - name: REDIS_HOST
+          value: ${REDIS_SERVICE_SERVICE_HOST}
+        - name: REDIS_PORT
+          value: ${REDIS_SERVICE_SERVICE_PORT}
         image: quay.io/humancellatlas/ingest-state-tracking:master
         imagePullPolicy: Always
         name: ingest-state-tracking
