@@ -28,7 +28,7 @@ spec:
         - name: JSON_SCHEMA_VALIDATION
           value: ACTIVE
         - name: OLS_VALIDATION
-          value: ACTIVE
+          value: INACTIVE
         - name: FILE_VALIDATION
           value: ACTIVE
         - name: ONTOLOGY_SCHEMA_BASE_URL
