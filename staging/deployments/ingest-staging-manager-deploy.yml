@@ -18,11 +18,11 @@ spec:
       containers:
       - env:
         - name: INGEST_API
-          value: http://api.ingest.staging.data.humancellatlas.org:80
+          value: http://api.ingest.integration.data.humancellatlas.org:80
         - name: RABBIT_URL
           value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
         - name: STAGING_API
-          value: https://upload.staging.data.humancellatlas.org
+          value: https://upload.integration.data.humancellatlas.org
         - name: INGEST_API_KEY
           valueFrom:
             secretKeyRef:
