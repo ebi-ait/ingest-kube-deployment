@@ -16,7 +16,7 @@ spec:
       containers:
       - env:
         - name: INGEST_API
-          value: http://api.ingest.dev.data.humancellatlas.org:80
+          value: http://api.ingest.integration.data.humancellatlas.org:80
         image: quay.io/humancellatlas/ingest-broker:integration
         imagePullPolicy: Always
         name: ingest-broker
