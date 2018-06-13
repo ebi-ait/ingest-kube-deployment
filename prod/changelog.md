@@ -1,6 +1,3 @@
-# ingest-ui:v0.5.0
-- Added GDPR notice
-
 # ingest-core:v0.5.0
 - Bug fix where FileMessages from staging with no dcp-type parameter in the content-type field are ignored
 - Scanning a submitted envelope for bundles is asynchrononous
