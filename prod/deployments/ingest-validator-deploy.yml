@@ -7,7 +7,7 @@ metadata:
   name: ingest-validator
   namespace: prod-environment
 spec:
-  replicas: 30
+  replicas: 15
   template:
     metadata:
       labels:
@@ -33,6 +33,8 @@ spec:
           value: ACTIVE
         - name: ONTOLOGY_SCHEMA_BASE_URL
           value: https://raw.githubusercontent.com/HumanCellAtlas/metadata-schema/4.6.1/json_schema/ontology_json
+        - name: OLS_API_URL
+          value: http://${INGEST_ONTOLOGY_SERVICE_SERVICE_HOST}:${INGEST_ONTOLOGY_SERVICE_SERVICE_PORT}/api
         - name: UPLOAD_API_KEY
           valueFrom:
             secretKeyRef:
