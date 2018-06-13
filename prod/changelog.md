@@ -12,6 +12,7 @@
 - ontology validation by scanning referenced schema for referenced ontology schemas
 - using a faster and more complete .fastq file validator
 - no longer running 'dummy' validation jobs on non-fastq files
+- disabled ontology validation
 
 # ingest-accessioner:v0.4.0
 - no change
