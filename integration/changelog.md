@@ -13,6 +13,7 @@
 
 # ingest-broker
 - new api endpoints for getting the project and submission summary
+- piecemeal submissions and ability to use UUID references in spreadsheet
 
 # ingest-validator
 - Fix to have user friendly validation error message when a schema url doesn't exist
