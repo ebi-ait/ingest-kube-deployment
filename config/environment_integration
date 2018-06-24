@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
 set -a
 
+FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-USES_BRANCHES=TRUE
-
-INGEST_ACCESSIONER_VERSION=integration
-INGEST_BROKER_VERSION=integration
-INGEST_CORE_VERSION=integration
-INGEST_EXPORTER_VERSION=integration
-INGEST_STAGING_MANAGER_VERSION=integration
-INGEST_STATE_TRACKING_VERSION=integration
-INGEST_VALIDATOR_VERSION=integration
-ONTOLOGY_VERSION=master
+INGEST_ACCESSIONER_REF=integration
+INGEST_BROKER_REF=integration
+INGEST_CORE_REF=integration
+INGEST_EXPORTER_REF=integration
+INGEST_STAGING_MANAGER_REF=integration
+INGEST_STATE_TRACKING_REF=integration
+INGEST_VALIDATOR_REF=integration
+ONTOLOGY_REF=master
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca
