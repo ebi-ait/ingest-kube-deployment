@@ -1,23 +1,21 @@
-# Make a copy of this file in this directory and replace the variables with stub 'PROVIDE...' values
-
 #!/usr/bin/env bash
 set -a
 
-FORCE_REFRESH=TRUE
+FORCE_REFRESH=FALSE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-INGEST_ACCESSIONER_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
-INGEST_BROKER_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
-INGEST_CORE_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
-INGEST_EXPORTER_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
-INGEST_STAGING_MANAGER_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
-INGEST_STATE_TRACKING_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
-INGEST_VALIDATOR_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
-ONTOLOGY_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
+INGEST_ACCESSIONER_REF=v0.4.0.rc
+INGEST_BROKER_REF=v0.5.1.rc
+INGEST_CORE_REF=v0.5.0.rc
+INGEST_EXPORTER_REF=v0.5.0.rc
+INGEST_STAGING_MANAGER_REF=v0.4.0.rc
+INGEST_STATE_TRACKING_REF=v0.5.0.rc
+INGEST_VALIDATOR_REF=v0.5.0.rc
+ONTOLOGY_REF=master
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
-AWS_PROFILE=PROVIDE_YOUR_OWN_VALUE
+AWS_PROFILE=hca
 # Make sure the vpc ip below is unique
-TF_VAR_vpc_cidr_block=PROVIDE_UNIQUE_VPC_IP_VALUE
+TF_VAR_vpc_cidr_block=10.60.0.0/16
 
 
 
