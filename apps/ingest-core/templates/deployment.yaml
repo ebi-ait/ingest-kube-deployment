@@ -25,6 +25,8 @@ spec:
           value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
         - name: SCHEMA_BASE_URI
           value: https://schema.humancellatlas.org/
+        - name: WEB_SERVER_PORT
+          value: 80
         image: quay.io/humancellatlas/ingest-core:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-core
