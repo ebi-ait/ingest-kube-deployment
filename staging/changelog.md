@@ -21,3 +21,8 @@
 
 #ingest-validator
 - non existent schemas no longer throw a critical error, instead ask user to refer to their broker
+
+#ingest-state=tracking
+- using persistent Redis storage for state machines
+- misc bug fixes
+
