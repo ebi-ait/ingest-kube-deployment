@@ -26,3 +26,7 @@
 - using persistent Redis storage for state machines
 - misc bug fixes
 
+
+#ingest-staging-manager
+- using python 3
+- using shared ingest-libs
