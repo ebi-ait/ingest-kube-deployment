@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -a
 
-FORCE_REFRESH=FALSE
+FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_ACCESSIONER_REF=v0.4.0.rc
 INGEST_BROKER_REF=v0.6.0.rc
