@@ -1,34 +1,48 @@
-# ingest-ui
-- Display of UUIDs
-- User must be redirected to login page when session expires
-- Fix to disappearing loading icon when doing a submission upload
-- Fix default active tab on submission upload
+# Integration Changelog
 
-# ingest-core
-- Files metadata are being created upon upload
-- New file resource endpoint with file name
-- Additional findByUuid endpoints
-- New findBySubmissionEnvelopesContaining and findBySubmissionAndValidationState endpoints for each metadata entity
-- Fix to optimistic lock error on adding input bundle using ResourceLinker service
+## 4 July 2018
 
-# ingest-broker
-- new api endpoints for getting the project and submission summary
-- piecemeal submissions and ability to use UUID references in spreadsheet
+* Core
+  - Data File UUID
+  - Find Process by input Bundle UUID
+  - Idempotent Analysis File reference
 
-# ingest-validator
-- Fix to have user friendly validation error message when a schema url doesn't exist
+* Broker
+  - Process details support
 
-# ingest-accessioner
-- no change
+## 27 June 2018
 
-# ingest-archiver
-- no change
+* ingest-ui
+  - Display of UUIDs
+  - User must be redirected to login page when session expires
+  - Fix to disappearing loading icon when doing a submission upload
+  - Fix default active tab on submission upload
 
-# ingest-exporter
-- no change
+* ingest-core
+  - Files metadata are being created upon upload
+  - New file resource endpoint with file name
+  - Additional findByUuid endpoints
+  - New findBySubmissionEnvelopesContaining and findBySubmissionAndValidationState endpoints for each metadata entity
+  - Fix to optimistic lock error on adding input bundle using ResourceLinker service
 
-# ingest-state-tracking
-- no change
+* ingest-broker
+  - new api endpoints for getting the project and submission summary
+  - piecemeal submissions and ability to use UUID references in spreadsheet
 
-# ingest-staging-manager
-- no change
+* ingest-validator
+  - Fix to have user friendly validation error message when a schema url doesn't exist
+
+* ingest-accessioner
+  - no change
+
+* ingest-archiver
+  - no change
+
+* ingest-exporter
+  - no change
+
+* ingest-state-tracking
+  - no change
+
+* ingest-staging-manager
+  - no change
