@@ -13,23 +13,21 @@ spec:
       labels:
         app: ingest-node-accessioner
     spec:
+      dnsPolicy: Default
       containers:
-      - env:
+      - image: quay.io/humancellatlas/ingest-node-accessioner:{{ .Values.image }}
+        imagePullPolicy: Always
+        name: ingest-node-accessioner
+        env:
         - name: INGEST_HOST
-          value: ${INGEST_CORE_SERVICE_SERVICE_HOST}
+          value: $(INGEST_CORE_SERVICE_SERVICE_HOST)
         - name: INGEST_PORT
-          value: ${INGEST_CORE_SERVICE_SERVICE_PORT}
+          value: $(INGEST_CORE_SERVICE_SERVICE_PORT)
         - name: RABBIT_HOST
-          value: ${RABBIT_SERVICE_SERVICE_HOST}
+          value: $(RABBIT_SERVICE_SERVICE_HOST)
         - name: RABBIT_PORT
-          value: ${RABBIT_SERVICE_SERVICE_PORT}
+          value: $(RABBIT_SERVICE_SERVICE_PORT)
         - name: UUID_EXCHANGE
           value: ingest.accession.exchange
         - name: UUID_QUEUE
           value: ingest.metadata.accession.queue
-        - name: PREFETCH_COUNT
-          value: "1"
-        image: quay.io/humancellatlas/ingest-node-accessioner:{{ .Values.image }}
-        imagePullPolicy: Always
-        name: ingest-node-accessioner
-      dnsPolicy: Default
