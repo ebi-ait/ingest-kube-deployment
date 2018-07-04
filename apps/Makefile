@@ -1,6 +1,7 @@
 deployment-stage = ${DEPLOYMENT_STAGE}
 force-refresh = ${FORCE_REFRESH}
 ingest-accessioner = ${INGEST_ACCESSIONER_REF}
+ingest-node-accessioner = ${INGEST_NODE_ACCESSIONER_REF}
 ingest-broker = ${INGEST_BROKER_REF}
 ingest-core = ${INGEST_CORE_REF}
 ingest-exporter = ${INGEST_EXPORTER_REF}
@@ -25,6 +26,7 @@ deploy-all-apps:
 	$(MAKE) set-context
 	$(MAKE) deploy-app-ingest-core
 	$(MAKE) deploy-app-ingest-accessioner
+	$(MAKE) deploy-app-ingest-node-accessioner
 	$(MAKE) deploy-app-ingest-broker
 	$(MAKE) deploy-app-ingest-exporter
 	$(MAKE) deploy-app-ingest-staging-manager
