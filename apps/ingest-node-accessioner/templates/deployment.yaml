@@ -28,7 +28,7 @@ spec:
         - name: UUID_QUEUE
           value: ingest.metadata.accession.queue
         - name: PREFETCH_COUNT
-          value: 1
+          value: "1"
         image: quay.io/humancellatlas/ingest-node-accessioner:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-node-accessioner
