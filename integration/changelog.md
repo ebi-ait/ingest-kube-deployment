@@ -1,5 +1,13 @@
 # Integration Changelog
 
+## 11 July 2018
+
+* Core
+  - UUID index for Submission Envelope collection in Ingest database
+
+* Broker
+  - Fix for phantom entries in Spreadsheets during import
+
 ## 4 July 2018
 
 * Core
