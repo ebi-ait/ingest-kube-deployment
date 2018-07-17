@@ -16,7 +16,7 @@ spec:
       containers:
       - env:
         - name: INGEST_API
-          value: http://api.ingest.{{ .Values.environment }}.data.humancellatlas.org:80
+          value: http://api.ingest.data.humancellatlas.org:80
         image: quay.io/humancellatlas/ingest-broker:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-broker

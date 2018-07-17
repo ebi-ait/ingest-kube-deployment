@@ -26,7 +26,7 @@ deploy-all-apps:
 	$(MAKE) set-context
 	$(MAKE) deploy-app-ingest-core
 	$(MAKE) deploy-app-ingest-accessioner
-	$(MAKE) deploy-app-ingest-node-accessioner
+	# $(MAKE) deploy-app-ingest-node-accessioner
 	$(MAKE) deploy-app-ingest-broker
 	$(MAKE) deploy-app-ingest-exporter
 	$(MAKE) deploy-app-ingest-staging-manager
