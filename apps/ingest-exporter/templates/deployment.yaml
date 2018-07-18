@@ -33,3 +33,4 @@ spec:
         image: quay.io/humancellatlas/ingest-exporter:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-exporter
+    dnsPolicy: Default
