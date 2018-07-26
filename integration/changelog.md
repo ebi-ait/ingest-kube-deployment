@@ -1,5 +1,22 @@
 # Integration Changelog
 
+## 26 July 2018
+
+* Broker
+  - Fix leaking of dev schemas endpoint to other environments.
+
+* Core
+  - Added support for analysis trigger flag.
+  - Modified schema parser to use URI directly.
+  - Replaced embedded server to improve stability.
+  
+* Exporter
+  - Added code to incorporate analysis triggers.
+  - New bundle structure
+
+* Staging Manager
+  - Updated Docker image to wait for Ingest Core on startup.
+	
 ## 11 July 2018
 
 * Core
@@ -54,3 +71,4 @@
 
 * ingest-staging-manager
   - no change
+
