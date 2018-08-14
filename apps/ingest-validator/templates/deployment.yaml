@@ -7,7 +7,7 @@ metadata:
   name: ingest-validator-js
   namespace: {{ .Values.environment }}-environment
 spec:
-  replicas: 15
+  replicas: 1
   template:
     metadata:
       labels:
@@ -28,6 +28,10 @@ spec:
           value: upload.{{ .Values.environment }}.data.humancellatlas.org
         - name: UPLOAD_PORT
           value: "443"
+        - name: OLS_HOST
+          value: $(ONTOLOGY_SERVICE_SERVICE_HOST)
+        - name: OLS_PORT
+          value: $(ONTOLOGY_SERVICE_SERVICE_PORT)
         - name: UPLOAD_API_KEY
           valueFrom:
             secretKeyRef:
