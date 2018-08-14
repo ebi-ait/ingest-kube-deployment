@@ -17,13 +17,13 @@ spec:
       containers:
       - env:
         - name: INGEST_HOST
-          value: ${INGEST_CORE_SERVICE_SERVICE_HOST}
+          value: $(INGEST_CORE_SERVICE_SERVICE_HOST)
         - name: INGEST_PORT
-          value: ${INGEST_CORE_SERVICE_SERVICE_PORT}
+          value: $(INGEST_CORE_SERVICE_SERVICE_PORT)
         - name: RABBIT_HOST
-          value: ${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+          value: $(RABBIT_SERVICE_SERVICE_HOST)
         - name: RABBIT_PORT
-          value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+          value: $(RABBIT_SERVICE_SERVICE_PORT_SERVICE)
         - name: UPLOAD_HOST
           value: upload.{{ .Values.environment }}.data.humancellatlas.org
         - name: UPLOAD_PORT
