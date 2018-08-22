@@ -1,24 +1,4 @@
-apiVersion: v1
-kind: Service
-metadata:
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
-  labels:
-    role: test
-  name: secondary-analysis
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 8089
-  selector:
-    app: secondary-analysis
-  sessionAffinity: None
-  type: LoadBalancer
-
----
-
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations: {}
@@ -43,9 +23,9 @@ spec:
         - containerPort: 8089
         env:
         - name: HOST_URL
-          value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
+          value: http://$(INGEST_CORE_SERVICE_SERVICE_HOST):$(INGEST_CORE_SERVICE_SERVICE_PORT)
         - name: FILE_UPLOAD_URL
-          value: http://${MOCK_UPLOAD_SERVICE_HOST}:${MOCK_UPLOAD_SERVICE_PORT}/v1
+          value: http://$(MOCK_UPLOAD_SERVICE_HOST):$(MOCK_UPLOAD_SERVICE_PORT)/v1
         - name: AUTH_BROKER_URL
           value: https://danielvaughan.eu.auth0.com/oauth/token
         - name: CLIENT_ID
@@ -58,5 +38,3 @@ spec:
             secretKeyRef:
               name: auth-broker
               key: client-secret
-              
-              
