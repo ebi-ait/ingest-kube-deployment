@@ -13,48 +13,5 @@ spec:
     app: secondary-analysis
   sessionAffinity: None
   type: LoadBalancer
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  annotations: {}
-  labels:
-    role: test
-  name: secondary-analysis
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: secondary-analysis
-  template:
-    metadata:
-      labels:
-        app: secondary-analysis
-    spec:
-      dnsPolicy: Default
-      containers:
-      - name: locust
-        image: quay.io/humancellatlas/ingest-scale-test:master_4222462
-        ports:
-        - containerPort: 8089
-        env:
-        - name: HOST_URL
-          value: http://$(INGEST_CORE_SERVICE_SERVICE_HOST):$(INGEST_CORE_SERVICE_SERVICE_PORT)
-        - name: FILE_UPLOAD_URL
-          value: http://$(MOCK_UPLOAD_SERVICE_HOST):$(MOCK_UPLOAD_SERVICE_PORT)/v1
-        - name: AUTH_BROKER_URL
-          value: https://danielvaughan.eu.auth0.com/oauth/token
-        - name: CLIENT_ID
-          valueFrom:
-            secretKeyRef:
-              name: auth-broker
-              key: client-id
-        - name: CLIENT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: auth-broker
-              key: client-secret
               
               
