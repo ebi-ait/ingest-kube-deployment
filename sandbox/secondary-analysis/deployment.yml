@@ -18,7 +18,7 @@ spec:
       dnsPolicy: Default
       containers:
       - name: locust
-        image: quay.io/humancellatlas/ingest-scale-test:master_0f8bb82
+        image: quay.io/humancellatlas/ingest-scale-test:master_25346ec
         ports:
         - containerPort: 8089
         env:
