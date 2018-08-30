@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: mock-upload
-        image: quay.io/humancellatlas/ingest-mock-upload-service:master_6d4a58b
+        image: quay.io/humancellatlas/ingest-mock-upload-service:a613451
         env:
         - name: API_VERSION
           value: v1
