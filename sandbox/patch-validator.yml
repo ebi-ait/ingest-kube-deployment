@@ -4,6 +4,8 @@ spec:
       containers:
         - name: ingest-validator
           env:
+          - name: UPLOAD_SCHEME
+            value: http
           - name: UPLOAD_HOST
             value: $(MOCK_UPLOAD_SERVICE_HOST)
           - name: UPLOAD_PORT
