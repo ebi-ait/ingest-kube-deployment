@@ -18,12 +18,15 @@ spec:
         app: mock-upload
     spec:
       containers:
-      - env:
+      - name: mock-upload
+        image: quay.io/humancellatlas/ingest-mock-upload-service:master_6d4a58b
+        env:
         - name: API_VERSION
           value: v1
         - name: RABBITMQ_HOST
           value: $(RABBIT_SERVICE_SERVICE_HOST)
         - name: RABBITMQ_PORT
           value: $(RABBIT_SERVICE_SERVICE_PORT)
-        image: quay.io/humancellatlas/ingest-mock-upload-service:master_6d4a58b
-        name: mock-upload
+        - name: DEBUG
+          value: 'false'
+        
