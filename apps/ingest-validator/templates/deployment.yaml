@@ -4,14 +4,14 @@ metadata:
   annotations: {}
   labels:
     role: ingestion
-  name: ingest-validator-js
+  name: ingest-validator
   namespace: {{ .Values.environment }}-environment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: ingest-validator-js
+        app: ingest-validator
     spec:
       dnsPolicy: Default
       containers:
@@ -37,6 +37,6 @@ spec:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
-        image: quay.io/humancellatlas/ingest-validator-js:{{ .Values.image }}
+        image: quay.io/humancellatlas/ingest-validator:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-validator
