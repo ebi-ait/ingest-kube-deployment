@@ -10,13 +10,19 @@ spec:
         spec:
           containers:
           - name: backup
-            image: quay.io/humancellatlas/ingest-backup:latest
+            image: quay.io/humancellatlas/ingest-backup:a99a2f9
             imagePullPolicy: Always
             env:
             - name: AWS_ACCESS_KEY_ID
-              value: ***
+              valueFrom:
+                secretKeyRef:
+                  key: backup-keys
+                  name: aws-access-key-id
             - name: AWS_SECRET_ACCESS_KEY
-              value: ***
+              valueFrom:
+                secretKeyRef:
+                  key: backup-keys
+                  name: aws-secret-access-key
             - name: S3_BUCKET
               value: ingest-backup
             - name: BACKUP_DIR
