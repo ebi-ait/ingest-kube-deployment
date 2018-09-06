@@ -16,13 +16,13 @@ spec:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
-                  key: backup-keys
-                  name: aws-access-key-id
+                  name: backup-keys
+                  key: aws-access-key-id
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  key: backup-keys
-                  name: aws-secret-access-key
+                  name: backup-keys
+                  key: aws-secret-access-key
             - name: S3_BUCKET
               value: ingest-backup
             - name: BACKUP_DIR
