@@ -1,5 +1,30 @@
 # Integration Changelog
 
+## 06 September 2018
+
+* Accessioner
+  - New Accessioner using Node.js
+  - Core master_9a6149a  to 9b81267
+  - Endpoint in monitoring state transitions of submission envelope
+  - Added File indices in mongo for faster uploading of files metadata
+
+* Broker
+  - Ability to upload supplementary files
+  - Ability to Link entity to entity with same concrete type in the spreadsheet
+  - Changes Submission report format
+  - Configurable submission report
+  - Error handling changes during spreadsheet upload
+  - Support for additional project modules in spreadsheet
+
+* State Tracker
+  - Optimizations in sending state tracker messages
+  - Fix to race condition when processing state tracker messages
+
+* Validator
+  - New JavaScript Validator
+  - Support for Draft-07 JSON schema
+
+
 ## 26 July 2018
 
 * Broker

@@ -4,12 +4,13 @@ set -a
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_ACCESSIONER_REF=integration
-INGEST_BROKER_REF=master_dbd4096
-INGEST_CORE_REF=master_9a6149a
+INGEST_NODE_ACCESSIONER_REF=627703d
+INGEST_BROKER_REF=master_0cdc02e
+INGEST_CORE_REF=9b81267
 INGEST_EXPORTER_REF=master_65f48ac
 INGEST_STAGING_MANAGER_REF=master_7c4c332
-INGEST_STATE_TRACKING_REF=integration
-INGEST_VALIDATOR_REF=integration
+INGEST_STATE_TRACKING_REF=d16ebb1
+INGEST_VALIDATOR_REF=350fc6a
 ONTOLOGY_REF=master
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
