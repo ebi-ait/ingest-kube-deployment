@@ -1,6 +1,6 @@
 # Integration Changelog
 
-## 06 September 2018
+## 6 September 2018
 
 * Accessioner
   - New Accessioner using Node.js
