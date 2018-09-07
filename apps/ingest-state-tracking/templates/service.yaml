@@ -9,7 +9,7 @@ spec:
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8999
   selector:
     app: ingest-state-tracking
   sessionAffinity: None
