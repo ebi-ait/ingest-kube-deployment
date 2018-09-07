@@ -1,14 +1,15 @@
 # Integration Changelog
 
-## 6 September 2018
+## 06 September 2018
 
-* Accessioner
+* Accessioner 627703d
   - New Accessioner using Node.js
-  - Core master_9a6149a  to 9b81267
+
+* Core 9b81267
   - Endpoint in monitoring state transitions of submission envelope
   - Added File indices in mongo for faster uploading of files metadata
 
-* Broker
+* Broker master_0cdc02e
   - Ability to upload supplementary files
   - Ability to Link entity to entity with same concrete type in the spreadsheet
   - Changes Submission report format
@@ -16,11 +17,11 @@
   - Error handling changes during spreadsheet upload
   - Support for additional project modules in spreadsheet
 
-* State Tracker
+* State Tracker d16ebb1
   - Optimizations in sending state tracker messages
   - Fix to race condition when processing state tracker messages
 
-* Validator
+* Validator 350fc6a
   - New JavaScript Validator
   - Support for Draft-07 JSON schema
 
@@ -97,3 +98,9 @@
 * ingest-staging-manager
   - no change
 
+
+
+We’ll soon release the metadata schema changes from `dev` -> `integration`. These are the versions of schema that are frozen until the pilot release.
+
+
+will be These changes include the update from conversion from  draft-04 -> draft-07. 
