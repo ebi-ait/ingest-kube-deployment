@@ -1,32 +1,29 @@
-#ingest-core
-- metadata schemas in schema.humancellatlas.org tracked and searchable under /schemas
-- find envelopes by UUID and state
-- added /submissionManifests, which track the expected number of documents in a submission
-- using jvm garbage collector to optimize release of memory back to the OS
-- fixed bug where file upload before File resource creation resulted in discrepent submission UX
-- fixed optimistic lock exceptions on add input bundle
-- bug fix for unknown staging area UUIDs
+# Staging Changelog
 
-#ingest-broker
-- using the shared ingest-client libs with PyPi
-- submissions not created if there is an error parsing the spreadsheet
-- updated title page
-- using Importer V2
-- endpoint for generating a submission summary and project summary
-- simplified directory layout
+## 28 September 2018
 
-#ingest-exporter
-- using python 3
-- using shared ingest client libs 
+* Accessioner v0.5.0.rc 
+  - New Accessioner using Node.js
 
-#ingest-validator
-- non existent schemas no longer throw a critical error, instead ask user to refer to their broker
+* Core v0.7.1.rc
+  - Endpoint in monitoring state transitions of submission envelope
+  - Added File indices in mongo for faster uploading of files metadata
 
-#ingest-state=tracking
-- using persistent Redis storage for state machines
-- misc bug fixes
+* Broker v0.8.0.rc
+  - Ability to upload supplementary files
+  - Ability to Link entity to entity with same concrete type in the spreadsheet
+  - Changes Submission report format
+  - Configurable submission report
+  - Error handling changes during spreadsheet upload
+  - Support for additional project modules in spreadsheet
 
+* State Tracker v0.6.1.rc
+  - Optimizations in sending state tracker messages
+  - Fix to race condition when processing state tracker messages
 
-#ingest-staging-manager
-- using python 3
-- using shared ingest-libs
+* Validator v0.6.0.rc
+  - New JavaScript Validator
+  - Support for Draft-07 JSON schema
+
+* UI v0.5.2.rc
+  - Fix submission dashboard pagination
