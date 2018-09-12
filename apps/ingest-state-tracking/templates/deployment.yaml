@@ -24,7 +24,7 @@ spec:
         - name: INGEST_API_ROOT
           value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
         - name: UPDATER_PERIOD_SECONDS
-          value: "3"
+          value: "1"
         - name: REDIS_HOST
           value: ${REDIS_SERVICE_SERVICE_HOST}
         - name: REDIS_PORT
