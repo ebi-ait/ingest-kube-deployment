@@ -40,9 +40,9 @@ These steps will set up a new ingest environment from scratch via terraform and 
 4. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
 5. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
 6. `cd infra`
-7. `make create-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to create
+7. `make create-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to create. This step will also deploy the backend services (mongo, redis, rabbit)
 8. Follow the steps to access the kubernetes dashboard. Once you see one active tiller pod in the environment namespace, continue to the next step.
-9. Follow instructions below to deploy backend services and applications.
+9. Follow instructions below to deploy applications.
 
 ## Modify and deploy updated EKS and AWS infrastructure
 These steps assumes you have the correct aws credentials + local environment tools set up correctly and that you have followed the instructions to access the existing cluster.
