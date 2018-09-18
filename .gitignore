@@ -63,3 +63,4 @@ infra/prod
 config/.DS_Store
 infra/.DS_Store
 *.tgz
+*.swp
