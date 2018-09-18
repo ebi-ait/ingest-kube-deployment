@@ -3,14 +3,14 @@ kind: Service
 metadata:
   labels:
     role: ingestion
-  name: ingest-core-service
+  name: ingest-state-tracking-service
   namespace: {{ .Values.environment }}-environment
 spec:
   ports:
-  - port: 80
+  - port: 8080
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8999
   selector:
-    app: ingest-core
+    app: ingest-state-tracking
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP

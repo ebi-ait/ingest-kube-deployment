@@ -2,15 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    role: ingestion
-  name: ingest-core-service
-  namespace: {{ .Values.environment }}-environment
+    role: test
+  name: secondary-analysis
 spec:
   ports:
   - port: 80
     protocol: TCP
-    targetPort: 8080
+    targetPort: 8089
   selector:
-    app: ingest-core
+    app: secondary-analysis
   sessionAffinity: None
   type: LoadBalancer
+              
+              

@@ -25,6 +25,8 @@ spec:
           value: https://upload.data.humancellatlas.org
         - name: DSS_API
           value: https://dss.data.humancellatlas.org
+        - name: BUNDLE_SCHEMA_BASE_URL
+          value: https://schema.humancellatlas.org
         - name: INGEST_API_KEY
           valueFrom:
             secretKeyRef:
@@ -33,3 +35,4 @@ spec:
         image: quay.io/humancellatlas/ingest-exporter:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-exporter
+    dnsPolicy: Default
