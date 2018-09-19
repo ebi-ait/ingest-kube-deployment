@@ -1,4 +1,4 @@
-# Integration Changelog
+# Staging Changelog
 
 ## 06 September 2018
 
