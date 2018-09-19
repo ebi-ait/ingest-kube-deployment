@@ -7,10 +7,11 @@ metadata:
   name: mock-upload
 spec:
   ports:
-  - port: 10100
+  - port: 80
+    name: http
     protocol: TCP
     targetPort: 8080
   selector:
     app: mock-upload
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
