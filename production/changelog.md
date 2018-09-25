@@ -1,5 +1,21 @@
 # Integration Changelog
 
+## 25 Septemper 2018
+* Core v0.7.3
+  - Fix bug in sending messages to state tracker when adding reference files in a secondary submission
+  - Reduce timeout when sending state tracking messages
+  - Updated secondary submission documentation
+
+* State Tracker v0.7.1
+  - Reducing timeout before the actual submission state update happens
+  - Concurrent hash map for document states
+
+* Exporter v0.7.2
+  - Use latest schema for links.json
+
+* Broker v0.8.1
+  - Added support for multiple ontology processing
+	
 ## 18 September 2018
 
 * Core v0.7.2
@@ -14,7 +30,7 @@
   - Core messaging optimizations
   - Added DRAFT transition controller methods for each metadata resource
   - Fixed schemas endpoint to correctly fetch latest schema
-  - Addressed concurrency issues when sending messages in the core 
+  - Addressed concurrency issues when sending messages in the core
   - Modified schema parser to use URI directly.
   - Set script to assemble package when running locally
   - Added SCHEMA_BASE_URI in docker compose script
