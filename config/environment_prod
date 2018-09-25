@@ -1,22 +1,24 @@
+# Make a copy of this file in this directory and replace the variables with stub 'PROVIDE...' values
+
 #!/usr/bin/env bash
 set -a
 
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-INGEST_ACCESSIONER_REF=master
-INGEST_NODE_ACCESSIONER_REF=master
-INGEST_BROKER_REF=d30c5d0
-INGEST_CORE_REF=fix_create_file
-INGEST_EXPORTER_REF=cce9007
-INGEST_STAGING_MANAGER_REF=18983eb
-INGEST_STATE_TRACKING_REF=d38fd94
-INGEST_VALIDATOR_REF=master
+INGEST_ACCESSIONER_REF=v0.4.0
+INGEST_NODE_ACCESSIONER_REF=v0.5.0
+INGEST_BROKER_REF=v0.8.0
+INGEST_CORE_REF=v0.7.2
+INGEST_EXPORTER_REF=v0.7.1
+INGEST_STAGING_MANAGER_REF=v0.5.1
+INGEST_STATE_TRACKING_REF=v0.7.0
+INGEST_VALIDATOR_REF=v0.6.0
 ONTOLOGY_REF=master
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
-AWS_PROFILE=hca
+AWS_PROFILE=hca-prod
 # Make sure the vpc ip below is unique
-TF_VAR_vpc_cidr_block=10.40.0.0/16
+TF_VAR_vpc_cidr_block=10.70.0.0/16
 
 
 
