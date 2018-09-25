@@ -1,8 +1,0 @@
-spec:
-  template:
-    spec:
-      containers:
-        - name: ingest-core
-          env:
-          - name: SCHEMA_BASE_URI
-            value: http://schema.dev.data.humancellatlas.org/
