@@ -3,15 +3,15 @@ kind: Service
 metadata:
   annotations: {}
   labels:
-    role: test
-  name: mock-upload
+    role: ingestion
+  name: ingest-broker-service
+  namespace: {{ .Values.environment }}-environment
 spec:
   ports:
   - port: 80
-    name: http
     protocol: TCP
-    targetPort: 8080
+    targetPort: 5000
   selector:
-    app: mock-upload
+    app: ingest-broker
   sessionAffinity: None
   type: LoadBalancer

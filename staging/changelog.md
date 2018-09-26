@@ -1,6 +1,38 @@
 # Staging Changelog
 
-## 28 September 2018
+## 19 September 2018
+
+* Core v0.7.3.rc
+  - Fix bug in sending messages to state tracker when adding reference files in a secondary submission
+  - Reduce timeout when sending state tracking messages
+  - Updated secondary submission documentation
+
+* State Tracker v0.7.1.rc
+  - Reducing timeout before the actual submission state update happens
+  - Concurrent hash map for document states
+
+* Exporter v0.7.2.rc
+  - Use latest schema for links.json
+
+* Broker v0.8.1.rc
+  - Added support for multiple ontology processing
+
+## 12 September 2018
+
+* Core v0.7.2.rc
+  - Optimizations regarding sending of unnecessary messages to the rabbit-mq broker
+  - Integration with the state tracker’s HTTP API
+  - Indexing on Process resources’ input and output biomaterials/files enabling faster bundle generation and export
+
+* State Tracker v0.7.0.rc
+  - Race condition bug fix whereby state updates were processed out of order
+  - Added a HTTP API for processing state update messages
+
+* Exporter v0.7.1.rc
+  - Caching of previously retrieved documents for faster export time
+  - Retrying 20 times with 1 minute between for idempotent requests to the DSS
+
+## 07 September 2018
 
 * Accessioner v0.5.0.rc 
   - New Accessioner using Node.js

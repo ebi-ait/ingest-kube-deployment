@@ -14,7 +14,7 @@ deploy-app-%:
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
-	. ../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set environment=$(deployment-stage),image=$($(*)) --force --recreate-pods --wait --install
+	source ../../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set environment=$(deployment-stage),image=$($(*)) --force --recreate-pods --wait --install
 	rm *.tgz
 
 deploy-secrets:
@@ -26,12 +26,12 @@ deploy-all-apps:
 	$(MAKE) set-context
 	$(MAKE) deploy-app-ingest-state-tracking
 	$(MAKE) deploy-app-ingest-node-accessioner
-	$(MAKE) deploy-app-ingest-broker
-	$(MAKE) deploy-app-ingest-core
 	$(MAKE) deploy-app-ingest-exporter
 	$(MAKE) deploy-app-ingest-staging-manager
 	$(MAKE) deploy-app-ingest-validator
 	$(MAKE) deploy-app-ontology
+	$(MAKE) deploy-app-ingest-core
+	$(MAKE) deploy-app-ingest-broker
 
 deploy-all:
 	$(MAKE) set-context
