@@ -1,11 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ingest-core-service
-  labels:
+  name: ingress-nginx
+  labels:    
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-  namespace: {{ .Values.environment }}-environment
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
@@ -15,7 +14,7 @@ spec:
   type: LoadBalancer
   selector:
     app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx    
   ports:
   - name: http
     port: 80
