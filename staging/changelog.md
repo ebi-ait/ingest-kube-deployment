@@ -1,5 +1,17 @@
 # Staging Changelog
 
+
+## 27 September 2018
+
+* Broker v0.8.2.rc
+  - Fix to submission error message
+  
+* Exporter v0.7.3.rc
+  - Updated retry policy
+
+* Staging Manager v0.5.2.rc
+  - Set to use HTTP HEAD when checking staging area
+	
 ## 19 September 2018
 
 * Core v0.7.3.rc
