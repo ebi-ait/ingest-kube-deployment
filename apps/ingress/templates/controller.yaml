@@ -23,8 +23,14 @@ spec:
       containers:
         - name: nginx-ingress-controller
           image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.19.0
+          env:
+            - name: KUBE_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
           args:
             - /nginx-ingress-controller
+            - --default-backend-service=$(KUBE_NAMESPACE)/default-backend
             - --configmap=nginx-config
             - --publish-service=ingress-nginx
             - --annotations-prefix=nginx.ingress.kubernetes.io
