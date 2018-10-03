@@ -1,18 +1,38 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "ingress-nginx.fullname" . -}}
+{{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: ingest-ingress
+  name: {{ $fullName }}
+  labels:
+    app: {{ template "ingress-nginx.name" . }}
+    chart: {{ template "ingress-nginx.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with .Values.ingress.annotations }}
   annotations:
-    # specifically target NGINX ingress controller
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
+{{ toYaml . | indent 4 }}
+{{- end }}
 spec:
+{{- if .Values.ingress.tls }}
+  tls:
+  {{- range .Values.ingress.tls }}
+    - hosts:
+      {{- range .hosts }}
+        - {{ . }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}
   rules:
-    - host: api.ingest.testing.data.humancellatlas.org
+  {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
       http:
         paths:
-          - path: /
+          - path: {{ $ingressPath }}
             backend:
-              serviceName: ingest-core-service
-              servicePort: 80
-          
+              serviceName: {{ $fullName }}
+              servicePort: http
+  {{- end }}
+{{- end }}
