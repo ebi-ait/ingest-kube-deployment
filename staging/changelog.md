@@ -1,13 +1,15 @@
 # Staging Changelog
 
 
-## 27 September 2018
+## 03 October 2018
 
 * Broker v0.8.2.rc
   - Fix to submission error message
   
-* Exporter v0.7.3.rc
-  - Updated retry policy
+* Exporter v0.7.4.rc
+  - Reverted to 20 retries spaced a minute apart for operations on the DSS API
+  - Using ingest's update timestamp for creating .json files in the DSS, averting needless duplicates
+  - Polling DSS Files to confirm their full creation prior to creating a bundle containing said Files
 
 * Staging Manager v0.5.2.rc
   - Set to use HTTP HEAD when checking staging area
