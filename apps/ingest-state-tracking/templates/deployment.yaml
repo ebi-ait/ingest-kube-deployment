@@ -26,9 +26,9 @@ spec:
         - name: UPDATER_PERIOD_SECONDS
           value: "1"
         - name: REDIS_HOST
-          value: ${REDIS_SERVICE_SERVICE_HOST}
+          value: $(REDIS_SERVICE_SERVICE_HOST)
         - name: REDIS_PORT
-          value: ${REDIS_SERVICE_SERVICE_PORT}
+          value: $(REDIS_SERVICE_SERVICE_PORT)
         image: quay.io/humancellatlas/ingest-state-tracking:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-state-tracking
