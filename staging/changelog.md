@@ -1,5 +1,10 @@
 # Staging Changelog
 
+## 11 October 2018
+* Core v0.7.4.rc
+  - Logging when submission envelope is created and submitted
+  - Optimization in finding assay processes for export
+  - Bug fixes
 
 ## 03 October 2018
 
