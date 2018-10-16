@@ -1,5 +1,12 @@
 # Staging Changelog
 
+## 15 October 2018
+* Core v0.7.5.rc
+  - Fix to slowdown cause by UUID generation
+
+* State Tracking v0.7.2.rc
+  - Fix to state tracking persistence
+
 ## 11 October 2018
 * Core v0.7.4.rc
   - Logging when submission envelope is created and submitted
