@@ -14,7 +14,7 @@ deploy-app-%:
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
-	. ../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set environment=$(deployment-stage),image=$($(*)) --force --recreate-pods --wait --install
+	. ../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set-string environment=$(deployment-stage),image=$($(*)) --force --recreate-pods --wait --install
 	rm *.tgz
 
 deploy-secrets:
