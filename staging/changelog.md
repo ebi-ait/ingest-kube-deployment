@@ -1,5 +1,9 @@
 # Staging Changelog
 
+## 16 October 2018
+* Core v0.7.6.rc
+  - Lazy load biomaterial dbrefs
+
 ## 15 October 2018
 * Core v0.7.5.rc
   - Fix to slowdown cause by UUID generation
