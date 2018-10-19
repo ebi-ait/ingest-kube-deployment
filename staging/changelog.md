@@ -4,6 +4,9 @@
 * State Tracker V0.7.3.rc
   - Fixed bug determining the URI for persisted state machines
 
+* Exporter v0.7.5.rc
+  - Fix bug in analysis export, analysis bundles should reference same metadata file version from input bunlde
+
 ## 17 October 2018
 * Broker v0.8.3.rc
   - Fixed bug whereby file metadata updates fail if a file is uploaded prior spreadsheet upload
