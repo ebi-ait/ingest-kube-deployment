@@ -1,5 +1,7 @@
 # Staging Changelog
-
+## 19 October 2018
+* Exporter v0.7.5.rc
+  - Fix bug in analysis export, analysis bundles should reference same metadata file version from input bunlde
 
 ## 17 October 2018
 * Broker v0.8.3.rc
