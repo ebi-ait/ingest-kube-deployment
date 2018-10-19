@@ -1,5 +1,8 @@
 # Staging Changelog
 
+## 19 October 2019
+* State Tracker V0.7.3.rc
+  - Fixed bug determining the URI for persisted state machines
 
 ## 17 October 2018
 * Broker v0.8.3.rc
