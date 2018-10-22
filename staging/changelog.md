@@ -1,13 +1,31 @@
 # Staging Changelog
 
+## 16 October 2018
+* Core v0.7.6.rc
+  - Lazy load biomaterial dbrefs
 
-## 27 September 2018
+## 15 October 2018
+* Core v0.7.5.rc
+  - Fix to slowdown cause by UUID generation
+
+* State Tracking v0.7.2.rc
+  - Fix to state tracking persistence
+
+## 11 October 2018
+* Core v0.7.4.rc
+  - Logging when submission envelope is created and submitted
+  - Optimization in finding assay processes for export
+  - Bug fixes
+
+## 03 October 2018
 
 * Broker v0.8.2.rc
   - Fix to submission error message
   
-* Exporter v0.7.3.rc
-  - Updated retry policy
+* Exporter v0.7.4.rc
+  - Reverted to 20 retries spaced a minute apart for operations on the DSS API
+  - Using ingest's update timestamp for creating .json files in the DSS, averting needless duplicates
+  - Polling DSS Files to confirm their full creation prior to creating a bundle containing said Files
 
 * Staging Manager v0.5.2.rc
   - Set to use HTTP HEAD when checking staging area
