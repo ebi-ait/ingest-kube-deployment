@@ -5,7 +5,6 @@ metadata:
   annotations:
     # specifically target NGINX ingress controller
     kubernetes.io/ingress.class: nginx
-    kubernetes.io/ingress.allow-http: "false"
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:

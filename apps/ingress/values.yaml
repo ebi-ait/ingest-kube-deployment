@@ -13,8 +13,5 @@ nginx-ingress:
         service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
       targetPorts:
           https: http
-      customTemplate:
-        configMapName: ingress-nginx-template
-        configMapKey: nginx.tmpl
   rbac:
     create: "true"
