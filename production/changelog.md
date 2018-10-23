@@ -1,6 +1,34 @@
-# Integration Changelog
+# Production Changelog
 
-## 25 Septemper 2018
+## 23 October 2018
+
+* State Tracker v0.7.3
+  - Fixed bug determining the URI for persisted state machines
+  - Fix to state tracking persistence
+  - Ensuring envelopes go to the Cleanup state when more than the number of expected bundles are generated
+
+* Exporter v0.7.5
+  - Fix bug in analysis export, analysis bundles should reference same metadata file version from input bunlde
+  - Reverted to 20 retries spaced a minute apart for operations on the DSS API
+  - Using ingest's update timestamp for creating .json files in the DSS, averting needless duplicates
+  - Polling DSS Files to confirm their full creation prior to creating a bundle containing said Files
+
+* Broker v0.8.3
+  - Fixed bug whereby file metadata updates fail if a file is uploaded prior spreadsheet upload
+  - Fix to submission error message
+
+* Core v0.7.6
+  - Lazy load biomaterial dbrefs
+  - Logging when submission envelope is created and submitted
+  - Optimization in finding assay processes for export
+  - Fix to slowdown cause by UUID generation
+  - Bug fixes
+
+* Staging Manager v0.5.2
+  - Set to use HTTP HEAD when checking staging area
+
+
+## 25 September 2018
 * Core v0.7.3
   - Fix bug in sending messages to state tracker when adding reference files in a secondary submission
   - Reduce timeout when sending state tracking messages
