@@ -11,12 +11,19 @@ spec:
   rules:
   {{- $defaultPath := .Values.ingress.ingest.defaultPath -}}
   {{- $defaultServicePort := .Values.ingress.ingest.defaultServicePort -}}
-  {{- range .Values.ingress.ingest.hosts }}
+  {{ range .Values.ingress.ingest.hosts }}
+  {{ $service := .service }}
     - host: {{ .hostname  }}
       http:
         paths:
           - path: {{ .path | default $defaultPath }}
             backend:
-              serviceName: {{ .service }}
+              serviceName: {{ $service }}
               servicePort: {{ .port | default $defaultServicePort }}
-  {{- end }}
+        {{ range .additionalRules }}        
+          - path: {{ .path | default $defaultPath }}
+            backend:
+              serviceName: {{ $service }}
+              servicePort: {{ .port | default $defaultServicePort }}
+        {{ end }}
+  {{ end }}

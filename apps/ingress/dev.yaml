@@ -7,6 +7,13 @@ ingress:
         hostname: api.ingest.dev.data.humancellatlas.org
       - service: ingest-broker-service
         hostname: ingest.dev.data.humancellatlas.org
+      - service: rabbit-service
+        hostname: amqp.ingest.dev.data.humancellatlas.org
+        port: 5672
+        additionalRules:
+          - path: /admin
+            port: 15672
+        
 
 nginx-ingress:
   controller:
