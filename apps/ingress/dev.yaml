@@ -3,9 +3,9 @@ ingress:
     defaultPath: /
     defaultServicePort: 80
     hosts:
-      - service: ingest-core
-        hostname: api.ingest.testing.data.humancellatlas.org
-      - service: ingest-broker
+      - service: ingest-core-service
+        hostname: api.ingest.dev.data.humancellatlas.org
+      - service: ingest-broker-service
         hostname: ingest.dev.data.humancellatlas.org
 
 nginx-ingress:
