@@ -9,10 +9,14 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: {{ .Values.ingress.ingest.hosts.core  }}
+  {{- $defaultPath := .Values.ingress.ingest.defaultPath -}}
+  {{- $defaultServicePort := .Values.ingress.ingest.defaultServicePort -}}
+  {{- range .Values.ingress.ingest.hosts }}
+    - host: {{ .hostname  }}
       http:
         paths:
-          - path: /
+          - path: {{ .path | default $defaultPath }}
             backend:
-              serviceName: ingest-core-service
-              servicePort: 80
+              serviceName: {{ .service }}
+              servicePort: {{ .port | default $defaultServicePort }}
+  {{- end }}
