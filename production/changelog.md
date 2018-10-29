@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 29 October 2018
+* Core v0.7.7
+  - Use indexing when finding files by UUID
+
 ## 23 October 2018
 
 * State Tracker v0.7.3
