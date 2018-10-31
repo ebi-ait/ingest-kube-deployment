@@ -1,3 +1,4 @@
+SHELL!=which bash
 deployment_stage = ${DEPLOYMENT_STAGE}
 kubeconfig_path=${KUBECONFIG_PATH}
 
