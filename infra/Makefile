@@ -41,6 +41,7 @@ retrieve-kubeconfig-%:
 	terraform output kubeconfig > ../config/cluster-secrets/kubeconfig_$(*)
 	KUBECONFIG=~/.kube/config:$(kubeconfig_path) kubectl config view --flatten > mergedkub && mv mergedkub ~/.kube/config
 	terraform output namespace > $(*)/namespace.yaml
+	kubectx ingest-eks-$(*)
 	. ../config/environment_$(*) && kubectl apply -f $(*)/namespace.yaml
 	rm -rf $(*)
 	$(MAKE) set-context-$(*)
