@@ -32,6 +32,11 @@ spec:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
+        - name: EXPORTER_AUTH_INFO
+          valueFrom:
+            secretKeyRef:
+              key: exporter-auth-info
+              name: api-keys
         image: quay.io/humancellatlas/ingest-exporter:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-exporter
