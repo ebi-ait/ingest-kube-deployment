@@ -1,3 +1,4 @@
+SHELL!=which bash
 deployment-stage = ${DEPLOYMENT_STAGE}
 force-refresh = ${FORCE_REFRESH}
 ingest-accessioner = ${INGEST_ACCESSIONER_REF}
