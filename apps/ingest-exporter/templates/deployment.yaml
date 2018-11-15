@@ -34,6 +34,8 @@ spec:
           value: https://dss.{{ .Values.environment }}.data.humancellatlas.org
         - name: BUNDLE_SCHEMA_BASE_URL
           value: http://schema.{{ .Values.environment }}.data.humancellatlas.org
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/etc/secrets/dss-auth-jwt.json"
         - name: INGEST_API_KEY
           valueFrom:
             secretKeyRef:
