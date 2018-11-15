@@ -15,6 +15,13 @@ spec:
       labels:
         app: ingest-exporter
     spec:
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: api-keys
+            items:
+              - key: exporter-auth-info
+                path: dss-auth-jwt.json
       containers:
       - env:
         - name: INGEST_API
@@ -38,6 +45,10 @@ spec:
               key: exporter-auth-info
               name: api-keys
         image: quay.io/humancellatlas/ingest-exporter:{{ .Values.image }}
+        volumeMounts:
+          - name: secret-volume
+            mountPath: "/etc/secrets"
+            readOnly: true
         imagePullPolicy: Always
         name: ingest-exporter
       dnsPolicy: Default
