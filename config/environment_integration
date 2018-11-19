@@ -13,6 +13,8 @@ INGEST_STATE_TRACKING_REF=aea443c
 INGEST_VALIDATOR_REF=350fc6a
 ONTOLOGY_REF=master
 
+FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.0.9.rc 
+
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca
 # Make sure the vpc ip below is unique
