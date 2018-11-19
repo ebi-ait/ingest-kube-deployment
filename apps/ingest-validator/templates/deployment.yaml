@@ -32,6 +32,8 @@ spec:
           value: $(ONTOLOGY_SERVICE_SERVICE_HOST)
         - name: OLS_PORT
           value: $(ONTOLOGY_SERVICE_SERVICE_PORT)
+        - name: FASTQ_VALIDATION_IMAGE
+          value: {{ .Values.fastq_image }}
         - name: UPLOAD_API_KEY
           valueFrom:
             secretKeyRef:
