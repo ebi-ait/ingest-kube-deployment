@@ -13,7 +13,8 @@ ingress:
         additionalRules:
           - path: /admin
             port: 15672
-        
+      - service: ontology-service
+        hostname: ontology.dev.data.humancellatlas.org
 
 nginx-ingress:
   controller:
