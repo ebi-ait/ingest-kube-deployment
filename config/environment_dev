@@ -5,13 +5,15 @@ FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_ACCESSIONER_REF=master
 INGEST_NODE_ACCESSIONER_REF=master
-INGEST_BROKER_REF=bb97a1e
+INGEST_BROKER_REF=b9341af
 INGEST_CORE_REF=7704d4b
-INGEST_EXPORTER_REF=adb0f60
-INGEST_STAGING_MANAGER_REF=40b7a9d
-INGEST_STATE_TRACKING_REF=c6fa55b
+INGEST_EXPORTER_REF=178a2f2
+INGEST_STAGING_MANAGER_REF=c10cd37
+INGEST_STATE_TRACKING_REF=aea443c
 INGEST_VALIDATOR_REF=master
 ONTOLOGY_REF=master
+
+FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.0.rc 
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca

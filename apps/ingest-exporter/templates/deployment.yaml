@@ -15,6 +15,13 @@ spec:
       labels:
         app: ingest-exporter
     spec:
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: api-keys
+            items:
+              - key: exporter-auth-info
+                path: dss-auth-jwt.json
       containers:
       - env:
         - name: INGEST_API
@@ -27,12 +34,23 @@ spec:
           value: https://dss.{{ .Values.environment }}.data.humancellatlas.org
         - name: BUNDLE_SCHEMA_BASE_URL
           value: http://schema.{{ .Values.environment }}.data.humancellatlas.org
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/etc/secrets/dss-auth-jwt.json"
         - name: INGEST_API_KEY
           valueFrom:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
+        - name: EXPORTER_AUTH_INFO
+          valueFrom:
+            secretKeyRef:
+              key: exporter-auth-info
+              name: api-keys
         image: quay.io/humancellatlas/ingest-exporter:{{ .Values.image }}
+        volumeMounts:
+          - name: secret-volume
+            mountPath: "/etc/secrets"
+            readOnly: true
         imagePullPolicy: Always
         name: ingest-exporter
       dnsPolicy: Default

@@ -1,5 +1,16 @@
 # Staging Changelog
 
+## 19 October 2019
+* State Tracker V0.7.3.rc
+  - Fixed bug determining the URI for persisted state machines
+
+* Exporter v0.7.5.rc
+  - Fix bug in analysis export, analysis bundles should reference same metadata file version from input bunlde
+
+## 17 October 2018
+* Broker v0.8.3.rc
+  - Fixed bug whereby file metadata updates fail if a file is uploaded prior spreadsheet upload
+
 ## 16 October 2018
 * Core v0.7.6.rc
   - Lazy load biomaterial dbrefs
@@ -10,6 +21,7 @@
 
 * State Tracking v0.7.2.rc
   - Fix to state tracking persistence
+  - Ensuring envelopes go to the Cleanup state when more than the number of expected bundles are generated
 
 ## 11 October 2018
 * Core v0.7.4.rc

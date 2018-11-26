@@ -1,3 +1,4 @@
+SHELL!=which bash
 deployment-stage = ${DEPLOYMENT_STAGE}
 force-refresh = ${FORCE_REFRESH}
 ingest-accessioner = ${INGEST_ACCESSIONER_REF}
@@ -10,11 +11,13 @@ ingest-staging-manager = ${INGEST_STAGING_MANAGER_REF}
 ingest-state-tracking= ${INGEST_STATE_TRACKING_REF}
 ingest-validator = ${INGEST_VALIDATOR_REF}
 
+fastq-validator-image = ${FASTQ_VALIDATOR_IMAGE}
+
 deploy-app-%:
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
-	source ../../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set environment=$(deployment-stage),image=$($(*)) --force --recreate-pods --wait --install
+	source ../../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set environment=$(deployment-stage),fastq_image=$(fastq-validator-image),image=$($(*)) --force --recreate-pods --wait --install
 	rm *.tgz
 
 deploy-secrets:
