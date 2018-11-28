@@ -3,6 +3,7 @@
 Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
 
 ## Set up local environment
+### Mac
 1. git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
 2. Install terraform: `brew install terraform` or Instructions found at https://www.terraform.io/intro/getting-started/install.html.
 3. Install awscli: `pip install awscli`.
@@ -10,6 +11,15 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 5. Install kubectl: `brew install kubernetes-cli`
 6. Install kubectx (kubens included): `brew install kubectx`
 7. Install helm: `brew install kubernetes-helm` or instructions found at https://github.com/kubernetes/helm.
+
+### Ubuntu
+1. git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
+1. Install terraform using terraform instructions
+1. Install awscli: `pip install awscli`.
+1. Install heptio-authenticator-aws: Follow 'To install heptio-authenticator-aws for Amazon EKS' at https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html.
+1. Install kubectl: `sudo snap install kubectl --classic`
+1. Install kubectx and kubens following instructions at https://github.com/ahmetb/kubectx
+1. Install helm following instructions at https://github.com/helm/helm/releases
 
 # Access/Create/Modify/Destroy EKS Clusters
 
