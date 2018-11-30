@@ -28,23 +28,27 @@ Through Kubernetes configuration, HTTPS can be strictly implemented by redirecti
 
 ### Route53 Mapping
 
-Once all of the related ingress components have been deployed through Helm release, especially when a new service is mapped through ingress rules, domain names managed through AWS need to be mapped to dispatch request to the NGINX ingress controller. The first step in achieving this is to take note of the load balancer hostname assigned by AWS. One way to retrieve this is by traversing the JSON returned by `kubectl`:
+Once all of the related ingress components have been deployed through Helm release, especially when a new service is mapped through ingress rules, domain names managed through AWS need to be mapped to dispatch request to the NGINX ingress controller. The first step in achieving this is to take note of the hostname assigned by AWS to the ingress controller load balancer. One way to retrieve this is by traversing the JSON returned by `kubectl`:
 
     kubectl get services -o jsonpath="{$.items[?(@.metadata.name=='ingress-nginx-ingress-controller')].status.loadBalancer.ingress[0].hostname}"
 
-The result of this command can be piped to the clipboard through utilities like `pbcopy` for macOS.
+The result of this command can be piped to the clipboard using utilities like `pbcopy` for macOS.
 
 The ingress controller hostname can then be assigned to all domain names in the proper hosted zone through the AWS console:
 
-1. Using the AWS console, open the Route53
+1. Using the AWS console, open the Route53 interface.
 1. Locate the hosted zone for the deployment environment, for example, `dev.data.humancellatlas.org`.
 1. Within the hosted zone, locate the domain name original mapped to the service, for example, `api.ingest.dev.data.humancellatlas.org`.
+1. Usually, this domain name would be set up as an alias type mapped to a specific load balancer for a specific Ingest service. Replace the alias target with the domain name for the ingress controller that was previously noted. Alternatively, to create a new service intended to pass through the ingress controller, a new record set with type alias should be created.
+1. Save the record set, and optionally test it through the `Test Record Set` option on AWS console.
 
-## Helm Install
+## Helm
+
+### Install
 
     helm install -f ingress/values.yaml -f ingess/<env_config>.yaml -n ingress ingress
 
-## Helm Upgrade
+### Upgrade
 
 	helm upgrade -f ingress/values.yaml -f ingess/<env_config>.yaml ingress ingress
 
