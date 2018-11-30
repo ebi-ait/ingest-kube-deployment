@@ -18,9 +18,27 @@ Ingress rules for specific environment can be configured through the respective 
 
 Environment-specific value file follows a DSL-like configuration pattern specified in `templates/ingress.yaml`. At the minimum, an ingress rule entry under `hosts` configuration requires an Ingest service name and the domain it's mapped to.
 
+### SSL Certificate
+
+SSL certificates for Ingest deployments are managed through AWS. The certificates can be referred to using their assigned ARN that are set to the `service.beta.kubernetes.io/aws-load-balancer-ssl-cert` annotation.
+
 #### Enforce HTTPS through Redirect
 
+Through Kubernetes configuration, HTTPS can be strictly implemented by redirecting non-HTTPS request. This can be enabled through the `nginx.ingress.kubernetes.io/force-ssl-redirect` annotation in `templates/ingress.yaml`.
+
 ### Route53 Mapping
+
+Once all of the related ingress components have been deployed through Helm release, especially when a new service is mapped through ingress rules, domain names managed through AWS need to be mapped to dispatch request to the NGINX ingress controller. The first step in achieving this is to take note of the load balancer hostname assigned by AWS. One way to retrieve this is by traversing the JSON returned by `kubectl`:
+
+    kubectl get services -o jsonpath="{$.items[?(@.metadata.name=='ingress-nginx-ingress-controller')].status.loadBalancer.ingress[0].hostname}"
+
+The result of this command can be piped to the clipboard through utilities like `pbcopy` for macOS.
+
+The ingress controller hostname can then be assigned to all domain names in the proper hosted zone through the AWS console:
+
+1. Using the AWS console, open the Route53
+1. Locate the hosted zone for the deployment environment, for example, `dev.data.humancellatlas.org`.
+1. Within the hosted zone, locate the domain name original mapped to the service, for example, `api.ingest.dev.data.humancellatlas.org`.
 
 ## Helm Install
 
