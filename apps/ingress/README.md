@@ -44,11 +44,17 @@ The ingress controller hostname can then be assigned to all domain names in the 
 
 ## Helm
 
+Components to implement ingress are packaged through Helm. While a convenience method is provided through the Makefile, there is always the option to release directly through the `helm` utilities.
+
 ### Install
+
+To do a fresh install:
 
     helm install -f ingress/values.yaml -f ingess/<env_config>.yaml -n ingress ingress
 
 ### Upgrade
+
+To upgrade an existent release:
 
 	helm upgrade -f ingress/values.yaml -f ingess/<env_config>.yaml ingress ingress
 
@@ -56,6 +62,6 @@ In case an error like the following occurs:
 
     Error: found in requirements.yaml, but missing in charts/ directory: <nginx-ingress_dir>
 
-do the following
+a quick fix could be:
 
     helm dependency update ingress
