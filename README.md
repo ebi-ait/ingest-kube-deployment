@@ -19,7 +19,7 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 1. Install heptio-authenticator-aws: Follow 'To install heptio-authenticator-aws for Amazon EKS' at https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html.
 1. Install kubectl: `sudo snap install kubectl --classic`
 1. Install kubectx and kubens following instructions at https://github.com/ahmetb/kubectx
-1. Install helm following instructions at https://github.com/helm/helm/releases
+1. Install helm: `sudo snap install helm --classic`
 
 # Access/Create/Modify/Destroy EKS Clusters
 
