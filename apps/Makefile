@@ -14,11 +14,16 @@ ingest-validator = ${INGEST_VALIDATOR_REF}
 fastq-validator-image = ${FASTQ_VALIDATOR_IMAGE}
 
 deploy-app-%:
+	@if [ ! -z $(grep -ioE '^ingress$' <<< $(*)) ]; then $(error Cannot deploy [$(*)] package through this script) ;fi
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
 	. ../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set-string environment=$(deployment-stage),fastq_image=$(fastq-validator-image),image=$($(*)) --force --recreate-pods --wait --install
 	rm *.tgz
+
+setup-ingress:
+	$(MAKE) set-context
+	helm upgrade -f ingress/values.yaml -f ingress/$(deployment-stage).yaml ingress ./ingress --force --wait --install
 
 deploy-secrets:
 	$(MAKE) set-context

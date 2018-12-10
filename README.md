@@ -19,7 +19,7 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 1. Install heptio-authenticator-aws: Follow 'To install heptio-authenticator-aws for Amazon EKS' at https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html.
 1. Install kubectl: `sudo snap install kubectl --classic`
 1. Install kubectx and kubens following instructions at https://github.com/ahmetb/kubectx
-1. Install helm following instructions at https://github.com/helm/helm/releases
+1. Install helm: `sudo snap install helm --classic`
 
 # Access/Create/Modify/Destroy EKS Clusters
 
@@ -37,8 +37,7 @@ These steps assumes you have the correct aws credentials + local environment too
 	`kubectl -n kube-system describe secrets/$(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
 3. Start the proxy:
 	`kubectl proxy`
-4. Open the following link with a web browser to access the dashboard endpoint:
-	`http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
+4. Browse to the dashboard endpoint at http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 5. Choose Token and paste token from step 2 above
 
 ## Create new ingest eks cluster (aws)
