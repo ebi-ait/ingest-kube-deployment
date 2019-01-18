@@ -14,7 +14,6 @@ ingest-validator = ${INGEST_VALIDATOR_REF}
 fastq-validator-image = ${FASTQ_VALIDATOR_IMAGE}
 
 deploy-app-%:
-	@if [ ! -z $(grep -ioE '^ingress$' <<< $(*)) ]; then $(error Cannot deploy [$(*)] package through this script) ;fi
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
