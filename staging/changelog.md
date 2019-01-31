@@ -1,5 +1,15 @@
 # Staging Changelog
 
+
+## 30 January 2019
+
+* Broker v0.8.5.rc
+  - Reporting all import errors to the submission envelope
+
+* Core v0.8.1.rc
+  - Bug fixes in JSON parsing upload-service messages
+  - Logging auth failures
+
 ## 23 January 2019
 
 * Core v0.8.0.rc
