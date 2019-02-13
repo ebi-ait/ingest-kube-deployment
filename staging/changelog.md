@@ -1,5 +1,12 @@
 # Staging Changelog
 
+## 13 February 2019
+
+* Core v0.8.2.rc
+  - Added submission envelope field to track number of expected links/edges in the metadata graph
+
+* Broker v0.8.6.rc
+  - Utilizing submission envelope's link/edge counter
 
 ## 30 January 2019
 
