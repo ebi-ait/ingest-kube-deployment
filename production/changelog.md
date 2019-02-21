@@ -1,10 +1,19 @@
 # Production Changelog
 
+## 20 February 2019
+
+* Core v0.8.3
+  - Added submission envelope field to track number of expected links/edges in the metadata graph
+  - Hotfix to use different environment variables for user and service JWTs
+
+* Broker v0.8.6
+  - Utilizing submission envelope's link/edge counter
+
 ## 12 February 2019
-* Broker v0.8.5.rc
+* Broker v0.8.5
   - Reporting all import errors to the submission envelope
 
-* Core v0.8.1.rc
+* Core v0.8.1
   - Bug fixes in JSON parsing upload-service messages
   - Logging auth failures
 
