@@ -65,7 +65,7 @@ These steps assumes you have the correct aws credentials + local environment too
 These steps will bring down the entire infrastructure and all the resources for your ingest kubernetes cluster and environment. This goes all the way up to the VPC that was created for this environment's cluster.
 1. Follow setups 2-5 in 'Create new ingest eks cluster (aws)' if config/environment_ENVNAME does not exist where ENVNAME is the environment you are trying to destroy
 2. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
-3. `cd terraform/eks`
+3. `cd infra`
 4. `make destroy-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to destroy
 
 # Install and Upgrade Core Ingest Backend Services (mongo, redis, rabbit)
