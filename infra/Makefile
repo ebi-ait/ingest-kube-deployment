@@ -9,8 +9,6 @@ create-cluster-%:
 	. ../config/environment_$(*) && terraform apply
 	$(MAKE) retrieve-kubeconfig-$(*)
 	$(MAKE) apply-dashboard-configs-$(*)
-	$(MAKE) apply-env-configs-$(*)
-	. ../config/environment_$(*) && helm init --service-account tiller --wait
 	$(MAKE) deploy-backend-services-$(*)
 
 deploy-backend-services-%:
@@ -45,7 +43,8 @@ retrieve-kubeconfig-%:
 	. ../config/environment_$(*) && kubectl apply -f $(*)/namespace.yaml
 	rm -rf $(*)
 	$(MAKE) set-context-$(*)
-	helm init --service-account tiller
+	$(MAKE) apply-env-configs-$(*)
+	. ../config/environment_$(*) && helm init --service-account tiller --wait
 
 setup-dashboard-%:
 	kubectx ingest-eks-$(*)
@@ -60,11 +59,8 @@ apply-env-configs-%:
 	mkdir -p $(*)
 	terraform output config_map > $(*)/config_map.yaml
 	terraform output tilleraccount > $(*)/tiller_account.yaml
-	terraform output storageclass > $(*)/storageclass.yaml
 	. ../config/environment_$(*) && kubectl apply -f $(*)/config_map.yaml
 	. ../config/environment_$(*) && kubectl apply -f $(*)/tiller_account.yaml
-	. ../config/environment_$(*) && kubectl apply -f $(*)/storageclass.yaml
-	. ../config/environment_$(*) && kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 	rm -rf $(*)
 
 install-infra-helm-chart-%:
