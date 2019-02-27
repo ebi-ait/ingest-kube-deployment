@@ -73,6 +73,11 @@ apply-dashboard-configs-%:
 	$(MAKE) set-context-$(*)
 	. ../config/environment_$(*) && kubectl apply -f dashboard-configs/
 
+setup-ingress:
+	$(MAKE) set-context
+	helm dependency update ingress
+	helm upgrade -f ingress/values.yaml -f ingress/$(deployment-stage).yaml ingress ./ingress --force --wait --install
+
 init-%:
 	# confirm environment here
 	rm -rf .terraform

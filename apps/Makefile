@@ -20,11 +20,6 @@ deploy-app-%:
 	. ../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set-string environment=$(deployment-stage),fastq_image=$(fastq-validator-image),image=$($(*)) --force --recreate-pods --wait --install
 	rm *.tgz
 
-setup-ingress:
-	$(MAKE) set-context
-	helm dependency update ingress
-	helm upgrade -f ingress/values.yaml -f ingress/$(deployment-stage).yaml ingress ./ingress --force --wait --install
-
 deploy-secrets:
 	$(MAKE) set-context
 	# retrieve secrets from aws secrets manager
