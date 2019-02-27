@@ -43,7 +43,7 @@ deploy-all-apps:
 deploy-all:
 	$(MAKE) set-context
 	$(MAKE) deploy-secrets
-	$(MAKE) deploy-apps
+	$(MAKE) deploy-all-apps
 
 set-context:
 	kubectx ingest-eks-$(deployment-stage)
