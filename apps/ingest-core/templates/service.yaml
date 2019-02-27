@@ -13,4 +13,4 @@ spec:
   selector:
     app: ingest-core
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP
