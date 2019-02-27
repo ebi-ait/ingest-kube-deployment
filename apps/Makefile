@@ -22,7 +22,7 @@ deploy-app-%:
 
 setup-ingress:
 	$(MAKE) set-context
-	helm dependency update ingress/Chart.yaml
+	helm dependency update ingress
 	helm upgrade -f ingress/values.yaml -f ingress/$(deployment-stage).yaml ingress ./ingress --force --wait --install
 
 deploy-secrets:
