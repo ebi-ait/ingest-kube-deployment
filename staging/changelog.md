@@ -1,5 +1,21 @@
 # Staging Changelog
 
+## 13 March 2019
+
+* Ingress
+  - Redeploy to enable http -> https redirects to Ingest endpoints
+
+* RabbitMQ
+  - Redeploy to restrict access
+
+## 06 March 2019
+
+* Broker 704e5a7v0.8.8.rc 
+  - minor fix to code
+* Core  f7e85be:v0.8.4.rc
+  - authentication related security related patches
+
+
 ## 21 February 2019
 
 * Broker 37e15b8:v0.8.7.rc
