@@ -1,6 +1,6 @@
 # Staging Changelog
 
-## 13 March 2019 (FUTURE)
+## 13 March 2019
 
 * Core 3bd05d0:v0.8.5.rc
   - Exclude property_migrations file when retrieving latest schemas from s3 bucket listing
