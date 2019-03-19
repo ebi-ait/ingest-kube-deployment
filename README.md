@@ -101,6 +101,15 @@ Coming soon
 ## Local deployment with Minikube
 Coming soon
 
-# Accessing RabbitMQ UI for debugging and resending messages
+# Accessing RabbitMQ Management UI
 
-```kubectl port-forward rabbit-0 15672:15672```
+`kubectl port-forward <localhost-port>:15672`
+https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/
+
+1. Get the rabbit service local port
+`kubectl get service rabbit-service`
+2. Get the rabbit service pod
+`kubectl get pods | grep rabbit`
+3. Access the RabbitMQ Management UI
+`kubectl port-forward rabbit-0 15672:15672`
+
