@@ -100,3 +100,7 @@ Coming soon
 
 ## Local deployment with Minikube
 Coming soon
+
+# Accessing RabbitMQ UI for debugging and resending messages
+
+```kubectl port-forward rabbit-0 15672:15672```
