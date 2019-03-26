@@ -1,5 +1,22 @@
 # Staging Changelog
 
+## 20 March 2019
+* Core v0.8.5.rc
+- Exclude property_migrations file when retrieving latest schemas from s3 bucket listing
+- Log INFO messages
+- Fix intermittent issue where file validation fails due to many validation events
+- Find by validation ID using the ID of the validation job
+- Always setting to DRAFT when updating a file's cloudUrl/checksums
+
+* Validator v0.6.2.rc
+- Bug fix validating files which do not trigger job
+- Handling errors
+- Added checking of checksum when triggering validation job
+- Added methods in ingest-client for fetching file checksum info
+- Bug fix when refusing to validate File resources with no content/metadata
+- Security patches
+- Targetting a newer version of the fastq validation image
+
 ## 13 March 2019
 
 * Core 3bd05d0:v0.8.5.rc
