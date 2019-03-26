@@ -1,5 +1,20 @@
 # Production Changelog
 
+## 19 March 2019
+
+* Validator v0.6.0
+- Typescript
+- Fixed bug where Files would be stuck in validating if metadata was missing(i.e files uploaded before complete spreadsheet import)
+- Asserting that Files aren't already validating before requesting file-validation
+- No longer triggering file-validation if a validation job has already been completed for the same checksums
+
+* Core v0.8.5
+- Added ValidationJobs to track running/completed file-validation jobs
+- Bug fix attempting to parse property migration files from the Schemas bucket
+
+* Ingress
+- Using HTTP->HTTPS redirection 
+
 ## 12 March 2019
 
 * Broker v0.8.8 
