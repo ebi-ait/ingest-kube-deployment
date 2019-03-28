@@ -102,6 +102,7 @@ Coming soon
 Coming soon
 
 # Accessing RabbitMQ Management UI
+tldr: Use this command: `kubectl port-forward rabbit-0 15672:15672`
 
 `kubectl port-forward <localhost-port>:15672`
 https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/
