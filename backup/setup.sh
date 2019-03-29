@@ -13,7 +13,7 @@ if [ -z $1  ]; then
 fi
 
 IFS="," 
-read -ra credentials <<< $(awk -F "," 'NR==2' $1)
+read -ra credentials <<< $(awk  -v RS='\r\n' -F "," 'NR==2' $1)
 
 access_key=$(echo ${credentials[0]} | tr -d '\n' | openssl base64)
 secret_access_key=$(echo ${credentials[1]} | tr -d '\n' | openssl base64)
