@@ -1,0 +1,10 @@
+module tag version
+accessioner 627703d v0.5.0.rc
+broker 387513f v0.8.9.rc
+core 812738c v0.9.0.rc
+exporter c0480ea v0.8.0.rc
+staging-manager c10cd37 v0.5.3.rc
+state-tracking aea443c v0.7.4.rc
+validator cda3be3 v0.6.2.rc
+ui 709c9b9 v0.1.0.rc
+validator 03ca28a v0.6.3.rc 
