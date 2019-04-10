@@ -14,6 +14,7 @@ create-cluster-%:
 deploy-backend-services-%:
 	# Add User confirmation of action and environment here and then apply -auto-confirm flag on terraform
 	$(MAKE) set-context-$(*)
+	$(MAKE) setup-retained-storage-$(*)
 	$(MAKE) install-infra-helm-chart-mongo
 	$(MAKE) install-infra-helm-chart-rabbit
 	$(MAKE) install-infra-helm-chart-redis
@@ -78,6 +79,11 @@ setup-ingress-%:
 	$(MAKE) set-context-$(*)
 	cd helm-charts && helm dependency update ingress
 	cd helm-charts && helm upgrade -f ingress/values.yaml -f ingress/$(*).yaml ingress ./ingress --force --wait --install
+
+setup-retained-storage-%:
+	$(MAKE) set-context-$(*)
+	cd helm-charts && helm dependency update retained-fs-storage
+	cd helm-charts && helm upgrade retained-fs-storage ./retained-fs-storage --force --wait --install
 
 init-%:
 	# confirm environment here
