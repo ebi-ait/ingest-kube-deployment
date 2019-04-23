@@ -13,6 +13,11 @@ spec:
       labels:
         app: ingest-broker
     spec:
+      dnsPolicy: Default
+      volumes:
+      - name: spreadsheet-storage
+        persistentVolumeClaim:
+          claimName: spreadsheet-storage-claim
       containers:
       - env:
         - name: INGEST_API
@@ -22,4 +27,6 @@ spec:
         name: ingest-broker
         ports:
         - containerPort: 5000
-      dnsPolicy: Default
+        volumeMounts:
+        - mountPath: /data/spreadsheets
+          name: spreadsheet-storage
