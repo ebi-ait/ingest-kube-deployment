@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: spreadsheet-storage-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: "retained-gp2"
+  resources:
+    requests:
+      storage: 5Gi
