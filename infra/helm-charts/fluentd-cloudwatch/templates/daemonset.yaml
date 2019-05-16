@@ -43,9 +43,15 @@ spec:
           value: "0"
 {{- if not .Values.awsRole }}
         - name: AWS_ACCESS_KEY_ID
-          value: REDACTED
+          valueFrom:
+            secretKeyRef:
+              key: aws-access-key-id
+              name: aws-keys
         - name: AWS_SECRET_ACCESS_KEY
-          value: REDACTED
+          valueFrom:
+            secretKeyRef:
+              key: aws-secret-access-key
+              name: aws-keys
 {{- end }}
 {{- range $env := .Values.extraVars }}
         - {{ $env  }}

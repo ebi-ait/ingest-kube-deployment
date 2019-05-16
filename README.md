@@ -14,12 +14,12 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 
 ### Ubuntu
 1. git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
-1. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html). If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
-1. Install awscli: `pip install awscli`.
-1. Install heptio-authenticator-aws: Follow 'To install heptio-authenticator-aws for Amazon EKS' at https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html.
-1. Install kubectl: `sudo snap install kubectl --classic`
-1. Install kubectx and kubens following instructions at https://github.com/ahmetb/kubectx
-1. Install helm: `sudo snap install helm --classic`
+2. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html). If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
+3. Install awscli: `pip install awscli`.
+4. Install heptio-authenticator-aws: Follow 'To install heptio-authenticator-aws for Amazon EKS' at https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html.
+5. Install kubectl: `sudo snap install kubectl --classic`
+6. Install kubectx and kubens following instructions at https://github.com/ahmetb/kubectx
+7. Install helm: `sudo snap install helm --classic`
 
 # Access/Create/Modify/Destroy EKS Clusters
 
@@ -90,6 +90,12 @@ Coming soon
 2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
 3. `cd apps`
 4. `make deploy-all-apps` where APPNAME is the name of the ingest application.
+
+## Deploy cloudwatch log exporter
+1. Make sure you have followed the instructions above to create or access an existing eks cluster
+2. Source the configuration file for the environment
+3. Make sure the secrets api-keys and aws-keys are deployed substituted with valid base64 encoded values 
+4. `cd infra` and `make install-infra-helm-chart-fluentd-cloudwatch`
 
 # CI/CD Setup
 
