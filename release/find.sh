@@ -19,7 +19,7 @@ function version() {
     if has_match; then
        cat ${src_dir}/version.map | grep -E '^'${deployment}'\b.*\b'${search_key}'.*$' | awk '{printf("%s -> %s\n", $3, $2)}'
     else
-	echo "No results found for [${deployment}]."
+	echo "No results found for '${search_key}' in [${deployment}]."
     fi
 }
 
