@@ -7,4 +7,6 @@ staging-manager c10cd37 v0.5.3.rc
 state-tracking aea443c v0.7.4.rc
 validator cda3be3 v0.6.2.rc
 ui 709c9b9 v0.1.0.rc
-validator 03ca28a v0.6.3.rc 
+validator 03ca28a v0.6.3.rc
+validator 39e6120 v0.6.4.rc
+ui a10bfce v0.9.2.rc
