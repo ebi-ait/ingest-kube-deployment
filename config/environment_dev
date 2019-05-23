@@ -5,7 +5,7 @@ FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_NODE_ACCESSIONER_REF=9826801
 INGEST_CORE_REF=f827197
-INGEST_BROKER_REF=f8cdc5e
+INGEST_BROKER_REF=344b7fe
 INGEST_EXPORTER_REF=6bb5cd5
 INGEST_STAGING_MANAGER_REF=c10cd37
 INGEST_STATE_TRACKING_REF=aea443c
