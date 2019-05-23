@@ -4,6 +4,9 @@
 * Exporter v0.8.1.rc:6bb5cd5
 - Do not inform user when there’s a failure creating a duplicate bundle
 
+* UI v0.9.4.rc:f00e018
+- Use Fusillade integration
+
 ## 30 April 2019
 * Validator v0.6.4.rc:39e6120 (hotfix)
 - Only perform file validation if the the File metadata document is valid
