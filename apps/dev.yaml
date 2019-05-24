@@ -11,3 +11,4 @@ usrAuthAudience: https://dev.data.humancellatlas.org/
 
 # ui
 domainWhitelist: "api.ingest.dev.data.humancellatlas.org,ingest.dev.data.humancellatlas.org"
+authDomain: "auth.integration.data.humancellatlas.org"
