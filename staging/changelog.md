@@ -1,5 +1,9 @@
 # Staging Changelog
 
+## 07 June 2019
+* Core v0.9.1.rc:f17bc84
+- New endpoints for searching primary and analysis bundle manifests
+
 ## 05 Jun 2019
 * Exporter v0.8.3.rc:be11bc4
 - Fix submissions stuck in Processing due to failed state tracker bundle complete notification
