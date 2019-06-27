@@ -3,6 +3,7 @@ dss: dss.data.humancellatlas.org
 schema: schema.humancellatlas.org
 ingest: api.ingest.data.humancellatlas.org
 broker: ingest.data.humancellatlas.org
+ui: ui.ingest.data.humancellatlas.org
 
 # config values
 gcpProjectWhitelist: "hca-dcp-pipelines-prod.iam.gserviceaccount.com,hca-dcp-production.iam.gserviceaccount.com"
