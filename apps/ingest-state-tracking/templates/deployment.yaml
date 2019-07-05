@@ -7,7 +7,7 @@ metadata:
   name: ingest-state-tracking
   namespace: {{ .Values.environment }}-environment
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   strategy:
     type: RollingUpdate
   template:

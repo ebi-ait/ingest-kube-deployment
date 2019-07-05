@@ -15,6 +15,15 @@ ONTOLOGY_REF=master
 
 FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.1.rc 
 
+# REPLICAS
+INGEST_BROKER_REPLICAS=1
+INGEST_CORE_REPLICAS=1
+INGEST_EXPORTER_REPLICAS=1
+INGEST_STAGING_MANAGER_REPLICAS=1
+INGEST_STATE_TRACKING_REPLICAS=1
+INGEST_VALIDATOR_REPLICAS=1
+INGEST_UI_REPLICAS=1
+
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca
 # Make sure the vpc ip below is unique
