@@ -7,7 +7,7 @@ metadata:
   name: ingest-broker
   namespace: {{ .Values.environment }}-environment
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   template:
     metadata:
       labels:

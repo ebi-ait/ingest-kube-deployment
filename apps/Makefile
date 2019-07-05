@@ -12,13 +12,22 @@ ingest-state-tracking= ${INGEST_STATE_TRACKING_REF}
 ingest-validator = ${INGEST_VALIDATOR_REF}
 ingest-ui = ${INGEST_UI_REF}
 
+# REPLICAS
+ingest-broker-replicas=${INGEST_BROKER_REPLICAS}
+ingest-core-replicas=${INGEST_CORE_REPLICAS}
+ingest-exporter-replicas=${INGEST_EXPORTER_REPLICAS}
+ingest-staging-manager-replicas=${INGEST_STAGING_MANAGER_REPLICAS}
+ingest-state-tracking-replicas=${INGEST_STATE_TRACKING_REPLICAS}
+ingest-validator-replicas=${INGEST_VALIDATOR_REPLICAS}
+ingest-ui-replicas=${INGEST_UI_REPLICAS}
+
 fastq-validator-image = ${FASTQ_VALIDATOR_IMAGE}
 
 deploy-app-%:
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
-	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$($(*)) --force --recreate-pods --wait --install
+	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$($(*)),replicas=$($(*)-replicas) --force --recreate-pods --wait --install
 	rm *.tgz
 
 deploy-secrets:
