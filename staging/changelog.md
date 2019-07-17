@@ -1,4 +1,87 @@
 # Staging Changelog
+## 15 July 2019
+* Core v0.9.2.rc: 9b7a381
+- APIs for performing simple updates to bundles
+- APIs for viewing JSONPatch diffs when performing updates
+- Search submissions by project
+- Disabled “Submit” button when linking hasn’t yet been completed(spreadsheet submissions only)
+- Now using Java 11, Spring boot 2
+
+* Exporter v0.8.5.rc: 41387a7
+- Handles update submissions and performs simple bundle updates as necessary
+- Separate AMQP listener for update messages
+- duplicate links in links.json fix
+
+* Broker v0.9.0.rc: 0d85bbf
+- Handles update spreadsheets
+- Providing a mechanism for generating and downloading update-spreadsheets from submitted spreadsheets
+
+* UI v0.9.6.rc: 4d58809
+- Widgets for uploading and downloading an update-spreadsheet
+- Paginated project dashboard
+- Widget to search for projects by title, shortname, etc.
+- Submissions table view inside the projects tab
+
+* Validator v0.6.5.rc: 599b12c
+- Added ontology validation keyword
+- Ontology service updates
+
+* Staging manager v0.5.4.rc:7791e6c
+- ingest-client library updates, refactoring
+
+* State tracker v0.7.5.rc: 38a399c
+- Now using Java 11
+
+### Deployment Notes:
+1. Delete deployment of ingest-node-accessioner
+2. Deploy persistence volume claim before redeploying ingest-broker
+  * `make setup-retained-storage-staging`
+  * `helm delete ingest-broker`
+2. Redeploy core after state tracker
+3. Redeploy validator after ontology service
+4. Update mongo database:
+* Need to apply these changes so that the latest codes will work for existing documents. It is important that the queries are executed one at a time and monitor the RAM usage of mongo during execution using top. If the RES value in top output is reaching 4-5gb, restart the mongo pod (`kubectl delete pod mongo-0`) to reset the RES value to minimum value.
+
+```
+// optional
+
+db.project.find({ "isUpdate": null }).count()
+
+db.biomaterial.find({ "isUpdate": null }).count()
+
+db.protocol.find({ "isUpdate": null }).count()
+
+db.process.find({ "isUpdate": null }).count()
+
+db.file.find({ "isUpdate": null }).count()
+
+//
+db.project.update(
+    { "isUpdate": null }, 
+    { "$set": { "isUpdate": false } }, false, true
+)
+
+db.biomaterial.update(
+    { "isUpdate": null }, 
+    { "$set": { "isUpdate": false } }, false, true
+)
+
+db.process.update(
+    { "isUpdate": null }, 
+    { "$set": { "isUpdate": false } }, false, true
+)
+
+db.file.update(
+    { "isUpdate": null }, 
+    { "$set": { "isUpdate": false } }, false, true
+)
+
+db.protocol.update(
+    { "isUpdate": null }, 
+    { "$set": { "isUpdate": false } }, false, true
+)
+
+```
 
 ## 07 June 2019
 * Core v0.9.1.rc:f17bc84
