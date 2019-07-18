@@ -1,4 +1,12 @@
 # Staging Changelog
+## 17 July 2019
+* Exporter v0.8.6.rc: c195f09
+- Fix date format check
+* Validator v0.6.5.rc: 599b12c
+- (same version) fastq subprocess fix
+* Broker v0.9.1.rc: eb4393a
+- Fix updating of file metadata when data file is uploaded first
+
 ## 15 July 2019
 * Core v0.9.2.rc: 9b7a381
 - APIs for performing simple updates to bundles
@@ -26,7 +34,7 @@
 - Added ontology validation keyword
 - Ontology service updates
 
-* Staging manager v0.5.4.rc:7791e6c
+* Staging manager v0.5.4.rc: 7791e6c
 - ingest-client library updates, refactoring
 
 * State tracker v0.7.5.rc: 38a399c
