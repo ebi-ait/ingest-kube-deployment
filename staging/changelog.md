@@ -1,4 +1,14 @@
 # Staging Changelog
+## 24 July 2019
+
+* Mongo
+- Set a size limit on in-memory caching to ensure cluster reliability
+
+### Deployment Notes:
+1. Redeploy the mongo helm chart:
+  * `cd infra && make install-infra-helm-chart-mongo`
+
+
 ## 17 July 2019
 * Exporter v0.8.6.rc: c195f09
 - Fix date format check
