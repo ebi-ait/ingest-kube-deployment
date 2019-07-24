@@ -20,6 +20,7 @@ spec:
       containers:
       - image: mongo:3.4.3
         name: mongo
+        args: ["--wiredTigerCacheSizeGB", "2"]
         ports:
         - containerPort: 27017
         volumeMounts:
