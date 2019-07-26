@@ -6,7 +6,7 @@ broker: ingest.integration.data.humancellatlas.org
 ui: ui.ingest.integration.data.humancellatlas.org
 
 # config values
-gcpProjectWhitelist: "hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com"
+gcpProjectWhitelist: "hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com,caas-prod-account-for-int@broad-dsde-mint-integration.iam.gserviceaccount.com"
 svcAuthAudience: https://dev.data.humancellatlas.org/
 usrAuthAudience: https://dev.data.humancellatlas.org/
 
