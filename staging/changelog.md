@@ -2,26 +2,26 @@
 ## 30 July 2019
 
 * Broker v0.9.2.rc: e650e6f
-- Fix reporting of submission error
+  - Fix reporting of submission error
 
 * Core v0.9.3.rc: 487b1cf
-- Fix failure in POSTing submission endpoint
+  - Fix failure in POSTing submission endpoint
 
 * UI v0.9.7.rc: 8f5010e
-- Removing button to do retry when metadata is invalid
+  - Removing button to do retry when metadata is invalid
 
 * Exporter v0.8.7.rc: 5388780
-- Reinstantiate DSS client to prevent token expiration
+  - Reinstantiate DSS client to prevent token expiration
 
 * Validator v0.6.6.rc: a28e364
-- Multiple file validation jobs fix
+  - Multiple file validation jobs fix
 
 ## 24 July 2019
 * Core v0.9.2.rc
-- Put back authentication for PUT & PATCH requests
+  - Put back authentication for PUT & PATCH requests
 
 * Mongo
-- Set a size limit on in-memory caching to ensure cluster reliability
+  - Set a size limit on in-memory caching to ensure cluster reliability
 
 ### Deployment Notes:
 1. Redeploy the mongo helm chart:
@@ -30,44 +30,44 @@
 
 ## 17 July 2019
 * Exporter v0.8.6.rc: c195f09
-- Fix date format check
+  - Fix date format check
 * Validator v0.6.5.rc: 599b12c
-- (same version) fastq subprocess fix
+  - (same version) fastq subprocess fix
 * Broker v0.9.1.rc: eb4393a
-- Fix updating of file metadata when data file is uploaded first
+  - Fix updating of file metadata when data file is uploaded first
 
 ## 15 July 2019
 * Core v0.9.2.rc: 9b7a381
-- APIs for performing simple updates to bundles
-- APIs for viewing JSONPatch diffs when performing updates
-- Search submissions by project
-- Disabled “Submit” button when linking hasn’t yet been completed(spreadsheet submissions only)
-- Now using Java 11, Spring boot 2
+  - APIs for performing simple updates to bundles
+  - APIs for viewing JSONPatch diffs when performing updates
+  - Search submissions by project
+  - Disabled “Submit” button when linking hasn’t yet been completed(spreadsheet submissions only)
+  - Now using Java 11, Spring boot 2
 
 * Exporter v0.8.5.rc: 41387a7
-- Handles update submissions and performs simple bundle updates as necessary
-- Separate AMQP listener for update messages
-- duplicate links in links.json fix
+  - Handles update submissions and performs simple bundle updates as necessary
+  - Separate AMQP listener for update messages
+  - duplicate links in links.json fix
 
 * Broker v0.9.0.rc: 0d85bbf
-- Handles update spreadsheets
-- Providing a mechanism for generating and downloading update-spreadsheets from submitted spreadsheets
+  - Handles update spreadsheets
+  - Providing a mechanism for generating and downloading update-spreadsheets from submitted spreadsheets
 
 * UI v0.9.6.rc: 4d58809
-- Widgets for uploading and downloading an update-spreadsheet
-- Paginated project dashboard
-- Widget to search for projects by title, shortname, etc.
-- Submissions table view inside the projects tab
+  - Widgets for uploading and downloading an update-spreadsheet
+  - Paginated project dashboard
+  - Widget to search for projects by title, shortname, etc.
+  - Submissions table view inside the projects tab
 
 * Validator v0.6.5.rc: 599b12c
-- Added ontology validation keyword
-- Ontology service updates
+  - Added ontology validation keyword
+  - Ontology service updates
 
 * Staging manager v0.5.4.rc: 7791e6c
-- ingest-client library updates, refactoring
+  - ingest-client library updates, refactoring
 
 * State tracker v0.7.5.rc: 38a399c
-- Now using Java 11
+  - Now using Java 11
 
 ### Deployment Notes:
 1. Delete deployment of ingest-node-accessioner
@@ -122,47 +122,47 @@ db.protocol.update(
 
 ## 07 June 2019
 * Core v0.9.1.rc:f17bc84
-- New endpoints for searching primary and analysis bundle manifests
+  - New endpoints for searching primary and analysis bundle manifests
 
 ## 05 Jun 2019
 * Exporter v0.8.3.rc:be11bc4
-- Fix submissions stuck in Processing due to failed state tracker bundle complete notification
+  - Fix submissions stuck in Processing due to failed state tracker bundle complete notification
 
 * UI v0.9.5.rc:bb98f1c
-- Make Fusillade url configurable thru env var
-- Fix greetings and picture display
+  - Make Fusillade url configurable thru env var
+  - Fix greetings and picture display
 
 ## 29 May 2019
 * Exporter 0.8.2.rc
-- Minor changes to prevent creation of Pika connections unncessarily.
+  - Minor changes to prevent creation of Pika connections unncessarily.
 
 ## 22 May 2019
 * Exporter v0.8.1.rc:6bb5cd5
-- Do not inform user when there’s a failure creating a duplicate bundle
+  - Do not inform user when there’s a failure creating a duplicate bundle
 
 * UI v0.9.4.rc:f00e018
-- Use Fusillade integration
+  - Use Fusillade integration
 
 ## 30 April 2019
 * Validator v0.6.4.rc:39e6120 (hotfix)
-- Only perform file validation if the the File metadata document is valid
+  - Only perform file validation if the the File metadata document is valid
 
 ## 20 March 2019
 * Core v0.8.5.rc
-- Exclude property_migrations file when retrieving latest schemas from s3 bucket listing
-- Log INFO messages
-- Fix intermittent issue where file validation fails due to many validation events
-- Find by validation ID using the ID of the validation job
-- Always setting to DRAFT when updating a file's cloudUrl/checksums
+  - Exclude property_migrations file when retrieving latest schemas from s3 bucket listing
+  - Log INFO messages
+  - Fix intermittent issue where file validation fails due to many validation events
+  - Find by validation ID using the ID of the validation job
+  - Always setting to DRAFT when updating a file's cloudUrl/checksums
 
 * Validator v0.6.2.rc
-- Bug fix validating files which do not trigger job
-- Handling errors
-- Added checking of checksum when triggering validation job
-- Added methods in ingest-client for fetching file checksum info
-- Bug fix when refusing to validate File resources with no content/metadata
-- Security patches
-- Targetting a newer version of the fastq validation image
+  - Bug fix validating files which do not trigger job
+  - Handling errors
+  - Added checking of checksum when triggering validation job
+  - Added methods in ingest-client for fetching file checksum info
+  - Bug fix when refusing to validate File resources with no content/metadata
+  - Security patches
+  - Targetting a newer version of the fastq validation image
 
 ## 13 March 2019
 
