@@ -31,7 +31,7 @@ spec:
               value: {{ Values.ingestApi }}
             - name: INGEST_API_PORT
               value: 443
-          image: quay.io/humancellatlas/ingest-mock-upload:{{ .Values.image }}
+          image: quay.io/humancellatlas/ingest-mock-upload:{{ .Values.image.mock-upload }}
           imagePullPolicy: Always
           ports:
             - name: http
@@ -49,7 +49,7 @@ spec:
               value: http://localhost:8888
             - name: KEY_FILE_PATH
               value: "/etc/secrets/dss-auth-jwt.json"
-          image: quay.io/humancellatlas/ingest-locusts:{{ .Values.image }}
+          image: quay.io/humancellatlas/ingest-locusts:{{ .Values.image.locusts }}
           imagePullPolicy: Always
           ports:
             - name: http
