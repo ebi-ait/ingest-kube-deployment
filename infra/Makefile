@@ -77,7 +77,7 @@ apply-dashboard-configs-%:
 setup-ingress-%:
 	$(MAKE) set-context-$(*)
 	cd helm-charts && helm dependency update ingress
-	cd helm-charts && helm upgrade -f ingress/values.yaml -f ingress/$(*).yaml ingress ./ingress --force --wait --install
+	cd helm-charts && helm upgrade -f ingress/values.yaml -f ingress/$(*).yaml ingress ./ingress --force --install
 
 setup-retained-storage-%:
 	$(MAKE) set-context-$(*)
