@@ -13,6 +13,9 @@ INGEST_VALIDATOR_REF=a28e364
 INGEST_UI_REF=b39ce5b
 ONTOLOGY_REF=master
 
+# testing env only
+INGEST_API_TESTS_REF=1a7d7ab
+
 FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc 
 
 # REPLICAS

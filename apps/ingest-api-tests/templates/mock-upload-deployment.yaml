@@ -31,7 +31,7 @@ spec:
               value: {{ Values.ingestApi }}
             - name: INGEST_API_PORT
               value: 443
-          image: quay.io/humancellatlas/ingest-mock-upload:{{ .Values.image.mock-upload }}
+          image: quay.io/humancellatlas/ingest-mock-upload:{{ .Values.image }}
           imagePullPolicy: Always
           ports:
             - name: http

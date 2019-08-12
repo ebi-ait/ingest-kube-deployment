@@ -35,7 +35,7 @@ spec:
               value: http://localhost:8888
             - name: KEY_FILE_PATH
               value: "/etc/secrets/dss-auth-jwt.json"
-          image: quay.io/humancellatlas/ingest-locusts:{{ .Values.image.locusts }}
+          image: quay.io/humancellatlas/ingest-locusts:{{ .Values.image }}
           imagePullPolicy: Always
           ports:
             - name: http

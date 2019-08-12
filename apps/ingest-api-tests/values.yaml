@@ -2,7 +2,5 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 environment: provide_through_set_flag
-images: 
-  locusts: provide_through_set_flag
-  mock-upload: provide_through_set_flag
+image: provide_through_set_flag
 replicas: provide_through_set_flag
