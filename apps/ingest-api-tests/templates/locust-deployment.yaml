@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: locusts
+  namespace: {{ .Values.environment }}-environment
+spec:
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: locusts
+    spec:
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: api-keys
+            items:
+              - key: exporter-auth-info
+                path: dss-auth-jwt.json
+      containers:
+        - name: locusts
+          volumeMounts:
+            - name: secret-volume
+              mountPath: "/etc/secrets"
+              readOnly: true
+          env:
+            - name: TARGET_HOST_URL
+              value: https://{{ .Values.ingestApi }}
+            - name: FILE_UPLOAD_URL
+              value: http://localhost:8888
+            - name: KEY_FILE_PATH
+              value: "/etc/secrets/dss-auth-jwt.json"
+          image: quay.io/humancellatlas/ingest-locusts:{{ .Values.image.locusts }}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8089

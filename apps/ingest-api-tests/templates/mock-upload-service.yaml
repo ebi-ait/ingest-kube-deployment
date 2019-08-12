@@ -3,14 +3,14 @@ kind: Service
 metadata:
   labels:
     role: ingestion
-  name: ingest-locusts-service
+  name: mock-upload-service
   namespace: {{ .Values.environment }}-environment
 spec:
   ports:
   - port: 80
     protocol: TCP
-    targetPort: 8089
+    targetPort: 8070
   selector:
-    app: ingest-api-tests
+    app: mock-upload
   sessionAffinity: None
   type: NodePort

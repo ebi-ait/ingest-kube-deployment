@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: ingestion
+  name: locusts-service
+  namespace: {{ .Values.environment }}-environment
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8089
+  selector:
+    app: locusts
+  sessionAffinity: None
+  type: NodePort
