@@ -32,7 +32,7 @@ spec:
             - name: TARGET_HOST_URL
               value: https://{{ .Values.ingestApi }}
             - name: FILE_UPLOAD_URL
-              value: http://localhost:8888
+              value: http://{{ .Values.upload }}/v1
             - name: KEY_FILE_PATH
               value: "/etc/secrets/dss-auth-jwt.json"
           image: quay.io/humancellatlas/ingest-locusts:{{ .Values.image }}

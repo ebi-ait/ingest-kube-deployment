@@ -1,4 +1,6 @@
-upload: upload.dev.data.humancellatlas.org
+uploadScheme: http
+uploadPort: 80
+upload: $(MOCK_UPLOAD_SERVICE_SERVICE_HOST)
 dss: dss.dev.data.humancellatlas.org
 schema: schema.dev.data.humancellatlas.org
 ingest: api.ingest.testing.data.humancellatlas.org
