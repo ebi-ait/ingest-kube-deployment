@@ -12,6 +12,9 @@ ingest-state-tracking= ${INGEST_STATE_TRACKING_REF}
 ingest-validator = ${INGEST_VALIDATOR_REF}
 ingest-ui = ${INGEST_UI_REF}
 
+# testing env only
+ingest-api-tests = ${INGEST_API_TESTS_REF}
+
 # REPLICAS
 ingest-broker-replicas=${INGEST_BROKER_REPLICAS}
 ingest-core-replicas=${INGEST_CORE_REPLICAS}

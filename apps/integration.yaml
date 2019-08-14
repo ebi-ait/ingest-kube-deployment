@@ -1,3 +1,5 @@
+uploadScheme: https
+uploadPort: 443
 upload: upload.integration.data.humancellatlas.org
 dss: dss.integration.data.humancellatlas.org
 schema: schema.integration.data.humancellatlas.org

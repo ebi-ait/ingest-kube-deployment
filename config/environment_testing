@@ -1,19 +1,31 @@
-# Make a copy of this file in this directory and replace the variables with stub 'PROVIDE...' values
-
 #!/usr/bin/env bash
 set -a
 
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-INGEST_ACCESSIONER_REF=master
-INGEST_BROKER_REF=master
-INGEST_CORE_REF=25c07f4
-INGEST_EXPORTER_REF=master
-INGEST_STAGING_MANAGER_REF=master_7c4c332
-INGEST_STATE_TRACKING_REF=b4628fc
-INGEST_VALIDATOR_REF=350fc6a
-INGEST_UI_REF=6102527
+INGEST_NODE_ACCESSIONER_REF=9826801
+INGEST_BROKER_REF=e650e6f
+INGEST_CORE_REF=b499d8e
+INGEST_EXPORTER_REF=149f0e3
+INGEST_STAGING_MANAGER_REF=7791e6c
+INGEST_STATE_TRACKING_REF=38a399c
+INGEST_VALIDATOR_REF=a28e364
+INGEST_UI_REF=b39ce5b
 ONTOLOGY_REF=master
+
+# testing env only
+INGEST_API_TESTS_REF=cb085bf
+
+FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc 
+
+# REPLICAS
+INGEST_BROKER_REPLICAS=1
+INGEST_CORE_REPLICAS=1
+INGEST_EXPORTER_REPLICAS=1
+INGEST_STAGING_MANAGER_REPLICAS=1
+INGEST_STATE_TRACKING_REPLICAS=1
+INGEST_VALIDATOR_REPLICAS=1
+INGEST_UI_REPLICAS=1
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca
