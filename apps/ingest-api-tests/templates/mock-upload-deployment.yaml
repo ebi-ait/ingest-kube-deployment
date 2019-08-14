@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: mock-upload
+  namespace: {{ .Values.environment }}-environment
+spec:
+  replicas: {{ .Values.replicas }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: mock-upload
+    spec:
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: api-keys
+            items:
+              - key: exporter-auth-info
+                path: dss-auth-jwt.json
+      containers:
+        - name: mock-upload
+          env:
+            - name: INGEST_API_SCHEME
+              value: https
+            - name: INGEST_API_HOST
+              value: {{ .Values.ingestApi }}
+            - name: INGEST_API_PORT
+              value: "443"
+          image: quay.io/humancellatlas/ingest-mock-upload:{{ .Values.image }}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8070

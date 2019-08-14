@@ -26,10 +26,12 @@ spec:
           value: $(RABBIT_SERVICE_SERVICE_HOST)
         - name: RABBIT_PORT
           value: $(RABBIT_SERVICE_SERVICE_PORT_SERVICE)
+        - name: UPLOAD_SCHEME
+          value: "{{ .Values.uploadScheme }}"
+        - name: UPLOAD_PORT
+          value: "{{ .Values.uploadPort }}"
         - name: UPLOAD_HOST
           value: {{ .Values.upload }}
-        - name: UPLOAD_PORT
-          value: "443"
         - name: OLS_HOST
           value: $(ONTOLOGY_SERVICE_SERVICE_HOST)
         - name: OLS_PORT

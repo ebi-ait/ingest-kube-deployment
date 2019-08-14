@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: ingestion
+  name: mock-upload-service
+  namespace: {{ .Values.environment }}-environment
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8070
+  selector:
+    app: mock-upload
+  sessionAffinity: None
+  type: NodePort
