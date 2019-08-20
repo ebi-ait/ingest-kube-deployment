@@ -1,5 +1,22 @@
 # Production Changelog
 
+## 20 August 2019
+
+* Core v0.9.4
+  - Memory-optimized findAssays() for stability
+  - Updated primary and secondary submission documentation
+  - New API endpoints for linking process to input bundle and input files
+
+* Exporter v0.8.8
+  - Exporting major/minor schema versions in provenance
+  - Fix null:null submission error
+
+* Validator v0.6.7
+  - Fixed integration test failure
+
+* UI v0.10.1
+  - Display project uuid in submission view
+
 ## 30 July 2019
 
 * Core v0.9.2
