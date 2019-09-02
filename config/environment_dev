@@ -4,16 +4,16 @@ set -a
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_NODE_ACCESSIONER_REF=9826801
-INGEST_BROKER_REF=4fe6c05
+INGEST_BROKER_REF=b00f127
 INGEST_CORE_REF=dbbb72af
-INGEST_EXPORTER_REF=83cf6cd
+INGEST_EXPORTER_REF=380c322
 INGEST_STAGING_MANAGER_REF=7791e6c
 INGEST_STATE_TRACKING_REF=38a399c
 INGEST_VALIDATOR_REF=e52fafb
 INGEST_UI_REF=f03686d
 ONTOLOGY_REF=master
 
-FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc 
+FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc
 
 # REPLICAS
 INGEST_BROKER_REPLICAS=1
@@ -25,7 +25,7 @@ INGEST_VALIDATOR_REPLICAS=1
 INGEST_UI_REPLICAS=1
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
-AWS_PROFILE=hca
+AWS_PROFILE=hca-dev
 TF_VAR_ops_role=dcp-developer
 # Make sure the vpc ip below is unique
 TF_VAR_vpc_cidr_block=10.40.0.0/16
