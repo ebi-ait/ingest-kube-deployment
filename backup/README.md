@@ -12,12 +12,12 @@ Ingest infrastructure is deployed as a system of multiple self contained microse
 
 ### Quickstart
 
-Ingest Backup is deployed through Helm on Kubernetes through the `setup.sh` script provided in this module. The setup script [requires AWS access keys](#credentials) can be downloaded through the AWS console in CSV format. Before running the script, the environment variable `DEPLOYMENT_STAGE` must be set as the setup operation uses it to determine which configuration to use. This variable is, at the time of writing, set when switching environments through Ingest deployment procedures.
+Ingest Backup is deployed through Helm on Kubernetes through the `setup.sh` script provided in this module. The setup script [requires AWS access keys and role ARN](#credentials) can be downloaded through the AWS console in CSV format. Before running the script, the environment variable `DEPLOYMENT_STAGE` must be set as the setup operation uses it to determine which configuration to use. This variable is, at the time of writing, set when switching environments through Ingest deployment procedures.
 
 To deploy Ingest Backup, the script is run with the CSV file:
 
 ```
-./setup.sh /path/to/aws_access_credentials.csv
+./setup.sh /path/to/aws_access_credentials.csv role_ARN
 ```
 
 
@@ -36,7 +36,9 @@ kubectl patch cronjob ingest-backup -p '{  "spec": { "schedule": "*/5 * * * *"  
 ```
 
 #### <a name="credentials"></a>Security Credentials
-The backup system uses Amazon's AWS CLI tools to copy data to AWS. As the backup data will be dumped into a remote S3 bucket, the process running the backups need to be configured to have access to the bucket in question. Security credentials should be set through the environment variables to get the backup system working correctly. AWS provides documentation on [how to setup security credentials for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html).
+The backup system uses Amazon's AWS CLI tools to copy data to AWS. As the backup data will be dumped into a remote S3 bucket, the process running the backups needs to be configured to have access to the bucket in question. Security credentials should be set through the environment variables to get the backup system working correctly. AWS provides documentation on [how to setup security credentials for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html).
+
+The backup process runs by assuming an AWS role to be able to access the the S3 bucket. The role ARN is also required on start up.
 
 #### Environment Variables
 Several environment variables are defined as part of the configuration of the running container.
