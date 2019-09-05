@@ -11,4 +11,7 @@ COPY src/backup.sh /opt/backup
 
 RUN chmod +x /opt/backup
 
+ENV S3_BUCKET=ingest-backup
+ENV BACKUP_DIR=deploymentenv
+
 ENTRYPOINT /opt/backup
