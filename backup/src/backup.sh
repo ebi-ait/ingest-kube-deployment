@@ -3,13 +3,13 @@
 DB_DUMP=/data/db/dump/$(date '+%Y-%m-%dT%H_%M')
 
 # set up AWS role and credentials
-[[ -z $AWS_ACCESS_KEY_ID ]]; echo 'Missing access key id'; exit 1
+if [ -z $AWS_ACCESS_KEY_ID ]; then echo 'Missing access key id'; exit 1; fi
 aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
 
-[[ -z $AWS_SECRET_ACCESS_KEY ]]; echo 'Missing secret access key'; exit 1
+if [ -z $AWS_SECRET_ACCESS_KEY ]; then echo 'Missing secret access key'; exit 1; fi
 aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 
-[[ -z $AWS_ROLE_ARN ]]; echo 'Missing role ARN'; exit 1
+if [ -z $AWS_ROLE_ARN ]; then echo 'Missing role ARN'; exit 1; fi
 aws configure set profile.backup.role_arn $AWS_ROLE_ARN
 
 aws configure set profile.backup.source_profile default
