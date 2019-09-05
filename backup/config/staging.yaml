@@ -1,7 +1,7 @@
 cronSchedule: 0 0 * * *
 image:
   repository: quay.io/humancellatlas/ingest-backup
-  tag: a99a2f9
+  tag: dd36150
   pullPolicy: Always
 s3:
   bucket: ingest-backup
