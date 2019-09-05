@@ -18,7 +18,7 @@ mongodump \
 --host mongo-service \
 --out $DB_DUMP
 
-alias s3backup='aws cli s3 --profile=backup'
+alias s3backup='aws s3 --profile=backup'
 
 BACKUP_FILE=$DB_DUMP.tar.gz
 tar -zcvf $BACKUP_FILE $DB_DUMP
