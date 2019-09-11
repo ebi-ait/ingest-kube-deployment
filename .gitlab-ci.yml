@@ -1,0 +1,18 @@
+image: registry.gitlab.com/prabh-t/ingest-deploy:0.1
+
+stages:
+  - deploy
+
+deploy_ingest:
+  stage: deploy
+  script:
+    - >
+      if [[ "$ENV" =~ ^(dev|integration|staging|prod)$ ]]; then
+        echo "Deploying on $ENV"
+        echo "Updating ingest-kube-deployment"
+        cd /home/ingest/ingest-kube-deployment && git pull
+        source config/environment_$ENV
+        cd apps
+        for APP in ${APPS}; do make deploy-app-${APP}; done
+      fi
+  when: manual
