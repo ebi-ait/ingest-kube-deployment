@@ -10,7 +10,7 @@ DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RE
   - Updated primary submission documentation
 
 * Exporter 311950c
-  - Fix simple updates issue when staging shar    ed metadata files among bundles
+  - Fix simple updates issue when staging shared metadata files among bundles
 
 * Validator e52fafb
   - Fix retrying of file validation
