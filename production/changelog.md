@@ -1,6 +1,16 @@
 # Production Changelog
 DCP Production Release Notes: https://github.com/HumanCellAtlas/dcp/blob/prod/RELEASE_NOTES.md
 
+## 13 September 2019
+* Core c54cf190
+  - Tracking uuid of staged metadata files
+  - Handling bundle manifest null fields
+  - Logging unhandled exporting exceptions
+  - Updated primary submission documentation
+
+* Exporter 311950c
+  - Fix simple updates issue when staging shared metadata files among bundles
+
 ## 20 August 2019
 
 * Core v0.9.4
