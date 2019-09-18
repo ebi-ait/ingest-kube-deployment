@@ -4,3 +4,7 @@
 environment: provide_through_set_flag
 image: provide_through_set_flag
 replicas: provide_through_set_flag
+
+staging:
+  waitTime: 500
+  waitAttempts: 10

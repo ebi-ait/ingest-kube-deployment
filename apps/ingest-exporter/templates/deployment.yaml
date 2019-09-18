@@ -34,6 +34,10 @@ spec:
           value: https://{{ .Values.dss }}
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: "/etc/secrets/dss-auth-jwt.json"
+        - name: STAGING_WAIT_TIME_MILLIS
+          value: {{ .Values.staging.waitTime | quote }}
+        - name: STAGING_WAIT_ATTEMPTS
+          value: {{ .Values.staging.waitAttempts | quote }}
         - name: INGEST_API_KEY
           valueFrom:
             secretKeyRef:
