@@ -5,12 +5,19 @@ shopt -s expand_aliases
 
 source aws_setup
 
+s3_path=$S3_BUCKET/$BACKUP_DIR
 formatted_date=$(date '+%Y-%m-%d')
-backup_file=$(s3backup ls s3://ingest-backup/dev/ --recursive |\
-		 grep ${formatted_date}.* | awk 'NR==1{print $4}')
+backup_file=$(s3backup ls s3://$s3_path/ |\
+		  grep ${formatted_date}.* |\
+		  awk 'NR==1{print $4}')
 
-if [ ! -z $backup_file ]; then
-    echo $backup_file
+if [ ! -z $backup_file ]; then   
+    mkdir /data
+    cd /data
+    s3backup cp s3://$s3_path/$backup_file $backup_file    
+    tar -xzvf $backup_file
+    backup_directory=${backup_file%.tar.gz}    
+    mongorestore --host=$MONGO_HOST data/db/dump/$backup_directory
 else
     echo "Backup file for ${formatted_date} was not found."
     exit 1
