@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# enable aliases for non-interactive shell
+shopt -s expand_aliases
+
 source aws_setup
 
 DB_DUMP=/data/db/dump/$(date '+%Y-%m-%dT%H_%M')
@@ -7,8 +10,6 @@ DB_DUMP=/data/db/dump/$(date '+%Y-%m-%dT%H_%M')
 mongodump \
 --host mongo-service \
 --out $DB_DUMP
-
-alias s3backup='aws s3 --profile=backup'
 
 BACKUP_FILE=$DB_DUMP.tar.gz
 tar -zcvf $BACKUP_FILE $DB_DUMP
