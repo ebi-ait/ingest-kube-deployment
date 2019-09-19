@@ -16,8 +16,12 @@ if [ ! -z $backup_file ]; then
     cd /data
     s3backup cp s3://$s3_path/$backup_file $backup_file    
     tar -xzvf $backup_file
-    backup_directory=${backup_file%.tar.gz}    
+    backup_directory=${backup_file%.tar.gz}
+
+    echo "Restoring backup file [${backup_file}]..."
     mongorestore --host=$MONGO_HOST data/db/dump/$backup_directory
+    echo "Restored backup file [${backup_file}]."
+
     /opt/verify.py
 else
     echo "Backup file for ${formatted_date} was not found."
