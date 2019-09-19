@@ -18,6 +18,7 @@ if [ ! -z $backup_file ]; then
     tar -xzvf $backup_file
     backup_directory=${backup_file%.tar.gz}    
     mongorestore --host=$MONGO_HOST data/db/dump/$backup_directory
+    /opt/verify.py
 else
     echo "Backup file for ${formatted_date} was not found."
     exit 1
