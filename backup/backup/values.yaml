@@ -19,3 +19,5 @@ verification:
     tag: latest
     pullPolicy: always
   cronSchedule: 30 0 * * *
+  slack:
+    webhookUrl: default
