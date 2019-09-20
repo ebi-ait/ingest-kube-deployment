@@ -1,0 +1,18 @@
+aws:
+  roleArn: default
+secret:
+  aws:
+    accessKey: default
+    secretAccessKey: default
+backup:
+  image:
+    repository: quay.io/humancellatlas/ingest-backup
+    tag: latest
+    pullPolicy: always
+  cronSchedule: default
+verification:
+  image:
+    repository: quay.io/humancellatlas/ingest-backup-verify
+    tag: latest
+    pullPolicy: always
+  cronSchedule: default

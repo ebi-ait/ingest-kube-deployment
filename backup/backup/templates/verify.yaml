@@ -1,17 +1,17 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: ingest-backup
+  name: ingest-backup-verify
 spec:
-  schedule: {{ .Values.backup.cronSchedule }}
+  schedule: {{ .Values.verification.cronSchedule }}
   jobTemplate:
     spec:
       template:
         spec:
           containers:
-          - name: backup
-            image: {{ .Values.backup.image.repository }}:{{ .Values.backup.image.tag }}
-            imagePullPolicy: {{ .Values.backup.image.pullPolicy }}
+          - name: verification
+            image: {{ .Values.verification.image.repository }}:{{ .Values.verification.image.tag }}
+            imagePullPolicy: {{ .Values.verification.image.pullPolicy }}
             env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
