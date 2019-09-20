@@ -26,7 +26,7 @@ spec:
             - name: AWS_ROLE_ARN
               value: {{ .Values.aws.roleArn }}
             - name: S3_BUCKET
-              value: {{ .Values.s3.bucket }}
+              value: {{ .Values.aws.s3.bucket }}
             - name: BACKUP_DIR
-              value: {{ .Values.s3.directory }}
+              value: {{ .Values.aws.s3.directory }}
           restartPolicy: OnFailure

@@ -1,5 +1,8 @@
 aws:
   roleArn: default
+  s3:
+    bucket: default
+    directory: default
 secret:
   aws:
     accessKey: default
@@ -7,12 +10,12 @@ secret:
 backup:
   image:
     repository: quay.io/humancellatlas/ingest-backup
-    tag: latest
-    pullPolicy: always
-  cronSchedule: default
+    tag: dd36150
+    pullPolicy: Always
+  cronSchedule: 0 0 * * *
 verification:
   image:
     repository: quay.io/humancellatlas/ingest-backup-verify
     tag: latest
     pullPolicy: always
-  cronSchedule: default
+  cronSchedule: 30 0 * * *
