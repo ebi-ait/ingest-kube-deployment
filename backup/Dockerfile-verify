@@ -11,5 +11,6 @@ RUN chmod +x ./restore;\
     pip install -r requirements.txt
 
 ENV MONGO_HOST=mongo
+ENV SLACK_WEBHOOK=default
 
 CMD ./restore
