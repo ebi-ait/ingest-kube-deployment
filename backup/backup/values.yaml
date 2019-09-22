@@ -10,14 +10,19 @@ secret:
 backup:
   image:
     repository: quay.io/humancellatlas/ingest-backup
-    tag: 56c442d
+    tag: e0acb34
     pullPolicy: Always
   cronSchedule: 0 0 * * *
 verification:
   image:
     repository: quay.io/humancellatlas/ingest-backup-verify
-    tag: 56c442d
+    tag: e0acb34
     pullPolicy: Always
+  mongo:
+    image:
+      repository: mongo
+      tag: 3.4.3
+      pullPolicy: Always
   cronSchedule: 30 0 * * *
   slack:
     webhookUrl: default
