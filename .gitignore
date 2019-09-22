@@ -70,3 +70,5 @@ _local
 *~
 *.swp
 *.swo
+
+.idea

@@ -1,0 +1,21 @@
+# This is mostly to help dev team run the restore script locally for testing.
+# This also helps to document the necessary configuration to run verification.
+version: '3'
+services:
+  restore:
+    build:
+      dockerfile: Dockerfile-restore
+      context: .
+    image: quay.io/humancellatlas/ingest-backup-base
+    environment:
+    - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID 
+    - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY 
+    - AWS_ROLE_ARN=$AWS_ROLE_ARN 
+    - S3_BUCKET=ingest-backup 
+    - BACKUP_DIR=dev
+    - MONGO_HOST=mongo
+  mongo:
+    image: mongo:3.4.3
+    ports:
+    - "27017:27017"
+  

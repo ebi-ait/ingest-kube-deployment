@@ -1,13 +1,9 @@
-FROM debian:buster-slim
-
-RUN apt-get update && \
-    apt-get install -y python3 python-pip && \
-    apt-get install -y mongo-tools && \
-    pip install awscli
+FROM quay.io/humancellatlas/ingest-backup-base
 
 RUN mkdir -p /data/db/dump
 
 COPY src/backup.sh /opt/backup
+COPY src/aws_setup /opt/aws_setup
 
 RUN chmod +x /opt/backup
 

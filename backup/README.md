@@ -1,9 +1,9 @@
 # Ingest Backup
 
 ## Introduction
-The backup strategies devised in here is to ensure availability, and prevent significant loss of data after they have been ingested through HCA infrastructure. The utility is meant to complement a more robust way to persist data on Ingest's deployment environment.
+The backup strategies devised in here are to ensure availability, and prevent significant loss of data after they have been ingested through DCP infrastructure. The utility is meant to complement a more robust way to persist data on Ingest's deployment environment.
 
-While the strategies were created with HCA infrastructure specifically in mind, the tools may be reused to accommodate any system that uses Mongo DB deployed as part of of a cluster of Docker containers.
+While the strategies were created with HCA DCP specifically in mind, the tools may be reused to accommodate any system that uses Mongo DB deployed as part of of a cluster of Docker containers (with some modifications).
 
 ## Assumptions
 Ingest infrastructure is deployed as a system of multiple self contained microservices through Docker with the use of Kubernetes. The backup system is deployed as a Docker container that has direct access to a predefined Kubernetes service, named `mongo-service` from which it gets the data it backs up to an S3 bucket defined through the `S3_BUCKET` environment variable.
@@ -12,12 +12,14 @@ Ingest infrastructure is deployed as a system of multiple self contained microse
 
 ### Quickstart
 
-Ingest Backup is deployed through Helm on Kubernetes through the `setup.sh` script provided in this module. The setup script [requires AWS access keys and role ARN](#credentials) can be downloaded through the AWS console in CSV format. Before running the script, the environment variable `DEPLOYMENT_STAGE` must be set as the setup operation uses it to determine which configuration to use. This variable is, at the time of writing, set when switching environments through Ingest deployment procedures.
+Ingest Backup is deployed through Helm on Kubernetes through the `setup.sh` script provided in this module. The setup script [requires AWS access keys and role ARN](#credentials) can be downloaded through the AWS console in CSV format. With the addition of the [automated verification procedure](#verification), the setup script also requires the Slack Webhook URL where alerts can be sent. This can be retrieved through Slack apps management on their Web site.
 
-To deploy Ingest Backup, the script is run with the CSV file:
+Before running the script, the environment variable `DEPLOYMENT_STAGE` must be set as the setup operation uses it to determine which configuration to use. This variable is, at the time of writing, set when switching environments through Ingest deployment procedures.
+
+To deploy Ingest Backup, the script is run with the CSV file, the AWS role ARN, and the Slack Webhook URL:
 
 ```
-./setup.sh /path/to/aws_access_credentials.csv role_ARN
+./setup.sh /path/to/aws_access_credentials.csv role_ARN slack_webhook_url
 ```
 
 
@@ -66,7 +68,7 @@ To restore the backup data, the `mongorestore` utility is used:
 
 The [official documentation for `mongorestore`](https://docs.mongodb.com/manual/reference/program/mongorestore/) tool lists more options for customising the restoration process.
 
-#### Verifying Restoration
+### Verifying Restoration
 
 (Note: a step by step guide of the verification process for Ingest has been documented [here](https://docs.google.com/document/d/1y2pgzoK2Xt7ZCGVt_big7Lfto5nSKvNNSc70yU38t0Y/edit?usp=sharing).)
 
@@ -91,3 +93,7 @@ To check if the backups contain correct information, the following general strat
 5) To verify that the restored data is consistent with the source, connect to the new Mongo DB instance (perhaps using `mongo` client) and verify that the data match with the source. As a simple test, `show collections` should display the same collections in both the source DB and the new one. Each collection in the source should contain the same number of documents as its counterpart on the new DB. This can be checked using the `count` method of each collection:
 
         db.<collection_name>.count()
+
+#### <a name="verification"></a>Verification Procedure
+
+Backups are automatically verified through the verification script that runs as part of the Helm installation. By default this script runs 30 minutes after the backup script is initiated. Depending on how large the batch of data being backed up is, this may need to be adjusted.

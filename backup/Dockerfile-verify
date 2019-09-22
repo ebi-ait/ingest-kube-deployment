@@ -1,0 +1,16 @@
+FROM quay.io/humancellatlas/ingest-backup-base
+
+WORKDIR /opt
+COPY src/aws_setup aws_setup
+COPY src/restore.sh restore
+COPY src/verify_backup .
+
+
+RUN chmod +x ./restore;\
+    chmod +x ./verify.py;\
+    pip install -r requirements.txt
+
+ENV MONGO_HOST=mongo
+ENV SLACK_WEBHOOK=default
+
+CMD ./restore
