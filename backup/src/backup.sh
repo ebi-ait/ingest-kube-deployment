@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # enable aliases for non-interactive shell
 shopt -s expand_aliases
