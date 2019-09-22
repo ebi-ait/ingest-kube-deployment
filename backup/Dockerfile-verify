@@ -10,7 +10,7 @@ RUN chmod +x ./restore;\
     chmod +x ./verify.py;\
     pip install -r requirements.txt
 
-ENV MONGO_HOST=mongo
+ENV MONGO_HOST=localhost
 ENV SLACK_WEBHOOK=default
 
 CMD ./restore

@@ -17,7 +17,7 @@ verification:
   image:
     repository: quay.io/humancellatlas/ingest-backup-verify
     tag: 56c442d
-    pullPolicy: always
+    pullPolicy: Always
   cronSchedule: 30 0 * * *
   slack:
     webhookUrl: default

@@ -32,3 +32,7 @@ spec:
             - name: SLACK_WEBHOOK
               value: {{ .Values.verification.slack.webhookUrl }}
           restartPolicy: OnFailure
+          - name: replica-db
+            image: {{ .Values.verification.mongo.image.repository }}:{{ .Values.verification.mongo.image.tag }}
+            ports:
+            - containerPort: 27017
