@@ -1,4 +1,4 @@
-FROM quay.io/humancellatlas/ingest-backup-base
+FROM quay.io/humancellatlas/ingest-backup-base:38ac1ec
 
 WORKDIR /opt
 COPY src/aws_setup aws_setup
