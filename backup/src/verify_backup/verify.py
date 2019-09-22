@@ -23,7 +23,7 @@ try:
     submission_count = client.admin.submissionEnvelope.count_documents({})
 
     if submission_count < 100:
-        logger.error('Retrieved less than 100 submissions.')
+        logger.error(f'Expected at least 100 submissions from the backup but got {submission_count}.')
         exit(1)
 
     logger.info('Backup verification complete.')
