@@ -4,7 +4,7 @@ import logging
 
 from os import environ
 from pymongo import MongoClient
-from .reporting import SlackHandler
+from reporting import SlackHandler
 
 mongo_host = environ.get('MONGO_HOST', 'mongo')
 mongo_port_env = environ.get('MONGO_PORT', '27017')
