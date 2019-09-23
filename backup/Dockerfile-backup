@@ -2,12 +2,13 @@ FROM quay.io/humancellatlas/ingest-backup-base:38ac1ec
 
 RUN mkdir -p /data/db/dump
 
-COPY src/backup.sh /opt/backup
-COPY src/aws_setup /opt/aws_setup
+WORKDIR /opt
+COPY src/backup.sh backup
+COPY src/aws_setup .
 
-RUN chmod +x /opt/backup
+RUN chmod +x backup
 
 ENV S3_BUCKET=ingest-backup
 ENV BACKUP_DIR=deploymentenv
 
-ENTRYPOINT /opt/backup
+CMD /opt/backup
