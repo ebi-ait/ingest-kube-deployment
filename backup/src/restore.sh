@@ -21,7 +21,7 @@ if [ ! -z $backup_file ]; then
     backup_directory=${backup_file%.tar.gz}
 
     echo "Restoring backup file [${backup_file}]..."
-    mongorestore --host=$MONGO_HOST data/db/dump/$backup_directory
+    mongorestore --host=$MONGO_HOST -u $MONGO_USER -p $MONGO_PASSWORD data/db/dump/$backup_directory
     echo "Restored backup file [${backup_file}]."
 
     /opt/verify.py

@@ -43,6 +43,6 @@ spec:
             env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: {{ .Values.verification.mongo.auth.user }}
-            - name: MONGO_INITDB_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
               value: {{ .Values.verification.mongo.auth.password }}
           restartPolicy: OnFailure
