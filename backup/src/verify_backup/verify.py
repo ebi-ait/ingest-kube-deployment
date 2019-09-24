@@ -19,7 +19,9 @@ slack_handler.setLevel(logging.ERROR)
 logger.addHandler(slack_handler)
 
 try:
-    client = MongoClient(mongo_host, mongo_port)
+    mongo_user = environ.get('MONGO_USER')
+    mongo_password = environ.get('MONGO_PASSWORD')
+    client = MongoClient(mongo_host, mongo_port, username = mongo_user, password = mongo_password)
     submission_count = client.admin.submissionEnvelope.count_documents({})
 
     if submission_count < 100:
@@ -28,5 +30,7 @@ try:
 
     logger.info('Backup verification complete.')
 except Exception as exception:
-    logger.error(str(exception))
+    cause = str(exception)
+    error_message = f'Backup verification failed: {cause}.'
+    logger.error(error_message)
     exit(1)
