@@ -10,13 +10,13 @@ secret:
 backup:
   image:
     repository: quay.io/humancellatlas/ingest-backup
-    tag: 3c1e81e
+    tag: c90c049
     pullPolicy: Always
   cronSchedule: 0 0 * * *
 verification:
   image:
     repository: quay.io/humancellatlas/ingest-backup-verify
-    tag: 3c1e81e
+    tag: c90c049
     pullPolicy: Always
   mongo:
     image:
