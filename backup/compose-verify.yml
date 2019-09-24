@@ -4,9 +4,9 @@ version: '3'
 services:
   restore:
     build:
-      dockerfile: Dockerfile-restore
+      dockerfile: Dockerfile-verify
       context: .
-    image: quay.io/humancellatlas/ingest-backup-base
+    image: quay.io/humancellatlas/ingest-backup-verify
     environment:
     - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID 
     - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY 
@@ -14,8 +14,12 @@ services:
     - S3_BUCKET=ingest-backup 
     - BACKUP_DIR=dev
     - MONGO_HOST=mongo
+    - MONGO_USER=test
+    - MONGO_PASSWORD=verify
   mongo:
     image: mongo:3.4.3
     ports:
     - "27017:27017"
-  
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=test
+    - MONGO_INITDB_ROOT_PASSWORD=verify  
