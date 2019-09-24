@@ -1,4 +1,4 @@
-FROM quay.io/humancellatlas/ingest-backup-base:38ac1ec
+FROM quay.io/humancellatlas/ingest-backup-base:8ac6511
 
 RUN mkdir -p /data/db/dump
 
