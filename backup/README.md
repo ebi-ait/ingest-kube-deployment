@@ -1,14 +1,22 @@
 # Ingest Backup
 
-## Introduction
+## Contents
+
+* [Introduction](#introduction)
+* [Assumptions](#assumptions)
+* [Usage](#usage)
+* [Development](#development)
+
+## <a name="introduction"></a>Introduction
 The backup strategies devised in here are to ensure availability, and prevent significant loss of data after they have been ingested through DCP infrastructure. The utility is meant to complement a more robust way to persist data on Ingest's deployment environment.
 
 While the strategies were created with HCA DCP specifically in mind, the tools may be reused to accommodate any system that uses Mongo DB deployed as part of of a cluster of Docker containers (with some modifications).
 
-## Assumptions
+## <a name="assumptions"></a>Assumptions
 Ingest infrastructure is deployed as a system of multiple self contained microservices through Docker with the use of Kubernetes. The backup system is deployed as a Docker container that has direct access to a predefined Kubernetes service, named `mongo-service` from which it gets the data it backs up to an S3 bucket defined through the `S3_BUCKET` environment variable.
 
-## Usage
+
+## <a name="usage"></a>Usage
 
 ### Quickstart
 
@@ -97,3 +105,14 @@ To check if the backups contain correct information, the following general strat
 #### <a name="verification"></a>Verification Procedure
 
 Backups are automatically verified through the verification script that runs as part of the Helm installation. By default this script runs 30 minutes after the backup script is initiated. Depending on how large the batch of data being backed up is, this may need to be adjusted.
+
+## <a name="development"></a>Development
+
+### Testing Backup Scripts
+
+In order to facilitate testing for the scripts included in this module, utility scripts and deployment manifests have been set up. For example, to locally run the verification operation, `docker-compose` can be used with the `compose-verify.yml` manifest. Some environment variables can only be specified on run time as they cannot be checked into the version control system. For this, scripts like `export_aws_credentials.sh` can be utilised. Below is an example local test run of the verification operation:
+
+    source ./export_aws_credentials.sh ~/path/to/aws_keys.csv; &&\
+    AWS_ROLE_ARN=arn:aws:iam::1234:role/developer\
+      docker-compose -f compose-verify.yml up --build &&\
+    docker-compose -f compose-verify.yml rm -fsv

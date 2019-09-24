@@ -1,4 +1,4 @@
-FROM quay.io/humancellatlas/ingest-backup-base:38ac1ec
+FROM quay.io/humancellatlas/ingest-backup-base
 
 WORKDIR /opt
 COPY src/aws_setup aws_setup
@@ -11,6 +11,8 @@ RUN chmod +x ./restore;\
     pip3 install -r requirements.txt
 
 ENV MONGO_HOST=localhost
+ENV MONGO_USER=user
+ENV MONGO_PASSWORD=password
 ENV SLACK_WEBHOOK=default
 
 CMD ./restore

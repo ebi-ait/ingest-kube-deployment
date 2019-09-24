@@ -11,6 +11,8 @@ backup_file=$(s3backup ls s3://$s3_path/ |\
 		  grep ${formatted_date}.* |\
 		  awk 'NR==1{print $4}')
 
+exit_status=0
+
 if [ ! -z $backup_file ]; then   
     mkdir /data
     cd /data
@@ -25,6 +27,8 @@ if [ ! -z $backup_file ]; then
     /opt/verify.py
 else
     echo "Backup file for ${formatted_date} was not found."
-    exit 1
+    exit_status=1
 fi
 
+mongo --host=$MONGO_HOST admin -u $MONGO_USER -p $MONGO_PASSWORD --eval 'db.shutdownServer()'
+exit $exit_status
