@@ -23,6 +23,9 @@ verification:
       repository: mongo
       tag: 3.4.3
       pullPolicy: Always
+    auth:
+      user: test
+      password: verify
   cronSchedule: 30 0 * * *
   slack:
     webhookUrl: default
