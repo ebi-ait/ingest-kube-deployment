@@ -26,7 +26,7 @@ if [ ! -z $backup_file ]; then
 
     /opt/verify.py
 else
-    echo "Backup file for ${formatted_date} was not found."
+    /opt/log.py -l error "Backup file for ${formatted_date} was not found."
     exit_status=1
 fi
 

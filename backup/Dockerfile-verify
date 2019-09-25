@@ -8,6 +8,7 @@ COPY src/verify_backup .
 
 RUN chmod +x ./restore;\
     chmod +x ./verify.py;\
+    chmod +x ./log.py;\
     pip3 install -r requirements.txt
 
 ENV MONGO_HOST=localhost

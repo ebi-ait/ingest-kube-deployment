@@ -16,6 +16,7 @@ services:
     - MONGO_HOST=mongo
     - MONGO_USER=test
     - MONGO_PASSWORD=verify
+    - SLACK_WEBHOOK=$SLACK_WEBHOOK
   mongo:
     image: mongo:3.4.3
     ports:
