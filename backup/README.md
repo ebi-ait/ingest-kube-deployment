@@ -108,7 +108,51 @@ Backups are automatically verified through the verification script that runs as 
 
 ## <a name="development"></a>Development
 
+### Directory structure
 
+```
+backup
+├── Dockerfile-backup
+├── Dockerfile-base
+├── Dockerfile-verify
+├── backup
+│   ├── ...
+│   ├── templates
+│   └── values.yaml
+├── compose-backup.yml
+├── compose-verify.yml
+├── config
+│   ├── dev.yaml
+│   ├── integration.yaml
+│   ├── prod.yaml
+│   └── staging.yaml
+├── export_aws_credentials.sh
+├── reschedule.sh
+├── setup.sh
+└── src
+    ├── aws_setup
+    ├── backup.sh
+    ├── restore.sh
+    └── verify_backup
+```
+
+#### Docker Files
+
+The backup operation comprises of 2 main components, `backup`, which, as name suggests, does the actual backing up of data, and `backup-verify`, which does the checking of the backups. Each of these is built as Docker image based on another custom component, the `backup-base`.
+
+#### Helm Chart
+
+Backup operations (both backup and verify) are packaged as a "cloud application" through Helm. The application package includes backup, verify, and secrets, which contains credentials for accessing AWS. The Helm chart and all related manifests are contained in the `backup` directory.
+
+##### Configuration
+
+Deploying the backup system through Helm requires some configuration. The Helm chart contains default values in the `values.yml` that attempts to exhaustively list all the configurable parameters. The default values are provided based on reasonable assumptions across all deployment environments. However, as there are limitations on what can be tracked through the version control system, some values are expected to be provided on deployment time, most of which are security related. Most of the parameters that are expected to be filled on deployment time are given `default` values.
+
+Deployment environment specific configuration can be provided through respective configuration file in the `config` directory found in the backup root directory. The names of the configuration files match exactly all the possible values of `DEPLOYMENT_STAGE` variable used in more general Ingest deployment through the root `ingest-kube-deployment` directory. `DEPLOYMENT_STAGE` is used by the setup script `setup.sh` to determine which custom configuration to use.
+
+#### Backup Scripts
+
+The core scripts for running all logic involved in backing up Ingest data are located in the `src` directory. At the top level are the entry points for backup, and restoration components, `backup.sh` and `restore.sh` respectively. The restoration operation involves verification of data restored in an internal replica database. Verification is handled through scripts in `verify_backup` directory.
 
 ### Testing Backup Scripts
 
