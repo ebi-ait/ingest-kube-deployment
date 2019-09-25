@@ -4,7 +4,7 @@ import requests
 from os import environ
 from logging import Formatter, Handler, LogRecord
 
-SLACK_WEBHOOK = environ.get('SLACK_WEBHOOK')
+SLACK_WEBHOOK = environ.get('SLACK_WEBHOOK', 'unspecified')
 
 fallback_logger = logging.getLogger(__name__)
 
