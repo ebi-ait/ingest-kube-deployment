@@ -108,11 +108,14 @@ Backups are automatically verified through the verification script that runs as 
 
 ## <a name="development"></a>Development
 
+
+
 ### Testing Backup Scripts
 
 In order to facilitate testing for the scripts included in this module, utility scripts and deployment manifests have been set up. For example, to locally run the verification operation, `docker-compose` can be used with the `compose-verify.yml` manifest. Some environment variables can only be specified on run time as they cannot be checked into the version control system. For this, scripts like `export_aws_credentials.sh` can be utilised. Below is an example local test run of the verification operation:
 
     source ./export_aws_credentials.sh ~/path/to/aws_keys.csv; &&\
-    AWS_ROLE_ARN=arn:aws:iam::1234:role/developer\
-      docker-compose -f compose-verify.yml up --build &&\
+    AWS_ROLE_ARN=arn:aws:iam::1234:role/developer \
+    SLACK_WEBHOOK=http://slack/webhook/url \
+    docker-compose -f compose-verify.yml up --build &&\
     docker-compose -f compose-verify.yml rm -fsv
