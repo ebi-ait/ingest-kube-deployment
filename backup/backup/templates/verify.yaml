@@ -4,10 +4,12 @@ metadata:
   name: ingest-backup-verify
 spec:
   schedule: {{ .Values.verification.cronSchedule }}
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
         spec:
+          restartPolicy: Never
           containers:
           - name: verification
             image: {{ .Values.verification.image.repository }}:{{ .Values.verification.image.tag }}
@@ -45,4 +47,3 @@ spec:
               value: {{ .Values.verification.mongo.auth.user }}
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: {{ .Values.verification.mongo.auth.password }}
-          restartPolicy: OnFailure
