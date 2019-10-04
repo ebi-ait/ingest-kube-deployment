@@ -16,9 +16,9 @@ spec:
             imagePullPolicy: {{ .Values.verification.image.pullPolicy }}
             resources:
               requests:
-                ephemeral-storage: "3Gi"
+                ephemeral-storage: "10Gi"
               limits:
-                ephemeral-storage: "5Gi"
+                ephemeral-storage: "15Gi"
             env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
