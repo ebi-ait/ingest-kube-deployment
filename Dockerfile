@@ -44,5 +44,8 @@ COPY config .aws
 COPY credentials .aws
 
 RUN git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
-RUN ["/bin/bash", "-c", "cd ingest-kube-deployment && source config/environment_dev && env && cd infra && make retrieve-kubeconfig-dev"]
+RUN ["/bin/bash", "-c", "cd ingest-kube-deployment && source config/environment_dev && cd infra && make retrieve-kubeconfig-dev"]
+RUN ["/bin/bash", "-c", "cd ingest-kube-deployment && source config/environment_integration && cd infra && make retrieve-kubeconfig-integration"]
+#RUN ["/bin/bash", "-c", "cd ingest-kube-deployment && source config/environment_staging && cd infra && make retrieve-kubeconfig-staging"]
+RUN ["/bin/bash", "-c", "cd ingest-kube-deployment && source config/environment_prod && cd infra && make retrieve-kubeconfig-prod"]
 RUN kubectl config get-contexts
