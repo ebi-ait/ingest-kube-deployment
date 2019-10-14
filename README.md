@@ -84,6 +84,7 @@ These steps will bring down the entire infrastructure and all the resources for 
 2. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
 3. `cd infra`
 4. `make destroy-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to destroy
+*Note*: The system could encounter an error (most likely a timeout) during the destroy operation. Failing to remove some resources such as the VPC, network interfaces, etc. can be tolerated if the ultimate goal is to rebuild the cluster. In the case VPC, for example, the EKS cluster will just reuse it once recreated.
 
 ## Install and Upgrade Core Ingest Backend Services (mongo, redis, rabbit)
 
