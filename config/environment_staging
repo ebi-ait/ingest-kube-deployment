@@ -4,16 +4,16 @@ set -a
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_NODE_ACCESSIONER_REF=v0.5.0.rc
-INGEST_BROKER_REF=bbd176a
+INGEST_BROKER_REF=810771c
 INGEST_CORE_REF=dfdcbe0
-INGEST_EXPORTER_REF=fe54d22
-INGEST_STAGING_MANAGER_REF=7791e6c
+INGEST_EXPORTER_REF=d75dee7
+INGEST_STAGING_MANAGER_REF=47cbd64
 INGEST_STATE_TRACKING_REF=38a399c
-INGEST_VALIDATOR_REF=e52fafb
-INGEST_UI_REF=f42dac1
+INGEST_VALIDATOR_REF=9ddaeaf
+INGEST_UI_REF=2e1cd40
 ONTOLOGY_REF=master
 
-FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc 
+FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc
 
 # REPLICAS
 INGEST_BROKER_REPLICAS=1
@@ -28,7 +28,7 @@ INGEST_UI_REPLICAS=1
 AWS_PROFILE=hca
 TF_VAR_ops_role=dcp-developer
 # Make sure the vpc ip below is unique
-TF_VAR_vpc_cidr_block=10.60.0.0/16
+TF_VAR_vpc_cidr_block=10.61.0.0/16
 
 #Set values for node size and count
 TF_VAR_node_size="m5.xlarge"

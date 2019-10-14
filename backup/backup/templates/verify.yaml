@@ -14,6 +14,11 @@ spec:
           - name: verification
             image: {{ .Values.verification.image.repository }}:{{ .Values.verification.image.tag }}
             imagePullPolicy: {{ .Values.verification.image.pullPolicy }}
+            resources:
+              requests:
+                ephemeral-storage: "10Gi"
+              limits:
+                ephemeral-storage: "15Gi"
             env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
@@ -36,10 +41,16 @@ spec:
             - name: MONGO_USER
               value: {{ .Values.verification.mongo.auth.user }}
             - name: MONGO_PASSWORD
-              value: {{ .Values.verification.mongo.auth.password }}
+              value: {{ .Values.verification.mongo.auth.password }}              
           - name: replica-db
             image: {{ .Values.verification.mongo.image.repository }}:{{ .Values.verification.mongo.image.tag }}
+            args: ["--wiredTigerCacheSizeGB", "1"]
             imagePullPolicy: {{ .Values.verification.mongo.image.pullPolicy }}
+            resources:
+              requests:
+                ephemeral-storage: "10Gi"
+              limits:
+                ephemeral-storage: "15Gi"
             ports:
             - containerPort: 27017
             env:
@@ -47,3 +58,4 @@ spec:
               value: {{ .Values.verification.mongo.auth.user }}
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: {{ .Values.verification.mongo.auth.password }}
+              

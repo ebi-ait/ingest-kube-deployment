@@ -1,31 +1,39 @@
-variable "aws_profile" {}
+variable "aws_profile" {
+}
 
-variable "deployment_stage" {}
+variable "deployment_stage" {
+}
 
-variable "aws_region" {}
+variable "aws_region" {
+}
 
-variable "account_id" {}
+variable "account_id" {
+}
 
-variable "ops_role" {}
+variable "ops_role" {
+}
 
-variable "vpc_cidr_block" {}
+variable "vpc_cidr_block" {
+}
 
-variable "node_size" {}
+variable "node_size" {
+}
 
-variable "node_count" {}
+variable "node_count" {
+}
 
 variable "availability_zones" {
   default = [
     "us-east-1a",
     "us-east-1c",
-    "us-east-1d"
+    "us-east-1d",
   ]
-  type = "list"
+  type = list(string)
 }
 
 provider "aws" {
-  region = "${var.aws_region}"
-  profile = "${var.aws_profile}"
+  region  = var.aws_region
+  profile = var.aws_profile
 }
 
 ////
@@ -33,7 +41,8 @@ provider "aws" {
 //
 
 terraform {
-  backend "s3" {}
+  backend "s3" {
+  }
 }
 
 ////
@@ -41,59 +50,55 @@ terraform {
 //
 
 resource "aws_vpc" "ingest_eks" {
-  cidr_block = "${var.vpc_cidr_block}"
+  cidr_block = var.vpc_cidr_block
 
-  tags = "${
-    map(
-     "Name", "ingest-eks-${var.deployment_stage}",
-     "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}", "shared",
-    )
-  }"
+  tags = {
+    "Name"                                                     = "ingest-eks-${var.deployment_stage}"
+    "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}" = "shared"
+  }
 }
 
 resource "aws_subnet" "ingest_eks" {
   count = 2
 
-  availability_zone = "${var.availability_zones[count.index]}"
-  cidr_block        = "${cidrhost(var.vpc_cidr_block, 256 * (count.index + 1))}/24"
-  vpc_id            = "${aws_vpc.ingest_eks.id}"
+  availability_zone = var.availability_zones[count.index]
+  cidr_block        = "${cidrhost(var.vpc_cidr_block, 256 * count.index + 1)}/24"
+  vpc_id            = aws_vpc.ingest_eks.id
 
-  tags = "${
-    map(
-     "Name", "ingest-eks-${var.deployment_stage}",
-     "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}", "shared",
-    )
-  }"
+  tags = {
+    "Name"                                                     = "ingest-eks-${var.deployment_stage}"
+    "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}" = "shared"
+  }
 }
 
 resource "aws_internet_gateway" "ingest_eks" {
-  vpc_id = "${aws_vpc.ingest_eks.id}"
+  vpc_id = aws_vpc.ingest_eks.id
 
-  tags {
+  tags = {
     Name = "ingest-eks-${var.deployment_stage}"
   }
 }
 
 resource "aws_route_table" "ingest_eks" {
-  vpc_id = "${aws_vpc.ingest_eks.id}"
+  vpc_id = aws_vpc.ingest_eks.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.ingest_eks.id}"
+    gateway_id = aws_internet_gateway.ingest_eks.id
   }
 }
 
 resource "aws_route_table_association" "ingest_eks" {
   count = 2
 
-  subnet_id      = "${aws_subnet.ingest_eks.*.id[count.index]}"
-  route_table_id = "${aws_route_table.ingest_eks.id}"
+  subnet_id      = aws_subnet.ingest_eks[count.index].id
+  route_table_id = aws_route_table.ingest_eks.id
 }
 
 resource "aws_security_group" "ingest_eks_cluster" {
   name        = "ingest-eks-cluster-${var.deployment_stage}"
   description = "Cluster communication with worker nodes"
-  vpc_id      = "${aws_vpc.ingest_eks.id}"
+  vpc_id      = aws_vpc.ingest_eks.id
 
   egress {
     from_port   = 0
@@ -102,7 +107,7 @@ resource "aws_security_group" "ingest_eks_cluster" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "ingest-eks-${var.deployment_stage}"
   }
 }
@@ -112,7 +117,7 @@ resource "aws_security_group_rule" "ingest_eks_cluster_ingress_workstation_https
   description       = "Allow workstation to communicate with the cluster API Server"
   from_port         = 443
   protocol          = "tcp"
-  security_group_id = "${aws_security_group.ingest_eks_cluster.id}"
+  security_group_id = aws_security_group.ingest_eks_cluster.id
   to_port           = 443
   type              = "ingress"
 }
@@ -138,16 +143,17 @@ resource "aws_iam_role" "ingest_eks_cluster" {
   ]
 }
 POLICY
+
 }
 
 resource "aws_iam_role_policy_attachment" "ingest_eks_cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = "${aws_iam_role.ingest_eks_cluster.name}"
+  role       = aws_iam_role.ingest_eks_cluster.name
 }
 
 resource "aws_iam_role_policy_attachment" "ingest_eks_service_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = "${aws_iam_role.ingest_eks_cluster.name}"
+  role       = aws_iam_role.ingest_eks_cluster.name
 }
 
 ////
@@ -155,17 +161,17 @@ resource "aws_iam_role_policy_attachment" "ingest_eks_service_policy" {
 //
 
 resource "aws_eks_cluster" "ingest_eks" {
-  name            = "ingest-eks-${var.deployment_stage}"
-  role_arn        = "${aws_iam_role.ingest_eks_cluster.arn}"
+  name     = "ingest-eks-${var.deployment_stage}"
+  role_arn = aws_iam_role.ingest_eks_cluster.arn
 
   vpc_config {
-    security_group_ids = ["${aws_security_group.ingest_eks_cluster.id}"]
-    subnet_ids         = ["${aws_subnet.ingest_eks.*.id}"]
+    security_group_ids = [aws_security_group.ingest_eks_cluster.id]
+    subnet_ids         = aws_subnet.ingest_eks.*.id
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.ingest_eks_cluster_policy",
-    "aws_iam_role_policy_attachment.ingest_eks_service_policy",
+    aws_iam_role_policy_attachment.ingest_eks_cluster_policy,
+    aws_iam_role_policy_attachment.ingest_eks_service_policy,
   ]
 }
 
@@ -190,26 +196,27 @@ resource "aws_iam_role" "ingest_eks_node" {
   ]
 }
 POLICY
+
 }
 
 resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = "${aws_iam_role.ingest_eks_node.name}"
+  role       = aws_iam_role.ingest_eks_node.name
 }
 
 resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = "${aws_iam_role.ingest_eks_node.name}"
+  role       = aws_iam_role.ingest_eks_node.name
 }
 
 resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = "${aws_iam_role.ingest_eks_node.name}"
+  role       = aws_iam_role.ingest_eks_node.name
 }
 
 resource "aws_iam_instance_profile" "ingest_eks_node" {
   name = "terraform-eks-node-${var.deployment_stage}"
-  role = "${aws_iam_role.ingest_eks_node.name}"
+  role = aws_iam_role.ingest_eks_node.name
 }
 
 ////
@@ -219,7 +226,7 @@ resource "aws_iam_instance_profile" "ingest_eks_node" {
 resource "aws_security_group" "ingest_eks_node" {
   name        = "ingest-eks-node-${var.deployment_stage}"
   description = "Security group for all nodes in the cluster"
-  vpc_id      = "${aws_vpc.ingest_eks.id}"
+  vpc_id      = aws_vpc.ingest_eks.id
 
   egress {
     from_port   = 0
@@ -228,20 +235,18 @@ resource "aws_security_group" "ingest_eks_node" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = "${
-    map(
-     "Name", "ingest-eks-node-${var.deployment_stage}",
-     "ingest-eks-${var.deployment_stage}", "owned",
-    )
-  }"
+  tags = {
+    "Name"                               = "ingest-eks-node-${var.deployment_stage}"
+    "ingest-eks-${var.deployment_stage}" = "owned"
+  }
 }
 
 resource "aws_security_group_rule" "ingest_node_ingress_self" {
   description              = "Allow node to communicate with each other"
   from_port                = 0
   protocol                 = "-1"
-  security_group_id        = "${aws_security_group.ingest_eks_node.id}"
-  source_security_group_id = "${aws_security_group.ingest_eks_node.id}"
+  security_group_id        = aws_security_group.ingest_eks_node.id
+  source_security_group_id = aws_security_group.ingest_eks_node.id
   to_port                  = 65535
   type                     = "ingress"
 }
@@ -250,8 +255,8 @@ resource "aws_security_group_rule" "ingest_node_ingress_cluster" {
   description              = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
   from_port                = 1025
   protocol                 = "tcp"
-  security_group_id        = "${aws_security_group.ingest_eks_node.id}"
-  source_security_group_id = "${aws_security_group.ingest_eks_cluster.id}"
+  security_group_id        = aws_security_group.ingest_eks_node.id
+  source_security_group_id = aws_security_group.ingest_eks_cluster.id
   to_port                  = 65535
   type                     = "ingress"
 }
@@ -260,18 +265,18 @@ resource "aws_security_group_rule" "ingest_cluster_ingress_node_https" {
   description              = "Allow pods to communicate with the cluster API Server"
   from_port                = 443
   protocol                 = "tcp"
-  security_group_id        = "${aws_security_group.ingest_eks_cluster.id}"
-  source_security_group_id = "${aws_security_group.ingest_eks_node.id}"
+  security_group_id        = aws_security_group.ingest_eks_cluster.id
+  source_security_group_id = aws_security_group.ingest_eks_node.id
   to_port                  = 443
   type                     = "ingress"
 }
-
 
 ////
 // Worker Node Instance Setup
 //
 
-data "aws_region" "current" {}
+data "aws_region" "current" {
+}
 
 data "aws_ami" "eks_worker" {
   filter {
@@ -287,18 +292,19 @@ locals {
   ingest-node-userdata = <<USERDATA
 #!/bin/bash
 set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.ingest_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.ingest_eks.certificate_authority.0.data}' 'ingest-eks-${var.deployment_stage}'
+/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.ingest_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.ingest_eks.certificate_authority[0].data}' 'ingest-eks-${var.deployment_stage}'
 USERDATA
+
 }
 
 resource "aws_launch_configuration" "ingest_eks" {
   associate_public_ip_address = true
-  iam_instance_profile        = "${aws_iam_instance_profile.ingest_eks_node.name}"
-  image_id                    = "${data.aws_ami.eks_worker.id}"
-  instance_type               = "${var.node_size}"
+  iam_instance_profile        = aws_iam_instance_profile.ingest_eks_node.name
+  image_id                    = data.aws_ami.eks_worker.id
+  instance_type               = var.node_size
   name_prefix                 = "ingest-eks-${var.deployment_stage}"
-  security_groups             = ["${aws_security_group.ingest_eks_node.id}"]
-  user_data_base64            = "${base64encode(local.ingest-node-userdata)}"
+  security_groups             = [aws_security_group.ingest_eks_node.id]
+  user_data_base64            = base64encode(local.ingest-node-userdata)
   key_name                    = "ingest-eks-${var.deployment_stage}"
 
   lifecycle {
@@ -307,12 +313,12 @@ resource "aws_launch_configuration" "ingest_eks" {
 }
 
 resource "aws_autoscaling_group" "ingest_eks" {
-  desired_capacity     = "${var.node_count}"
-  launch_configuration = "${aws_launch_configuration.ingest_eks.id}"
+  desired_capacity     = var.node_count
+  launch_configuration = aws_launch_configuration.ingest_eks.id
   max_size             = 4
-  min_size             = "${var.node_count}"
+  min_size             = var.node_count
   name                 = "ingest-eks-${var.deployment_stage}"
-  vpc_zone_identifier  = ["${aws_subnet.ingest_eks.*.id}"]
+  vpc_zone_identifier  = aws_subnet.ingest_eks.*.id
 
   tag {
     key                 = "Name"
@@ -327,8 +333,6 @@ resource "aws_autoscaling_group" "ingest_eks" {
   }
 }
 
-
-
 ////
 // Config Outputs
 //
@@ -339,7 +343,7 @@ apiVersion: v1
 clusters:
 - cluster:
     server: ${aws_eks_cluster.ingest_eks.endpoint}
-    certificate-authority-data: ${aws_eks_cluster.ingest_eks.certificate_authority.0.data}
+    certificate-authority-data: ${aws_eks_cluster.ingest_eks.certificate_authority[0].data}
   name: ingest-eks-${var.deployment_stage}
 contexts:
 - context:
@@ -360,15 +364,12 @@ users:
         - "-i"
         - "ingest-eks-${var.deployment_stage}"
 KUBECONFIG
+
 }
 
 output "kubeconfig" {
-  value = "${local.kubeconfig}"
+  value = local.kubeconfig
 }
-
-
-
-
 
 locals {
   config_map = <<CONFIGMAPAWSAUTH
@@ -389,15 +390,12 @@ data:
       groups:
         - system:masters
 CONFIGMAPAWSAUTH
+
 }
 
 output "config_map" {
-  value = "${local.config_map}"
+  value = local.config_map
 }
-
-
-
-
 
 locals {
   namespace = <<NAMESPACE
@@ -408,15 +406,12 @@ metadata:
   labels:
     name: ${var.deployment_stage}-environment
 NAMESPACE
+
 }
 
 output "namespace" {
-  value = "${local.namespace}"
+  value = local.namespace
 }
-
-
-
-
 
 locals {
   tilleraccount = <<TILLERACCOUNT
@@ -439,8 +434,10 @@ subjects:
     name: tiller
     namespace: kube-system
 TILLERACCOUNT
+
 }
 
 output "tilleraccount" {
-  value = "${local.tilleraccount}"
+  value = local.tilleraccount
 }
+
