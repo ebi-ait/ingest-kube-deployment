@@ -43,7 +43,6 @@ deploy-all-apps:
 	$(MAKE) deploy-app-ingest-state-tracking
 	$(MAKE) deploy-app-ingest-broker
 	$(MAKE) deploy-app-ingest-core
-	$(MAKE) deploy-app-ingest-node-accessioner
 	$(MAKE) deploy-app-ingest-exporter
 	$(MAKE) deploy-app-ingest-staging-manager
 	$(MAKE) deploy-app-ingest-validator
