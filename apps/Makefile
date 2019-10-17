@@ -35,8 +35,8 @@ deploy-app-%:
 
 deploy-secrets:
 	$(MAKE) set-context
-	# retrieve secrets from aws secrets manager
-	. ../config/environment_$(deployment-stage) && helm upgrade secrets secrets  --set environment=$(deployment-stage) --force --install
+	./scripts/deploy_secrets
+
 
 deploy-all-apps:
 	$(MAKE) set-context
