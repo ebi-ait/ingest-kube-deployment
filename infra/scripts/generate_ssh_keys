@@ -13,26 +13,39 @@ aws_region=$AWS_REGION
 
 ssh_secret_id=dcp/ingest/$DEPLOYMENT_STAGE/ssh
 
-function retrieve_secret() {
-  secret=$(aws --region=$aws_region secretsmanager get-secret-value --secret-id $ssh_secret_id --query SecretString --output text 2> /dev/null)
+key_dir=$HOME/.ssh/ingest/
+private_key_file=$key_dir/$DEPLOYMENT_STAGE
+
+function retrieve_ssh_key() {
+  ssh_private_key=$(aws --region=$aws_region secretsmanager get-secret-value\
+	       --secret-id $ssh_secret_id\
+	       --query SecretString\
+	       --output text 2> /dev/null)
 }
 
-function generate_key_pair() {
-  key_dir=$HOME/.ssh/ingest/
-  private_key_file=$key_dir/$DEPLOYMENT_STAGE
-  public_key_file_file=$private_key_file.pub
-
-  if [ ! -f $public_key_file  ]; then
+function generate_new_ssh_key() {
+  if [ ! -f $private_key_file  ]; then
+    echo 'generating ssh key...'
     mkdir -p $key_dir
-    ssh-keygen -t rsa -N '' -f $private_key_file
+    ssh-keygen -t rsa -N '' -C '' -f $private_key_file
   else
-    echo 'SSH keys exist; skipping keygen...'
+    echo 'reusing existent SSH key...'
   fi
 }
 
-retrieve_secret
-if [ -z "$secret" ]; then
-  echo 'could not locate secret from the vault'
+retrieve_ssh_key
+if [ -z "$ssh_private_key" ]; then
+  echo 'could not locate secret from the vault...'
+  generate_new_ssh_key
+  public_key_file=$private_key_file.pub
+  public_key=`cat $public_key_file`
+else
+  echo 'generating public key...'
+  private_key_file=$(mktemp -u)
+  echo "$ssh_private_key" > $private_key_file
+  chmod 400 $private_key_file
+  public_key=$(ssh-keygen -yf $private_key_file)
+  rm -f $private_key_file
 fi
 
-jq -r .emails <<< $secret
+echo "$public_key"
