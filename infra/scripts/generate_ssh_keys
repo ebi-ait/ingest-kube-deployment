@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ ! -z $DEPLOYMENT_STAGE ]; then
+  echo "deployment stage: ${DEPLOYMENT_STAGE}"
+else
+  echo 'DEPLOYMENT_STAGE not specified.'
+  exit 1
+fi
+
+aws_region=$AWS_REGION
+[[ -z $aws_region ]] && aws_region=us-east-1
+
+
+ssh_secret_id=dcp/ingest/$DEPLOYMENT_STAGE/ssh
+
+function retrieve_secret() {
+  secret=$(aws --region=$aws_region secretsmanager get-secret-value --secret-id $ssh_secret_id --query SecretString --output text 2> /dev/null)
+}
+
+function generate_key_pair() {
+  key_dir=$HOME/.ssh/ingest/
+  private_key_file=$key_dir/$DEPLOYMENT_STAGE
+  public_key_file_file=$private_key_file.pub
+
+  if [ ! -f $public_key_file  ]; then
+    mkdir -p $key_dir
+    ssh-keygen -t rsa -N '' -f $private_key_file
+  else
+    echo 'SSH keys exist; skipping keygen...'
+  fi
+}
+
+retrieve_secret
+if [ -z "$secret" ]; then
+  echo 'could not locate secret from the vault'
+fi
+
+jq -r .emails <<< $secret
