@@ -17,7 +17,7 @@ key_dir=$HOME/.ssh/ingest/
 private_key_file=$key_dir/$DEPLOYMENT_STAGE
 
 function retrieve_ssh_key() {
-  ssh_private_key=$(aws --region=$aws_region secretsmanager get-secret-value\
+  private_key=$(aws --region=$aws_region secretsmanager get-secret-value\
 	       --secret-id $ssh_secret_id\
 	       --query SecretString\
 	       --output text 2> /dev/null)
@@ -33,16 +33,24 @@ function generate_new_ssh_key() {
   fi
 }
 
+function store_ssh_key() {
+  aws --region=$aws_region secretsmanager create-secret\
+      --name $ssh_secret_id\
+      --secret-string "${private_key}"
+}
+
 retrieve_ssh_key
-if [ -z "$ssh_private_key" ]; then
+if [ -z "$private_key" ]; then
   echo 'could not locate secret from the vault...'
   generate_new_ssh_key
+  private_key=`cat $private_key_file`
+  store_ssh_key
   public_key_file=$private_key_file.pub
   public_key=`cat $public_key_file`
 else
   echo 'generating public key...'
   private_key_file=$(mktemp -u)
-  echo "$ssh_private_key" > $private_key_file
+  echo "$private_key" > $private_key_file
   chmod 400 $private_key_file
   public_key=$(ssh-keygen -yf $private_key_file)
   rm -f $private_key_file
