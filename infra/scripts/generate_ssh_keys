@@ -23,31 +23,33 @@ function retrieve_ssh_key() {
 	       --output text 2> /dev/null)
 }
 
-function generate_new_ssh_key() {
-  if [ ! -f $private_key_file  ]; then
-    echo 'generating ssh key...'
-    mkdir -p $key_dir
-    ssh-keygen -t rsa -N '' -C '' -f $private_key_file
-  else
-    echo 'reusing existent SSH key...'
-  fi
-}
-
 function store_ssh_key() {
   aws --region=$aws_region secretsmanager create-secret\
       --name $ssh_secret_id\
       --secret-string "${private_key}"
 }
 
+function get_local_ssh_key() {
+  if [ ! -f $private_key_file  ]; then
+    echo 'generating ssh key...'
+    mkdir -p $key_dir
+    ssh-keygen -t rsa -N '' -C '' -f $private_key_file
+    private_key=$(cat $private_key_file)
+  else
+    echo 'reusing existent SSH key...'
+  fi
+  public_key_file=$private_key_file.pub
+  pullic_key=$(cat $public_key_file)
+  store_ssh_key
+}
+
 retrieve_ssh_key
 if [ -z "$private_key" ]; then
   echo 'could not locate secret from the vault...'
-  generate_new_ssh_key
-  private_key=`cat $private_key_file`
-  store_ssh_key
-  public_key_file=$private_key_file.pub
-  public_key=`cat $public_key_file`
-else
+  get_local_ssh_key # $private_key will be set
+fi
+
+if [ -z "$public_key"]; then
   echo 'generating public key...'
   private_key_file=$(mktemp -u)
   echo "$private_key" > $private_key_file
@@ -56,4 +58,4 @@ else
   rm -f $private_key_file
 fi
 
-echo "$public_key"
+export TF_VAR_ssh_public_key=$public_key
