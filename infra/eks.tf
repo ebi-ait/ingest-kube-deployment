@@ -22,6 +22,9 @@ variable "node_size" {
 variable "node_count" {
 }
 
+variable "ssh_public_key" {
+}
+
 variable "availability_zones" {
   default = [
     "us-east-1a",
@@ -43,6 +46,15 @@ provider "aws" {
 terraform {
   backend "s3" {
   }
+}
+
+////
+// Security
+//
+
+resource "aws_key_pair" "ingest_eks" {
+    key_name = "ingest-eks-${var.deployment_stage}_key"
+    public_key = var.ssh_public_key
 }
 
 ////
@@ -305,7 +317,7 @@ resource "aws_launch_configuration" "ingest_eks" {
   name_prefix                 = "ingest-eks-${var.deployment_stage}"
   security_groups             = [aws_security_group.ingest_eks_node.id]
   user_data_base64            = base64encode(local.ingest-node-userdata)
-  key_name                    = "ingest-eks-${var.deployment_stage}"
+  key_name                    = aws_key_pair.ingest_eks.key_name
 
   lifecycle {
     create_before_destroy = true

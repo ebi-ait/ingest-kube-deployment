@@ -6,7 +6,7 @@ create-cluster-%:
 	# Add User confirmation of action and environment here and then apply -auto-confirm flag on terraform
 	# This step is idempotent and can be run again if the cluster needs to be modified.
 	$(MAKE) init-$(*)
-	. ../config/environment_$(*) && terraform apply
+	. ../config/environment_$(*) && source scripts/generate_ssh_keys && terraform apply
 	$(MAKE) retrieve-kubeconfig-$(*)
 	$(MAKE) apply-dashboard-configs-$(*)
 	$(MAKE) deploy-backend-services-$(*)
