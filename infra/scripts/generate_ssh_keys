@@ -47,9 +47,11 @@ retrieve_ssh_key
 if [ -z "$private_key" ]; then
   echo 'could not locate secret from the vault...'
   get_local_ssh_key # $private_key will be set
+else
+  echo 'ssh key retrieved from the vault'
 fi
 
-if [ -z "$public_key"]; then
+if [ -z "$public_key" ]; then
   echo 'generating public key...'
   private_key_file=$(mktemp -u)
   echo "$private_key" > $private_key_file
