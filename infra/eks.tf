@@ -283,6 +283,16 @@ resource "aws_security_group_rule" "ingest_cluster_ingress_node_https" {
   type                     = "ingress"
 }
 
+resource "aws_security_group_rule" "ingest_eks_cluster_allow_ssh" {
+  description = "Allow SSH access to EKS nodes"
+  type = "ingress"
+  from_port = 22
+  to_port = 22
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ingest_eks_node.id
+}
+
 ////
 // Worker Node Instance Setup
 //
