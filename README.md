@@ -84,6 +84,18 @@ These steps will bring down the entire infrastructure and all the resources for 
 2. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
 3. `cd infra`
 4. `make destroy-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to destroy
+*Note*: The system could encounter an error (most likely a timeout) during the destroy operation. Failing to remove some resources such as the VPC, network interfaces, etc. can be tolerated if the ultimate goal is to rebuild the cluster. In the case VPC, for example, the EKS cluster will just reuse it once recreated.
+
+#### Reusing Undeleted Network Components
+
+The Terraform manifest declares some network components like the VPC and subnets, that for some reason refuse to get delete during the destroy operation. This operation needs some work to improve, but at the meantime, a workaround is suggested below.
+
+*Force the subnet declarations to use the existent ones* by overriding the `cidr_block` attribute of the `aws_subnet.ingest_eks` resource. To see the undeleted subnet components, use `terraform show`.
+
+For example, in dev, the CIDR is set to `10.40.0.0/16`. The Terraform manifest at the time of writing makes computations with this on build time that often results in 2 subnets `10.40.0.0/24` and `10.40.1.0/24` that could refuse deletion. To make the Terraform build reuse these components, the `cidr_block` attribute under the `aws_subnet` resource can be set to the following:
+
+    cidr_block        = "10.40.${count.index}.0/24"
+
 
 ## Install and Upgrade Core Ingest Backend Services (mongo, redis, rabbit)
 
@@ -103,10 +115,33 @@ Coming soon
 4. `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
 
 ### Deploy all kubernetes dockerized applications to an environment (aws)
+
+---
+
+**Notes on Fresh Installation**
+
+Before running the script to redeploy all ingest components, make sure that secrets have been properly defined in the AWS security manager. At the time of writing, the following secrets are required to be defined in `dcp/ingest/<deployment_env>/secrets` to ensure that deployments go smoothly:
+
+* `emails`
+* `staging_api_key` (retrieve this from `dcp/upload/staging/secrets`)
+* `exporter_auth_info`
+
+---
+
 1. Make sure you have followed the instructions above to create or access an existing eks cluster
 2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
 3. `cd apps`
 4. `make deploy-all-apps` where APPNAME is the name of the ingest application.
+
+### After Deployment
+
+All requests to the Ingest cluster go through the Ingress controller. Any outward facing service needs to be mapped to the Ingress service for it to work correctly. This is set through the AWS Route 53 mapping.
+
+1. The first step is to retrieve the external IP of the Ingress service load balancer. This can be done using `kubectl get services -l app=nginx-ingress`.
+2. Copy the external IP and go the Route 53 service dashboard on the AWS Web console.
+3. From the Hosted Zones, search for `<deployment_env>.data.humancellatlas.org` and search for Ingest related records.
+4. Update each record to use the Ingress load balancer external IP as alias.
+5. To ensure that each record are set correctly, run a quick test using the Test Record Set facility on the AWS Web console.
 
 ## Deploy cloudwatch log exporter
 1. Make sure you have followed the instructions above to create or access an existing eks cluster

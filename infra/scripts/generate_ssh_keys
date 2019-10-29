@@ -1,0 +1,63 @@
+#!/bin/bash
+
+if [ ! -z $DEPLOYMENT_STAGE ]; then
+  echo "deployment stage: ${DEPLOYMENT_STAGE}"
+else
+  echo 'DEPLOYMENT_STAGE not specified.'
+  exit 1
+fi
+
+aws_region=$AWS_REGION
+[[ -z $aws_region ]] && aws_region=us-east-1
+
+
+ssh_secret_id=dcp/ingest/$DEPLOYMENT_STAGE/ssh
+
+key_dir=$HOME/.ssh/ingest/
+private_key_file=$key_dir/$DEPLOYMENT_STAGE
+
+function retrieve_ssh_key() {
+  private_key=$(aws --region=$aws_region secretsmanager get-secret-value\
+	       --secret-id $ssh_secret_id\
+	       --query SecretString\
+	       --output text 2> /dev/null)
+}
+
+function store_ssh_key() {
+  aws --region=$aws_region secretsmanager create-secret\
+      --name $ssh_secret_id\
+      --secret-string "${private_key}"
+}
+
+function get_local_ssh_key() {
+  if [ ! -f $private_key_file  ]; then
+    echo 'generating ssh key...'
+    mkdir -p $key_dir
+    ssh-keygen -t rsa -N '' -C '' -f $private_key_file
+    private_key=$(cat $private_key_file)
+  else
+    echo 'reusing existent SSH key...'
+  fi
+  public_key_file=$private_key_file.pub
+  pullic_key=$(cat $public_key_file)
+  store_ssh_key
+}
+
+retrieve_ssh_key
+if [ -z "$private_key" ]; then
+  echo 'could not locate secret from the vault...'
+  get_local_ssh_key # $private_key will be set
+else
+  echo 'ssh key retrieved from the vault'
+fi
+
+if [ -z "$public_key" ]; then
+  echo 'generating public key...'
+  private_key_file=$(mktemp -u)
+  echo "$private_key" > $private_key_file
+  chmod 400 $private_key_file
+  public_key=$(ssh-keygen -yf $private_key_file)
+  rm -f $private_key_file
+fi
+
+export TF_VAR_ssh_public_key=$public_key

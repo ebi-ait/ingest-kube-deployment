@@ -22,6 +22,9 @@ variable "node_size" {
 variable "node_count" {
 }
 
+variable "ssh_public_key" {
+}
+
 variable "availability_zones" {
   default = [
     "us-east-1a",
@@ -43,6 +46,15 @@ provider "aws" {
 terraform {
   backend "s3" {
   }
+}
+
+////
+// Security
+//
+
+resource "aws_key_pair" "ingest_eks" {
+    key_name = "ingest-eks-${var.deployment_stage}_key"
+    public_key = var.ssh_public_key
 }
 
 ////
@@ -271,6 +283,16 @@ resource "aws_security_group_rule" "ingest_cluster_ingress_node_https" {
   type                     = "ingress"
 }
 
+resource "aws_security_group_rule" "ingest_eks_cluster_allow_ssh" {
+  description = "Allow SSH access to EKS nodes"
+  type = "ingress"
+  from_port = 22
+  to_port = 22
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ingest_eks_node.id
+}
+
 ////
 // Worker Node Instance Setup
 //
@@ -292,7 +314,7 @@ locals {
   ingest-node-userdata = <<USERDATA
 #!/bin/bash
 set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.ingest_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.ingest_eks.certificate_authority[0].data}' 'ingest-eks-${var.deployment_stage}'
+/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.ingest_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.ingest_eks.certificate_authority[0].data}' 'ingest-eks-${var.deployment_stage}' --kubelet-extra-args "--kube-reserved cpu=250m,memory=1Gi,ephemeral-storage=1Gi --system-reserved cpu=250m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard memory.available<0.2Gi,nodefs.available<10%"
 USERDATA
 
 }
@@ -305,7 +327,7 @@ resource "aws_launch_configuration" "ingest_eks" {
   name_prefix                 = "ingest-eks-${var.deployment_stage}"
   security_groups             = [aws_security_group.ingest_eks_node.id]
   user_data_base64            = base64encode(local.ingest-node-userdata)
-  key_name                    = "ingest-eks-${var.deployment_stage}"
+  key_name                    = aws_key_pair.ingest_eks.key_name
 
   lifecycle {
     create_before_destroy = true
@@ -440,4 +462,3 @@ TILLERACCOUNT
 output "tilleraccount" {
   value = local.tilleraccount
 }
-
