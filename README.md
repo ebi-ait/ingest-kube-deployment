@@ -86,6 +86,17 @@ These steps will bring down the entire infrastructure and all the resources for 
 4. `make destroy-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to destroy
 *Note*: The system could encounter an error (most likely a timeout) during the destroy operation. Failing to remove some resources such as the VPC, network interfaces, etc. can be tolerated if the ultimate goal is to rebuild the cluster. In the case VPC, for example, the EKS cluster will just reuse it once recreated.
 
+#### Reusing Undeleted Network Components
+
+The Terraform manifest declares some network components like the VPC and subnets, that for some reason refuse to get delete during the destroy operation. This operation needs some work to improve, but at the meantime, a workaround is suggested below.
+
+*Force the subnet declarations to use the existent ones* by overriding the `cidr_block` attribute of the `aws_subnet.ingest_eks` resource. To see the undeleted subnet components, use `terraform show`.
+
+For example, in dev, the CIDR is set to `10.40.0.0/16`. The Terraform manifest at the time of writing makes computations with this on build time that often results in 2 subnets `10.40.0.0/24` and `10.40.1.0/24` that could refuse deletion. To make the Terraform build reuse these components, the `cidr_block` attribute under the `aws_subnet` resource can be set to the following:
+
+    cidr_block        = "10.40.${count.index}.0/24"
+
+
 ## Install and Upgrade Core Ingest Backend Services (mongo, redis, rabbit)
 
 ### Install backend services (mongo, redis, rabbit)
