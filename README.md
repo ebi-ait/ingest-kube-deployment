@@ -115,10 +115,33 @@ Coming soon
 4. `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
 
 ### Deploy all kubernetes dockerized applications to an environment (aws)
+
+---
+
+**Notes on Fresh Installation**
+
+Before running the script to redeploy all ingest components, make sure that secrets have been properly defined in the AWS security manager. At the time of writing, the following secrets are required to be defined in `dcp/ingest/<deployment_env>/secrets` to ensure that deployments go smoothly:
+
+* `emails`
+* `staging_api_key` (retrieve this from `dcp/upload/staging/secrets`)
+* `exporter_auth_info`
+
+---
+
 1. Make sure you have followed the instructions above to create or access an existing eks cluster
 2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
 3. `cd apps`
 4. `make deploy-all-apps` where APPNAME is the name of the ingest application.
+
+### After Deployment
+
+All requests to the Ingest cluster go through the Ingress controller. Any outward facing service needs to be mapped to the Ingress service for it to work correctly. This is set through the AWS Route 53 mapping.
+
+1. The first step is to retrieve the external IP of the Ingress service load balancer. This can be done using `kubectl get services -l app=nginx-ingress`.
+2. Copy the external IP and go the Route 53 service dashboard on the AWS Web console.
+3. From the Hosted Zones, search for `<deployment_env>.data.humancellatlas.org` and search for Ingest related records.
+4. Update each record to use the Ingress load balancer external IP as alias.
+5. To ensure that each record are set correctly, run a quick test using the Test Record Set facility on the AWS Web console.
 
 ## Deploy cloudwatch log exporter
 1. Make sure you have followed the instructions above to create or access an existing eks cluster
