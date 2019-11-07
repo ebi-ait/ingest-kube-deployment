@@ -12,10 +12,11 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 5. Install kubectl: `brew install kubernetes-cli`
 6. Install kubectx (kubens included): `brew install kubectx`
 7. Install [helm](https://github.com/kubernetes/helm): `brew install kubernetes-helm`
-8. Install [jq](https://stedolan.github.io/jq/) `brew install jq`
+8. `mkdir ~/.kube`
+9. Install [jq](https://stedolan.github.io/jq/) `brew install jq`
 
 ### Ubuntu
-1. git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
+1. `git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git`
 2. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html).
   - If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
@@ -23,7 +24,8 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 5. Install kubectl: `sudo snap install kubectl --classic`
 6. Install [kubectx and kubens](https://github.com/ahmetb/kubectx).
 7. Install helm: `sudo snap install helm --classic`
-8. Install [jq](https://stedolan.github.io/jq), if required. `sudo apt-get install jq`
+8. `mkdir ~/.kube`
+9. Install [jq](https://stedolan.github.io/jq), if required. `sudo apt-get install jq`
 
 ## Configuring AWS connection
 1. `aws configure set default.region us-east-1`
