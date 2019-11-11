@@ -1,0 +1,2 @@
+namespace: integration-environment
+image: mongo:3.4.3

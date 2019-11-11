@@ -1,0 +1,2 @@
+namespace: dev-environment
+image: mongo:3.4.3

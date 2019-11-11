@@ -18,7 +18,7 @@ spec:
         app: mongo
     spec:
       containers:
-      - image: mongo:3.4.3
+      - image: "{{ .Values.image }}"
         name: mongo
         args: ["--wiredTigerCacheSizeGB", "2"]
         ports:

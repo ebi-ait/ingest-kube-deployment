@@ -66,7 +66,7 @@ apply-env-configs-%:
 
 install-infra-helm-chart-%:
 	cd helm-charts && helm dependency update $(*) && helm package $(*)
-	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade $(*) $(*) --set namespace=$(deployment_stage)-environment --force --install
+	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade --values $(*)/values.yaml --values $(*)/environments/$(deployment_stage).yaml $(*) ./$(*) --force --install
 	cd helm-charts && rm *.tgz
 
 apply-dashboard-configs-%:
@@ -77,7 +77,7 @@ apply-dashboard-configs-%:
 setup-ingress-%:
 	$(MAKE) set-context-$(*)
 	cd helm-charts && helm dependency update ingress
-	cd helm-charts && helm upgrade -f ingress/values.yaml -f ingress/$(*).yaml ingress ./ingress --force --install
+	cd helm-charts && helm upgrade -f ingress/values.yaml --values ingress/environments/$(*).yaml ingress ./ingress --force --install
 
 setup-retained-storage-%:
 	$(MAKE) set-context-$(*)

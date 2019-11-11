@@ -1,4 +1,5 @@
 # Default values for mongo.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-namespace: provide_through_set_flag
+namespace: overridden_by_environment
+image: overridden_by_environment
