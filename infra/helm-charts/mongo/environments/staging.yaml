@@ -1,2 +1,2 @@
 namespace: staging-environment
-image: mongo:4.0.13
+image: mongo:4.2
