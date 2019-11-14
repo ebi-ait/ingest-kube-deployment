@@ -39,10 +39,9 @@ TF_VAR_node_count="2"
 
 
 #VARIABLES BELOW SHOULD NEVER CHANGE.
-SOURCE_FILE=${(%):-%N}
-FILE_NAME=${SOURCE_FILE:t}
+FILE_NAME=$(basename $BASH_SOURCE)
 DEPLOYMENT_STAGE=${FILE_NAME#*_}
-PROJECT_ROOT="$( cd "$( dirname "${SOURCE_FILE}" )"/.. && pwd )"
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 KUBECONFIG_PATH=$PROJECT_ROOT/config/cluster-secrets/kubeconfig_${DEPLOYMENT_STAGE}
 TILLER_NAMESPACE=kube-system
 TF_VAR_terraform_key=ingest/eks-${DEPLOYMENT_STAGE}.tfstate
