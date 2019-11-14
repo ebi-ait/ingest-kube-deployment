@@ -5,7 +5,7 @@ FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_NODE_ACCESSIONER_REF=v0.5.0
 INGEST_BROKER_REF=v0.10.2
-INGEST_CORE_REF=fdce441
+INGEST_CORE_REF=f7fe492
 INGEST_EXPORTER_REF=v0.10.1
 INGEST_STAGING_MANAGER_REF=v0.5.5
 INGEST_STATE_TRACKING_REF=v0.7.5
@@ -39,9 +39,10 @@ TF_VAR_node_count="2"
 
 
 #VARIABLES BELOW SHOULD NEVER CHANGE.
-FILE_NAME=$(basename $BASH_SOURCE)
+SOURCE_FILE=${(%):-%N}
+FILE_NAME=${SOURCE_FILE:t}
 DEPLOYMENT_STAGE=${FILE_NAME#*_}
-PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+PROJECT_ROOT="$( cd "$( dirname "${SOURCE_FILE}" )"/.. && pwd )"
 KUBECONFIG_PATH=$PROJECT_ROOT/config/cluster-secrets/kubeconfig_${DEPLOYMENT_STAGE}
 TILLER_NAMESPACE=kube-system
 TF_VAR_terraform_key=ingest/eks-${DEPLOYMENT_STAGE}.tfstate
