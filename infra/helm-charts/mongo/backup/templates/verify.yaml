@@ -1,0 +1,61 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: ingest-backup-verify
+spec:
+  schedule: {{ .Values.verification.cronSchedule }}
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: verification
+            image: {{ .Values.verification.image.repository }}:{{ .Values.verification.image.tag }}
+            imagePullPolicy: {{ .Values.verification.image.pullPolicy }}
+            resources:
+              requests:
+                ephemeral-storage: "10Gi"
+              limits:
+                ephemeral-storage: "15Gi"
+            env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: backup-keys
+                  key: aws-access-key-id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: backup-keys
+                  key: aws-secret-access-key
+            - name: AWS_ROLE_ARN
+              value: {{ .Values.aws.roleArn }}
+            - name: S3_BUCKET
+              value: {{ .Values.aws.s3.bucket }}
+            - name: BACKUP_DIR
+              value: {{ .Values.aws.s3.directory }}
+            - name: SLACK_WEBHOOK
+              value: {{ .Values.verification.slack.webhookUrl }}
+            - name: MONGO_USER
+              value: {{ .Values.verification.mongo.auth.user }}
+            - name: MONGO_PASSWORD
+              value: {{ .Values.verification.mongo.auth.password }}              
+          - name: replica-db
+            image: {{ .Values.verification.mongo.image.repository }}:{{ .Values.verification.mongo.image.tag }}
+            args: ["--wiredTigerCacheSizeGB", "1"]
+            imagePullPolicy: {{ .Values.verification.mongo.image.pullPolicy }}
+            resources:
+              requests:
+                ephemeral-storage: "10Gi"
+              limits:
+                ephemeral-storage: "15Gi"
+            ports:
+            - containerPort: 27017
+            env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: {{ .Values.verification.mongo.auth.user }}
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: {{ .Values.verification.mongo.auth.password }}
+              
