@@ -16,3 +16,10 @@ exporter 5388780 v0.8.7.rc
 ui 8f5010e v0.9.7.rc
 validator a28e364 v0.6.7.rc
 ui b39ce5b v0.10.0.rc
+broker 8d62167 v0.10.2
+core 1ddadf7 v0.11.0
+exporter d75dee7 v0.10.1
+staging-manager 47cbd64 v0.5.5
+state-tracking 38a399c v0.7.5
+validator 9ddaeaf v0.6.9
+ui 2e1cd40 v0.11.3
