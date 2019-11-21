@@ -1,0 +1,6 @@
+namespace: testing-environment
+image: mongo:3.4
+ingestbackup:
+  aws:
+    s3:
+      directory: testing
