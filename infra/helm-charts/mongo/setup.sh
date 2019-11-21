@@ -6,11 +6,6 @@ access_key_id=$(aws secretsmanager get-secret-value --secret-id dcp/ingest/${dep
 access_key_secret=$(aws secretsmanager get-secret-value --secret-id dcp/ingest/${deployment_stage}/mongo-backup/s3-access  --region=us-east-1 | jq -r .SecretString| jq -jr .access_key_secret| base64)
 slack_alert_webhook=$(aws secretsmanager get-secret-value --secret-id dcp/ingest/${deployment_stage}/alerts  --region=us-east-1 | jq -r .SecretString | jq -r .webhook_url)
 
-echo $access_key_id
-echo $access_key_secret
-echo $slack_alert_webhook
-
-
 helm package .
 
 . ../../../config/environment_${deployment_stage}
