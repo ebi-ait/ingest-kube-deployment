@@ -30,8 +30,6 @@ spec:
                 secretKeyRef:
                   name: backup-keys
                   key: aws-secret-access-key
-            - name: AWS_ROLE_ARN
-              value: {{ .Values.aws.roleArn }}
             - name: S3_BUCKET
               value: {{ .Values.aws.s3.bucket }}
             - name: BACKUP_DIR
