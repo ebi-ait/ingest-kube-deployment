@@ -6,7 +6,7 @@ from os import environ
 from pymongo import MongoClient
 from reporting import SlackHandler
 
-backup_dir = f'{environ.get("S3_BACKUP")}/{environ.get("BACKUP_DIR")}'
+backup_dir = f'{environ.get("S3_BUCKET")}/{environ.get("BACKUP_DIR")}'
 mongo_host = environ.get('MONGO_HOST', 'mongo')
 mongo_port_env = environ.get('MONGO_PORT', '27017')
 mongo_port = int(mongo_port_env)
