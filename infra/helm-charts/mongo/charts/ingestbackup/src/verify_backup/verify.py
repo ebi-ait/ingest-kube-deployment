@@ -6,6 +6,8 @@ from os import environ
 from pymongo import MongoClient
 from reporting import SlackHandler
 
+$S3_BUCKET/$BACKUP_DIR
+backup_dir = f'{environ.get("S3_BACKUP")}/{environ.get("BACKUP_DIR")}'
 mongo_host = environ.get('MONGO_HOST', 'mongo')
 mongo_port_env = environ.get('MONGO_PORT', '27017')
 mongo_port = int(mongo_port_env)
@@ -25,7 +27,7 @@ try:
     submission_count = client.admin.submissionEnvelope.count_documents({})
 
     if submission_count < 100:
-        logger.error(f'Expected at least 100 submissions from the backup but got {submission_count}.')
+        logger.error(f'Backup verify at {backup_dir}: Expected at least 100 submissions from the backup but got {submission_count}.')
         exit(1)
 
     logger.info('Backup verification complete.')
