@@ -1,6 +1,23 @@
 # Production Changelog
 DCP Production Release Notes: https://github.com/HumanCellAtlas/dcp/blob/prod/RELEASE_NOTES.md
 
+## 26 November 2019
+* Broker v0.10.3
+  - Updated schema processing
+  - Importer fixes
+  - New file search endpoint
+* Core v0.11.1
+  - Data migration
+  - Delete submission
+* State Tracking v0.7.6
+  - Updated processing to limit to single submission envelope
+* Validator v0.6.10
+  - Single submission updates
+  - Handling of ontology validation request error
+* UI v0.11.4
+  - Updates to metadata detail view
+  - Submission deletion
+
 ## 05 November 2019
 * UI v0.11.3
   - Security fixes
