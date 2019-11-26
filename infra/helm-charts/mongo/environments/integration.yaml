@@ -1,2 +1,6 @@
 namespace: integration-environment
 image: mongo:4.2
+ingestbackup:
+  aws:
+    s3:
+      directory: integration
