@@ -1,8 +1,6 @@
 SHELL!=which bash
 deployment-stage = ${DEPLOYMENT_STAGE}
 force-refresh = ${FORCE_REFRESH}
-ingest-accessioner = ${INGEST_ACCESSIONER_REF}
-ingest-node-accessioner = ${INGEST_NODE_ACCESSIONER_REF}
 ingest-broker = ${INGEST_BROKER_REF}
 ingest-core = ${INGEST_CORE_REF}
 ingest-exporter = ${INGEST_EXPORTER_REF}

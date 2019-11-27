@@ -1,6 +1,16 @@
 # Staging Changelog
 DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RELEASE_NOTES.md
 
+## 27 November 2019
+
+* Core f31fcbd
+  - Security configuration
+  - JWT user credentials inspection
+  - Mongo feature compatibility run check
+
+* Ontology 1.0.12
+  - Latest ontology release
+
 ## 11 September 2019
 
 * Core c54cf190
