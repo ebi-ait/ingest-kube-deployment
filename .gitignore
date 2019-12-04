@@ -72,3 +72,5 @@ _local
 *.swo
 
 .idea
+
+*.pyc
