@@ -24,10 +24,10 @@ INGEST_VALIDATOR_REPLICAS=1
 INGEST_UI_REPLICAS=1
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
-AWS_PROFILE=hca
-TF_VAR_ops_role=dcp-developer
+AWS_PROFILE=embl-ebi
+TF_VAR_ops_role=ingest-devops
 # Make sure the vpc ip below is unique
-TF_VAR_vpc_cidr_block=10.50.0.0/16
+TF_VAR_vpc_cidr_block=10.51.0.0/16
 
 #Set values for node size and count
 TF_VAR_node_size="m5.xlarge"
