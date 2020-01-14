@@ -8,7 +8,7 @@ COPY src/aws_setup .
 
 RUN chmod +x backup
 
-ENV S3_BUCKET=ingest-backup
+ENV S3_BUCKET=ingest-db-backup
 ENV BACKUP_DIR=deploymentenv
 
 CMD /opt/backup

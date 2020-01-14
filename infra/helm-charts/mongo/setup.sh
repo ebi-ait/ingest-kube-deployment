@@ -2,11 +2,11 @@
 
 deployment_stage=$1
 
-s3_access_secrets=$(aws secretsmanager get-secret-value --secret-id dcp/ingest/${deployment_stage}/mongo-backup/s3-access  --region=us-east-1 | jq -r .SecretString)
+s3_access_secrets=$(aws secretsmanager get-secret-value --secret-id ingest/${deployment_stage}/mongo-backup/s3-access  --region=us-east-1 | jq -r .SecretString)
 
 access_key_id=$(echo ${s3_access_secrets} | jq -jr .access_key_id | base64)
 access_key_secret=$(echo ${s3_access_secrets} | jq -jr .access_key_secret| base64)
-slack_alert_webhook=$(aws secretsmanager get-secret-value --secret-id dcp/ingest/${deployment_stage}/alerts  --region=us-east-1 | jq -r .SecretString | jq -r .webhook_url)
+slack_alert_webhook=$(aws secretsmanager get-secret-value --secret-id ingest/${deployment_stage}/alerts  --region=us-east-1 | jq -r .SecretString | jq -r .webhook_url)
 
 helm package .
 
