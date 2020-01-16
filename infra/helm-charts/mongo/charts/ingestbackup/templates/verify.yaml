@@ -46,9 +46,9 @@ spec:
             imagePullPolicy: {{ .Values.verification.mongo.image.pullPolicy }}
             resources:
               requests:
-                ephemeral-storage: "10Gi"
+                ephemeral-storage: "5Gi"
               limits:
-                ephemeral-storage: "15Gi"
+                ephemeral-storage: "5Gi"
             ports:
             - containerPort: 27017
             env:
