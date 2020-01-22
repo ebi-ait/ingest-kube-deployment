@@ -1,7 +1,7 @@
 aws:
   roleArn: default
   s3:
-    bucket: ingest-backup
+    bucket: ingest-db-backup
     directory: default
 secret:
   aws:
