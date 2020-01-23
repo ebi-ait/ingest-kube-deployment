@@ -360,6 +360,7 @@ USERDATA
 
 }
 
+// no tags support for resource type; identify by name prefix
 resource "aws_launch_configuration" "ingest_eks" {
   associate_public_ip_address = true
   iam_instance_profile        = aws_iam_instance_profile.ingest_eks_node.name
@@ -388,12 +389,22 @@ resource "aws_autoscaling_group" "ingest_eks" {
     value               = "ingest-eks-${var.deployment_stage}"
     propagate_at_launch = true
   }
-
+  
   tag {
     key                 = "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}"
     value               = "owned"
     propagate_at_launch = true
   }
+
+  dynamic "tag" {
+    for_each = local.default_tags
+    content { 
+      key       = tag.key
+      value     = tag.value
+      propagate_at_launch = true 
+    }
+  }
+
 }
 
 ////
