@@ -39,6 +39,13 @@ provider "aws" {
   profile = var.aws_profile
 }
 
+locals {
+  default_tags = {
+    project     = "hca"
+    environment = "${var.deployment_stage}"
+  }
+}
+
 ////
 // general setup
 //
@@ -52,6 +59,7 @@ terraform {
 // Security
 //
 
+// no tags support
 resource "aws_key_pair" "ingest_eks" {
     key_name = "ingest-eks-${var.deployment_stage}_key"
     public_key = var.ssh_public_key
@@ -64,10 +72,14 @@ resource "aws_key_pair" "ingest_eks" {
 resource "aws_vpc" "ingest_eks" {
   cidr_block = var.vpc_cidr_block
 
-  tags = {
-    "Name"                                                     = "ingest-eks-${var.deployment_stage}"
-    "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}" = "shared"
-  }
+	tags = merge(
+	  local.default_tags,
+		{
+		  "Name" = "ingest-eks-${var.deployment_stage}",
+			"kubernetes.io/cluster/ingest-eks-${var.deployment_stage}"  = "shared"
+    }
+	)
+
 }
 
 resource "aws_subnet" "ingest_eks" {
@@ -77,18 +89,25 @@ resource "aws_subnet" "ingest_eks" {
   cidr_block        = "${cidrhost(var.vpc_cidr_block, 256 * count.index + 1)}/24"
   vpc_id            = aws_vpc.ingest_eks.id
 
-  tags = {
-    "Name"                                                     = "ingest-eks-${var.deployment_stage}"
-    "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}" = "shared"
-  }
+  tags = merge(
+	  local.default_tags,
+		{
+		  "Name" = "ingest-eks-${var.deployment_stage}",
+			"kubernetes.io/cluster/ingest-eks-${var.deployment_stage}"  = "shared"
+    }
+	)
+
 }
 
 resource "aws_internet_gateway" "ingest_eks" {
   vpc_id = aws_vpc.ingest_eks.id
 
-  tags = {
-    Name = "ingest-eks-${var.deployment_stage}"
-  }
+  tags = merge(
+	  local.default_tags,
+		{
+		  "Name" = "ingest-eks-${var.deployment_stage}"
+    }
+	)
 }
 
 resource "aws_route_table" "ingest_eks" {
@@ -98,8 +117,11 @@ resource "aws_route_table" "ingest_eks" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.ingest_eks.id
   }
+
+  tags = local.default_tags
 }
 
+// no tags support
 resource "aws_route_table_association" "ingest_eks" {
   count = 2
 
@@ -119,11 +141,15 @@ resource "aws_security_group" "ingest_eks_cluster" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "ingest-eks-${var.deployment_stage}"
-  }
+  tags = merge(
+	  local.default_tags,
+		{
+		  "Name" = "ingest-eks-${var.deployment_stage}"
+    }
+	)
 }
 
+// no tags support
 resource "aws_security_group_rule" "ingest_eks_cluster_ingress_workstation_https" {
   cidr_blocks       = ["0.0.0.0/0"]
   description       = "Allow workstation to communicate with the cluster API Server"
@@ -156,8 +182,11 @@ resource "aws_iam_role" "ingest_eks_cluster" {
 }
 POLICY
 
+  tags = local.default_tags
+
 }
 
+// no tags required for policy attachment resource type
 resource "aws_iam_role_policy_attachment" "ingest_eks_cluster_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.ingest_eks_cluster.name
@@ -185,6 +214,9 @@ resource "aws_eks_cluster" "ingest_eks" {
     aws_iam_role_policy_attachment.ingest_eks_cluster_policy,
     aws_iam_role_policy_attachment.ingest_eks_service_policy,
   ]
+
+  tags = local.default_tags
+
 }
 
 ////
@@ -209,8 +241,11 @@ resource "aws_iam_role" "ingest_eks_node" {
 }
 POLICY
 
+  tags = local.default_tags
+
 }
 
+// no tags required for policy attachment resource type
 resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.ingest_eks_node.name
@@ -226,6 +261,7 @@ resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEC2ContainerReg
   role       = aws_iam_role.ingest_eks_node.name
 }
 
+// no tags support
 resource "aws_iam_instance_profile" "ingest_eks_node" {
   name = "terraform-eks-node-${var.deployment_stage}"
   role = aws_iam_role.ingest_eks_node.name
@@ -247,12 +283,17 @@ resource "aws_security_group" "ingest_eks_node" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    "Name"                               = "ingest-eks-node-${var.deployment_stage}"
-    "ingest-eks-${var.deployment_stage}" = "owned"
-  }
+	tags = merge(
+	  local.default_tags,
+		{
+		  "Name" = "ingest-eks-node-${var.deployment_stage}",
+			"ingest-eks-${var.deployment_stage}" = "owned"
+    }
+	)
+
 }
 
+// no tags for security group rule
 resource "aws_security_group_rule" "ingest_node_ingress_self" {
   description              = "Allow node to communicate with each other"
   from_port                = 0
@@ -319,6 +360,7 @@ USERDATA
 
 }
 
+// no tags support for resource type; identify by name prefix
 resource "aws_launch_configuration" "ingest_eks" {
   associate_public_ip_address = true
   iam_instance_profile        = aws_iam_instance_profile.ingest_eks_node.name
@@ -347,12 +389,22 @@ resource "aws_autoscaling_group" "ingest_eks" {
     value               = "ingest-eks-${var.deployment_stage}"
     propagate_at_launch = true
   }
-
+  
   tag {
     key                 = "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}"
     value               = "owned"
     propagate_at_launch = true
   }
+
+  dynamic "tag" {
+    for_each = local.default_tags
+    content { 
+      key       = tag.key
+      value     = tag.value
+      propagate_at_launch = true 
+    }
+  }
+
 }
 
 ////

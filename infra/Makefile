@@ -6,7 +6,7 @@ create-cluster-%:
 	# Add User confirmation of action and environment here and then apply -auto-confirm flag on terraform
 	# This step is idempotent and can be run again if the cluster needs to be modified.
 	$(MAKE) init-$(*)
-	. ../config/environment_$(*) && source scripts/generate_ssh_keys && terraform apply
+	. scripts/generate_ssh_keys && terraform apply
 	$(MAKE) retrieve-kubeconfig-$(*)
 	$(MAKE) apply-dashboard-configs-$(*)
 	$(MAKE) deploy-backend-services-$(*)
@@ -23,29 +23,30 @@ deploy-backend-services-%:
 modify-cluster-%:
 	# Add User confirmation of environment and action here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
-	. ../config/environment_$(*) && source scripts/generate_ssh_keys && terraform apply
+	. scripts/generate_ssh_keys && terraform apply
 
 destroy-cluster-%:
 	# Add User confirmation of action here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
 	$(MAKE) set-context-$(*)
-	. ../config/environment_$(*) && helm ls --all --short | xargs -L1 helm delete --purge
-	. ../config/environment_$(*) && terraform destroy
+	helm ls --all --short | xargs -L1 helm delete --purge
+	terraform destroy
 
 retrieve-kubeconfig-%:
+	# unset existing env config in ./kube/config before retrieving new config
+	$(MAKE) unset-config-$(*)
 	# confirm environment here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
-	mkdir -p ../config/cluster-secrets/
-	mkdir -p $(*)
+	mkdir -p ../config/cluster-secrets/ $(*)
 	terraform output kubeconfig > ../config/cluster-secrets/kubeconfig_$(*)
 	KUBECONFIG=~/.kube/config:$(kubeconfig_path) kubectl config view --flatten > mergedkub && mv mergedkub ~/.kube/config
 	terraform output namespace > $(*)/namespace.yaml
 	kubectx ingest-eks-$(*)
-	. ../config/environment_$(*) && kubectl apply -f $(*)/namespace.yaml
+	kubectl apply -f $(*)/namespace.yaml
 	rm -rf $(*)
 	$(MAKE) set-context-$(*)
 	$(MAKE) apply-env-configs-$(*)
-	. ../config/environment_$(*) && helm init --service-account tiller --wait
+	helm init --service-account tiller --wait
 
 setup-dashboard-%:
 	kubectx ingest-eks-$(*)
@@ -60,8 +61,8 @@ apply-env-configs-%:
 	mkdir -p $(*)
 	terraform output config_map > $(*)/config_map.yaml
 	terraform output tilleraccount > $(*)/tiller_account.yaml
-	. ../config/environment_$(*) && kubectl apply -f $(*)/config_map.yaml
-	. ../config/environment_$(*) && kubectl apply -f $(*)/tiller_account.yaml
+	kubectl apply -f $(*)/config_map.yaml
+	kubectl apply -f $(*)/tiller_account.yaml
 	rm -rf $(*)
 
 install-infra-helm-chart-mongo:
@@ -95,3 +96,8 @@ init-%:
 set-context-%:
 	kubectx ingest-eks-$(*)
 	kubens $(*)-environment
+
+unset-config-%:
+	kubectl config unset users.ingest-eks-$(*)
+	kubectl config unset contexts.ingest-eks-$(*)
+	kubectl config unset clusters.ingest-eks-$(*)
