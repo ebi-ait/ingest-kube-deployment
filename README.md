@@ -28,14 +28,12 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 9. Install [jq](https://stedolan.github.io/jq), if required. `sudo apt-get install jq`
 
 ## Configuring AWS connection
-1. `aws configure set default.region us-east-1`
-1. `aws configure set default.output json`
-1. `aws configure --profile hca-id`
+1. `aws configure --profile ebi`
 	- See [Quickly Configure ASW CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) for `AWS Access Key ID` & `AWS Secret Access Key`
 1. See [this video](https://org-humancellatlas-sam.s3.amazonaws.com/HCA-prod-acct-setup-720p.mov) for configuring your connection to the DCP Developer Role.
- - Account: `humancellatlas`
- - Role: `dcp-developer`
- - ARN: `arn:aws:iam::861229788715:role/dcp-developer`
+ - Account: `embl-ebi`
+ - Role: `ingest-devops`
+ - ARN: `arn:aws:iam::871979166454:role/ingest-devops`
 
 
 ## Access/Create/Modify/Destroy EKS Clusters
@@ -45,8 +43,6 @@ These steps assumes you have the correct aws credentials and local environment t
 1. `source config/environment_ENVNAME` where ENVNAME is the name of the environment you are trying to access
 2. `cd infra`
 3. `make retrieve-kubeconfig-ENVNAME` where ENVNAME is the name of the environment you are trying to access
- - To resolve `error: unable to recognize "dev/namespace.yaml": Get <...>: getting credentials: exec: exec: "heptio-authenticator-aws": executable file not found in $PATH`
- - Edit `~/.kube/config`, Replace `heptio-authenticator-aws` with `aws-iam-authenticator`.
 4. `kubectl`, `kubens`, `kubectx`, and `helm` will now be tied to the cluster you have sourced in the step above.
 
 ### How to access dashboard
