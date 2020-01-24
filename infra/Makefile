@@ -33,6 +33,8 @@ destroy-cluster-%:
 	. ../config/environment_$(*) && terraform destroy
 
 retrieve-kubeconfig-%:
+	# unset existing cluster/context/user in ./kube/config before retrieving new config
+	$(MAKE) unset-context-$(*)
 	# confirm environment here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
 	mkdir -p ../config/cluster-secrets/
@@ -95,3 +97,8 @@ init-%:
 set-context-%:
 	kubectx ingest-eks-$(*)
 	kubens $(*)-environment
+
+unset-context-%:
+	kubectl config unset users.ingest-eks-$(*)
+	kubectl config unset contexts.ingest-eks-$(*)
+	kubectl config unset clusters.ingest-eks-$(*)
