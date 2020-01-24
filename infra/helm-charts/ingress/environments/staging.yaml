@@ -4,13 +4,13 @@ ingress:
     defaultServicePort: 80
     hosts:
       - service: ingest-core-service
-        hostname: api.ingest.staging.data.humancellatlas.org
+        hostname: api.staging.archive.data.humancellatlas.org
       - service: ingest-broker-service
-        hostname: ingest.staging.data.humancellatlas.org
+        hostname: ingest.staging.archive.data.humancellatlas.org
       - service: ontology-service
-        hostname: ontology.staging.data.humancellatlas.org
+        hostname: ontology.staging.archive.data.humancellatlas.org
       - service: ingest-ui-service
-        hostname: ui.ingest.staging.data.humancellatlas.org
+        hostname: ui.staging.archive.data.humancellatlas.org
 
 nginx-ingress:
   controller:
