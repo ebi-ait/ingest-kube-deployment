@@ -3,6 +3,8 @@ stages:
 
 deploy_ingest:
   stage: deploy
+  tags:
+    ingest-kube-deployment
   script:
     - >
       if [[ "$ENV" =~ ^(dev|integration|staging|prod)$ ]]; then
