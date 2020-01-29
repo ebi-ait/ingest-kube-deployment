@@ -9,9 +9,11 @@ deploy_ingest:
     - >
       if [[ "$ENV" =~ ^(dev|integration|staging|prod)$ ]]; then
         echo "Deploying on $ENV"
-        kubectl config set-context ingest-eks-$ENV
         source config/environment_$ENV
-        cd apps
+        cd infra
+        make retrieve-kubeconfig-$ENV
+        kubectx ingest-eks-$ENV
+        cd ../apps
         for APP in ${APPS}; do make deploy-app-${APP}; done
       fi
   when: manual
