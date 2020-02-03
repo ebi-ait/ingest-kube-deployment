@@ -48,7 +48,7 @@ spec:
             secretKeyRef:
               key: exporter-auth-info
               name: api-keys
-        image: quay.io/humancellatlas/ingest-exporter:{{ .Values.image }}
+        image: quay.io/ebi-ait/ingest-exporter:{{ .Values.image }}
         volumeMounts:
           - name: secret-volume
             mountPath: "/etc/secrets"
