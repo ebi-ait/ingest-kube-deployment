@@ -15,3 +15,7 @@ usrAuthAudience: https://dev.data.humancellatlas.org/
 # ui
 domainWhitelist: "api.dev.archive.data.humancellatlas.org,ingest.dev.archive.data.humancellatlas.org"
 authDomain: "auth.dev.data.humancellatlas.org"
+
+# exporter
+disableBundleCreate: "true"
+disableBundleUpdate: "true"
