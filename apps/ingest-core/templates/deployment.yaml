@@ -37,7 +37,7 @@ spec:
           value: {{ .Values.usrAuthAudience }}
         - name: AUTH_ISSUER
           value: https://humancellatlas.auth0.com/
-        image: quay.io/humancellatlas/ingest-core:{{ .Values.image }}
+        image: quay.io/ebi-ait/ingest-core:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-core
         ports:
