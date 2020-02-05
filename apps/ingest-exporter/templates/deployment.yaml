@@ -32,10 +32,6 @@ spec:
           value: https://{{ .Values.upload }}
         - name: DSS_API
           value: https://{{ .Values.dss }}
-        - name: DISABLE_BUNDLE_CREATE
-          value: {{ .Values.disableBundleCreate }}
-        - name: DISABLE_BUNDLE_UPDATE
-          value: {{ .Values.disableBundleUpdate }}
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: "/etc/secrets/dss-auth-jwt.json"
         - name: STAGING_WAIT_TIME_MILLIS
