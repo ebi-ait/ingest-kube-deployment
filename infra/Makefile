@@ -31,10 +31,11 @@ destroy-cluster-%:
 	$(MAKE) set-context-$(*)
 	helm ls --all --short | xargs -L1 helm delete --purge
 	terraform destroy
+	$(MAKE) delete-kubeconfig-(*)
 
 retrieve-kubeconfig-%:
-	# unset existing env config in ./kube/config before retrieving new config
-	$(MAKE) unset-config-$(*)
+	# delete exissting env config in ./kube/config before retrieving new config
+	$(MAKE) delete-kubeconfig-$(*)
 	# confirm environment here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
 	mkdir -p ../config/cluster-secrets/ $(*)
@@ -47,6 +48,17 @@ retrieve-kubeconfig-%:
 	$(MAKE) set-context-$(*)
 	$(MAKE) apply-env-configs-$(*)
 	helm init --service-account tiller --wait
+
+delete-kubeconfig-%:
+	-kubectl config delete-cluster ingest-eks-$(*)
+	-kubectl config delete-context ingest-eks-$(*)
+	kubectl config unset users.ingest-eks-$(*)
+
+# keeping this for reference
+unset-config-%:
+	kubectl config unset users.ingest-eks-$(*)
+	kubectl config unset contexts.ingest-eks-$(*)
+	kubectl config unset clusters.ingest-eks-$(*)
 
 setup-dashboard-%:
 	kubectx ingest-eks-$(*)
@@ -97,7 +109,5 @@ set-context-%:
 	kubectx ingest-eks-$(*)
 	kubens $(*)-environment
 
-unset-config-%:
-	kubectl config unset users.ingest-eks-$(*)
-	kubectl config unset contexts.ingest-eks-$(*)
-	kubectl config unset clusters.ingest-eks-$(*)
+
+

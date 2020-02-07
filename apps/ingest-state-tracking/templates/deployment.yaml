@@ -29,7 +29,7 @@ spec:
           value: $(REDIS_SERVICE_SERVICE_HOST)
         - name: REDIS_PORT
           value: $(REDIS_SERVICE_SERVICE_PORT)
-        image: quay.io/humancellatlas/ingest-state-tracking:{{ .Values.image }}
+        image: quay.io/ebi-ait/ingest-state-tracking:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-state-tracking
         ports:

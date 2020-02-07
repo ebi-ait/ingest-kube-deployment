@@ -1,21 +1,19 @@
-image: registry.gitlab.com/prabh-t/ingest-deploy:0.1
-
-before_script:
-  - echo "Updating ingest-kube-deployment"
-  - cd /home/ingest/ingest-kube-deployment && git pull
-
 stages:
   - deploy
 
 deploy_ingest:
   stage: deploy
+  tags:
+    - ingest-kube-deployment
   script:
     - >
       if [[ "$ENV" =~ ^(dev|integration|staging|prod)$ ]]; then
         echo "Deploying on $ENV"
-        kubectl config set-context ingest-eks-$ENV
         source config/environment_$ENV
-        cd apps
+        cd infra
+        make retrieve-kubeconfig-$ENV
+        kubectx ingest-eks-$ENV
+        cd ../apps
         for APP in ${APPS}; do make deploy-app-${APP}; done
       fi
   when: manual

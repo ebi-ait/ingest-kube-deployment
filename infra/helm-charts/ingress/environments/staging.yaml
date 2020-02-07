@@ -16,4 +16,4 @@ nginx-ingress:
   controller:
     service:
       annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/3c0f6a59-d434-4742-addf-524b7762fb17
+        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/46ba27f6-1f25-43fb-9f95-da77fb5f4526
