@@ -1,11 +1,11 @@
 uploadScheme: https
 uploadPort: 443
-upload: upload.dev.data.humancellatlas.org
+upload: upload.dev.archive.data.humancellatlas.org
 dss: dss.dev.data.humancellatlas.org
 schema: schema.dev.data.humancellatlas.org
-ingest: api.dev.archive.data.humancellatlas.org
+ingest: api.ingest.dev.archive.data.humancellatlas.org
 broker: ingest.dev.archive.data.humancellatlas.org
-ui: ui.dev.archive.data.humancellatlas.org
+ui: ui.ingest.dev.archive.data.humancellatlas.org
 
 # config values
 gcpProjectWhitelist: "hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com"
@@ -13,5 +13,5 @@ svcAuthAudience: https://dev.data.humancellatlas.org/
 usrAuthAudience: https://dev.data.humancellatlas.org/
 
 # ui
-domainWhitelist: "api.dev.archive.data.humancellatlas.org,ingest.dev.archive.data.humancellatlas.org"
+domainWhitelist: "api.ingest.dev.archive.data.humancellatlas.org,ingest.dev.archive.data.humancellatlas.org"
 authDomain: "auth.dev.data.humancellatlas.org"
