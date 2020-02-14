@@ -1,6 +1,20 @@
 # Staging Changelog
 DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RELEASE_NOTES.md
 
+## 14 February 2020
+* Core ae3f8fe
+  - Bundle manifest endpoint fix
+  - Added new Archiving submission state
+
+* State Tracking f6d4cbf
+  - Added new Archiving submission state
+
+* UI e5ef66e
+  - Display new Archiving submission state
+
+* Exporter 21f7197 (not from MASTER)
+  - Generate bundle manifest but do not submit to DSS
+
 ## 27 November 2019
 
 * Core f31fcbd
