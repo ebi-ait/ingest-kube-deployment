@@ -4,16 +4,16 @@ ingress:
     defaultServicePort: 80
     hosts:
       - service: ingest-core-service
-        hostname: api.staging.archive.data.humancellatlas.org
+        hostname: api.ingest.staging.archive.data.humancellatlas.org
       - service: ingest-broker-service
         hostname: ingest.staging.archive.data.humancellatlas.org
       - service: ontology-service
         hostname: ontology.staging.archive.data.humancellatlas.org
       - service: ingest-ui-service
-        hostname: ui.staging.archive.data.humancellatlas.org
+        hostname: ui.ingest.staging.archive.data.humancellatlas.org
 
 nginx-ingress:
   controller:
     service:
       annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/46ba27f6-1f25-43fb-9f95-da77fb5f4526
+        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/a89f4940-6ca5-442f-bd9f-0e1c42465526
