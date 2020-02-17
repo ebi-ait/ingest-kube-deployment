@@ -1,6 +1,21 @@
 # Production Changelog
 DCP Production Release Notes: https://github.com/HumanCellAtlas/dcp/blob/prod/RELEASE_NOTES.md
 
+## 17 February 2020
+* Core v0.12.2:ae3f8fe
+  - Bundle manifest endpoint fix
+  - Added new Archiving submission state
+
+* State Tracking v0.7.7:f6d4cbf
+  - Added new Archiving submission state
+
+* UI v0.12.2:e5ef66e
+  - Display new Archiving submission state
+
+* Exporter 21f7197 (not from MASTER)
+  - Generate bundle manifest but do not submit to DSS
+
+
 ## 26 November 2019
 * Broker v0.10.3
   - Updated schema processing
