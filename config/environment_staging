@@ -30,7 +30,7 @@ TF_VAR_ops_role=ingest-devops
 TF_VAR_vpc_cidr_block=10.61.0.0/16
 
 #Set values for node size and count
-TF_VAR_node_size="m5.xlarge"
+TF_VAR_node_size="t3a.large"
 TF_VAR_node_count="2"
 
 
