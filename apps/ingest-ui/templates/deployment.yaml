@@ -25,8 +25,14 @@ spec:
           value: https://{{ .Values.dss }}
         - name: DOMAIN_WHITELIST
           value: {{ .Values.domainWhitelist }} 
-        - name: AUTH_DOMAIN
-          value: {{ .Values.authDomain }}
+        - name: AAI_CLIENT_ID
+          value: {{ .Values.aaiClientId }}
+        - name: AAI_AUTHORITY 
+          value: {{ .Values.aaiAuthority }}
+        - name: AAI_REDIRECT_URI
+          value: {{ .Values.aaiRedirectUri }}
+        - name: AAI_POST_LOGOUT_REDIRECT_URI
+          value: {{ .Values.aaiPostLogoutRedirectUri }}
         image: quay.io/ebi-ait/ingest-ui:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-ui
