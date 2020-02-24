@@ -47,7 +47,7 @@ retrieve-kubeconfig-%:
 	rm -rf $(*)
 	$(MAKE) set-context-$(*)
 	$(MAKE) apply-env-configs-$(*)
-	helm init --service-account tiller --wait
+	helm init --service-account tiller --client-only --wait
 
 delete-kubeconfig-%:
 	-kubectl config delete-cluster ingest-eks-$(*)
@@ -108,6 +108,3 @@ init-%:
 set-context-%:
 	kubectx ingest-eks-$(*)
 	kubens $(*)-environment
-
-
-
