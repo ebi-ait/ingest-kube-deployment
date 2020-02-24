@@ -5,7 +5,7 @@ FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_BROKER_REF=c452a55
 INGEST_CORE_REF=ae3f8fe
-INGEST_EXPORTER_REF=21f7197 # in branch feature/refactor-client-remove-dss
+INGEST_EXPORTER_REF=6e6b486 # in branch feature/refactor-client-remove-dss
 INGEST_STAGING_MANAGER_REF=47cbd64
 INGEST_STATE_TRACKING_REF=f6d4cbf
 INGEST_VALIDATOR_REF=3be5e81
