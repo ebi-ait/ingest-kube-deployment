@@ -15,4 +15,5 @@ usrAuthAudience: https://dev.data.humancellatlas.org/
 # ui
 domainWhitelist: "api.ingest.staging.archive.data.humancellatlas.org,ingest.staging.archive.data.humancellatlas.org"
 authDomain: "auth.staging.data.humancellatlas.org"
-aaiAuthority: "https://humancellatlas.auth0.com/"
+aaiClientId: "e2041c2d-9449-4468-856e-e84711cebd21"
+aaiAuthority: "https://login.elixir-czech.org/oidc/"
