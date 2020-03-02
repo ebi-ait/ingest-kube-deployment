@@ -26,7 +26,7 @@ spec:
           value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
         - name: SPREADSHEET_STORAGE_DIR
           value: /data/spreadsheets
-        image: quay.io/humancellatlas/ingest-broker:{{ .Values.image }}
+        image: quay.io/ebi-ait/ingest-broker:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-broker
         ports:
