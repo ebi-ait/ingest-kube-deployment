@@ -43,6 +43,6 @@ spec:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
-        image: quay.io/humancellatlas/ingest-validator:{{ .Values.image }}
+        image: quay.io/ebi-ait/ingest-validator:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-validator
