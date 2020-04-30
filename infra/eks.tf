@@ -41,10 +41,14 @@ provider "aws" {
 
 locals {
   default_tags = {
-    project     = "hca"
-    environment = "${var.deployment_stage}"
+    Owner       = "tburdett"
+    Project     = "hca"
+    Service     = "MAIT"
+    Description = "CreatedBy Terraform"
+    Environment = "${var.deployment_stage}"
   }
 }
+
 
 ////
 // general setup
