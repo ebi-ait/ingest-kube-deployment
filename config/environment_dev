@@ -4,12 +4,12 @@ set -a
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_BROKER_REF=6fea04d
-INGEST_CORE_REF=c880ee35
+INGEST_CORE_REF=6217bb5
 INGEST_EXPORTER_REF=8a7dfa4
 INGEST_STAGING_MANAGER_REF=47cbd64
 INGEST_STATE_TRACKING_REF=f6d4cbf
 INGEST_VALIDATOR_REF=2b405b8
-INGEST_UI_REF=0b38c31
+INGEST_UI_REF=a6ff8f9 # task/vf-project-form
 ONTOLOGY_REF=1.0.15
 
 FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc
