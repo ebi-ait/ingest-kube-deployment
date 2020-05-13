@@ -29,6 +29,8 @@ spec:
           value: {{ .Values.aaiClientId }}
         - name: AAI_AUTHORITY 
           value: {{ .Values.aaiAuthority }}
+        - name: OLS_URL 
+          value: {{ .Values.olsUrl }}
         image: quay.io/ebi-ait/ingest-ui:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-ui
