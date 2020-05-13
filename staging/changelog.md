@@ -1,4 +1,25 @@
 # Staging Changelog
+
+## 13 May 2020
+* Core 9499ba1
+  - Account Registration
+  - New Project attributes
+
+* UI f65396a
+  - Hide Wrangler UI elements for Non-Wranglers
+  - Add “Dates” tab - to provide information on timelines for ingestion
+  - Fix delete project
+  - Project Form changes:
+     - Change ‘save and continue’ to give “expected action”
+     - Edit project button retains which page you were viewing of a project
+     - Support for “array of strings” fields (e.g. publication authors, project accession fields)
+     - Add in missing project fields: supplementary_links, accession fields, pmid 
+     - Remove work in progress banners
+     - Change order of project fields
+     - Make optional versus required fields more obvious and indicate the blue star means required. 
+     - Some module fields are required only if added. Remove the module fields initially in the form.
+     - Added project role ontology field
+
 DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RELEASE_NOTES.md
 
 ## 14 February 2020
