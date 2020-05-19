@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations: {}
@@ -7,6 +7,9 @@ metadata:
   name: ingest-broker
   namespace: {{ .Values.environment }}-environment
 spec:
+  selector:
+    matchLabels:
+      app: ingest-broker
   replicas: {{ .Values.replicas }}
   template:
     metadata:
