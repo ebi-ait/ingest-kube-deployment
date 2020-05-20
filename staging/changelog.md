@@ -1,5 +1,19 @@
 # Staging Changelog
 
+## 20 May 2020
+* Core 1d97330
+  - Additional fields in the Project
+  - Reorganised integration tests.
+
+* UI 6ba4833
+  - New fields in project form: data access, identifying organism, technology
+  - Added multiple select, select option fields with autocomplete
+  - Added custom multiple select and select for ontology fields
+  - Added tooltip for description of form tabs
+  - Modify angular material theme to be "HCA blue"ish and typography to use VF fonts
+  - Fix navigation header after registration / login
+  - Refactored to recursively generate the form fields
+
 ## 13 May 2020
 * Core 9499ba1
   - Account Registration
