@@ -169,3 +169,41 @@ https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-
 `kubectl get pods | grep rabbit`
 3. Access the RabbitMQ Management UI
 `kubectl port-forward rabbit-0 15672:15672`
+
+## Accessing Mongo DB container
+## SSH into the container
+
+`kubectl exec -it mongo-0 -- sh`
+
+### Restoring Mongo DB backup
+
+1. Download the latest compressed directory of backup from s3 bucket `ingest-db-backup`
+2. Copy the backup to the mongo pod.
+```
+$ kubectl cp 2020-05-21T00_00.tar.gz staging-environment/mongo-0:/2020-05-21T00_00.tar.gz
+```
+
+3. SSH into the mongo pod. Verify the file is copied there.
+```
+$ kubectl exec -it mongo-0 -- sh
+```
+
+4. Extract dump files
+```
+$ tar -xzvf 2020-05-21T00_00.tar.gz
+```
+This will create a directory structure, `data/db/dump/2020-05-21T00_00`, which contains the output of the `mongodump`
+
+5. Go to the backup dir and restore.
+
+```
+$ cd data/db/dump/
+$ mongorestore 2020-05-21T00_00
+```
+
+For more info on the restoring data, please refer to https://github.com/ebi-ait/ingest-kube-deployment/tree/master/infra/helm-charts/mongo/charts/ingestbackup#restoring-data
+
+6. Remove the dump files
+```
+$ rm -rf 2020-05-21T00_00
+```
