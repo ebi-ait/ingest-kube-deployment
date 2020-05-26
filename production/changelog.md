@@ -1,5 +1,37 @@
 # Production Changelog
-DCP Production Release Notes: https://github.com/HumanCellAtlas/dcp/blob/prod/RELEASE_NOTES.md
+
+## 26 May 2020
+* Core d2020-26-05.1 (1d97330)
+  - Allow user to create project first before submission envelope
+  - Account Registration
+  - New Project attributes
+  - Additional fields in the Project
+  - Reorganised integration tests.
+
+* UI d2020-26-05.1 (0847af4)
+  - Use Visual Framework for UI components
+  - New Project Registration form
+  - Hide Wrangler UI elements for Non-Wranglers
+  - Add “Dates” tab - to provide information on timelines for ingestion
+  - Project Form changes:
+     - Change ‘save and continue’ to give “expected action”
+     - Edit project button retains which page you were viewing of a project
+     - Support for “array of strings” fields (e.g. publication authors, project accession fields)
+     - Add in missing project fields: supplementary_links, accession fields, pmid 
+     - Remove work in progress banners
+     - Change order of project fields
+     - Make optional versus required fields more obvious and indicate the blue star means required. 
+     - Some module fields are required only if added. Remove the module fields initially in the form.
+     - Added project role ontology field
+  - New fields in project form: data access, identifying organism, technology
+  - Added multiple select, select option fields with autocomplete
+  - Added custom multiple select and select for ontology fields
+  - Added tooltip for description of form tabs
+  - Modify angular material theme to be "HCA blue"ish and typography to use VF fonts
+  - Fix navigation header after registration / login
+  - Refactored to recursively generate the form fields
+
+~DCP Production Release Notes: https://github.com/HumanCellAtlas/dcp/blob/prod/RELEASE_NOTES.md~
 
 ## 17 February 2020
 * Core v0.12.2:ae3f8fe

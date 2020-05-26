@@ -34,7 +34,7 @@
      - Some module fields are required only if added. Remove the module fields initially in the form.
      - Added project role ontology field
 
-DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RELEASE_NOTES.md
+~DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RELEASE_NOTES.md~
 
 ## 14 February 2020
 * Core ae3f8fe
