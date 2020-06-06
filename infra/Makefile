@@ -72,9 +72,7 @@ apply-env-configs-%:
 	rm -rf $(*)
 	mkdir -p $(*)
 	terraform output config_map > $(*)/config_map.yaml
-	terraform output tilleraccount > $(*)/tiller_account.yaml
 	kubectl apply -f $(*)/config_map.yaml
-	kubectl apply -f $(*)/tiller_account.yaml
 	rm -rf $(*)
 
 install-infra-helm-chart-mongo:
