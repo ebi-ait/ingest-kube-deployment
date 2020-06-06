@@ -2,3 +2,7 @@ apiVersion: v2
 description: A Helm chart for Kubernetes that creates a Mongo deployment.
 name: mongo
 version: 0.1.0
+dependencies:
+    - name: ingestbackup
+      version: 1.0.0
+    
