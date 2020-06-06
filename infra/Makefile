@@ -29,7 +29,7 @@ destroy-cluster-%:
 	# Add User confirmation of action here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
 	$(MAKE) set-context-$(*)
-	helm ls --all --short | xargs -L1 helm delete --purge
+	helm ls --all --short | xargs -L1 helm uninstall
 	terraform destroy
 	$(MAKE) delete-kubeconfig-(*)
 
