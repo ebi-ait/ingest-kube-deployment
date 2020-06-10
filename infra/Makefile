@@ -29,7 +29,7 @@ destroy-cluster-%:
 	# Add User confirmation of action here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
 	$(MAKE) set-context-$(*)
-	helm ls --all --short | xargs -L1 helm delete --purge
+	helm ls --all --short | xargs -L1 helm uninstall
 	terraform destroy
 	$(MAKE) delete-kubeconfig-(*)
 
@@ -47,7 +47,6 @@ retrieve-kubeconfig-%:
 	rm -rf $(*)
 	$(MAKE) set-context-$(*)
 	$(MAKE) apply-env-configs-$(*)
-	helm init --service-account tiller --client-only --wait
 
 delete-kubeconfig-%:
 	-kubectl config delete-cluster ingest-eks-$(*)
@@ -72,9 +71,7 @@ apply-env-configs-%:
 	rm -rf $(*)
 	mkdir -p $(*)
 	terraform output config_map > $(*)/config_map.yaml
-	terraform output tilleraccount > $(*)/tiller_account.yaml
 	kubectl apply -f $(*)/config_map.yaml
-	kubectl apply -f $(*)/tiller_account.yaml
 	rm -rf $(*)
 
 install-infra-helm-chart-mongo:
