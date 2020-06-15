@@ -4,10 +4,10 @@ set -a
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_BROKER_REF=6fea04d
-INGEST_CORE_REF=9343b06
-INGEST_EXPORTER_REF=8a7dfa4
+INGEST_CORE_REF=3f3db7d # feature/ingest-dsp-tdr-flow
+INGEST_EXPORTER_REF=2da069e
 INGEST_STAGING_MANAGER_REF=47cbd64
-INGEST_STATE_TRACKING_REF=f6d4cbf
+INGEST_STATE_TRACKING_REF=aecf793 # feature/ingest-dsp-tdr-flow
 INGEST_VALIDATOR_REF=2b405b8
 INGEST_UI_REF=0847af4
 INGEST_ARCHIVER_REF=458a324
