@@ -3,6 +3,7 @@
 Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
 
 ## Set up local environment
+We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
 ### Mac
 1. `git clone <this-repo-url>`
 2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html): `brew install terraform`.
@@ -65,7 +66,7 @@ These steps will set up a new ingest environment from scratch via terraform and 
 5. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
 6. `cd infra`
 7. `make create-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to create. This step will also deploy the backend services (mongo, redis, rabbit)
-8. Follow the steps to access the kubernetes dashboard. Once you see one active tiller pod in the environment namespace, continue to the next step.
+8. Follow the steps to access the kubernetes dashboard. Note that there is no server-side component (tiller) in helm 3.
 9. Follow instructions below to deploy applications.
 
 ### Modify and deploy updated EKS and AWS infrastructure
