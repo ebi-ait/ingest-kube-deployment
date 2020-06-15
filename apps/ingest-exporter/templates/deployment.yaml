@@ -25,34 +25,36 @@ spec:
           secret:
             secretName: api-keys
             items:
-              - key: exporter-auth-info
-                path: dss-auth-jwt.json
+              - key: exporter-terra-auth-info
+                path: terra-gcp-svc-account.json
       containers:
       - env:
         - name: INGEST_API
-          value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
+          value: http://$(INGEST_CORE_SERVICE_SERVICE_HOST):$(INGEST_CORE_SERVICE_SERVICE_PORT)
         - name: RABBIT_URL
-          value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
-        - name: STAGING_API
-          value: https://{{ .Values.upload }}
-        - name: DSS_API
-          value: https://{{ .Values.dss }}
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: "/etc/secrets/dss-auth-jwt.json"
-        - name: STAGING_WAIT_TIME_MILLIS
-          value: {{ .Values.staging.waitTime | quote }}
-        - name: STAGING_WAIT_ATTEMPTS
-          value: {{ .Values.staging.waitAttempts | quote }}
-        - name: INGEST_API_KEY
+          value: amqp://$(RABBIT_SERVICE_SERVICE_HOST):$(RABBIT_SERVICE_SERVICE_PORT_SERVICE)
+        - name: RABBIT_HOST
+          value: $(RABBIT_SERVICE_SERVICE_HOST)
+        - name: RABBIT_PORT
+          value: $(RABBIT_SERVICE_SERVICE_PORT_SERVICE)
+        - name: TERRA_BUCKET_NAME
+          value: {{ .Values.terraBucketName }}
+        - name: TERRA_BUCKET_PREFIX
+          value: {{ .Values.terraBucketPrefix }}
+        - name: GCP_PROJECT
+          value: {{ .Values.terraGcpProject }}
+        - name: GCP_SVC_ACCOUNT_KEY_PATH
+          value: "/etc/secrets/terra-gcp-svc-account.json"
+        - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:
-              key: staging-api-key
-              name: api-keys
-        - name: EXPORTER_AUTH_INFO
+              key: exporter-access-key-id
+              name: aws-keys
+        - name: AWS_ACCESS_KEY_SECRET
           valueFrom:
             secretKeyRef:
-              key: exporter-auth-info
-              name: api-keys
+              key: exporter-access-key-secret
+              name: aws-keys
         image: quay.io/ebi-ait/ingest-exporter:{{ .Values.image }}
         volumeMounts:
           - name: secret-volume

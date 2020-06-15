@@ -17,3 +17,8 @@ domainWhitelist: "api.integration.archive.data.humancellatlas.org,ingest.integra
 authDomain: "auth.integration.data.humancellatlas.org"
 
 olsUrl: "https://ontology.integration.archive.data.humancellatlas.org"
+
+# exporter
+terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
+terraBucketPrefix: integration
+terraGcpProject: broad-dsp-monster-hca-dev

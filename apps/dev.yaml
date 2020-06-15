@@ -19,9 +19,13 @@ aaiAuthority: "https://login.elixir-czech.org/oidc/"
 
 olsUrl: "https://ontology.dev.archive.data.humancellatlas.org"
 
+# exporter
+terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
+terraBucketPrefix: dev
+terraGcpProject: broad-dsp-monster-hca-dev
+
 # archiver
 dspUrl: https://submission-test.ebi.ac.uk
 aapUrl: https://explore.api.aai.ebi.ac.uk/auth
 aapUser: hca-ingest
 aapDomain: subs.test-team-21
-
