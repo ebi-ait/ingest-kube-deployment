@@ -24,7 +24,7 @@ spec:
         - name: INGEST_API_URL
           value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
         - name: ONTOLOGY_API_URL
-          value: http://${ONTOLOGY_SERVICE_SERVICE_HOST}:${ONTOLOGY_SERVICE_SERVICE_PORT}
+          value: http://$(ONTOLOGY_SERVICE_SERVICE_HOST):$(ONTOLOGY_SERVICE_SERVICE_PORT)
         - name: DSP_API_URL
           value: {{ .Values.dspUrl }}
         - name: AAP_API_URL
