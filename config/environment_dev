@@ -5,12 +5,12 @@ FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 INGEST_BROKER_REF=6fea04d
 INGEST_CORE_REF=d51a63a # feature/ingest-dsp-tdr-flow
-INGEST_EXPORTER_REF=b246905 # feature/ingest-dsp-tdr-flow
+INGEST_EXPORTER_REF=3a0ddba
 INGEST_STAGING_MANAGER_REF=47cbd64
 INGEST_STATE_TRACKING_REF=05d4107 # feature/ingest-dsp-tdr-flow
 INGEST_VALIDATOR_REF=2b405b8
-INGEST_UI_REF=7426351 # feature/ingest-dsp-tdr-flow
-INGEST_ARCHIVER_REF=eb03102 # feature/ingest-archive-entities
+INGEST_UI_REF=77b1418 # feature/ingest-dsp-tdr-flow
+INGEST_ARCHIVER_REF=b318996 # feature/ingest-archive-entities
 ONTOLOGY_REF=1.0.16
 
 FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc
