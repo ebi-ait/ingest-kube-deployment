@@ -26,18 +26,18 @@ spec:
         - name: ONTOLOGY_API_URL
           value: http://${ONTOLOGY_SERVICE_SERVICE_HOST}:${ONTOLOGY_SERVICE_SERVICE_PORT}
         - name: DSP_API_URL
-          value: https://{{ .Values.dspUrl }}
+          value: {{ .Values.dspUrl }}
         - name: AAP_API_URL
-          value: https://{{ .Values.aapUrl }}
+          value: {{ .Values.aapUrl }}
         - name: AAP_API_DOMAIN
-          value: https://{{ .Values.aapDomain }}
+          value: {{ .Values.aapDomain }}
         - name: AAP_API_PASSWORD
           valueFrom:
             secretKeyRef:
               key: aap-api-password
               name: api-keys
         - name: AAP_API_USER
-          value: https://{{ .Values.aapUser }}
+          value: {{ .Values.aapUser }}
         image: quay.io/ebi-ait/ingest-archiver:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-archiver
