@@ -24,3 +24,9 @@ olsUrl: "https://ontology.archive.data.humancellatlas.org"
 terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
 terraBucketPrefix: prod
 terraGcpProject: broad-dsp-monster-hca-dev
+
+# archiver
+dspUrl: https://submission.ebi.ac.uk
+aapUrl: https://api.aai.ebi.ac.uk/auth
+aapUser: hca-ingest
+aapDomain: subs.team-2

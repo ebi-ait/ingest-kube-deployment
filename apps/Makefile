@@ -9,6 +9,7 @@ ingest-staging-manager = ${INGEST_STAGING_MANAGER_REF}
 ingest-state-tracking= ${INGEST_STATE_TRACKING_REF}
 ingest-validator = ${INGEST_VALIDATOR_REF}
 ingest-ui = ${INGEST_UI_REF}
+ingest-archiver = ${INGEST_ARCHIVER_REF}
 
 # testing env only
 ingest-api-tests = ${INGEST_API_TESTS_REF}
@@ -46,6 +47,7 @@ deploy-all-apps:
 	$(MAKE) deploy-app-ontology
 	$(MAKE) deploy-app-ingest-validator
 	$(MAKE) deploy-app-ingest-ui
+	$(MAKE) deploy-app-ingest-archiver
 
 deploy-all:
 	$(MAKE) set-context
