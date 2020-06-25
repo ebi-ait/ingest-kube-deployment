@@ -29,6 +29,23 @@
   - When waiting at Archived the submit button should display Export to HCA
   - When waiting at Exported, the submit button should display Delete Upload Area
 
+### Deployment notes:
+* Update ingress
+```
+$ cd infra
+$ make setup-ingress-<env>
+
+# double check if archiver service endpoint is configured
+$ kubectl get ingress ingest-ingress -o yaml
+```
+* Redeploy secrets
+```
+$ cd app
+$ make deploy-secrets
+```
+* Deploy new images
+
+* Deploy images
 
 ## 20 May 2020
 * Core 1d97330
