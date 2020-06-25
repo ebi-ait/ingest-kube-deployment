@@ -1,24 +1,24 @@
 # Production Changelog
 ## 25 June 2020
-* Core 855461a
+* Core d2020-06-25.1 (855461a)
   - New endpoints for state transition changes
   - Tracking archiving entities
   - CI GitHub Workflow
 
-* State Tracking 6801bf0
+* State Tracking d2020-06-25.1 (6801bf0)
   - Archiving to Exporting Flow
 
-* Archiver 6df8dbd
+* Archiver d2020-06-25.1 (6df8dbd)
   - New archiving endpoints
   - Setting of Archived state
   - Tracking entities and accessions in Ingest
 
-* Exporter 3a0ddba
+* Exporter d2020-06-25.1 (3a0ddba)
   - Exporting to Terra Data Repo
   - Changes to assay manifest generator
   - Notifying state tracker
 
-* UI 93f55fa
+* UI d2020-06-25.1 (93f55fa)
   - Submission view changes
   - Display New Submission States in UI
   - Give user checkbox options when submitting : archive, export, cleanup
@@ -44,7 +44,7 @@ $ make deploy-secrets
 ```
 * Deploy new images
 
-* Add archiver in route 53
+* Add archiver endpoint in route 53
 ```
 archiver.ingest.archive.data.humancellatlas.org
 ```
