@@ -45,8 +45,6 @@ $ make deploy-secrets
 ```
 * Deploy new images
 
-* Deploy images
-
 ## 20 May 2020
 * Core 1d97330
   - Additional fields in the Project
