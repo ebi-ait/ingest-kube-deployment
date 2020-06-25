@@ -45,6 +45,11 @@ $ make deploy-secrets
 ```
 * Deploy new images
 
+* Add archiver endpoint in route 53
+```
+archiver.ingest.staging.archive.data.humancellatlas.org
+```
+
 ## 20 May 2020
 * Core 1d97330
   - Additional fields in the Project
