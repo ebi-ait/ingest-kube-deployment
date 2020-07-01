@@ -42,6 +42,24 @@ spec:
           value: {{ .Values.usrAuthAudience }}
         - name: AUTH_ISSUER
           value: {{ .Values.aaiAuthority }}
+        - name: NOTIFICATIONS_SMTP_HOST
+          value: {{ .Values.notifications.smtp.host }}
+        - name: NOTIFICATIONS_SMTP_PORT
+          value: "587"
+        - name: NOTIFICATIONS_SMTP_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: notifications-smtp-username
+              name: aws-keys
+        - name: NOTIFICATIONS_SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: notifications-smtp-password
+              name: aws-keys
+        - name: NOTIFICATIONS_AMQP_SEND_EXCHANGE
+          value: {{ .Values.notifications.amqp.sendExchange }}
+        - name: NOTIFICATIONS_AMQP_SEND_ROUTING_KEY
+          value: {{ .Values.notifications.amqp.sendRoutingKey }}
         image: quay.io/ebi-ait/ingest-core:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-core
