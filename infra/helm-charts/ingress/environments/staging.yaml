@@ -11,6 +11,8 @@ ingress:
         hostname: ontology.staging.archive.data.humancellatlas.org
       - service: ingest-ui-service
         hostname: ui.ingest.staging.archive.data.humancellatlas.org
+      - service: ingest-archiver-service
+        hostname: archiver.ingest.staging.archive.data.humancellatlas.org
 
 nginx-ingress:
   controller:

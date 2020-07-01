@@ -1,5 +1,55 @@
 # Staging Changelog
 
+## 24 June 2020
+* Core 855461a
+  - New endpoints for state transition changes
+  - Tracking archiving entities
+  - CI GitHub Workflow
+
+* State Tracking 6801bf0
+  - Archiving to Exporting Flow
+
+* Archiver 6df8dbd
+  - New archiving endpoints
+  - Setting of Archived state
+  - Tracking entities and accessions in Ingest
+
+* Exporter 3a0ddba
+  - Exporting to Terra Data Repo
+  - Changes to assay manifest generator
+  - Notifying state tracker
+
+* UI 93f55fa
+  - Submission view changes
+  - Display New Submission States in UI
+  - Give user checkbox options when submitting : archive, export, cleanup
+  - The user must select at least one of archive (Submit to Archives) and export (Submit to HCA)
+  - User won't be able to untick the cleanup checkbox if export is unticked.
+  - Checkboxes are all checked by default
+  - When waiting at Archived the submit button should display Export to HCA
+  - When waiting at Exported, the submit button should display Delete Upload Area
+
+### Deployment notes:
+* Update ingress
+```
+$ cd infra
+$ make setup-ingress-<env>
+
+# double check if archiver service endpoint is configured
+$ kubectl get ingress ingest-ingress -o yaml
+```
+* Redeploy secrets
+```
+$ cd app
+$ make deploy-secrets
+```
+* Deploy new images
+
+* Add archiver endpoint in route 53
+```
+archiver.ingest.staging.archive.data.humancellatlas.org
+```
+
 ## 20 May 2020
 * Core 1d97330
   - Additional fields in the Project

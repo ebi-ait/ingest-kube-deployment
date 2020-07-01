@@ -1,4 +1,53 @@
 # Production Changelog
+## 25 June 2020
+* Core d2020-06-25.1 (855461a)
+  - New endpoints for state transition changes
+  - Tracking archiving entities
+  - CI GitHub Workflow
+
+* State Tracking d2020-06-25.1 (6801bf0)
+  - Archiving to Exporting Flow
+
+* Archiver d2020-06-25.1 (6df8dbd)
+  - New archiving endpoints
+  - Setting of Archived state
+  - Tracking entities and accessions in Ingest
+
+* Exporter d2020-06-25.1 (3a0ddba)
+  - Exporting to Terra Data Repo
+  - Changes to assay manifest generator
+  - Notifying state tracker
+
+* UI d2020-06-25.1 (93f55fa)
+  - Submission view changes
+  - Display New Submission States in UI
+  - Give user checkbox options when submitting : archive, export, cleanup
+  - The user must select at least one of archive (Submit to Archives) and export (Submit to HCA)
+  - User won't be able to untick the cleanup checkbox if export is unticked.
+  - Checkboxes are all checked by default
+  - When waiting at Archived the submit button should display Export to HCA
+  - When waiting at Exported, the submit button should display Delete Upload Area
+
+### Deployment notes:
+* Update ingress
+```
+$ cd infra
+$ make setup-ingress-<env>
+
+# double check if archiver service endpoint is configured
+$ kubectl get ingress ingest-ingress -o yaml
+```
+* Redeploy secrets
+```
+$ cd app
+$ make deploy-secrets
+```
+* Deploy new images
+
+* Add archiver endpoint in route 53
+```
+archiver.ingest.archive.data.humancellatlas.org
+```
 
 ## 26 May 2020
 * Core d2020-26-05.1 (1d97330)

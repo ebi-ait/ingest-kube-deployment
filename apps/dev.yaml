@@ -35,3 +35,8 @@ notifications:
     sendExchange: ingest.notifications.exchange
     sendRoutingKey: ingest.notifications.new
 
+# archiver
+dspUrl: https://submission-test.ebi.ac.uk
+aapUrl: https://explore.api.aai.ebi.ac.uk/auth
+aapUser: hca-ingest
+aapDomain: subs.test-team-21
