@@ -7,7 +7,7 @@
   - New Project Registration form for contributors
 
 * Core e3129c5
-  - Assigning Primary and Secondary Wranglers to Projects
+  - Assigning Primary Wranglers to Projects
   - Project notifications
 
 ## 24 June 2020
@@ -87,10 +87,10 @@ archiver.ingest.staging.archive.data.humancellatlas.org
      - Change ‘save and continue’ to give “expected action”
      - Edit project button retains which page you were viewing of a project
      - Support for “array of strings” fields (e.g. publication authors, project accession fields)
-     - Add in missing project fields: supplementary_links, accession fields, pmid 
+     - Add in missing project fields: supplementary_links, accession fields, pmid
      - Remove work in progress banners
      - Change order of project fields
-     - Make optional versus required fields more obvious and indicate the blue star means required. 
+     - Make optional versus required fields more obvious and indicate the blue star means required.
      - Some module fields are required only if added. Remove the module fields initially in the form.
      - Added project role ontology field
 
@@ -248,27 +248,27 @@ db.file.find({ "isUpdate": null }).count()
 
 //
 db.project.update(
-    { "isUpdate": null }, 
+    { "isUpdate": null },
     { "$set": { "isUpdate": false } }, false, true
 )
 
 db.biomaterial.update(
-    { "isUpdate": null }, 
+    { "isUpdate": null },
     { "$set": { "isUpdate": false } }, false, true
 )
 
 db.process.update(
-    { "isUpdate": null }, 
+    { "isUpdate": null },
     { "$set": { "isUpdate": false } }, false, true
 )
 
 db.file.update(
-    { "isUpdate": null }, 
+    { "isUpdate": null },
     { "$set": { "isUpdate": false } }, false, true
 )
 
 db.protocol.update(
-    { "isUpdate": null }, 
+    { "isUpdate": null },
     { "$set": { "isUpdate": false } }, false, true
 )
 
@@ -347,7 +347,7 @@ db.protocol.update(
 
 ## 06 March 2019
 
-* Broker 704e5a7:v0.8.8.rc 
+* Broker 704e5a7:v0.8.8.rc
   - minor fix to code
 * Core f7e85be:v0.8.4.rc
   - authentication related security related patches
@@ -466,7 +466,7 @@ db.protocol.update(
 
 * Broker v0.8.2.rc
   - Fix to submission error message
-  
+
 * Exporter v0.7.4.rc
   - Reverted to 20 retries spaced a minute apart for operations on the DSS API
   - Using ingest's update timestamp for creating .json files in the DSS, averting needless duplicates
@@ -474,7 +474,7 @@ db.protocol.update(
 
 * Staging Manager v0.5.2.rc
   - Set to use HTTP HEAD when checking staging area
-	
+
 ## 19 September 2018
 
 * Core v0.7.3.rc
@@ -509,7 +509,7 @@ db.protocol.update(
 
 ## 07 September 2018
 
-* Accessioner v0.5.0.rc 
+* Accessioner v0.5.0.rc
   - New Accessioner using Node.js
 
 * Core v0.7.1.rc
