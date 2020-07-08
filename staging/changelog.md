@@ -1,5 +1,11 @@
 # Staging Changelog
 
+## 8 July 2020
+* UI 2422199
+  - New Landing page
+  - New Contributor Projects Dashboard
+  - New Project Registration form for contributors
+
 ## 24 June 2020
 * Core 855461a
   - New endpoints for state transition changes
