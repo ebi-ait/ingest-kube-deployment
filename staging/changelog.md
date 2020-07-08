@@ -6,6 +6,10 @@
   - New Contributor Projects Dashboard
   - New Project Registration form for contributors
 
+* Core e3129c5
+  - Assigning Primary and Secondary Wranglers to Projects
+  - Project notifications
+
 ## 24 June 2020
 * Core 855461a
   - New endpoints for state transition changes
