@@ -1,5 +1,11 @@
 # Staging Changelog
+## 10 July 2020
+* UI 635fda8
+  - Preserve the user's destination if interrupted by the login page.
 
+* Core 1f571f1
+  - Remove Email Domain Check.
+  
 ## 8 July 2020
 * UI 2422199
   - New Landing page
