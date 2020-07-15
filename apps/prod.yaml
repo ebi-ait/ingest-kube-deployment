@@ -25,6 +25,17 @@ terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
 terraBucketPrefix: prod
 terraGcpProject: broad-dsp-monster-hca-dev
 
+# core
+notifications:
+  smtp:
+    host: email-smtp.us-east-1.amazonaws.com
+    port: "587"
+    wranglerEmails: hca-notifications@ebi.ac.uk
+    projectNotificationsFromAddress: hca-notifications@ebi.ac.uk
+  amqp:
+    sendExchange: ingest.notifications.exchange
+    sendRoutingKey: ingest.notifications.new
+
 # archiver
 dspUrl: https://submission.ebi.ac.uk
 aapUrl: https://api.aai.ebi.ac.uk/auth

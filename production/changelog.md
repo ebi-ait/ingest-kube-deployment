@@ -1,4 +1,17 @@
 # Production Changelog
+  
+## 15 July 2020
+* UI d2020-07-15.1 (635fda8)
+  - Preserve the user's destination if interrupted by the login page
+  - New Landing page
+  - New Contributor Projects Dashboard
+  - New Project Registration form for contributors
+
+* Core d2020-07-15.1 (1f571f1)
+  - Assigning Primary Wranglers to Projects
+  - Project notifications
+  - Remove Email Domain Check.
+
 ## 25 June 2020
 * Core d2020-06-25.1 (855461a)
   - New endpoints for state transition changes
