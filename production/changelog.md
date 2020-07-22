@@ -1,4 +1,11 @@
 # Production Changelog
+
+## 22 July 2020
+* Archiver d2020-07-22.1 , d2020-07-22.1_CLI
+  - Store accessions if present in DSP processing result
+  - Fix cli way to complete submission
+  - Fix population of metadataUuids field for sequencingRun archive entities
+  - Remove setting of metadata back to Draft to not retrigger file validation
   
 ## 15 July 2020
 * UI d2020-07-15.1 (635fda8)

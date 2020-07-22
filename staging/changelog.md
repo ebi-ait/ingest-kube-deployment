@@ -1,5 +1,12 @@
 # Staging Changelog
 
+## 22 July 2020
+* Archiver 529b61a , 529b61a-cli
+  - Store accessions if present in DSP processing result
+  - Fix cli way to complete submission
+  - Fix population of metadataUuids field for sequencingRun archive entities
+  - Remove setting of metadata back to Draft to not retrigger file validation
+
 ## 21 July 2020
 * UI 1fb93f0
   - Spreadsheet Template Questionnaire (Disconnected).
