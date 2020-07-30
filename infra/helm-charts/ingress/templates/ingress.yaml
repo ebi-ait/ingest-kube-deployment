@@ -21,10 +21,4 @@ spec:
             backend:
               serviceName: {{ $service }}
               servicePort: {{ .port | default $defaultServicePort }}
-        {{ range .additionalRules }}        
-          - path: {{ .path | default $defaultPath }}
-            backend:
-              serviceName: {{ $service }}
-              servicePort: {{ .port | default $defaultServicePort }}
-        {{ end }}
   {{ end }}
