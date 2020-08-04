@@ -2,7 +2,7 @@ uploadScheme: https
 uploadPort: 443
 upload: upload.dev.archive.data.humancellatlas.org
 dss: dss.dev.data.humancellatlas.org
-schema: schema.dev.data.humancellatlas.org
+schema: schema.dev.archive.data.humancellatlas.org
 ingest: api.ingest.dev.archive.data.humancellatlas.org
 broker: ingest.dev.archive.data.humancellatlas.org
 ui: ui.ingest.dev.archive.data.humancellatlas.org
