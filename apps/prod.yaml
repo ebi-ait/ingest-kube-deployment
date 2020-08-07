@@ -21,7 +21,7 @@ aaiAuthority: "https://login.elixir-czech.org/oidc/"
 olsUrl: "https://ontology.archive.data.humancellatlas.org"
 
 # exporter
-terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
+terraBucketName: broad-dsp-monster-hca-prod-ebi-storage
 terraBucketPrefix: prod
 terraGcpProject: broad-dsp-monster-hca-dev
 
