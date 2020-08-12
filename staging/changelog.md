@@ -1,4 +1,10 @@
 # Staging Changelog
+## 12 August 2020
+* Core f3bc743
+  - New ExportJobs ExportEntities data model for tracking export and archiving attempts and relevant data
+  - `/submissionEnvelope/{sub_id}/exportJobs`
+  - `/exportJobs/{job_id}/entities/{entity_id}`
+
 ## 10 August 2020
 * Core e90bafc
   - Removed ArchiveEntities uniqueness constraint.
