@@ -1,4 +1,9 @@
 # Staging Changelog
+## 10 August 2020
+* Core e90bafc
+  - Removed ArchiveEntities uniqueness constraint.
+  - ArchiveSubmission for SubmissionEnvelope endpoint returns list.
+  - Deleting an Archive Submission first deletes the entities that are linked to it.
 
 ## 22 July 2020
 * Archiver 529b61a , 529b61a-cli
