@@ -1,4 +1,10 @@
 # Staging Changelog
+
+## 20 August 2020
+* Archiver 4de2754
+  - Securing archiver service endpoints with an api key
+  - Support datasets with samples that have multiple "derived from" relationships
+
 ## 12 August 2020
 * Core f3bc743
   - New ExportJobs ExportEntities data model for tracking export and archiving attempts and relevant data
