@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 20 August 2020
+* Archiver 3f05ce7, d2020-08-20.1, d2020-08-20.1_CLI
+ - Support datasets with samples that have multiple "derived from" relationships
+
 ## 22 July 2020
 * Archiver d2020-07-22.1 , d2020-07-22.1_CLI
   - Store accessions if present in DSP processing result
