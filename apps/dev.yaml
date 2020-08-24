@@ -5,7 +5,7 @@ dss: dss.dev.data.humancellatlas.org
 schema: schema.dev.archive.data.humancellatlas.org
 ingest: api.ingest.dev.archive.data.humancellatlas.org
 broker: ingest.dev.archive.data.humancellatlas.org
-ui: ui.ingest.dev.archive.data.humancellatlas.org
+ui: dev.contribute.data.humancellatlas.org
 
 # config values
 gcpProjectWhitelist: "hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com"
