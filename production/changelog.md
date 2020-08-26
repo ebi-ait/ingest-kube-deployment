@@ -6,6 +6,8 @@
  - Fixes to archive entity endpoints
  - Delete archive entities when deleting archive submission
  - New ExportJob entities and endpoints
+ - Update to exporter messages
+ - Retry fix on delete submission
 
 ## 20 August 2020
 * Archiver 3f05ce7, d2020-08-20.1, d2020-08-20.1_CLI
@@ -17,7 +19,7 @@
   - Fix cli way to complete submission
   - Fix population of metadataUuids field for sequencingRun archive entities
   - Remove setting of metadata back to Draft to not retrigger file validation
-  
+
 ## 15 July 2020
 * UI d2020-07-15.1 (635fda8)
   - Preserve the user's destination if interrupted by the login page
@@ -97,10 +99,10 @@ archiver.ingest.archive.data.humancellatlas.org
      - Change ‘save and continue’ to give “expected action”
      - Edit project button retains which page you were viewing of a project
      - Support for “array of strings” fields (e.g. publication authors, project accession fields)
-     - Add in missing project fields: supplementary_links, accession fields, pmid 
+     - Add in missing project fields: supplementary_links, accession fields, pmid
      - Remove work in progress banners
      - Change order of project fields
-     - Make optional versus required fields more obvious and indicate the blue star means required. 
+     - Make optional versus required fields more obvious and indicate the blue star means required.
      - Some module fields are required only if added. Remove the module fields initially in the form.
      - Added project role ontology field
   - New fields in project form: data access, identifying organism, technology
@@ -224,11 +226,11 @@ archiver.ingest.archive.data.humancellatlas.org
   - Bug fix attempting to parse property migration files from the Schemas bucket
 
 * Ingress
-  - Using HTTP->HTTPS redirection 
+  - Using HTTP->HTTPS redirection
 
 ## 12 March 2019
 
-* Broker v0.8.8 
+* Broker v0.8.8
   - minor fix to code
 * Core  v0.8.4
   - authentication related security related patches
@@ -358,7 +360,7 @@ Fix setting for retry policy, retrying for ~20min
 
 * Broker v0.8.1
   - Added support for multiple ontology processing
-	
+
 ## 18 September 2018
 
 * Core v0.7.2
