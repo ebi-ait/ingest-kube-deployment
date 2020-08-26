@@ -2,26 +2,26 @@
 
 ## 26 August 2020
 * Core 7fd19efc
- - Update to exporter messages
- - Retry fix on delete submission
- - Use assay process uuid and its dcp version as bundle/experiment uuid and version for the exporter message
+  - Update to exporter messages
+  - Retry fix on delete submission
+  - Use assay process uuid and its dcp version as bundle/experiment uuid and version for the exporter message
 
 * Broker b6282da
-- Spreadsheet template generation
-- Updated python dependencies
+  - Spreadsheet template generation
+  - Updated python dependencies
 
 * Exporter fe24d69
-- File Descriptor changes
-- Use GCP transfer service to export files to GCP
+  - File Descriptor changes
+  - Use GCP transfer service to export files to GCP
 
 * UI 3886edd
-- Spreadsheet template generation integration with backend
-- Updates to Landing page
-- Do not filter out test projects in all projects page
-- Always display the last archive submission
+  - Spreadsheet template generation integration with backend
+  - Updates to Landing page
+  - Do not filter out test projects in all projects page
+  - Always display the last archive submission
 
 * Validator 6f4bf1e
-- Updated config for file extensions to validate
+  - Updated config for file extensions to validate
 
 ## 20 August 2020
 * Archiver 4de2754
