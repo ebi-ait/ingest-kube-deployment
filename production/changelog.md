@@ -1,5 +1,12 @@
 # Production Changelog
 
+## 26 August 2020
+* Core 0bab5e4e, d2020-08-26.1
+ - Removed unique index for archive entity alias
+ - Fixes to archive entity endpoints
+ - Delete archive entities when deleting archive submission
+ - New ExportJob entities and endpoints
+
 ## 20 August 2020
 * Archiver 3f05ce7, d2020-08-20.1, d2020-08-20.1_CLI
  - Support datasets with samples that have multiple "derived from" relationships
