@@ -10,7 +10,7 @@ ingress:
       - service: ontology-service
         hostname: ontology.dev.archive.data.humancellatlas.org
       - service: ingest-ui-service
-        hostname: ui.ingest.dev.archive.data.humancellatlas.org
+        hostname: dev.contribute.data.humancellatlas.org
       - service: ingest-archiver-service
         hostname: archiver.ingest.dev.archive.data.humancellatlas.org
 
@@ -18,5 +18,5 @@ nginx-ingress:
   controller:
     service:
       annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/84699165-b161-4b3f-b2c3-5c8c23d397e6
+        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/639a8e4c-46eb-4c4b-932e-2b581a97218c
 
