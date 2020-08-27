@@ -32,6 +32,13 @@ deploy-app-%:
 	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$($(*)),replicas=$($(*)-replicas) --force --wait --install
 	rm *.tgz
 
+rollout-%:
+	$(MAKE) set-context
+	helm package $(*)
+	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
+	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$($(*)),replicas=$($(*)-replicas) --wait --install
+	rm *.tgz
+
 deploy-secrets:
 	$(MAKE) set-context
 	./scripts/deploy_secrets
