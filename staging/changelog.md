@@ -1,9 +1,11 @@
 # Staging Changelog
 
 ## 28 August 2020
-* UI
- - Changes to the landing page
+* UI b627c09
+ - Text changes to the landing page and project registration page
+ - Mark technology field in project registration form required
  - Added footer
+ - Pinning VF version
 
 ## 26 August 2020
 * Core 7fd19efc
