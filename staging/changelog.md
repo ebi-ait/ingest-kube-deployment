@@ -1,5 +1,10 @@
 # Staging Changelog
 
+## 28 August 2020
+* UI
+ - Changes to the landing page
+ - Added footer
+
 ## 26 August 2020
 * Core 7fd19efc
   - Update to exporter messages
