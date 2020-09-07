@@ -1,5 +1,16 @@
 # Staging Changelog
 
+## 7 September 2020
+* Core ad114033
+ - Add new endpoint to uniquely search an archive entity
+
+* Exporter a25f57f
+ - Bringing down prod hotfix from last week
+
+* Archiver e2244eb
+ - Return HTTP 409 for invalid api key in request headers
+ - Fix completion of DSP submissions
+
 ## 28 August 2020
 * UI b627c09
  - Text changes to the landing page and project registration page
