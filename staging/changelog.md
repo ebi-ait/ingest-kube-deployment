@@ -33,7 +33,12 @@
 ## 20 August 2020
 * Archiver 4de2754
   - Securing archiver service endpoints with an api key
-  - Support datasets with samples that have multiple "derived from" relationships
+  - Support datasets with samples that have multiple "derived from" relationships.
+
+## 13 August 2020
+* Core 877f9e0
+  - Migration Fix-up
+  - Exporter creates Export Job to orchestrate Exporter logs.
 
 ## 12 August 2020
 * Core f3bc743
