@@ -1,4 +1,7 @@
 # Staging Changelog
+## 8 September 2020
+ * Archiver 7e7f3f5
+ - Use 10xV2 bam conversion for CITE-seq sequencing experiments
 
 ## 7 September 2020
 * Core ad114033
