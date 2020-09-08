@@ -1,4 +1,15 @@
 # Production Changelog
+## 07 September 2020
+* Core ad114033, d2020-09-07.1
+ - Add new endpoint to uniquely search an archive entity
+
+* Archiver e2244eb, d2020-09-07.1, e2244eb-cli, d2020-09-07.1_CLI
+ - Return HTTP 409 for invalid api key in request headers
+ - Fix completion of DSP submissions
+
+* Validator (No version change)
+ - Use new image version of fastq_utils d2020-09-07.1
+
 
 ## 26 August 2020
 * Core 0bab5e4e, d2020-08-26.1
