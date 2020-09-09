@@ -1,4 +1,9 @@
 # Production Changelog
+
+## 09 September 2020
+* Archiver 7e7f3f5, 7e7f3f5-cli, d2020-09-09.1_CLI, d2020-09-09.1
+ - Treat CITE-seq as 10xV2
+
 ## 07 September 2020
 * Core ad114033, d2020-09-07.1
  - Add new endpoint to uniquely search an archive entity
