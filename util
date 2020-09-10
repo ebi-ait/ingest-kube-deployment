@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+function _require() {
+    [[ -z "$2" ]] && echo "no service $1 provided" && exit 1
+}
+
+function _to_config_entry() {
+    uppercase=$(echo "$service" | tr '[:lower:]' '[:upper:]')
+    echo "INGEST_${uppercase}_REF"
+}
+
+function _replace_config() {
+    config_entry=$1
+    update=$2
+    env=$3
+    sed -i '' "s/${config_entry}.*/${update}/g" config/environment_${env}
+}
+
+function _source_env() {
+    target=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+    if [ "staging" == "$target" ]; then
+	echo 'dev'
+    elif [ "prod" == "$target" ]; then
+	echo 'staging'
+    fi
+}
+
+function release() {
+    service=$1
+    version=$2
+    _require "service" $service
+    _require "version" $version
+    config_entry=$(_to_config_entry $service)
+    _replace_config "$config_entry" "${config_entry}=${version}" dev
+}
+
+function promote() {    
+    to_env=$1
+    service=$2    
+    _require "deployment environment" $to_env
+    _require "service" $service
+    from_env=$(_source_env "$to_env")
+    [[ -z "$from_env" ]] && echo "cannot determine source for '$to_env'" && exit 1
+    config_entry=$(_to_config_entry "$service")
+    update=$(grep -ioE "${config_entry}.*" config/environment_${from_env})
+    _replace_config $config_entry $update $to_env
+}
+
+"$@"
