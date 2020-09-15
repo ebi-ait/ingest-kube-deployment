@@ -1,4 +1,8 @@
 # Staging Changelog
+## 15 September 2020
+ * UI 02d02c1
+ - Header and Footer Changes
+
 ## 8 September 2020
  * Archiver 7e7f3f5
  - Use 10xV2 bam conversion for CITE-seq sequencing experiments
