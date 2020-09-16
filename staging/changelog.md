@@ -1,7 +1,10 @@
 # Staging Changelog
-## 15 September 2020
- * UI 02d02c1
+## 16 September 2020
+ * UI 8a90e5c
  - Header and Footer Changes
+ - Template Generation Logic
+ * Broker 9fe11a6
+ - Allow empty Entities and Protocols
 
 ## 8 September 2020
  * Archiver 7e7f3f5
