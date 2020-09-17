@@ -1,32 +1,39 @@
 # Staging Changelog
+
+## 17 September 2020
+ * Archiver 88523bd, 88523bd-cli
+  - Remove passing of Ingest API url in the File Upload Plan for the File Archiver 
+ * File Archiver 2391ca0
+  - Remove handling of Ingest API url from File Upload Plan
+
 ## 16 September 2020
  * UI 8a90e5c
- - Header and Footer Changes
- - Template Generation Logic
+  - Header and Footer Changes
+  - Template Generation Logic
  * Broker 9fe11a6
- - Allow empty Entities and Protocols
+  - Allow empty Entities and Protocols
 
 ## 8 September 2020
  * Archiver 7e7f3f5
- - Use 10xV2 bam conversion for CITE-seq sequencing experiments
+  - Use 10xV2 bam conversion for CITE-seq sequencing experiments
 
 ## 7 September 2020
 * Core ad114033
- - Add new endpoint to uniquely search an archive entity
+  - Add new endpoint to uniquely search an archive entity
 
 * Exporter a25f57f
- - Bringing down prod hotfix from last week
+  - Bringing down prod hotfix from last week
 
 * Archiver e2244eb
- - Return HTTP 409 for invalid api key in request headers
- - Fix completion of DSP submissions
+  - Return HTTP 409 for invalid api key in request headers
+  - Fix completion of DSP submissions
 
 ## 28 August 2020
 * UI b627c09
- - Text changes to the landing page and project registration page
- - Mark technology field in project registration form required
- - Added footer
- - Pinning VF version
+  - Text changes to the landing page and project registration page
+  - Mark technology field in project registration form required
+  - Added footer
+  - Pinning VF version
 
 ## 26 August 2020
 * Core 7fd19efc
