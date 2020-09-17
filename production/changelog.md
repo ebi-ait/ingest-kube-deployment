@@ -29,6 +29,9 @@
   - Use GC Storage service to export files to Terra staging buckets
   - Tracking Export Job
 
+* UI (No version change)
+  - Prod UI url change to https://contribute.data.humancellatlas.org/
+
 ## 20 August 2020
 * Archiver 3f05ce7, d2020-08-20.1, d2020-08-20.1_CLI
   - Support datasets with samples that have multiple "derived from" relationships
