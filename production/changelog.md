@@ -2,32 +2,32 @@
 
 ## 09 September 2020
 * Archiver 7e7f3f5, 7e7f3f5-cli, d2020-09-09.1_CLI, d2020-09-09.1
- - Treat CITE-seq as 10xV2
+  - Treat CITE-seq as 10xV2
 
 ## 07 September 2020
 * Core ad114033, d2020-09-07.1
- - Add new endpoint to uniquely search an archive entity
+  - Add new endpoint to uniquely search an archive entity
 
 * Archiver e2244eb, d2020-09-07.1, e2244eb-cli, d2020-09-07.1_CLI
- - Return HTTP 409 for invalid api key in request headers
- - Fix completion of DSP submissions
+  - Return HTTP 409 for invalid api key in request headers
+  - Fix completion of DSP submissions
 
 * Validator (No version change)
- - Use new image version of fastq_utils d2020-09-07.1
+  - Use new image version of fastq_utils d2020-09-07.1
 
 
 ## 26 August 2020
 * Core 0bab5e4e, d2020-08-26.1
- - Removed unique index for archive entity alias
- - Fixes to archive entity endpoints
- - Delete archive entities when deleting archive submission
- - New ExportJob entities and endpoints
- - Update to exporter messages
- - Retry fix on delete submission
+  - Removed unique index for archive entity alias
+  - Fixes to archive entity endpoints
+  - Delete archive entities when deleting archive submission
+  - New ExportJob entities and endpoints
+  - Update to exporter messages
+  - Retry fix on delete submission
 
 ## 20 August 2020
 * Archiver 3f05ce7, d2020-08-20.1, d2020-08-20.1_CLI
- - Support datasets with samples that have multiple "derived from" relationships
+  - Support datasets with samples that have multiple "derived from" relationships
 
 ## 22 July 2020
 * Archiver d2020-07-22.1 , d2020-07-22.1_CLI
