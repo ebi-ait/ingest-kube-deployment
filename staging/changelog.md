@@ -1,8 +1,15 @@
 # Staging Changelog
-
+## 25 September 2020
+ * Core 552aa5d (#38)
+  - Migrate project.dataAccess.type to singleton
+ * UI 8cbd695 (#52)
+  - Migrate project.dataAccess.type to singleton
+  - Change question text for technologies.
+  - Add support for multiple root ontologies
+  - View Mode & Other Fixes
 ## 17 September 2020
  * Archiver 88523bd, 88523bd-cli
-  - Remove passing of Ingest API url in the File Upload Plan for the File Archiver 
+  - Remove passing of Ingest API url in the File Upload Plan for the File Archiver
  * File Archiver 2391ca0
   - Remove handling of Ingest API url from File Upload Plan
 
