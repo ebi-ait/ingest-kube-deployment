@@ -25,6 +25,7 @@ terraBucketPrefix: dev
 terraGcpProject: broad-dsp-monster-hca-dev
 
 # core
+debug: true
 notifications:
   smtp:
     host: email-smtp.us-east-1.amazonaws.com

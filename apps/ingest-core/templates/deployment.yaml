@@ -22,6 +22,8 @@ spec:
     spec:
       containers:
       - env:
+        - name: DEBUG
+          value: \"{{ .Values.debug }}\"
         - name: MONGO_URI
           value: mongodb://${MONGO_SERVICE_SERVICE_HOST}:${MONGO_SERVICE_SERVICE_PORT}/admin
         - name: RABBIT_HOST
