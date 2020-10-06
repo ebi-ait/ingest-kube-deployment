@@ -1,4 +1,14 @@
 # Staging Changelog
+## 6 October 2020
+ * UI 9ca1851 (#54)
+  - Changes to Template Generator questions
+   - Text
+   - Defaults
+   - Help Text
+   - Input Types
+ * Broker ba82da3 (#8)
+ * Client a263d14 (#6)
+  - Decrease header row heights and dynamically adjust column widths
 ## 25 September 2020
  * Core 552aa5d (#38)
   - Migrate project.dataAccess.type to singleton
