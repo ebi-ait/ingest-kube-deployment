@@ -110,8 +110,15 @@ Coming soon
 ### Deploy one kubernetes dockerized applications to an environment (aws)
 1. Make sure you have followed the instructions above to create or access an existing eks cluster
 2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
-3. `cd apps`
-4. `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
+4. Navigate to the root folder in your local ingest-kube-deployment repo
+5. Execute: `source config/environment_ENVNAME`
+6. Go to the apps folder: `cd apps`
+7. Check if you are in the correct EKS environment by executing `kubectx`.
+   If not then switch to the right one by executing: kubectx ingest-eks-dev in this case.
+   * This is actually done by all the make files below using the environment variables set by the source config/environment_...
+8. Check quay.io to see if you build/s have completed. 
+9. Notify on Slack `#hca-development` channel that you are doing a deployment and the env will be down for x minutes
+7. Execute `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
 
 ### Deploy all kubernetes dockerized applications to an environment (aws)
 
