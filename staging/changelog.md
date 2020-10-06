@@ -27,6 +27,7 @@
  * UI 8a90e5c
   - Header and Footer Changes
   - Template Generation Logic
+  - Google Analytics
  * Broker 9fe11a6
   - Allow empty Entities and Protocols
 
