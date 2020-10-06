@@ -1,38 +1,38 @@
 # Staging Changelog
 ## 6 October 2020
- * UI 9ca1851 (#54)
+* UI 9ca1851 (#54)
   - Changes to Template Generator questions
-   - Text
-   - Defaults
-   - Help Text
-   - Input Types
- * Broker ba82da3 (#8)
- * Client a263d14 (#6)
+    - Text
+    - Defaults
+    - Help Text
+    - Input Types
+* Broker ba82da3 (#8)
+* Client a263d14 (#6)
   - Decrease header row heights and dynamically adjust column widths
 ## 25 September 2020
- * Core 552aa5d (#38)
+* Core 552aa5d (#38)
   - Migrate project.dataAccess.type to singleton
- * UI 8cbd695 (#52)
+* UI 8cbd695 (#52)
   - Migrate project.dataAccess.type to singleton
   - Change question text for technologies.
   - Add support for multiple root ontologies
   - View Mode & Other Fixes
 ## 17 September 2020
- * Archiver 88523bd, 88523bd-cli
+* Archiver 88523bd, 88523bd-cli
   - Remove passing of Ingest API url in the File Upload Plan for the File Archiver
- * File Archiver 2391ca0
+* File Archiver 2391ca0
   - Remove handling of Ingest API url from File Upload Plan
 
 ## 16 September 2020
- * UI 8a90e5c
+* UI 8a90e5c
   - Header and Footer Changes
   - Template Generation Logic
   - Google Analytics
- * Broker 9fe11a6
+* Broker 9fe11a6
   - Allow empty Entities and Protocols
 
 ## 8 September 2020
- * Archiver 7e7f3f5
+* Archiver 7e7f3f5
   - Use 10xV2 bam conversion for CITE-seq sequencing experiments
 
 ## 7 September 2020
