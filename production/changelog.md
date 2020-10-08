@@ -1,5 +1,37 @@
 # Production Changelog
 
+## 08 October 2020
+
+* UI 9ca1851, 8a90e5c, d2020-10-08.1
+  - Changes to Template Generator questions
+    - Text
+    - Defaults
+    - Help Text
+    - Input Types
+  - Migrate project.dataAccess.type to singleton
+  - Change question text for technologies.
+  - Add support for multiple root ontologies
+  - View Mode & Other Fixes
+  - Header and Footer Changes
+  - Template Generation Logic
+  - Google Analytics
+
+* Broker ba82da3, 9fe11a, d2020-10-08.1
+  - Spreadsheet template generator API
+  - Allow empty Entities and Protocols
+  - Decrease header row heights and dynamically adjust column widths
+
+* Core 552aa5d, d2020-10-08.1
+  - Migrate project.dataAccess.type to singleton
+
+* Archiver 88523bd, 88523bd-cli, d2020-10-08.1_CLI, d2020-10-08.1
+  - Remove passing of Ingest API url in the File Upload Plan for the File Archiver
+
+* File Archiver 2391ca0, 
+  - Remove handling of Ingest API url from File Upload Plan
+  - Use AWS CLI for dowloading files from s3
+
+
 ## 09 September 2020
 * Archiver 7e7f3f5, 7e7f3f5-cli, d2020-09-09.1_CLI, d2020-09-09.1
   - Treat CITE-seq as 10xV2
