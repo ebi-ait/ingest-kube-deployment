@@ -1,4 +1,10 @@
 # Staging Changelog
+## 8 October 2020
+* Core 7344588c
+  - Secured Ingest API Endpoints
+* Exporter f7e1f16
+  - Fix to bucket destination paths and file descriptor json
+
 ## 6 October 2020
 * UI 9ca1851 (#54)
   - Changes to Template Generator questions
