@@ -29,6 +29,7 @@
 
 * File Archiver 2391ca0, 
   - Remove handling of Ingest API url from File Upload Plan
+  - Use AWS CLI for dowloading files from s3
 
 
 ## 09 September 2020
