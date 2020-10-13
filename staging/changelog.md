@@ -1,4 +1,9 @@
 # Staging Changelog
+## 13 October 2020
+* UI 0e831ba (#53)
+  - Linting and Observables Fixups
+  - Improved Error handling
+
 ## 8 October 2020
 * Core 7344588c
   - Secured Ingest API Endpoints
