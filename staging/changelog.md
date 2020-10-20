@@ -1,5 +1,5 @@
 # Staging Changelog
-## 20 Oct
+## 20 October 2020
 * UI 970f3b2
   - Viewing of orphaned entities
   - Viewing of process details
