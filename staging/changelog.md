@@ -4,6 +4,20 @@
 * Validator 8006c48 (ebi-ait/dcp-ingest-central#7)
   - Validate file metadata before data file upload
 
+## 20 October 2020
+* UI 970f3b2
+  - Viewing of orphaned entities
+  - Viewing of process details
+  - Updating metadata
+
+* Core fa042076
+  - Retrieving if a biomaterial or file has links
+  - Added endpoint to search biomaterials by metadata fields
+
+* Broker c232971
+  - Added internal endpoint for the UI to fetch the dereferenced schema
+
+
 ## 13 October 2020
 * UI 0e831ba (#53)
   - Linting and Observables Fixups
