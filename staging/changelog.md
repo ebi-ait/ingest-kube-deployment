@@ -1,4 +1,9 @@
 # Staging Changelog
+
+## 21 October 2020
+* Validator 8006c48 (ebi-ait/dcp-ingest-central#7)
+  - Validate file metadata before data file upload
+
 ## 13 October 2020
 * UI 0e831ba (#53)
   - Linting and Observables Fixups
