@@ -199,7 +199,7 @@ This will create a directory structure, `data/db/dump/2020-05-21T00_00`, which c
 
 ```
 $ cd data/db/dump/
-$ mongorestore 2020-05-21T00_00
+$ mongorestore 2020-05-21T00_00 --drop
 ```
 
 For more info on the restoring data, please refer to https://github.com/ebi-ait/ingest-kube-deployment/tree/master/infra/helm-charts/mongo/charts/ingestbackup#restoring-data
