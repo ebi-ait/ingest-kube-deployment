@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 23 October 2020
+* Exporter f7e1f16 d2020-10-22.1
+ - Fix file descriptor content and file destination paths
+
 ## 08 October 2020
 
 * UI 9ca1851, 8a90e5c, d2020-10-08.1
