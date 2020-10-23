@@ -29,7 +29,7 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 9. Install [jq](https://stedolan.github.io/jq), if required. `sudo apt-get install jq`
 
 ## Configuring AWS connection
-1. `aws configure --profile ebi`
+1. `aws configure --profile embl-ebi`
 	- See [Quickly Configure ASW CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) for `AWS Access Key ID` & `AWS Secret Access Key`
 1. See [this video](https://org-humancellatlas-sam.s3.amazonaws.com/HCA-prod-acct-setup-720p.mov) for configuring your connection to the DCP Developer Role.
  - Account: `ebi-web-dev`
