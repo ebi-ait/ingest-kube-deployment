@@ -1,4 +1,4 @@
-SHELL!=which bash
+SHELL!=which zsh
 deployment_stage = ${DEPLOYMENT_STAGE}
 kubeconfig_path=${KUBECONFIG_PATH}
 
@@ -42,7 +42,7 @@ retrieve-kubeconfig-%:
 	terraform output kubeconfig > ../config/cluster-secrets/kubeconfig_$(*)
 	KUBECONFIG=~/.kube/config:$(kubeconfig_path) kubectl config view --flatten > mergedkub && mv mergedkub ~/.kube/config
 	terraform output namespace > $(*)/namespace.yaml
-	kubectx ingest-eks-$(*)
+	kubectl ctx ingest-eks-$(*)
 	kubectl apply -f $(*)/namespace.yaml
 	rm -rf $(*)
 	$(MAKE) set-context-$(*)
@@ -60,8 +60,8 @@ unset-config-%:
 	kubectl config unset clusters.ingest-eks-$(*)
 
 setup-dashboard-%:
-	kubectx ingest-eks-$(*)
-	kubens $(*)-environment
+	kubectl ctx ingest-eks-$(*)
+	kubects nl $(*)-environment
 	kubectl proxy
 
 apply-env-configs-%:
@@ -103,5 +103,5 @@ init-%:
 	. ../config/environment_$(*) && . scripts/init.sh
 
 set-context-%:
-	kubectx ingest-eks-$(*)
-	kubens $(*)-environment
+	kubectl ctx ingest-eks-$(*)
+	kubectl ns $(*)-environment

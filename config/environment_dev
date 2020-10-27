@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -a
 
 FORCE_REFRESH=TRUE
@@ -39,9 +39,10 @@ TF_VAR_node_count="2"
 
 
 #VARIABLES BELOW SHOULD NEVER CHANGE.
-FILE_NAME=$(basename $BASH_SOURCE)
+SOURCE_FILE=${(%):-%x}
+FILE_NAME=${SOURCE_FILE:t}
 DEPLOYMENT_STAGE=${FILE_NAME#*_}
-PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+PROJECT_ROOT="$( cd "$( dirname "${SOURCE_FILE}" )"/.. && pwd )"
 KUBECONFIG_PATH=$PROJECT_ROOT/config/cluster-secrets/kubeconfig_${DEPLOYMENT_STAGE}
 TF_VAR_terraform_key=ingest/eks-${DEPLOYMENT_STAGE}.tfstate
 TF_VAR_aws_profile=${AWS_PROFILE}
