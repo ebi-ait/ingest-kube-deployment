@@ -6,7 +6,13 @@ function _require() {
 
 function _to_config_entry() {
     uppercase=$(echo "$service" | tr '[:lower:]' '[:upper:]')
-    echo "INGEST_${uppercase}_REF"
+    ref="${uppercase}_REF"
+    if [ 'ontology' != "$service" ]; then
+	echo "INGEST_$ref"
+    else
+	echo "$ref"
+    fi
+    
 }
 
 function _replace_config() {
