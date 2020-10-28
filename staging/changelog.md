@@ -1,4 +1,7 @@
 # Staging Changelog
+## 28 October 2020
+* Archiver 11c4a6d (ebi-ait/dcp-ingest-central#60)
+  - Archive Organ and Organ Parts to BioSamples
 
 ## 21 October 2020
 * Validator 8006c48 (ebi-ait/dcp-ingest-central#7)
