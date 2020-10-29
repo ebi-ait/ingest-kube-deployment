@@ -1,4 +1,4 @@
-SHELL!=which bash
+SHELL!=which zsh
 deployment-stage = ${DEPLOYMENT_STAGE}
 force-refresh = ${FORCE_REFRESH}
 ingest-broker = ${INGEST_BROKER_REF}
