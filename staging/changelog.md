@@ -1,4 +1,10 @@
 # Staging Changelog
+## 29 October 2020
+* Core a3f0b3a6
+  - Created generic search endpoints for protocols, processes and files
+* UI d9f3514
+  - Support updating of metadata links
+
 ## 28 October 2020
 * Archiver 11c4a6d (ebi-ait/dcp-ingest-central#60)
   - Archive Organ and Organ Parts to BioSamples
