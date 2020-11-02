@@ -1,4 +1,8 @@
 # Staging Changelog
+## 2 November 2020
+* UI cb08a63
+    - Filter metadata picker search result by submission
+
 ## 29 October 2020
 * Core a3f0b3a6
   - Created generic search endpoints for protocols, processes and files

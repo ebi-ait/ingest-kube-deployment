@@ -5,7 +5,7 @@
     - Archive Organ and Organ Parts to BioSamples
 * Core a3f0b3a6 d2020-11-02.1
     - Created generic search endpoints for protocols, processes and files
-* UI d9f3514 d2020-11-02.1
+* UI cb08a63 d2020-11-02.2
     - Support updating of metadata links
     - Viewing of orphaned entities
     - Viewing of process details
