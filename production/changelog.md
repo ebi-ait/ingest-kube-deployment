@@ -1,5 +1,22 @@
 # Production Changelog
 
+## 2 November 2020
+* Archiver 11c4a6d d2020-11-02.1
+    - Archive Organ and Organ Parts to BioSamples
+* Core a3f0b3a6 d2020-11-02.1
+    - Created generic search endpoints for protocols, processes and files
+* UI d9f3514 d2020-11-02.1
+    - Support updating of metadata links
+    - Viewing of orphaned entities
+    - Viewing of process details
+    - Updating metadata
+* Validator 8006c48 d2020-11-02.1
+    - Validate file metadata before data file upload
+* Broker c232971 d2020-11-02.1
+    - Added internal endpoint for the UI to fetch the dereferenced schema
+* Ontology 1.0.17 d2020-11-02.1
+    - HCA ontology release 1.0.17
+
 ## 23 October 2020
 * Exporter f7e1f16 d2020-10-22.1
  - Fix file descriptor content and file destination paths
