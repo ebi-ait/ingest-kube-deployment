@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 03 November 2020
+* Core 4122ce5 d2020-11-03.1
+  - Re-implementation of generic search endpoints for all entity types
+
 ## 2 November 2020
 * Archiver 11c4a6d d2020-11-02.1
     - Archive Organ and Organ Parts to BioSamples

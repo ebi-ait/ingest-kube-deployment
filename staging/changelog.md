@@ -1,4 +1,8 @@
 # Staging Changelog
+## 03 November 2020
+* Core 4122ce5
+  - Re-implementation of generic search endpoints for all entity types
+
 ## 29 October 2020
 * Core a3f0b3a6
   - Created generic search endpoints for protocols, processes and files
