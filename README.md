@@ -1,29 +1,22 @@
 # Ingest Service Deployment
+Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters using zsh and [Pop!_OS](https://pop.system76.com/).
 
-Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
+*Note*: This setup will likely work on Ubuntu too as well as OSX/Windows but it has not been tested.
+
+**Important**: Any changes on this branch likely need to be propagated to master (e.g. changelogs and environment_* files). Most sensible workflow is to switch to master, make the changes on the relevent files, merge into this branch, and then run the deployment commands from this command.
 
 ## Set up local environment
 We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
-### Mac
-1. `git clone <this-repo-url>`
-2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html): `brew install terraform`.
-3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
-3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
-4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html): `brew install aws-iam-authenticator`
-5. Install kubectl: `brew install kubernetes-cli`
-6. Install kubectx (kubens included): `brew install kubectx`
-7. Install [helm](https://github.com/kubernetes/helm): `brew install kubernetes-helm`
-8. `mkdir ~/.kube`
-9. Install [jq](https://stedolan.github.io/jq/) `brew install jq`
 
-### Ubuntu
 1. `git clone <this-repo-url>`
 2. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html).
-  - If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
+	- If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 5. Install kubectl: `sudo snap install kubectl --classic`
+6. Install [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
 6. Install [kubectx and kubens](https://github.com/ahmetb/kubectx).
+	-  Follow installation steps at [this section](https://github.com/ahmetb/kubectx#kubectl-plugins-macos-and-linux)
 7. Install helm: `sudo snap install helm --classic`
 8. `mkdir ~/.kube`
 9. Install [jq](https://stedolan.github.io/jq), if required. `sudo apt-get install jq`
@@ -32,10 +25,6 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 1. `aws configure --profile embl-ebi`
 	- See [Quickly Configure ASW CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) for `AWS Access Key ID` & `AWS Secret Access Key`
 	- Set region to `us-east-1`
-1. See [this video](https://org-humancellatlas-sam.s3.amazonaws.com/HCA-prod-acct-setup-720p.mov) for configuring your connection to the DCP Developer Role.
- - Account: `ebi-web-dev`
- - Role: `ingest-devops`
- - ARN: `arn:aws:iam::871979166454:role/ingest-devops`
 
 
 ## Access/Create/Modify/Destroy EKS Clusters
@@ -109,8 +98,12 @@ Coming soon
 ## Deploy and Upgrade Ingest Applications
 
 ### Deploy one kubernetes dockerized applications to an environment (aws)
-1. Make sure you have followed the instructions above to create or access an existing eks cluster
-2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
+1. `git checkout master`
+2. Make sure you have followed the instructions above to create or access an existing eks cluster
+3. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
+4. Alter the `changelog.md` in `production/` or `staging/` if deploying do either of those environments
+5. `git checkout pop+zsh`
+6. `git merge master` 
 3. `cd apps`
 4. `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
 
