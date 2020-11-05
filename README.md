@@ -3,7 +3,7 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 
 *Note*: This setup will likely work on Ubuntu too as well as OSX/Windows but it has not been tested.
 
-**Important**: Any changes on this branch likely need to be propagated to master (e.g. changelogs and environment_* files). Most sensible workflow is to switch to master, make the changes on the relevent files, merge into this branch, and then run the deployment commands from this command.
+**Important**: Any changes on this branch likely need to be propagated to master (e.g. changelogs and environment_* files). Most sensible workflow is to switch to master, make the changes on the relevent files, merge into this branch, and then run the deployment commands from this branch.
 
 ## Set up local environment
 We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
