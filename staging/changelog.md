@@ -2,6 +2,8 @@
 ## 09 November 2020
 * UI c41f3f0
     - Start using nginx server instead of ng serve command
+* Exporter 9eff2dd
+    - Put uploads into project subdirectory
 
 ## 03 November 2020
 * Core 4122ce5
