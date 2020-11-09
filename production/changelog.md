@@ -1,11 +1,16 @@
 # Production Changelog
 
+## 03 November 2020
+* Core 4122ce5 d2020-11-03.1
+  - Re-implementation of generic search endpoints for all entity types
+
 ## 2 November 2020
 * Archiver 11c4a6d d2020-11-02.1
     - Archive Organ and Organ Parts to BioSamples
 * Core a3f0b3a6 d2020-11-02.1
     - Created generic search endpoints for protocols, processes and files
-* UI cb08a63 d2020-11-02.2
+    - Secured Ingest API Endpoints
+* UI d9f3514 d2020-11-02.1
     - Support updating of metadata links
     - Viewing of orphaned entities
     - Viewing of process details

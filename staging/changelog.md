@@ -1,4 +1,12 @@
 # Staging Changelog
+## 09 November 2020
+* UI c41f3f0
+    - Start using nginx server instead of ng serve command
+
+## 03 November 2020
+* Core 4122ce5
+  - Re-implementation of generic search endpoints for all entity types
+
 ## 2 November 2020
 * UI cb08a63
     - Filter metadata picker search result by submission
