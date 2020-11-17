@@ -3,7 +3,7 @@ set -a
 
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-INGEST_BROKER_REF=c232971
+INGEST_BROKER_REF=7a3dd98
 INGEST_CORE_REF=fed14d33
 INGEST_EXPORTER_REF=9eff2dd
 INGEST_STAGING_MANAGER_REF=47cbd64
