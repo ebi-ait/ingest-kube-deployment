@@ -14,6 +14,8 @@ mongodump \
 BACKUP_FILE=$DB_DUMP.tar.gz
 tar -zcvf $BACKUP_FILE $DB_DUMP
 
+TAG="TagSet=[{Key=auto-delete,Value=true}]"
+
 if [ -z "$S3_BUCKET" ]; then
     echo "S3 Bucket not specified!"
     rm $BACKUP_FILE
@@ -21,8 +23,10 @@ if [ -z "$S3_BUCKET" ]; then
 else
     if [ -z "$BACKUP_DIR"  ]; then
 	s3backup cp $BACKUP_FILE s3://$S3_BUCKET
+    aws s3api put-object-tagging --bucket $S3_BUCKET --key $BACKUP_FILE --tagging $TAG
     else
 	s3backup cp $BACKUP_FILE s3://$S3_BUCKET/$BACKUP_DIR/
+    aws s3api put-object-tagging --bucket $S3_BUCKET --key $BACKUP_DIR/$BACKUP_FILE --tagging $TAG
     fi
 fi
 
