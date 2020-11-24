@@ -1,4 +1,18 @@
 # Staging Changelog
+
+## 19 November 2020
+* UI 6f81bc9
+   - Project view changes
+* Archiver 79fcb19
+   - changes in ontology lookup for all ontology fields
+
+
+## 09 November 2020
+* UI c41f3f0
+    - Start using nginx server instead of ng serve command
+* Exporter 9eff2dd
+    - Put uploads into project subdirectory
+
 ## 03 November 2020
 * Core 4122ce5
   - Re-implementation of generic search endpoints for all entity types
