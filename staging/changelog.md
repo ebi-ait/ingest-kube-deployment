@@ -1,4 +1,12 @@
 # Staging Changelog
+
+## 19 November 2020
+* UI 6f81bc9
+   - Project view changes
+* Archiver 79fcb19
+   - changes in ontology lookup for all ontology fields
+
+
 ## 09 November 2020
 * UI c41f3f0
     - Start using nginx server instead of ng serve command
