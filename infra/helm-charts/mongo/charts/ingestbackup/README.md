@@ -106,6 +106,11 @@ To check if the backups contain correct information, the following general strat
 
 Backups are automatically verified through the verification script that runs as part of the Helm installation. By default this script runs 30 minutes after the backup script is initiated. Depending on how large the batch of data being backed up is, this may need to be adjusted.
 
+
+### Backup expiration policy in S3
+A lifecycle rule has been set up in S3 that expires (permanently deletes) backups after 90 days. New backups are by default tagged with `"auto-delete": "true"`. The expiration policy only applies to files with this tag which - if needed - may be changed to `"auto-delete": "false"` by a user who has access to the S3 console to allow a backup to persist (not expire).
+
+
 ## <a name="development"></a>Development
 
 ### Directory structure
