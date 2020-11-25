@@ -1,5 +1,13 @@
 # Staging Changelog
 
+## 25 November 2020
+* UI 59fbe10
+    - Changes for validation error summary and file validation error type filtering
+* Core 4fba6222
+     - Changes for validation error summary and file validation error type filtering
+* Validator 5e77956
+     - Changes for validation error summary and file validation error type filtering
+
 ## 19 November 2020
 * UI 6f81bc9
    - Project view changes
