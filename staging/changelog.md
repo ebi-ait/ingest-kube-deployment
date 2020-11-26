@@ -1,4 +1,8 @@
 # Staging Changelog
+# 26 November 2020
+- Core 3567ad1
+    - Add counts for each type of invalid file in summary
+
 
 ## 25 November 2020
 * UI 59fbe10
