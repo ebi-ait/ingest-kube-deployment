@@ -1,4 +1,11 @@
 # Production Changelog
+## 27 November 2020
+* UI 59fbe10 d2020-11-27.1
+    - Changes for validation error summary and file validation error type filtering
+* Core 4fba6222 d2020-11-27.1
+     - Changes for validation error summary and file validation error type filtering
+* Validator 5e77956 d2020-11-27.1
+     - Changes for validation error summary and file validation error type filtering
 
 ## 03 November 2020
 * Core 4122ce5 d2020-11-03.1
