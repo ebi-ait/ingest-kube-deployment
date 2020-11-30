@@ -29,12 +29,14 @@ spec:
         - name: DSS_API_URL
           value: https://{{ .Values.dss }}
         - name: DOMAIN_WHITELIST
-          value: {{ .Values.domainWhitelist }} 
+          value: {{ .Values.domainWhitelist }}
+        - name: SECURED_ENDPOINTS
+          value: {{ .Values.securedEndpoints }}
         - name: AAI_CLIENT_ID
           value: {{ .Values.aaiClientId }}
-        - name: AAI_AUTHORITY 
+        - name: AAI_AUTHORITY
           value: {{ .Values.aaiAuthority }}
-        - name: OLS_URL 
+        - name: OLS_URL
           value: {{ .Values.olsUrl }}
         image: quay.io/ebi-ait/ingest-ui:{{ .Values.image }}
         imagePullPolicy: Always
