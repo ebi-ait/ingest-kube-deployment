@@ -1,4 +1,8 @@
 # Staging Changelog
+# 30 November 2020
+- UI 431345c
+    - Only pass a bearer token to secured endpoints of Ingest API
+
 # 26 November 2020
 - UI 4bdf96a
     - Few tweaks for error summary
