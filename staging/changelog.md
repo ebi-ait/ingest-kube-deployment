@@ -1,4 +1,8 @@
 # Staging Changelog
+# 1 December 2020
+* UI ddbdbf1
+  - Refactor to use datasources and stop polling when HTTP failed
+
 # 30 November 2020
 - UI 431345c
     - Only pass a bearer token to secured endpoints of Ingest API
