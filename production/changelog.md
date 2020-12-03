@@ -1,4 +1,10 @@
 # Production Changelog
+# 03 December 2020
+* UI d2020-12-03.1 ddbdbf1
+  - Changes to stop endless polling even after requests start failing.
+  - Don't send JWT on unauthenticated requests
+  - Fixes Elixir 100k+ requests
+
 ## 27 November 2020
 * UI 59fbe10 d2020-11-27.1
     - Changes for validation error summary and file validation error type filtering
