@@ -21,7 +21,7 @@ spec:
         rollme: {{ randAlphaNum 5 | quote }}
     spec:
       containers:
-      - image: quay.io/humancellatlas/ontology:{{ .Values.image }}
+      - image: quay.io/ebi-ait/ontology:{{ .Values.image }}
         imagePullPolicy: Always
         name: ontology
         ports:
