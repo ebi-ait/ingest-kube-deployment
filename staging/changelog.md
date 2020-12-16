@@ -1,18 +1,26 @@
 # Staging Changelog
-# 1 December 2020
+
+## 07 December 2020
+* Ontology 1.0.18
+  - New release of HCAO and EFO slim
+
+* Validator 5e77956
+  - same version
+
+## 01 December 2020
 * UI ddbdbf1
   - Refactor to use datasources and stop polling when HTTP failed
 
-# 30 November 2020
-- UI 431345c
+## 30 November 2020
+* UI 431345c
     - Only pass a bearer token to secured endpoints of Ingest API
 
-# 26 November 2020
-- UI 4bdf96a
+## 26 November 2020
+* UI 4bdf96a
     - Few tweaks for error summary
 
-# 26 November 2020
-- Core 3567ad1
+## 26 November 2020
+* Core 3567ad1
     - Add counts for each type of invalid file in summary
 
 

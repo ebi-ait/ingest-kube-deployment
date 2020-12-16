@@ -1,4 +1,12 @@
 # Production Changelog
+
+## 07 December 2020
+* Ontology 1.0.18
+  - New release of HCAO and EFO slim
+
+* Validator d2020-11-27.1
+  - same version, redeployed to pick up new ontology values
+
 # 03 December 2020
 * UI d2020-12-03.1 ddbdbf1
   - Changes to stop endless polling even after requests start failing.
