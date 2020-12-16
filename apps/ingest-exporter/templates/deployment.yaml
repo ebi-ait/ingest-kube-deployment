@@ -45,6 +45,8 @@ spec:
           value: {{ .Values.terraGcpProject }}
         - name: GCP_SVC_ACCOUNT_KEY_PATH
           value: "/etc/secrets/terra-gcp-svc-account.json"
+        - name: INGEST_TERRA_BUCKET_NAME
+          value: {{ .Values.ingestTerraBucketName }}
         - name: AWS_ACCESS_KEY_ID
           valueFrom:
             secretKeyRef:

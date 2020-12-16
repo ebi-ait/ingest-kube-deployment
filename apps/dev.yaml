@@ -24,6 +24,7 @@ olsUrl: "https://ontology.dev.archive.data.humancellatlas.org"
 terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
 terraBucketPrefix: dev
 terraGcpProject: broad-dsp-monster-hca-dev
+ingestTerraBucketName: hca-ingest-terra-staging-area-dev
 
 # core
 debug: false
