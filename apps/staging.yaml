@@ -2,7 +2,7 @@ uploadScheme: https
 uploadPort: 443
 upload: upload.staging.archive.data.humancellatlas.org
 dss: dss.staging.data.humancellatlas.org
-schema: schema.staging.data.humancellatlas.org
+schema: schema.humancellatlas.org
 ingest: api.ingest.staging.archive.data.humancellatlas.org
 broker: ingest.staging.archive.data.humancellatlas.org
 ui: staging.contribute.data.humancellatlas.org

@@ -1,8 +1,28 @@
 # Staging Changelog
 
 ## 04 January 2021
-* Validator 5e77956
-  - same version but is now pointing to quay.io/ebi-ait/fastq_utils:54bcf9f which should be consistent with dev and prod
+* UI 1d20d2f
+  - Use state endpoints to set back metadata into Draft state
+
+* Broker 4dfe50f
+  - Adjustments to core entity endpoint changes
+
+* Core b7c9bf71
+  - Point to prod schema env https://schema.humancellatlas.org/, the schema url for staging http://schema.staging.data.humancellatlas.org/ is now removed  
+  - Update dcpVersion everytime content is modified to export new version
+  - Restrict fields that can be patched
+  - Added additional timestamp fields contentLastModified, firstDcpVersion (needs migration)
+  - Make payload consistent for all entity endpoints
+  - Fix file error in total count
+  - Preserve original behavior where submission envelope link value from index page is object instead of array
+  - Updated the CORS Config to not use the deprecated WebMvcConfigurerAdapter 
+
+* State Tracker bc6bb2b
+  - Allow submission to be set back to Draft after Exported
+
+* Validator 0f03549
+  - Fix data file validation errors
+  - Use quay.io/ebi-ait/fastq_utils:54bcf9f which should be consistent with dev and prod
 
 ## 07 December 2020
 * Ontology 1.0.18
