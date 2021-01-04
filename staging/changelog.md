@@ -35,6 +35,9 @@
 ## 19 November 2020
 * UI 6f81bc9
    - Project view changes
+* Broker 7a3dd98
+   - Link metadata entities to a project
+   - change in Dockerfile base image
 * Archiver 79fcb19
    - changes in ontology lookup for all ontology fields
 

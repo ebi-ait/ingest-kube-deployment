@@ -1,5 +1,10 @@
 # Production Changelog
 
+## 04 January 2021
+* Broker d2021-01-04.1
+  - Link metadata entities to a project
+  - change in Dockerfile base image
+
 ## 07 December 2020
 * Ontology 1.0.18
   - New release of HCAO and EFO slim
@@ -7,7 +12,7 @@
 * Validator d2020-11-27.1
   - same version, redeployed to pick up new ontology values
 
-# 03 December 2020
+## 03 December 2020
 * UI d2020-12-03.1 ddbdbf1
   - Changes to stop endless polling even after requests start failing.
   - Don't send JWT on unauthenticated requests
@@ -18,6 +23,7 @@
     - Changes for validation error summary and file validation error type filtering
 * Core 4fba6222 d2020-11-27.1
      - Changes for validation error summary and file validation error type filtering
+     - All entities now have a link to a project
 * Validator 5e77956 d2020-11-27.1
      - Changes for validation error summary and file validation error type filtering
 
