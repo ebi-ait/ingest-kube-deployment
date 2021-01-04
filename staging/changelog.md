@@ -1,5 +1,9 @@
 # Staging Changelog
 
+## 04 January 2021
+* Validator 5e77956
+  - same version but is now pointing to quay.io/ebi-ait/fastq_utils:54bcf9f which should be consistent with dev and prod
+
 ## 07 December 2020
 * Ontology 1.0.18
   - New release of HCAO and EFO slim

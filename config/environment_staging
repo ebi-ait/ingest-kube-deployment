@@ -13,7 +13,7 @@ INGEST_UI_REF=ddbdbf1
 INGEST_ARCHIVER_REF=79fcb19
 ONTOLOGY_REF=1.0.18
 
-FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc
+FASTQ_VALIDATOR_IMAGE=quay.io/ebi-ait/fastq_utils:54bcf9f
 
 # REPLICAS
 INGEST_BROKER_REPLICAS=1
