@@ -1,5 +1,9 @@
 # Staging Changelog
 
+## 05 January 2021
+* Broker f0fe879
+  - Always use prod schema environment
+
 ## 04 January 2021
 * UI 1d20d2f
   - Use state endpoints to set back metadata into Draft state
