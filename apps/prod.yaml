@@ -8,7 +8,7 @@ broker: ingest.archive.data.humancellatlas.org
 ui: contribute.data.humancellatlas.org
 
 # config values
-gcpProjectWhitelist: "hca-dcp-pipelines-prod.iam.gserviceaccount.com,hca-dcp-production.iam.gserviceaccount.com"
+gcpProjectWhitelist: "ingest-service-301110.iam.gserviceaccount.com"
 svcAuthAudience: https://data.humancellatlas.org/
 usrAuthAudience: https://dev.data.humancellatlas.org/
 
