@@ -1,0 +1,13 @@
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "solr.fullname" . }}
+  labels:
+    {{- include "common.labels.standard" $ | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: server
+  {{- toYaml .Values.podDisruptionBudget | nindent 2 }}
