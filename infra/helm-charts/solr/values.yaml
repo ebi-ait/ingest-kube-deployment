@@ -106,7 +106,7 @@ podAnnotations: {}
 ##
 volumeClaimTemplates:
   ## solr data Persistent Volume Storage Class
-  storageClassName: "AWSElasticBlockStore"
+  storageClassName: ""
   accessModes:
     - "ReadWriteOnce"
   ## PersistentVolumeClaim size
