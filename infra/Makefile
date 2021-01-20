@@ -19,6 +19,7 @@ deploy-backend-services-%:
 	$(MAKE) install-infra-helm-chart-rabbit
 	$(MAKE) install-infra-helm-chart-redis
 	$(MAKE) setup-ingress-$(*)
+	$(MAKE) setup-solr-$(*)
 
 modify-cluster-%:
 	# Add User confirmation of environment and action here and then apply -auto-confirm flag on terraform
@@ -91,6 +92,11 @@ setup-ingress-%:
 	$(MAKE) set-context-$(*)
 	cd helm-charts && helm dependency update ingress
 	cd helm-charts && helm upgrade -f ingress/values.yaml --values ingress/environments/$(*).yaml ingress ./ingress --force --install
+
+setup-solr-%:
+	$(MAKE) set-context-$(*)
+	cd helm-charts && helm dependency update solr
+	cd helm-charts && helm upgrade --values solr/values.yaml --values solr/environments/${*}.yaml solr ./solr --install
 
 setup-retained-storage-%:
 	$(MAKE) set-context-$(*)

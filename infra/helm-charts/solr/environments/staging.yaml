@@ -1,0 +1,4 @@
+replicaCount: 1
+
+zookeeper:
+  replicaCount: 1
