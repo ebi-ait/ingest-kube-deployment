@@ -37,9 +37,9 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 [profile embl-ebi]
 role_arn = arn:aws:iam::871979166454:role/ingest-devops
 source_profile = ebi
+region = us-east-1
 
 [profile ebi]
-region = us-east-1
 ```
 
 
