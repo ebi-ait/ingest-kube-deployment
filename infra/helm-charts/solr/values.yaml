@@ -12,8 +12,8 @@ global: {}
 ## ref: https://hub.docker.com/_/solr/
 ##
 image:
-  registry: docker.io
-  repository: solr
+  registry: quay.io
+  repository: bitnami/solr
   tag: 8.7.0
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
