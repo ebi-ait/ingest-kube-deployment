@@ -1,13 +1,47 @@
 # Production Changelog
 
+## 05 January 2021
+
+* Broker f0fe879 d2021-01-05.1
+  - Always use prod schema url for all ingest environments
+
+## 04 January 2021
+
+* UI 1d20d2f d2021-01-04.1 
+  - Use state endpoints to set back metadata into Draft state
+
+* Broker 4dfe50f d2021-01-04.2
+  - Adjustments to core entity endpoint changes
+
+* Core b7c9bf71 d2021-01-04.1
+  - Point to prod schema env https://schema.humancellatlas.org/, the schema url for staging http://schema.staging.data.humancellatlas.org/ is now removed
+  - Update dcpVersion everytime content is modified to export new version
+  - Restrict fields that can be patched
+  - Added additional timestamp fields contentLastModified, firstDcpVersion (needs migration)
+  - Make payload consistent for all entity endpoints
+  - Fix file error in total count
+  - Preserve original behavior where submission envelope link value from index page is object instead of array
+  - Updated the CORS Config to not use the deprecated WebMvcConfigurerAdapter
+
+* State Tracker bc6bb2b d2021-01-04.1
+  - Allow submission to be set back to Draft after Exported
+
+* Validator 0f03549 d2021-01-04.1
+  - Fix data file validation errors
+  - Use quay.io/ebi-ait/fastq_utils:54bcf9f which should be consistent with dev and prod
+
+* Broker 7a3dd98 d2021-01-04.1
+  - Link metadata entities to a project
+  - change in Dockerfile base image
+
 ## 07 December 2020
 * Ontology 1.0.18
   - New release of HCAO and EFO slim
 
-* Validator d2020-11-27.1
+* Validator 634a37b6 d2020-11-27.1
   - same version, redeployed to pick up new ontology values
 
-# 03 December 2020
+## 03 December 2020
 * UI d2020-12-03.1 ddbdbf1
   - Changes to stop endless polling even after requests start failing.
   - Don't send JWT on unauthenticated requests
@@ -18,6 +52,7 @@
     - Changes for validation error summary and file validation error type filtering
 * Core 4fba6222 d2020-11-27.1
      - Changes for validation error summary and file validation error type filtering
+     - All entities now have a link to a project
 * Validator 5e77956 d2020-11-27.1
      - Changes for validation error summary and file validation error type filtering
 
