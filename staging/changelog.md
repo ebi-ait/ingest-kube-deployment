@@ -1,5 +1,9 @@
 # Staging Changelog
 
+## 25 January 2021
+* Archiver 9a30091
+  - Putting back the ontology search function for checking 10x
+
 ## 05 January 2021
 * Broker f0fe879
   - Always use prod schema environment

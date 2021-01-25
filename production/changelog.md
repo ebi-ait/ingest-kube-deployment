@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 25 January 2021
+* Archiver d2021-01-23.1
+  - Putting back the ontology search function for checking 10x
+
 ## 05 January 2021
 
 * Broker f0fe879 d2021-01-05.1
