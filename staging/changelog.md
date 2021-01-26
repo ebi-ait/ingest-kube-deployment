@@ -1,5 +1,12 @@
 # Staging Changelog
 
+## 26 January 2021
+* Ontology 1.0.19
+  - HCAO release 1.0.19 ebi-ait/hca-ebi-dev-team#376
+
+* Validator
+  - update ontology cache
+
 ## 25 January 2021
 * Archiver 9a30091
   - Putting back the ontology search function for checking 10x
