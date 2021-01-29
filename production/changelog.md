@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 29 January 2021
+* State Tracker d2020-06-25.1 6801bf0
+  - Reverted change to allow submission to be set back to Draft after Exported
+
 ## 26 January 2021
 * Ontology 1.0.19
   - HCAO release 1.0.19 ebi-ait/hca-ebi-dev-team#376

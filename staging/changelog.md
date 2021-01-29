@@ -7,6 +7,8 @@
     - Add form element to add organs to project level in project registration form
 * UI 8d6509c
     - Fix a typo that stopped projects/new form working
+* State Tracker 6801bf0
+  - Reverted change to allow submission to be set back to Draft after Exported
 
 ## 26 January 2021
 * Ontology 1.0.19
