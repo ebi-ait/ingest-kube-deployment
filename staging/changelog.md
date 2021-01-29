@@ -1,5 +1,11 @@
 # Staging Changelog
 
+## 29 January 2021
+* Core 5e38ed6f
+    - Add organ to project level
+* UI 232f42c
+    - Add form element to add organs to project level in project registration form
+
 ## 26 January 2021
 * Ontology 1.0.19
   - HCAO release 1.0.19 ebi-ait/hca-ebi-dev-team#376
