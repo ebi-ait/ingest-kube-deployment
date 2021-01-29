@@ -24,6 +24,8 @@ olsUrl: "https://ontology.staging.archive.data.humancellatlas.org"
 terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
 terraBucketPrefix: staging
 terraGcpProject: broad-dsp-monster-hca-dev
+gcsNotificationTopic: broad-dsp-monster-hca-dev.staging-transfer-notifications.ebi
+gcsNotificationSub: ebi
 
 # core
 debug: false
