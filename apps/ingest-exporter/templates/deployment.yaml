@@ -41,6 +41,10 @@ spec:
           value: {{ .Values.terraBucketName }}
         - name: TERRA_BUCKET_PREFIX
           value: {{ .Values.terraBucketPrefix }}
+        - name: TERRA_GCS_NOTIFICATION_TOPIC
+          value: {{ .Values.gcsNotificationTopic }}
+        - name: TERRA_GCS_NOTIFICATION_SUB
+          value: {{ .Values.gcsNotificationSub }}
         - name: GCP_PROJECT
           value: {{ .Values.terraGcpProject }}
         - name: GCP_SVC_ACCOUNT_KEY_PATH
