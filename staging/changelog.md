@@ -1,4 +1,10 @@
 # Staging Changelog
+## 4 February 2021
+* Core f415db86
+    - Send metadata and projects to draft if content changed
+* UI 484750d
+    - Remove requests to send metadata and projects to draft as this logic is now in core
+
 ## 02 February 2021
 * State Tracker bc6bb2b
   - Allow Exported -> Draft -> Valid transition
