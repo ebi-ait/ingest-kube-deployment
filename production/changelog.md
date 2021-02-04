@@ -1,4 +1,10 @@
 # Production Changelog
+## 4 February 2021
+- Core d2021-04-02.1
+    - Set projects and metadata to draft if content changed
+- UI d2021-04-02.1
+    - Remove logic to set projects and metadata to draft
+
 ## 1 February 2021
 * Core d2021-01-02.1
     - Add organ to project level
