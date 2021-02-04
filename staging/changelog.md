@@ -1,12 +1,15 @@
 # Staging Changelog
+## 02 February 2021
+* State Tracker bc6bb2b
+  - Allow Exported -> Draft -> Valid transition
 
 ## 29 January 2021
 * Core 5e38ed6f
-    - Add organ to project level
+  - Add organ to project level
 * UI 232f42c
-    - Add form element to add organs to project level in project registration form
+  - Add form element to add organs to project level in project registration form
 * UI 8d6509c
-    - Fix a typo that stopped projects/new form working
+  - Fix a typo that stopped projects/new form working
 * State Tracker 6801bf0
   - Reverted change to allow submission to be set back to Draft after Exported
 
