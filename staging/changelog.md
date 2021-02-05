@@ -1,4 +1,8 @@
 # Staging Changelog
+## 5 February 2021
+* UI 9d6b208
+   - Fix file metadata updates
+
 ## 4 February 2021
 * Core f415db86
     - Send metadata and projects to draft if content changed
