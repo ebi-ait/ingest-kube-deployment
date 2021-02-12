@@ -1,4 +1,8 @@
 # Production Changelog
+## 12 February 2021
+- Exporter d2021-02-12.1
+    - Put data and metadata in project subdir
+
 ## 4 February 2021
 - Core d2021-04-02.1
     - Set projects and metadata to draft if content changed
