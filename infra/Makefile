@@ -39,9 +39,9 @@ retrieve-kubeconfig-%:
 	# confirm environment here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
 	mkdir -p ../config/cluster-secrets/ $(*)
-	terraform output kubeconfig > ../config/cluster-secrets/kubeconfig_$(*)
+	terraform output -raw kubeconfig > ../config/cluster-secrets/kubeconfig_$(*)
 	KUBECONFIG=~/.kube/config:$(kubeconfig_path) kubectl config view --flatten > mergedkub && mv mergedkub ~/.kube/config
-	terraform output namespace > $(*)/namespace.yaml
+	terraform output -raw namespace > $(*)/namespace.yaml
 	kubectx ingest-eks-$(*)
 	kubectl apply -f $(*)/namespace.yaml
 	rm -rf $(*)
@@ -70,7 +70,7 @@ apply-env-configs-%:
 	$(MAKE) set-context-$(*)
 	rm -rf $(*)
 	mkdir -p $(*)
-	terraform output config_map > $(*)/config_map.yaml
+	terraform output -raw config_map > $(*)/config_map.yaml
 	kubectl apply -f $(*)/config_map.yaml
 	rm -rf $(*)
 

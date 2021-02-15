@@ -1,9 +1,9 @@
 ingress:
   enabled: "false"      
 
-# for subchart stable/nginx-ingress
+# for subchart ingress-nginx
 
-nginx-ingress:
+ingress-nginx:
   controller:
     service:
       annotations:
@@ -12,5 +12,9 @@ nginx-ingress:
         service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
       targetPorts:
           https: http
+    config:
+      hsts: "true"
+      server-tokens: "false"
+      use-forwarded-headers: "true"
   rbac:
     create: "true"
