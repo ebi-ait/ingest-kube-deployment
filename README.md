@@ -32,10 +32,15 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 1. `aws configure --profile embl-ebi`
 	- See [Quickly Configure ASW CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) for `AWS Access Key ID` & `AWS Secret Access Key`
 	- Set region to `us-east-1`
-1. See [this video](https://org-humancellatlas-sam.s3.amazonaws.com/HCA-prod-acct-setup-720p.mov) for configuring your connection to the DCP Developer Role.
- - Account: `ebi-web-dev`
- - Role: `ingest-devops`
- - ARN: `arn:aws:iam::871979166454:role/ingest-devops`
+2. Edit your `./aws/config` to look like this:
+```
+[profile embl-ebi]
+role_arn = arn:aws:iam::871979166454:role/ingest-devops
+source_profile = ebi
+region = us-east-1
+
+[profile ebi]
+```
 
 
 ## Access/Create/Modify/Destroy EKS Clusters
