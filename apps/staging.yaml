@@ -25,7 +25,7 @@ terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
 terraBucketPrefix: staging
 terraGcpProject: broad-dsp-monster-hca-dev
 gcsNotificationTopic: broad-dsp-monster-hca-dev.staging-transfer-notifications.ebi
-gcsNotificationSub: ebi
+gcsNotificationSub: ebi-writer
 
 # core
 debug: false

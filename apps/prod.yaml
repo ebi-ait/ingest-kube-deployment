@@ -26,7 +26,7 @@ terraBucketName: broad-dsp-monster-hca-prod-ebi-storage
 terraBucketPrefix: prod
 terraGcpProject: mystical-slate-284720
 gcsNotificationTopic: broad-dsp-monster-hca.staging-transfer-notifications.ebi
-gcsNotificationSub: ebi
+gcsNotificationSub: ebi-writer
 
 # core
 debug: false
