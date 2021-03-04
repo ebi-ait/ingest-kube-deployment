@@ -6,15 +6,17 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
 ### Mac
 1. `git clone <this-repo-url>`
-2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html) 13.5:
+2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html) v0.14.6:
     - `brew install warrensbox/tap/tfswitch`
-    - `tfswitch 0.13.5`
+    - `tfswitch 0.14.6`
+2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html): `brew install terraform`. 
 3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html): `brew install aws-iam-authenticator`
 5. Install kubectl: `brew install kubernetes-cli`
 6. Install kubectx (kubens included): `brew install kubectx`
 7. Install [helm](https://github.com/kubernetes/helm): `brew install kubernetes-helm`
+version.BuildInfo{Version:"v3.2.0", GitCommit:"e11b7ce3b12db2941e90399e874513fbd24bcb71", GitTreeState:"clean", GoVersion:"go1.13.10"}
 8. `mkdir ~/.kube`
 9. Install [jq](https://stedolan.github.io/jq/) `brew install jq`
 
