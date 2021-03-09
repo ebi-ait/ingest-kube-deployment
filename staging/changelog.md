@@ -1,4 +1,8 @@
 # Staging Changelog
+## 8 March 2021
+* State Tracker 4b30877
+   - Implemented syncing logic on start-up 
+
 ## 5 February 2021
 * UI 9d6b208
    - Fix file metadata updates
