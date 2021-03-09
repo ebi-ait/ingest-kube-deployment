@@ -1,4 +1,12 @@
 # Staging Changelog
+## 9 March 2021
+* Exporter 07dd825
+  - Increase timeout for exports
+
+## 8 March 2021
+* State Tracker 4b30877
+   - Implemented syncing logic on start-up 
+
 ## 5 February 2021
 * UI 9d6b208
    - Fix file metadata updates
