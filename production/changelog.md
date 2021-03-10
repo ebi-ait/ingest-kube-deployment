@@ -7,6 +7,7 @@
 ## 09 March 2021
 - Exporter 07dd825	d2021-03-09.1
   - Increase timeout
+  - Changes to transfer job spec to support metadata & data file updates
 
 ## 12 February 2021
 - Exporter d2021-02-12.1
