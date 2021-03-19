@@ -1,5 +1,11 @@
 # Production Changelog
 
+## 19 March
+* Ontology 1.0.21
+  - HCA Ontology release 1.0.21
+* Validator
+  - no version change, redeployed to clear ontology cache
+
 ## 10 March 2021
 - State Tracker 4b30877 d2021-03-10.1 
   - Increase timeout
