@@ -1,4 +1,19 @@
 # Staging Changelog
+## 22 March 2021
+* Exporter 7a3898b
+   - Feature to support exporting only metadata
+
+* Core 3cccd28
+  - Feature to support exporting only metadata
+* Core cd0100b
+   - Allow contributors to edit project
+* UI 6daaa8d
+   - Allow contributor to add project metadata
+* UI fbcf031
+   - Feature to support exporting only metadata
+* UI 7eea4b6
+   - Default to having submit checkboxes unchecked
+   
 ## 18 March
 * Ontology 1.0.21
   - HCA Ontology release 1.0.21
