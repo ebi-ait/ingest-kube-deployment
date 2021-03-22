@@ -1,4 +1,10 @@
 # Staging Changelog
+## 18 March
+* Ontology 1.0.21
+  - HCA Ontology release 1.0.21
+* Validator
+  - no version change, redeployed to clear ontology cache
+
 ## 9 March 2021
 * Exporter 07dd825
   - Increase timeout for exports
