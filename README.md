@@ -6,7 +6,8 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
 ### Mac
 1. `git clone <this-repo-url>`
-2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html): `brew install terraform`.
+2. Install [terraform 0.13.5](https://www.terraform.io/intro/getting-started/install.html): `brew install terraform 0.13.5`.
+   NOTE: we don't support newer versions.
 3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html): `brew install aws-iam-authenticator`
