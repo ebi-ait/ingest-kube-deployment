@@ -1,4 +1,8 @@
 # Staging Changelog
+# 7 April 2021
+* Exporter ef534da
+  - Use latest version of ingest client to increase the row limit of spreadsheet imports
+
 ## 22 March 2021
 * Exporter 7a3898b
    - Feature to support exporting only metadata
