@@ -1,4 +1,10 @@
 # Production Changelog
+* Exporter d2021-04-09.1
+    - Upgrade ingest-client
+* broker
+    - Upgrade ingest-client
+
+
 
 ## 19 March
 * Ontology 1.0.21
