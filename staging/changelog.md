@@ -1,4 +1,8 @@
 # Staging Changelog
+* 9 April 2021
+- Broker 0029671
+    - Use latest version of ingest client to increase the row limit of spreadsheet import
+
 # 7 April 2021
 * Exporter ef534da
   - Use latest version of ingest client to increase the row limit of spreadsheet imports
