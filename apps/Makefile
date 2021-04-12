@@ -25,18 +25,25 @@ ingest-ui-replicas=${INGEST_UI_REPLICAS}
 
 fastq-validator-image = ${FASTQ_VALIDATOR_IMAGE}
 
+# Gitlab Annotations
+# These should be set by the CD pipeline
+# These are used by Gitlab to track deployments
+# See e.g. https://docs.gitlab.com/ee/user/project/deploy_boards.html#example-manifest-file
+gitlab_app=${CI_PROJECT_PATH_SLUG}
+gitlab_env=${CI_ENVIRONMENT_SLUG}
+
 deploy-app-%:
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
-	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$($(*)),replicas=$($(*)-replicas) --force --wait --install
+	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$($(*)),replicas=$($(*)-replicas),gitlab_app=$(ci_project_path_slug),gitlab_env=$(ci_environment_slug) --force --wait --install
 	rm *.tgz
 
 rollout-%:
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
-	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$($(*)),replicas=$($(*)-replicas) --wait --install
+	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$($(*)),replicas=$($(*)-replicas),gitlab_app=$(ci_project_path_slug),gitlab_env=$(ci_environment_slug) --wait --install
 	rm *.tgz
 
 deploy-secrets:
