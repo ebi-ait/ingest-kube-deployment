@@ -9,13 +9,6 @@ ingest-api-tests = ${INGEST_API_TESTS_REF}
 # REPLICAS
 fastq-validator-image = ${FASTQ_VALIDATOR_IMAGE}
 
-# Gitlab Annotations
-# These should be set by the CD pipeline
-# These are used by Gitlab to track deployments
-# See e.g. https://docs.gitlab.com/ee/user/project/deploy_boards.html#example-manifest-file
-gitlab_app=${CI_PROJECT_PATH_SLUG}
-gitlab_env=${CI_ENVIRONMENT_SLUG}
-
 deploy-app-ontology:
 	$(MAKE) set-context
 	helm package ontology
