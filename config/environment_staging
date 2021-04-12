@@ -3,16 +3,7 @@ set -a
 
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-INGEST_BROKER_REF=0029671
-INGEST_CORE_REF=3cccd287
-INGEST_EXPORTER_REF=ef534da
-INGEST_STAGING_MANAGER_REF=47cbd64
-INGEST_STATE_TRACKING_REF=4b30877
-INGEST_VALIDATOR_REF=0f03549
-INGEST_UI_REF=6daaa8d
-INGEST_ARCHIVER_REF=9a30091
 ONTOLOGY_REF=1.0.21
-
 FASTQ_VALIDATOR_IMAGE=quay.io/ebi-ait/fastq_utils:54bcf9f
 
 # REPLICAS
