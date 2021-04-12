@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {}
+  annotations:
+    app.gitlab.com/app: {{ .Values.gitlab_app }}
+    app.gitlab.com/env: {{ .Values.gitlab_env }}
   labels:
     role: ingestion
   name: ingest-exporter
@@ -19,6 +21,8 @@ spec:
         app: ingest-exporter
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
+        app.gitlab.com/app: {{ .Values.gitlab_app }}
+        app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
       volumes:
         - name: secret-volume
@@ -59,7 +63,7 @@ spec:
             secretKeyRef:
               key: exporter-access-key-secret
               name: aws-keys
-        image: quay.io/ebi-ait/ingest-exporter:{{ .Values.image }}
+        image: {{ .Values.image }}
         volumeMounts:
           - name: secret-volume
             mountPath: "/etc/secrets"

@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {}
+  annotations:
+    app.gitlab.com/app: {{ .Values.gitlab_app }}
+    app.gitlab.com/env: {{ .Values.gitlab_env }}
   labels:
     role: ingestion
   name: ingest-validator
@@ -17,6 +19,8 @@ spec:
         app: ingest-validator
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
+        app.gitlab.com/app: {{ .Values.gitlab_app }}
+        app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
       dnsPolicy: Default
       containers:
@@ -48,6 +52,6 @@ spec:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
-        image: quay.io/ebi-ait/ingest-validator:{{ .Values.image }}
+        image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-validator

@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {}
+  annotations:
+    app.gitlab.com/app: {{ .Values.gitlab_app }}
+    app.gitlab.com/env: {{ .Values.gitlab_env }}
   labels:
     role: ingestion
   name: ingest-broker
@@ -17,6 +19,8 @@ spec:
         app: ingest-broker
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
+        app.gitlab.com/app: {{ .Values.gitlab_app }}
+        app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
       dnsPolicy: Default
       volumes:
@@ -31,7 +35,7 @@ spec:
           value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
         - name: SPREADSHEET_STORAGE_DIR
           value: /data/spreadsheets
-        image: quay.io/ebi-ait/ingest-broker:{{ .Values.image }}
+        image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-broker
         ports:
