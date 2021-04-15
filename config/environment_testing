@@ -10,15 +10,6 @@ INGEST_API_TESTS_REF=cb085bf
 
 FASTQ_VALIDATOR_IMAGE=quay.io/humancellatlas/fastq_utils:v0.1.2.rc 
 
-# REPLICAS
-INGEST_BROKER_REPLICAS=1
-INGEST_CORE_REPLICAS=1
-INGEST_EXPORTER_REPLICAS=1
-INGEST_STAGING_MANAGER_REPLICAS=1
-INGEST_STATE_TRACKING_REPLICAS=1
-INGEST_VALIDATOR_REPLICAS=1
-INGEST_UI_REPLICAS=1
-
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca
 TF_VAR_ops_role=dcp-developer
@@ -45,5 +36,7 @@ TF_VAR_deployment_stage=${DEPLOYMENT_STAGE}
 TF_VAR_account_id=$(aws sts get-caller-identity --profile ${AWS_PROFILE} | jq -r .Account)
 TF_VAR_aws_region=us-east-1
 TF_VAR_terraform_bucket=org-humancellatlas-${TF_VAR_account_id}-terraform
+
+source ./replicas/environment_${DEPLOYMENT_STAGE}
 
 set +a
