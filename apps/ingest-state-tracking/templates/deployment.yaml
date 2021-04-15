@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {}
+  annotations:
+    app.gitlab.com/app: {{ .Values.gitlab_app }}
+    app.gitlab.com/env: {{ .Values.gitlab_env }}
   labels:
     role: ingestion
   name: ingest-state-tracking
@@ -19,6 +21,8 @@ spec:
         app: ingest-state-tracking
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
+        app.gitlab.com/app: {{ .Values.gitlab_app }}
+        app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
       containers:
       - env:
@@ -34,7 +38,7 @@ spec:
           value: $(REDIS_SERVICE_SERVICE_HOST)
         - name: REDIS_PORT
           value: $(REDIS_SERVICE_SERVICE_PORT)
-        image: quay.io/ebi-ait/ingest-state-tracking:{{ .Values.image }}
+        image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-state-tracking
         ports:

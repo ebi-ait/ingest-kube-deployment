@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {}
+  annotations:
+    app.gitlab.com/app: {{ .Values.gitlab_app }}
+    app.gitlab.com/env: {{ .Values.gitlab_env }}
   labels:
     role: ingestion
   name: ingest-ui
@@ -17,6 +19,8 @@ spec:
         app: ingest-ui
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
+        app.gitlab.com/app: {{ .Values.gitlab_app }}
+        app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
       containers:
       - env:
@@ -38,7 +42,7 @@ spec:
           value: {{ .Values.aaiAuthority }}
         - name: OLS_URL
           value: {{ .Values.olsUrl }}
-        image: quay.io/ebi-ait/ingest-ui:{{ .Values.image }}
+        image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-ui
         ports:

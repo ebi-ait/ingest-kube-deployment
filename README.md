@@ -105,20 +105,21 @@ For example, in dev, the CIDR is set to `10.40.0.0/16`. The Terraform manifest a
 Coming soon
 
 ## Deploy and Upgrade Ingest Applications
+Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but you can still manually deploy if required (see below). However, `ontology` is not deployed by Gitlab but there is a special command for deploying ontology (see below).
 
-### Deploy one kubernetes dockerized applications to an environment (aws)
-1. `git checkout master`
-2. Make sure you have followed the instructions above to create or access an existing eks cluster
-3. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
-4. Alter the `changelog.md` in `production/` or `staging/` if deploying do either of those environments
-5. `git checkout pop+zsh`
-6. `git merge master` 
+### Manually deploy one kubernetes dockerized applications to an environment (aws)
+1. Make sure you have followed the instructions above to create or access an existing eks cluster
+2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
 3. `cd apps`
-4. `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
+4. `make deploy-app-APPNAME image=IMAGE_NAME` where APPNAME is the name of the ingest application. and IMAGE_NAME is the image you want to deploy For example, `make deploy-app-ingest-core image=quay.io/ebi-ait/ingest-core:1c1f6ab9`
 
-### Deploy all kubernetes dockerized applications to an environment (aws)
+### Deploy ontology
+1. Make sure you have followed the instructions above to create or access an existing eks cluster
+2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
+3. `cd apps`
+4. `make deploy-app-ontology`
 
----
+
 
 **Notes on Fresh Installation**
 
