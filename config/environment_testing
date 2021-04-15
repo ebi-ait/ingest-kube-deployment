@@ -36,6 +36,6 @@ TF_VAR_account_id=$(aws sts get-caller-identity --profile ${AWS_PROFILE} | jq -r
 TF_VAR_aws_region=us-east-1
 TF_VAR_terraform_bucket=org-humancellatlas-${TF_VAR_account_id}-terraform
 
-source ./replicas/environment_${DEPLOYMENT_STAGE}
+source $PROJECT_ROOT/config/replicas/environment_${DEPLOYMENT_STAGE}
 
 set +a
