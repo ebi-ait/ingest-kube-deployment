@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {}
+  annotations:
+    app.gitlab.com/app: {{ .Values.gitlab_app }}
+    app.gitlab.com/env: {{ .Values.gitlab_env }}
   labels:
     role: ingestion
   name: ingest-core
@@ -19,6 +21,8 @@ spec:
         app: ingest-core
       annotations:
         rollme: {{ randAlphaNum 5 | quote }}
+        app.gitlab.com/app: {{ .Values.gitlab_app }}
+        app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
       containers:
       - env:
@@ -62,7 +66,7 @@ spec:
           value: {{ .Values.notifications.amqp.sendExchange }}
         - name: NOTIFICATIONS_AMQP_SEND_ROUTING_KEY
           value: {{ .Values.notifications.amqp.sendRoutingKey }}
-        image: quay.io/ebi-ait/ingest-core:{{ .Values.image }}
+        image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-core
         ports:
