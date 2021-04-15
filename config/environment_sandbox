@@ -5,14 +5,6 @@ set -a
 
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-INGEST_ACCESSIONER_REF=master
-INGEST_BROKER_REF=master
-INGEST_CORE_REF=master
-INGEST_EXPORTER_REF=master
-INGEST_STAGING_MANAGER_REF=master
-INGEST_STATE_TRACKING_REF=master
-INGEST_UI_REF=6102527
-INGEST_VALIDATOR_REF=master
 ONTOLOGY_REF=master
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
@@ -40,5 +32,7 @@ TF_VAR_deployment_stage=${DEPLOYMENT_STAGE}
 TF_VAR_account_id=$(aws sts get-caller-identity --profile ${AWS_PROFILE} | jq -r .Account)
 TF_VAR_aws_region=us-east-1
 TF_VAR_terraform_bucket=org-humancellatlas-${TF_VAR_account_id}-terraform
+
+source ./replicas/environment_${DEPLOYMENT_STAGE}
 
 set +a
