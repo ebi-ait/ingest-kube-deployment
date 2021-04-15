@@ -22,7 +22,7 @@ deploy-app-%:
 	$(MAKE) set-context
 	helm package $(*)
 	@if [ "$(force-refresh)" == TRUE ]; then kubectl delete deployment $(*) --ignore-not-found=true; fi;
-	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$(image),replicas=$($(*)-replicas),gitlab_app=$(*),gitlab_env=$(deployment-stage) --force --wait --install
+	. ../config/environment_$(deployment-stage) && helm upgrade -f $(deployment-stage).yaml $(*) $(*)  --set-string environment=$(deployment-stage),fastqImage=$(fastq-validator-image),image=$(image),replicas=$($(*)-replicas),gitlab_app=$(*),gitlab_env=$(deployment-stage) --wait --install
 	rm *.tgz
 
 deploy-ontology:
