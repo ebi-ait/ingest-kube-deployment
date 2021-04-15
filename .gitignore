@@ -50,6 +50,10 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Python
+venv
+.python-version
+
 /kubernetes-test.pem
 
 apps/ingest-auth/.terraform/
