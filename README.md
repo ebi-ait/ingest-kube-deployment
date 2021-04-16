@@ -7,15 +7,8 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 ### Mac
 1. `git clone <this-repo-url>`
 2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html) 13.5:
-    - `brew tap-new $USER/local-terraform --no-git`
-    - `brew extract --version 0.13.5 terraform $USER/local-terraform`
-    - `brew edit $USER/local-terraform terraform@0.13.5`
-        - Edit 1st line: `class Terraform < Formula`
-        - Edit 5th line: `  sha256 "29392df16464b7a9fb001245e3433a15f3c494d1cc024475b1f934cd6e6268f5"`
-        - save as `terraform.rb`
-    - `brew install $USER/local-terraform/terraform`
-        - If it reports a sha256 error, be wary, check the [v0.13.5 release](https://github.com/hashicorp/terraform/releases/tag/v0.13.5) but update the expected sha if you feel confident.
-    - `brew pin terraform`
+    - `brew install warrensbox/tap/tfswitch`
+    - `tfswitch 0.13.5`
 3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html): `brew install aws-iam-authenticator`
