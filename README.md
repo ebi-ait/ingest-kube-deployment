@@ -9,7 +9,7 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
 
 1. `git clone <this-repo-url>`
-2. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html).
+2. Install terraform 0.13.5 with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html).
 	- If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
@@ -31,8 +31,6 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 role_arn = arn:aws:iam::871979166454:role/ingest-devops
 source_profile = ebi
 region = us-east-1
-
-[profile ebi]
 ```
 
 
