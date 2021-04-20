@@ -1,31 +1,22 @@
 # Ingest Service Deployment
+Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters using zsh and [Pop!_OS](https://pop.system76.com/).
 
-Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
+*Note*: This setup will likely work on Ubuntu too as well as OSX/Windows but it has not been tested.
+
+**Important**: Any changes on this branch likely need to be propagated to master (e.g. changelogs and environment_* files). Most sensible workflow is to switch to master, make the changes on the relevent files, merge into this branch, and then run the deployment commands from this branch.
 
 ## Set up local environment
 We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
-### Mac
-1. `git clone <this-repo-url>`
-2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html) 13.5:
-    - `brew install warrensbox/tap/tfswitch`
-    - `tfswitch 0.13.5`
-3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
-3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
-4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html): `brew install aws-iam-authenticator`
-5. Install kubectl: `brew install kubernetes-cli`
-6. Install kubectx (kubens included): `brew install kubectx`
-7. Install [helm](https://github.com/kubernetes/helm): `brew install kubernetes-helm`
-8. `mkdir ~/.kube`
-9. Install [jq](https://stedolan.github.io/jq/) `brew install jq`
 
-### Ubuntu
 1. `git clone <this-repo-url>`
-2. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html).
-  - If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
+2. Install terraform 0.13.5 with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html).
+	- If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 5. Install kubectl: `sudo snap install kubectl --classic`
+6. Install [krew](https://krew.sigs.k8s.io/docs/user-guide/setup/install/)
 6. Install [kubectx and kubens](https://github.com/ahmetb/kubectx).
+	-  Follow installation steps at [this section](https://github.com/ahmetb/kubectx#kubectl-plugins-macos-and-linux)
 7. Install helm: `sudo snap install helm --classic`
 8. `mkdir ~/.kube`
 9. Install [jq](https://stedolan.github.io/jq), if required. `sudo apt-get install jq`

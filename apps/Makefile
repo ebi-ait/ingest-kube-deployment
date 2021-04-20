@@ -1,4 +1,4 @@
-SHELL!=which bash
+SHELL!=which zsh
 deployment-stage = ${DEPLOYMENT_STAGE}
 force-refresh = ${FORCE_REFRESH}
 ontology=${ONTOLOGY_REF}
@@ -44,5 +44,5 @@ deploy-secrets:
 	./scripts/deploy_secrets
 
 set-context:
-	kubectx ingest-eks-$(deployment-stage)
-	kubens $(deployment-stage)-environment
+	kubectl ctx ingest-eks-$(deployment-stage)
+	kubectl ns $(deployment-stage)-environment
