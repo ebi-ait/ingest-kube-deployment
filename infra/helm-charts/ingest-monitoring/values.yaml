@@ -1,0 +1,17 @@
+grafana:
+  persistence:
+    enabled: true
+    type: pvc
+  grafana.ini:
+    smtp:
+      enabled: true
+      host: email-smtp.us-east-1.amazonaws.com:587
+      from_address: "grafana-hca@ebi.ac.uk"
+  adminUser: admin
+  adminPassword: admin
+  admin: {}
+
+  dashboards:
+    default:
+      ingest-monitoring:
+        file: dashboards/ingest-monitoring.json

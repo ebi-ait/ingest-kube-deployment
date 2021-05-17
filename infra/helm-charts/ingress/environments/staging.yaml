@@ -11,9 +11,9 @@ ingress:
         hostname: ontology.staging.archive.data.humancellatlas.org
       - service: ingest-ui-service
         hostname: staging.contribute.data.humancellatlas.org
-      - service: ingest-archiver-service
+      - service: ingest-monitoring-grafana
         hostname: archiver.ingest.staging.archive.data.humancellatlas.org
-      - service: grafana
+      - service: ingest-monitoring-grafana
         hostname: monitoring.ingest.staging.archive.data.humancellatlas.org
 
 nginx-ingress:
