@@ -13,6 +13,8 @@ ingress:
         hostname: dev.contribute.data.humancellatlas.org
       - service: ingest-archiver-service
         hostname: archiver.ingest.dev.archive.data.humancellatlas.org
+      - service: grafana
+        hostname: monitoring.ingest.dev.archive.data.humancellatlas.org
 
 nginx-ingress:
   controller:
