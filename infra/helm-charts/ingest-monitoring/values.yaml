@@ -6,10 +6,11 @@ grafana:
     smtp:
       enabled: true
       host: email-smtp.us-east-1.amazonaws.com:587
-      from_address: "grafana-hca@ebi.ac.uk"
-  adminUser: admin
-  adminPassword: admin
-  admin: {}
+      from_address: "hca-notifications@ebi.ac.uk"
+  smtp:
+    existingSecret: "aws-keys"
+    userKey: "notifications-smtp-username"
+    passwordKey: "notifications-smtp-password"
 
   dashboards:
     default:
