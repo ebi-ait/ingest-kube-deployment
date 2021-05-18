@@ -11,6 +11,10 @@ grafana:
     existingSecret: "aws-keys"
     userKey: "notifications-smtp-username"
     passwordKey: "notifications-smtp-password"
+  admin:
+    existingSecret: "aws-keys"
+    userKey: "grafana-admin-username"
+    passwordKey: "grafana-admin-password"
 
   dashboards:
     default:
