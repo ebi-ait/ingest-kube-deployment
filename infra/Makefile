@@ -77,12 +77,9 @@ apply-env-configs-%:
 install-infra-helm-chart-mongo:
 	cd helm-charts/mongo && ./setup.sh $(deployment_stage)
 
-install-infra-helm-chart-ingest-monitoring:
-	./scripts/deploy_monitoring.sh
-
 install-infra-helm-chart-%:
 	cd helm-charts && helm dependency update $(*) && helm package $(*)
-	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade --values $(*)/values.yaml --values $(*)/environments/$(deployment_stage).yaml $(*) ./$(*)  --install
+	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade --values $(*)/values.yaml --values $(*)/environments/$(deployment_stage).yaml $(*) ./$(*) --force --install
 	cd helm-charts && rm *.tgz
 
 apply-dashboard-configs-%:

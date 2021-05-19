@@ -10,10 +10,10 @@ data:
     datasources:
       - name: Prometheus
         type: prometheus
-        url: http://{{ .Values.prometheusIP }}:80
+        url: http://localhost:80
         access: proxy
         isDefault: true
       - name: Loki
         type: loki
-        url: http://{{ .Values.lokiIP }}:3100
+        url: http://localhost:3100
         isDefault: false
