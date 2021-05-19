@@ -80,6 +80,9 @@ install-infra-helm-chart-mongo:
 install-infra-helm-chart-ingest-monitoring:
 	./scripts/deploy_monitoring.sh
 
+upgrade-infra-helm-chart-ingest-monitoring:
+	./scripts/deploy_monitoring.sh --upgrade
+
 install-infra-helm-chart-%:
 	cd helm-charts && helm dependency update $(*) && helm package $(*)
 	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade --values $(*)/values.yaml --values $(*)/environments/$(deployment_stage).yaml $(*) ./$(*) --force --install
