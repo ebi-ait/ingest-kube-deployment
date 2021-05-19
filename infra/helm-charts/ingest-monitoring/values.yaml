@@ -13,10 +13,16 @@ grafana:
     passwordKey: "notifications-smtp-password"
   admin:
     existingSecret: "aws-keys"
-    userKey: "grafana-admin-username"
-    passwordKey: "grafana-admin-password"
+    userKey: grafana-admin-username
+    passwordKey: grafana-admin-password
+  defaultDashboardsEnabled: true
 
-  dashboards:
-    default:
-      ingest-monitoring:
-        file: dashboards/ingest-monitoring.json
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      annotations: {}
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: true
+      label: grafana_datasource
