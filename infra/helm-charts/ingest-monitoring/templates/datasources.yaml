@@ -12,10 +12,10 @@ data:
         type: prometheus
         url: http://{{ .Values.prometheusIP }}:80
         access: proxy
-        isDefault: true
+        isDefault: false
         editable: true
       - name: Loki
         type: loki
-        url: http://172.20.245.170:3100
-        isDefault: false
+        url: http://{{ .Values.lokiIP }}:3100
+        isDefault: true
         editable: true
