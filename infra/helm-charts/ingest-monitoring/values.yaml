@@ -26,3 +26,6 @@ grafana:
       enabled: true
       defaultDatasourceEnabled: true
       label: grafana_datasource
+loki:
+  service:
+    clusterIP: 172.20.245.170
