@@ -114,11 +114,16 @@ Coming soon
 ### Install Ingest Monitoring Dashboard (Grafana, Prometheus)
 1. `source config/environment_ENVNAME`
 2. `cd infra`
-3. `install-infra-helm-chart-ingest-monitoring`
+3. `make install-infra-helm-chart-ingest-monitoring`
 4. `kubectl get secret aws-keys -o jsonpath="{.data.grafana-admin-password}" | base64 --decode`
   - Copy the result to your clipboard
 5. Navigate to `https://monitoring.ingest.ENVNAME.archive.data.humancellatlas.org`
   - Login with `admin` and the result from step 4
+
+### Upgrading Ingest Monitoring Dashboard
+If you make changes to the `ingest-monitoring` chart (e.g. to update the dashboard) you will need to perform an upgrade instead of an install. Installing again would erase any previously gathered data as well as users.
+
+Run `make upgrade-infra-helm-chart-ingest-monitoring`
 
 ## Deploy and Upgrade Ingest Applications
 Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but you can still manually deploy if required (see below). However, `ontology` is not deployed by Gitlab but there is a special command for deploying ontology (see below).
