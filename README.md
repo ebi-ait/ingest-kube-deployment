@@ -119,13 +119,6 @@ Coming soon
   - Copy the result to your clipboard
 5. Navigate to `https://monitoring.ingest.ENVNAME.archive.data.humancellatlas.org`
   - Login with `admin` and the result from step 4
-6. Go to `https://monitoring.ingest.ENVNAME.archive.data.humancellatlas.org/datasources`
-  1. Copy result of `kubectl get svc -o jsonpath="{.items[?(@.metadata.name=='ingest-monitoring-loki')].spec.clusterIP}"`
-  2. Click "Loki"
-  3. Make the contents of URL `http://<RESULT_OF_STEP_1>:3100`
-  4. Copy result of `kubectl get svc -n gitlab-managed-apps -o jsonpath="{.items[?(@.metadata.name=='prometheus-prometheus-server')].spec.clusterIP}"`
-  5. Go back and click "Prometheus"
-  6. Make the contents of URL `http://<RESULT_OF_STEP_4>:80`
 
 ## Deploy and Upgrade Ingest Applications
 Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but you can still manually deploy if required (see below). However, `ontology` is not deployed by Gitlab but there is a special command for deploying ontology (see below).
