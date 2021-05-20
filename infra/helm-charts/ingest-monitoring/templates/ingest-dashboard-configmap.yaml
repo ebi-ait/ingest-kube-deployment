@@ -1079,7 +1079,7 @@ data:
               "value": "ingest-core"
             },
             "datasource": "Prometheus",
-            "definition": "label_values(kube_pod_container_info{namespace=\"dev-environment\"},container)",
+            "definition": "label_values(kube_pod_container_info{namespace=\"{{ .Values.environment }}\"},container)",
             "description": null,
             "error": null,
             "hide": 0,
@@ -1089,7 +1089,7 @@ data:
             "name": "containers",
             "options": [],
             "query": {
-              "query": "label_values(kube_pod_container_info{namespace=\"dev-environment\"},container)",
+              "query": "label_values(kube_pod_container_info{namespace=\"{{ .Values.environment }}\"},container)",
               "refId": "StandardVariableQuery"
             },
             "refresh": 1,
@@ -1108,7 +1108,7 @@ data:
             "hide": 2,
             "label": null,
             "name": "namespace",
-            "query": "dev-environment",
+            "query": "{{ .Values.environment }}",
             "skipUrlSync": false,
             "type": "constant"
           },
