@@ -1,41 +1,47 @@
 # Production Changelog
+
+## 20 May 2021
+* Ontology 1.0.24
+  - HCA Ontology Release 1.0.24
+* Validator 3351ef15-05-05-2021.1620218156
+  - no version change, redeployed to clear ontology cache
+
+## 9 April 2021
 * Exporter d2021-04-09.1
-    - Upgrade ingest-client
+  - Upgrade ingest-client
 * broker
-    - Upgrade ingest-client
+  - Upgrade ingest-client
 
-
-
-## 19 March
+## 19 March 2021
 * Ontology 1.0.21
   - HCA Ontology release 1.0.21
 * Validator
   - no version change, redeployed to clear ontology cache
 
 ## 10 March 2021
-- State Tracker 4b30877 d2021-03-10.1 
+* State Tracker 4b30877 d2021-03-10.1 
   - Increase timeout
 
 ## 09 March 2021
-- Exporter 07dd825	d2021-03-09.1
+* Exporter 07dd825	d2021-03-09.1
   - Increase timeout
   - Changes to transfer job spec to support metadata & data file updates
 
 ## 12 February 2021
-- Exporter d2021-02-12.1
+* Exporter d2021-02-12.1
    - Project directory changes
 
 ## 4 February 2021
-- Core d2021-04-02.1
+* Core d2021-04-02.1
     - Set projects and metadata to draft if content changed
-- UI d2021-04-02.1
+* UI d2021-04-02.1
     - Remove logic to set projects and metadata to draft
 
 ## 1 February 2021
 * Core d2021-01-02.1
-    - Add organ to project level
+  - Add organ to project level
 * UI d2021-01-02.1
-    - Add form element to add organs to project level in project registration form
+  - Add form element to add organs to project level in project registration form
 
 
 
