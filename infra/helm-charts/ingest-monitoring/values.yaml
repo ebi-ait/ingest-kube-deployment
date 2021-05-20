@@ -1,0 +1,38 @@
+grafana:
+  persistence:
+    enabled: true
+    type: pvc
+  grafana.ini:
+    smtp:
+      enabled: true
+      host: email-smtp.us-east-1.amazonaws.com:587
+      from_address: "hca-notifications@ebi.ac.uk"
+  smtp:
+    existingSecret: "aws-keys"
+    userKey: "notifications-smtp-username"
+    passwordKey: "notifications-smtp-password"
+  admin:
+    existingSecret: "aws-keys"
+    userKey: grafana-admin-username
+    passwordKey: grafana-admin-password
+  defaultDashboardsEnabled: true
+
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      annotations: {}
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: true
+      label: grafana_datasource
+loki:
+  service:
+    clusterIP: 172.20.245.170
+
+promtail:
+  config:
+    lokiAddress: http://172.20.245.170:3100/loki/api/v1/push
+
+lokiIP: 172.20.245.170
+prometheusIP: localhost

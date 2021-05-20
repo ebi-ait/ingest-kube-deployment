@@ -44,3 +44,6 @@ dspUrl: https://submission-test.ebi.ac.uk
 aapUrl: https://explore.api.aai.ebi.ac.uk/auth
 aapUser: hca-ingest
 aapDomain: subs.test-team-21
+
+# validator
+fastqImage: quay.io/ebi-ait/fastq_utils:54bcf9f

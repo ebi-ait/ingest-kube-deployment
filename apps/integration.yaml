@@ -22,3 +22,6 @@ olsUrl: "https://ontology.integration.archive.data.humancellatlas.org"
 terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
 terraBucketPrefix: integration
 terraGcpProject: broad-dsp-monster-hca-dev
+
+# validator
+fastqImage: quay.io/ebi-ait/fastq_utils:54bcf9f
