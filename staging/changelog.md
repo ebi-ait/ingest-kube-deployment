@@ -1,15 +1,22 @@
 # Staging Changelog
-* 9 April 2021
-- Broker 0029671
-    - Use latest version of ingest client to increase the row limit of spreadsheet import
 
-# 7 April 2021
+## 20 May 2020
+* Ontology 1.0.24
+  - HCA Ontology Release 1.0.24
+* Validator 3351ef15-05-05-2021.1620199634
+  - no version change, redeployed to clear ontology cache
+
+## 9 April 2021
+* Broker 0029671
+  - Use latest version of ingest client to increase the row limit of spreadsheet import
+
+## 7 April 2021
 * Exporter ef534da
   - Use latest version of ingest client to increase the row limit of spreadsheet imports
 
 ## 22 March 2021
 * Exporter 7a3898b
-   - Feature to support exporting only metadata
+  - Feature to support exporting only metadata
 
 * Core 3cccd28
   - Feature to support exporting only metadata
