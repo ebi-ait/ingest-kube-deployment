@@ -60,3 +60,15 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{- define "ingest-monitoring.dashboardConfigMapHeader" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingest-monitoring-dashboard
+  labels:
+     grafana_dashboard: "1"
+data:
+  ingest-monitoring.json: |-
+{{- end }}
