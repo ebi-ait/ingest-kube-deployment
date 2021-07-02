@@ -26,6 +26,26 @@ grafana:
       enabled: true
       defaultDatasourceEnabled: true
       label: grafana_datasource
+
+  notifiers:
+    notifiers.yaml:
+      notifiers:
+      - name: Ingest Dev Notifications
+        type: slack
+        uid: slack-ingest-dev
+        org_id: 1
+        is_default: true
+        send_reminder: true
+        frequency: 4h
+        disable_resolve_message: false
+        # See `Supported Settings` section for settings supporter for each
+        # alert notification type.
+        settings:
+          mentionGroups: hca-ingest-dev
+          username: monitoring
+          uploadImage: false
+          url: https://hooks.slack.com/services/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
+
 loki:
   service:
     clusterIP: 172.20.245.170
