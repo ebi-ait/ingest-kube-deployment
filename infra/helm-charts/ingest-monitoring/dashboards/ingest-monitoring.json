@@ -1809,12 +1809,7 @@
         "handler": 1,
         "message": "A pod has failed. Please investigate!\n\nEnvironment: prod-environment",
         "name": "Pods Failed alert",
-        "noDataState": "no_data",
-        "notifications": [
-          {
-            "uid": "2yIHv1znk"
-          }
-        ]
+        "noDataState": "no_data"
       },
       "aliasColors": {},
       "bars": false,
@@ -1963,12 +1958,7 @@
         "handler": 1,
         "message": "There are more than 10 replicas of ingest-exporter. Please investigate!\n\nEnvironment: prod-environment",
         "name": "ingest-exporter Replica Count Alert",
-        "noDataState": "no_data",
-        "notifications": [
-          {
-            "uid": "2yIHv1znk"
-          }
-        ]
+        "noDataState": "no_data"
       },
       "aliasColors": {},
       "bars": false,
@@ -2108,12 +2098,7 @@
         "handler": 1,
         "message": "The cluster is coming close to the pod capacity. Please investigate!\n\nEnvironment: prod-environment",
         "name": "Cluster Pod Capacity alert",
-        "noDataState": "alerting",
-        "notifications": [
-          {
-            "uid": "2yIHv1znk"
-          }
-        ]
+        "noDataState": "alerting"
       },
       "aliasColors": {},
       "bars": false,
