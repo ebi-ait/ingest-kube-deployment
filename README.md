@@ -121,9 +121,15 @@ Coming soon
   - Login with `admin` and the result from step 4
 
 ### Upgrading Ingest Monitoring Dashboard
-If you make changes to the `ingest-monitoring` chart (e.g. to update the dashboard) you will need to perform an upgrade instead of an install. Installing again would erase any previously gathered data as well as users.
+If you would like to change the dashboard for Ingest Monitoring, you must save the JSON file in this repo and deploy it.
 
-Run `make upgrade-infra-helm-chart-ingest-monitoring`
+1. Make the changes to the dashboard in any environment
+2. Copy the dashboard's JSON model to the clipboard
+  - dashboard settings (cog at top) -> JSON model
+3. Replace the contents of `infra/helm-charts/ingest-monitoring/dashboards/ingest-monitoring.json` with the contents of your clipboard
+4. `source config/environment_ENVNAME`
+4. `cd infra && make upgrade upgrade-infra-helm-chart-ingest-monitoring` 
+  - The script will replace any references to e.g. prod-environment with the environment you are deploying to. 
 
 ## Deploy and Upgrade Ingest Applications
 Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but you can still manually deploy if required (see below). However, `ontology` is not deployed by Gitlab but there is a special command for deploying ontology (see below).
