@@ -5,7 +5,7 @@ grafana:
     storageClassName: gp2
     accessModes:
     - ReadWriteOnce
-    size: 4Gi
+    size: 10Gi
     finalizers:
     - kubernetes.io/pvc-protection
   grafana.ini:
