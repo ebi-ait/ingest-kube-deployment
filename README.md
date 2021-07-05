@@ -99,7 +99,7 @@ For example, in dev, the CIDR is set to `10.40.0.0/16`. The Terraform manifest a
 1. `cd infra`
 2. `make deploy-backend-services-ENVNAME` where ENVNAME is the name of the environment you are trying to create.
 
-## Upgrade backend services (mongo, redis, rabbit)
+### Upgrade backend services (mongo, redis, rabbit)
 Coming soon
 
 ### Install Ingest Monitoring Dashboard (Grafana, Prometheus)
