@@ -50,7 +50,7 @@ grafana:
           mentionGroups: hca-ingest-dev
           username: monitoring
           uploadImage: false
-          url: https://hooks.slack.com/services/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
+          url: https://hooks.slack.com/services/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
 
 loki:
   service:
