@@ -2,11 +2,11 @@ apiVersion: v2
 name: ingest-monitoring
 description: Chart for monitoring ingest resources
 type: application
-version: 0.1.0
-appVersion: "1.16.0"
+version: 0.1.1
+appVersion: "1.16.1"
 dependencies:
   - name: "grafana"
-    version: 6.9.0
+    version: 6.13.6
     repository: "https://grafana.github.io/helm-charts"
   - name: "loki"
     version: 2.5.0
