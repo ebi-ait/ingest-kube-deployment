@@ -2,6 +2,12 @@ grafana:
   persistence:
     enabled: true
     type: pvc
+    storageClassName: gp2
+    accessModes:
+    - ReadWriteOnce
+    size: 10Gi
+    finalizers:
+    - kubernetes.io/pvc-protection
   grafana.ini:
     smtp:
       enabled: true
