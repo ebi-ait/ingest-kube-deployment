@@ -194,9 +194,20 @@ https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-
 `kubectl port-forward rabbit-0 15672:15672`
 
 ## Accessing Mongo DB container
-## SSH into the container
+### SSH into the container
 
-`kubectl exec -it mongo-0 -- sh`
+```bash
+kubectl exec -it mongo-0 -- sh
+```
+
+### Using a MongoDB Client
+
+1. setup port forwarding
+```bash
+kubectl port-forward mongo-0 27017:27017
+```
+
+2. connect to `mongodb://localhost:27017/admin`
 
 ### Restoring Mongo DB backup
 
