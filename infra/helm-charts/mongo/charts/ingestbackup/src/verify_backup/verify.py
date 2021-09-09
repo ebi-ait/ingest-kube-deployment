@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 slack_handler = SlackHandler()
-slack_handler.setLevel(logging.ERROR)
+slack_handler.setLevel(logging.INFO)
 logger.addHandler(slack_handler)
 
 try:
