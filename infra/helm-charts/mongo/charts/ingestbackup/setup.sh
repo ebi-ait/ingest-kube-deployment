@@ -7,27 +7,14 @@ else
     echo "INFO: using deployment stage [${DEPLOYMENT_STAGE}]"
 fi
 
-if [ -z $1  ]; then
-    echo "No AWS credentials file specified."
-    exit 1
-fi
+# Get the secret access keys
+secret=ingest/${DEPLOYMENT_STAGE}/mongo-backup/s3-access
+secret=$(aws --region us-east-1 secretsmanager get-secret-value\
+                 --secret-id $secret\
+                 --query SecretString\
+                 --output text 2> /dev/null)
 
-if [ -z $2 ]; then
-    echo "Expected Role ARN to be supplied."
-    exit 1
-fi
+access_key=$(echo $secret | jq -jr .access_key_id | base64)
+secret_access_key=$(echo $secret | jq -jr .access_key_secret| base64)
 
-if [ -z $3 ]; then
-    echo "Slack Webhook URL required".
-    exit 1
-fi
-
-IFS="," 
-read -ra credentials <<< $(awk  -v RS='\r\n' -F "," 'NR==2' $1)
-
-access_key=$(echo ${credentials[0]} | tr -d '\n' | openssl base64)
-secret_access_key=$(echo ${credentials[1]} | tr -d '\n' | openssl base64)
-role_arn=$2
-slack_webhook=$3
-
-helm upgrade --wait --install -f config/${DEPLOYMENT_STAGE}.yaml --set secret.aws.accessKey=${access_key},secret.aws.secretAccessKey=${secret_access_key},aws.roleArn=${role_arn},verification.slack.webhookUrl=${slack_webhook} ingest-backup backup
+helm upgrade --wait --install -f config/${DEPLOYMENT_STAGE}.yaml --set secret.aws.accessKey=${access_key},secret.aws.secretAccessKey=${secret_access_key} ingest-backup backup

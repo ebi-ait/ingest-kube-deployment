@@ -1,5 +1,4 @@
 aws:
-  roleArn: default
   s3:
     bucket: ingest-db-backup
     directory: default
@@ -28,4 +27,4 @@ verification:
       password: verify
   cronSchedule: 30 0 * * *
   slack:
-    webhookUrl: default
+    webhookUrl: https://hooks.slack.com/services/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
