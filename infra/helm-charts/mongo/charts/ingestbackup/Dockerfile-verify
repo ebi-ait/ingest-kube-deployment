@@ -15,5 +15,6 @@ ENV MONGO_HOST=localhost
 ENV MONGO_USER=user
 ENV MONGO_PASSWORD=password
 ENV SLACK_WEBHOOK=default
+ENV ENV_CLUSTER=default
 
 CMD ./restore

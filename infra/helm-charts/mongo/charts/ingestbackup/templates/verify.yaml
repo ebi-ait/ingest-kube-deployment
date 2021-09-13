@@ -39,7 +39,9 @@ spec:
             - name: MONGO_USER
               value: {{ .Values.verification.mongo.auth.user }}
             - name: MONGO_PASSWORD
-              value: {{ .Values.verification.mongo.auth.password }}              
+              value: {{ .Values.verification.mongo.auth.password }}     
+            - name: ENV_CLUSTER
+              value: {{ .Values.verification.cluster }}
           - name: replica-db
             image: {{ .Values.verification.mongo.image.repository }}:{{ .Values.verification.mongo.image.tag }}
             args: ["--wiredTigerCacheSizeGB", "1"]
