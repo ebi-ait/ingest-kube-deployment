@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: ingest-backup-verify
 spec:
-  schedule: {{ .Values.verification.cronSchedule }}
+  schedule: "{{ .Values.verification.cronSchedule }}"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:

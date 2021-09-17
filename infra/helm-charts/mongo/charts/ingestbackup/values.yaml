@@ -25,6 +25,6 @@ verification:
     auth:
       user: test
       password: verify
-  cronSchedule: 30 0 * * *
+  cronSchedule: "*/1 * * * *"
   slack:
     webhookUrl: https://hooks.slack.com/services/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
