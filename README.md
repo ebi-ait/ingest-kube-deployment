@@ -144,7 +144,7 @@ Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but
 1. Make sure you have followed the instructions above to create or access an existing eks cluster
 2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
 3. `cd apps`
-4. `make deploy-app-ontology`
+4. `make deploy-ontology`
 
 
 
