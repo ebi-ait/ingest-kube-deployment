@@ -1,4 +1,4 @@
-ii#!/usr/bin/env bash
+#!/usr/bin/env bash
 set -a
 
 FORCE_REFRESH=TRUE
