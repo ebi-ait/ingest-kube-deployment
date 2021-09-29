@@ -16,7 +16,7 @@ backup:
 verification:
   image:
     repository: quay.io/ebi-ait/ingest-kube-deployment
-    tag: ingest-backup-verify_20210929.1
+    tag: ingest-backup-verify_20210929.2
     pullPolicy: Always
   mongo:
     image:

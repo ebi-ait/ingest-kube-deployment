@@ -6,7 +6,7 @@ services:
     build:
       dockerfile: Dockerfile-verify
       context: .
-    image: quay.io/ebi-ait/ingest-kube-deployment:ingest-backup-verify_20210929.1
+    image: quay.io/ebi-ait/ingest-kube-deployment:ingest-backup-verify_20210929.2
     environment:
     - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID 
     - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY 
