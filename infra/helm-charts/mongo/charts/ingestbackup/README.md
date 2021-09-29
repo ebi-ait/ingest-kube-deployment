@@ -192,3 +192,26 @@ To manually trigger a verify job:
 ```
 kubectl create job --from=cronjob/ingest-backup-verify ingest-backup-verify-manual-datetime
 ```
+
+### Updating docker images for backup and verify jobs
+
+Quay.io repository: https://quay.io/repository/ebi-ait/ingest-kube-deployment?tab=tags
+
+1. Go to the directory where the dockerfiles are
+`cd /infra/helm-charts/mongo/charts/ingestbackup`
+   
+2. Build image locally
+for base image:
+```
+docker build -f Dockerfile-base . -t quay.io/ebi-ait/ingest-kube-deployment:ingest-backup-base_20210929.1
+```
+
+for backup:
+```
+docker build -f Dockerfile-backup . -t quay.io/ebi-ait/ingest-kube-deployment:ingest-backup_20210929.1
+```
+
+for verify:
+```
+docker build -f Dockerfile-verify . -t quay.io/ebi-ait/ingest-kube-deployment:ingest-backup-verify_20210929.1
+```
