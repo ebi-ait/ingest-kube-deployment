@@ -168,3 +168,15 @@ In order to facilitate testing for the scripts included in this module, utility 
     SLACK_WEBHOOK=http://slack/webhook/url \
     docker-compose -f compose-verify.yml up --build &&\
     docker-compose -f compose-verify.yml rm -fsv
+
+### Known warning in ingest-backup-verify logs
+The ingest-backup-verify job logs have the following failure messages in the logs. These warnings are as designed in mongo, see
+https://jira.mongodb.org/browse/SERVER-39390.
+
+```
+2021-09-29T15:52:52.560+0000 I  NETWORK  [js] DBClientConnection failed to receive message from localhost:27017 - HostUnreachable: Connection closed by peer
+server should be down...
+2021-09-29T15:52:52.578+0000 I  NETWORK  [js] trying reconnect to localhost:27017 failed
+2021-09-29T15:52:52.578+0000 I  NETWORK  [js] reconnect localhost:27017 failed failed
+2021-09-29T15:52:52.579+0000 I  QUERY    [js] Failed to end session { id: UUID("29049dba-a2f2-473c-bc7f-c8dd2b3cb029") } due to SocketException: socket exception [CONNECT_ERROR] server [couldn't connect to server localhost:27017, connection attempt failed: SocketException: Error connecting to localhost:27017 (127.0.0.1:27017) :: caused by :: Connection refused]
+```
