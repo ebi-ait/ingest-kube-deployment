@@ -18,7 +18,7 @@ services:
     - MONGO_PASSWORD=verify
     - SLACK_WEBHOOK=$SLACK_WEBHOOK
   mongo:
-    image: mongo:3.4.3
+    image: mongo:4.2
     ports:
     - "27017:27017"
     environment:

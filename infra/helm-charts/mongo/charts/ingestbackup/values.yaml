@@ -21,7 +21,7 @@ verification:
   mongo:
     image:
       repository: mongo
-      tag: 3.4.3
+      tag: 4.2
       pullPolicy: Always
     auth:
       user: test
