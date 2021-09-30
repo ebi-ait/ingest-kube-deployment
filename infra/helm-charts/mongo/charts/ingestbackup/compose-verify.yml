@@ -6,7 +6,7 @@ services:
     build:
       dockerfile: Dockerfile-verify
       context: .
-    image: quay.io/humancellatlas/ingest-backup-verify
+    image: quay.io/ebi-ait/ingest-kube-deployment:ingest-backup-verify_20210929.2
     environment:
     - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID 
     - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY 
@@ -18,7 +18,7 @@ services:
     - MONGO_PASSWORD=verify
     - SLACK_WEBHOOK=$SLACK_WEBHOOK
   mongo:
-    image: mongo:3.4.3
+    image: mongo:4.2
     ports:
     - "27017:27017"
     environment:

@@ -20,16 +20,9 @@ Ingest infrastructure is deployed as a system of multiple self contained microse
 
 ### Quickstart
 
-Ingest Backup is deployed through Helm on Kubernetes through the `setup.sh` script provided in this module. The setup script [requires AWS access keys and role ARN](#credentials) can be downloaded through the AWS console in CSV format. With the addition of the [automated verification procedure](#verification), the setup script also requires the Slack Webhook URL where alerts can be sent. This can be retrieved through Slack apps management on their Web site.
+Ingest Backup is deployed as a dependency of the mongo Helm chart in `/infra/helm-charts/mongo`. 
 
-Before running the script, the environment variable `DEPLOYMENT_STAGE` must be set as the setup operation uses it to determine which configuration to use. This variable is, at the time of writing, set when switching environments through Ingest deployment procedures.
-
-To deploy Ingest Backup, the script is run with the CSV file, the AWS role ARN, and the Slack Webhook URL:
-
-```
-./setup.sh /path/to/aws_access_credentials.csv role_ARN slack_webhook_url
-```
-
+The ingest-backup objects are created/updated as part of the `make install-infra-helm-chart-mongo` command in the `/infra/Makefile`.
 
 
 ### Backing Up
@@ -44,6 +37,8 @@ Running the sample above will cause the backup procedure to run every five minut
 ```
 kubectl patch cronjob ingest-backup -p '{  "spec": { "schedule": "*/5 * * * *"  }  }'
 ```
+
+See https://crontab.cronhub.io/ to help understanding the cron schedule.
 
 #### <a name="credentials"></a>Security Credentials
 The backup system uses Amazon's AWS CLI tools to copy data to AWS. As the backup data will be dumped into a remote S3 bucket, the process running the backups needs to be configured to have access to the bucket in question. Security credentials should be set through the environment variables to get the backup system working correctly. AWS provides documentation on [how to setup security credentials for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html).
@@ -168,3 +163,55 @@ In order to facilitate testing for the scripts included in this module, utility 
     SLACK_WEBHOOK=http://slack/webhook/url \
     docker-compose -f compose-verify.yml up --build &&\
     docker-compose -f compose-verify.yml rm -fsv
+
+### Known warning in ingest-backup-verify logs
+The ingest-backup-verify job logs have the following known failure messages in the logs. See MongoDB's documentation related to this:
+https://jira.mongodb.org/browse/SERVER-39390.
+
+```
+2021-09-29T15:52:52.560+0000 I  NETWORK  [js] DBClientConnection failed to receive message from localhost:27017 - HostUnreachable: Connection closed by peer
+server should be down...
+2021-09-29T15:52:52.578+0000 I  NETWORK  [js] trying reconnect to localhost:27017 failed
+2021-09-29T15:52:52.578+0000 I  NETWORK  [js] reconnect localhost:27017 failed failed
+2021-09-29T15:52:52.579+0000 I  QUERY    [js] Failed to end session { id: UUID("29049dba-a2f2-473c-bc7f-c8dd2b3cb029") } due to SocketException: socket exception [CONNECT_ERROR] server [couldn't connect to server localhost:27017, connection attempt failed: SocketException: Error connecting to localhost:27017 (127.0.0.1:27017) :: caused by :: Connection refused]
+```
+
+### Manually triggering a job from cronjob
+
+Command:
+```
+   kubectl create job --from=cronjob/<name of cronjob> <name of job>
+```
+
+To manually trigger a backup job:
+```
+   kubectl create job --from=cronjob/ingest-backup ingest-backup-manual-datetime
+```
+
+To manually trigger a verify job:
+```
+   kubectl create job --from=cronjob/ingest-backup-verify ingest-backup-verify-manual-datetime
+```
+
+### Updating docker images for backup and verify jobs
+
+Quay.io repository: https://quay.io/repository/ebi-ait/ingest-kube-deployment?tab=tags
+
+1. Go to the directory where the dockerfiles are
+`cd /infra/helm-charts/mongo/charts/ingestbackup`
+   
+2. Build image locally
+for base image:
+```
+docker build -f Dockerfile-base . -t quay.io/ebi-ait/ingest-kube-deployment:ingest-backup-base_20210929.1
+```
+
+for backup:
+```
+docker build -f Dockerfile-backup . -t quay.io/ebi-ait/ingest-kube-deployment:ingest-backup_20210929.1
+```
+
+for verify:
+```
+docker build -f Dockerfile-verify . -t quay.io/ebi-ait/ingest-kube-deployment:ingest-backup-verify_20210929.1
+```

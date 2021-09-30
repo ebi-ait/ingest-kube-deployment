@@ -9,19 +9,19 @@ secret:
     secretAccessKey: default
 backup:
   image:
-    repository: quay.io/humancellatlas/ingest-backup
-    tag: cb2b26c
+    repository: quay.io/ebi-ait/ingest-kube-deployment
+    tag: ingest-backup_20210929.1
     pullPolicy: Always
   cronSchedule: 0 0 * * *
 verification:
   image:
-    repository: quay.io/humancellatlas/ingest-backup-verify
-    tag: cb2b26c
+    repository: quay.io/ebi-ait/ingest-kube-deployment
+    tag: ingest-backup-verify_20210929.2
     pullPolicy: Always
   mongo:
     image:
       repository: mongo
-      tag: 3.4.3
+      tag: 4.2
       pullPolicy: Always
     auth:
       user: test
