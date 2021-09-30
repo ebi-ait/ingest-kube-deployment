@@ -165,7 +165,7 @@ In order to facilitate testing for the scripts included in this module, utility 
     docker-compose -f compose-verify.yml rm -fsv
 
 ### Known warning in ingest-backup-verify logs
-The ingest-backup-verify job logs have the following failure messages in the logs. These warnings are as designed in mongo, see
+The ingest-backup-verify job logs have the following known failure messages in the logs. See MongoDB's documentation related to this:
 https://jira.mongodb.org/browse/SERVER-39390.
 
 ```
@@ -190,7 +190,7 @@ To manually trigger a backup job:
 
 To manually trigger a verify job:
 ```
-kubectl create job --from=cronjob/ingest-backup-verify ingest-backup-verify-manual-datetime
+   kubectl create job --from=cronjob/ingest-backup-verify ingest-backup-verify-manual-datetime
 ```
 
 ### Updating docker images for backup and verify jobs
