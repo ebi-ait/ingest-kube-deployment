@@ -1,0 +1,10 @@
+# Default values for check-in-dcp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: quay.io/ebi-ait/ingest-base-images
+  tag: ingest-check-in-dcp
+  pullPolicy: IfNotPresent
+schedule: 0 0 * * *
+baseUrl: https://api.ingest.dev.archive.data.humancellatlas.org
