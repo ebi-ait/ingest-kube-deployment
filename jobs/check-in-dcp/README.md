@@ -16,7 +16,7 @@ The chart uses a docker image defined in `Dockerfile`. This docker image is push
 2. `./deploy.sh` (from this folder)
 
 ## Running standalone if you want to update the catalogue now and with more than 50 projects
-If you want to update the catalogue now and not wait for the cron you can run the container with `kubectl run`. This is useful if you want to update more than the default of 50 projects that the cron job does.
+If you want to update the catalogue now and not wait for the cron you can spin up a transient container of the image with `kubectl run`. This is useful if you want to update more than the default of 50 projects that the cron job does.
 
 1. `source config/environment_<env>` (from ingest-kube-deployment root)
 2. `PROJECT_COUNT=<desired number of projects to query>`
