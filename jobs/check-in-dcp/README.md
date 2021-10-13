@@ -14,3 +14,10 @@ The chart uses a docker image defined in `Dockerfile`. This docker image is push
 ## Deploying to ingest cluster
 1. `source config/environment_<env>` (from ingest-kube-deployment root)
 2. `./deploy.sh` (from this folder)
+
+## Running standalone if you want to update the catalogue now and with more than 50 projects
+If you want to update the catalogue now and not wait for the cron you can run the container with `kubectl run`. This is useful if you want to update more than the default of 50 projects that the cron job does.
+
+1. `source config/environment_<env>` (from ingest-kube-deployment root)
+2. `PROJECT_COUNT=<desired number of projects to query>`
+3. `kubectl run update-catalogue --image=quay.io/ebi-ait/ingest-base-images:ingest-check-in-dcp --env="COUNT=$PROJECT_COUNT" --image-pull-policy='Always' -it --rm`
