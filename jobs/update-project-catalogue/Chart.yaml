@@ -1,5 +1,5 @@
 apiVersion: v2
-name: ingest-check-in-dcp
+name: ingest-update-project-catalogue
 description: A Helm chart for Kubernetes
 
 # This is the chart version. This version number should be incremented each time you make changes
