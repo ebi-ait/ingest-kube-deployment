@@ -20,4 +20,4 @@ If you want to update the catalogue now and not wait for the cron you can spin u
 
 1. `source config/environment_<env>` (from ingest-kube-deployment root)
 2. `PROJECT_COUNT=<desired number of projects to query>`
-3. `kubectl run update-catalogue --image=quay.io/ebi-ait/update-project-catalogue:latest --env="COUNT=$PROJECT_COUNT" --image-pull-policy='Always' -it --rm`
+3. `kubectl run update-catalogue --image=quay.io/ebi-ait/update-project-catalogue:latest --env="COUNT=$PROJECT_COUNT" -it --rm`
