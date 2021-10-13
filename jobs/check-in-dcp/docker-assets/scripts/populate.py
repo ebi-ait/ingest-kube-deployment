@@ -7,6 +7,41 @@ def is_in_dcp(uuid):
         return True
     return False
 
+def get_publications_journal(project):
+    # Use crossref API to get extra meta info
+    # This should be replicated in ingest API endpoint when we have an endpoint
+    # Not done on client side for speed
+    publications = project["content"]["publications"]
+    results = []
+    for publication in publications:
+        try:
+            if not publication.get('doi'):
+                logging.info(f"Project {project['uuid']['uuid']} has no doi")
+                continue
+
+            r = requests.get(f"https://api.crossref.org/works/{publication['doi']}")
+            r.raise_for_status()
+            crossref = r.json()['message']
+
+            if len(crossref['container-title']) > 0:
+                journal_title = crossref['container-title'][0]
+            elif "name" in crossref['institution']:
+                # BioRxiv is listed under institution
+                journal_title = crossref['institution']['name']
+            else:
+                journal_title = crossref['publisher']
+
+            results.append({
+                "doi": publication['doi'],
+                "url": crossref['URL'],
+                "journalTitle": journal_title,
+                "title": publication['title'],
+                "authors": publication['authors']
+            })
+        except:
+            logging.error(f"Something went wrong retrieving metainformation for publication {publication['doi']} for project {project['uuid']['uuid']}")
+    return results
+
 
 def get_project(uuid, base_url):
     project_url = f'{base_url}/projects/search/findByUuid?uuid={uuid}'
@@ -16,25 +51,42 @@ def get_project(uuid, base_url):
         return response.json()
     except Exception as e:
         logging.error(f'Error getting project {uuid}: {e}')
-    
+
+def perform_patch(patch, url, token=None):
+    headers={'Content-Type': 'application/json'}
+    if token:
+        headers['Authorization'] = token
+
+    data = json.dumps(patch)
+    r = requests.patch(url, data=data, headers=headers)
+    r.raise_for_status()
 
 def patch_project(uuid, project, token=None):
-    project_patch = {}
-    
-    if project["wranglingState"] != "Published in DCP" and is_in_dcp(uuid):
-        project_patch["wranglingState"] = "Published in DCP"
-
-    if not project_patch:
-        logging.info(f"Patch unnecessary for project UUID: {uuid}")
-        return None
-
     try:
         update_url = f'{project["_links"]["self"]["href"]}?partial=true'
-        headers={'Content-Type': 'application/json'}    
-        data = json.dumps(project_patch)
-        r = requests.patch(update_url, data=data, headers=headers)
-        r.raise_for_status()
-        logging.info(f"Successfully updated project {uuid} with patch: {project_patch}")
+        project_patch = {}
+        
+        if project["wranglingState"] != "Published in DCP" and is_in_dcp(uuid):
+            project_patch["wranglingState"] = "Published in DCP"
+
+        if "publications" in project["content"]:
+            publications_info = get_publications_journal(project)
+
+            if "publicationsInfo" not in project or publications_info != project['publicationsInfo']:
+                project_patch["publicationsInfo"] = publications_info
+                
+                # Remove all publicationsInfo first
+                # Circumvents bug where authors are appended if they already exist
+                # See dcp-363
+                logging.info(f"Updating publications for project {uuid} and so removing existing publications first")
+                perform_patch({ "publicationsInfo": None }, update_url, token)
+
+        if not project_patch:
+            logging.info(f"Patch unnecessary for project UUID: {uuid}")
+        else:
+            perform_patch(project_patch, update_url, token)
+            logging.info(f"Successfully updated project {uuid} with patch: {project_patch}")
+
     except Exception as e:
         logging.error(f'Error patching project {uuid}: {e}')
 
@@ -45,6 +97,10 @@ def get_uuids_from_catalogue(base_url, count):
     res.raise_for_status()
     for project in res.json()['_embedded']['projects']:
         yield project['uuid']['uuid']
+
+def get_token(input_file):
+    with open(input_file, "r") as file:
+        return file.read()
         
 
 if __name__ == "__main__":
