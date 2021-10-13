@@ -1,4 +1,4 @@
-import json, requests, logging, os
+import argparse, json, requests, logging, os
 
 def is_in_dcp(uuid):
     azul_proj_url = f'https://service.azul.data.humancellatlas.org/index/projects/{uuid}'
@@ -39,9 +39,8 @@ def patch_project(uuid, project):
         logging.error(f'Error patching project {uuid}: {e}')
 
 
-def get_uuids_from_catalogue(base_url):
-    PAGE_SIZE = 50
-    catalogue_url = f'{base_url}/projects/search/catalogue?page=0&size={PAGE_SIZE}&sort=cataloguedDate,desc'
+def get_uuids_from_catalogue(base_url, count):
+    catalogue_url = f'{base_url}/projects/search/catalogue?page=0&size={count}&sort=cataloguedDate,desc'
     res = requests.get(catalogue_url)
     res.raise_for_status()
     for project in res.json()['_embedded']['projects']:
@@ -52,15 +51,22 @@ if __name__ == "__main__":
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
+    description = "Update projects in ingest that are in the catalogue to have the correct wrangling status if they are in the DCP"
+    parser = argparse.ArgumentParser(description=description)
+    parser.add_argument('-c', '--count', help='Number of projects to pull to check for updates', default=50, type=int)
+
     # Build the url from internal service IP
     # See: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/#environment-variables
     local_core_ip = os.getenv("INGEST_CORE_SERVICE_SERVICE_HOST")
     local_core_port = int(os.getenv("INGEST_CORE_SERVICE_SERVICE_PORT"))
     url = f'http://{ local_core_ip }:{ local_core_port }'
+
+    args =  args = parser.parse_args()
     
     logging.info(f'Using base url {url}')
+    logging.info(f'Querying {args.count} projects...')
 
-    uuids = get_uuids_from_catalogue(url)
+    uuids = get_uuids_from_catalogue(url, args.count)
 
     for uuid in uuids:
         project = get_project(uuid, url)
