@@ -5,6 +5,5 @@
 image:
   repository: quay.io/ebi-ait/ingest-base-images
   tag: ingest-check-in-dcp
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 schedule: 0 0 * * *
-baseUrl: https://api.ingest.dev.archive.data.humancellatlas.org
