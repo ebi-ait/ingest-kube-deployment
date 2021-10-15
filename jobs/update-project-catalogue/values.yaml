@@ -6,4 +6,4 @@ image:
   repository: quay.io/ebi-ait/update-project-catalogue
   tag: latest
   pullPolicy: Always
-schedule: 0 0 * * *
+schedule: 0 22 * * *
