@@ -1,4 +1,4 @@
-FROM quay.io/humancellatlas/ingest-backup-base:8ac6511
+FROM quay.io/ebi-ait/ingest-kube-deployment:ingest-backup-base_20210929.1
 
 RUN mkdir -p /data/db/dump
 

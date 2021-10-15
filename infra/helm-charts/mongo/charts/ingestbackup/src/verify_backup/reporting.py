@@ -25,7 +25,8 @@ class SlackHandler(Handler):
     def emit(self, log_record: LogRecord):
         try:
             log_entry = self.format(log_record)
-            requests.post(SLACK_WEBHOOK, json={'text': log_entry})
+            r = requests.post(SLACK_WEBHOOK, json={'text': log_entry})
+            r.raise_for_status()
         except Exception as exception:
             fallback_logger.error(str(exception))
 

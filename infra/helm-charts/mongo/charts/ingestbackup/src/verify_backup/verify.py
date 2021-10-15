@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 slack_handler = SlackHandler()
-slack_handler.setLevel(logging.ERROR)
+slack_handler.setLevel(logging.INFO)
 logger.addHandler(slack_handler)
 
 try:
@@ -29,7 +29,7 @@ try:
         logger.error(f'Backup verify at {backup_dir}: Expected at least 100 submissions from the backup but got {submission_count}.')
         exit(1)
 
-    logger.info('Backup verification complete.')
+    logger.info(f'Backup verification at {backup_dir} complete.')
 except Exception as exception:
     cause = str(exception)
     error_message = f'Backup verification failed: {cause}.'

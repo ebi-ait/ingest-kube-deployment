@@ -6,7 +6,7 @@ services:
     build:
       dockerfile: Dockerfile-backup
       context: .
-    image: quay.io/humancellatlas/ingest-backup
+    image: quay.io/ebi-ait/ingest-kube-deployment:ingest-backup_20210929.1
     environment:
     - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID 
     - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY 
@@ -15,6 +15,6 @@ services:
     - BACKUP_DIR=dev
     - MONGO_HOST=mongo
   mongo:
-    image: mongo:3.4.3
+    image: mongo:4.2
     ports:
     - "27017:27017"
