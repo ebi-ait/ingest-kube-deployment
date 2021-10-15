@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: quay.io/ebi-ait/update-project-catalogue
-  tag: latest
+  repository: provide_through_set_flag
+  tag: provide_through_set_flag
   pullPolicy: Always
 schedule: 0 22 * * *
