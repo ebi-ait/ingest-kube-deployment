@@ -6,8 +6,8 @@ The frequency of the cronjob is defined in `values.yaml` with `schedule`.
 ## Docker image
 The chart uses a docker image defined in `Dockerfile`. This docker image is pushed to the docker repository (quay.io) and used by the chart. It can be updated with the following steps:
 
-1. Make changes to the Dockerfile and/or the scripts that it executes in `docker-assets/`
-2. `cd docker-assets`
+1. Make changes to the Dockerfile and/or the scripts that it executes in `docker-app/`
+2. `cd docker-app`
 3. `docker build -t quay.io/ebi-ait/update-project-catalogue`
 4. `docker push quay.io/ebi-ait/update-project-catalogue`
 
