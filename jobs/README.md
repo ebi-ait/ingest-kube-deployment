@@ -8,4 +8,5 @@ This is a directory for CRON jobs ran inside the cluster
 4. Ensure a file called `deploy.sh` is present in the root of the helm chart. This is needed for the `deploy-all.sh` script
 
 ## Deploying all jobs
-`./deploy-all.sh`
+1. `source config/environment_<env>` (from ingest-kube-deployment root)
+2. `./deploy-all.sh` (from this folder)
