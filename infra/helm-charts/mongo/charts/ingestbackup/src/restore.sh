@@ -31,4 +31,7 @@ else
 fi
 
 mongo --host=$MONGO_HOST admin -u $MONGO_USER -p $MONGO_PASSWORD --eval 'db.shutdownServer()'
+
+echo "Successful run!"
+
 exit $exit_status
