@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-DOCKER_REPO=quay.io/ebi-ait/update-project-catalogue
-DOCKER_TAG=1.0.0
+DOCKER_REPO=quay.io/ebi-ait/ingest-kube-deployment
+DOCKER_TAG=update-project-catalogue_20211015.1
