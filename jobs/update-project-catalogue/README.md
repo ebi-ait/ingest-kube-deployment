@@ -19,5 +19,6 @@ The chart uses a docker image defined in `Dockerfile`. This docker image is push
 If you want to update the catalogue now and not wait for the cron you can spin up a transient container of the image with `kubectl run`. This is useful if you want to update more than the default of 50 projects that the cron job does.
 
 1. `source config/environment_<env>` (from ingest-kube-deployment root)
+2. `source docker-app/version.sh` (from this repo)
 2. `PROJECT_COUNT=<desired number of projects to query>`
-3. `kubectl run update-catalogue --image=quay.io/ebi-ait/update-project-catalogue:latest --env="COUNT=$PROJECT_COUNT" -it --rm`
+3. `kubectl run update-catalogue --image=$DOCKER_REPO:$DOCKER_TAG --env="COUNT=$PROJECT_COUNT" -it --rm`
