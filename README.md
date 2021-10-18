@@ -102,7 +102,7 @@ For example, in dev, the CIDR is set to `10.40.0.0/16`. The Terraform manifest a
 ### Upgrade backend services (mongo, redis, rabbit)
 Coming soon
 
-### Install Ingest Monitoring Dashboard (Grafana, Prometheus)
+## Install Ingest Monitoring Dashboard (Grafana, Prometheus)
 1. `source config/environment_ENVNAME`
 2. `cd infra`
 3. `make install-infra-helm-chart-ingest-monitoring`
@@ -121,6 +121,15 @@ If you would like to change the dashboard for Ingest Monitoring, you must save t
 4. `source config/environment_ENVNAME`
 4. `cd infra && make upgrade upgrade-infra-helm-chart-ingest-monitoring` 
   - The script will replace any references to e.g. prod-environment with the environment you are deploying to. 
+
+## Deploy CRON jobs
+CRON jobs are located in `jobs/`. Further details for deploying and updating CRON jobs are located in `jobs/README.md` and details on individual CRON jobs are found in their helm chart's READMEs.
+
+They can be deployed all at once by running:
+
+1. `source config/environment_ENVNAME`
+2. `cd jobs`
+3. `./deploy-all.sh`
 
 ## Deploy and Upgrade Ingest Applications
 Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but you can still manually deploy if required (see below). However, `ontology` is not deployed by Gitlab but there is a special command for deploying ontology (see below).
