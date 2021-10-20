@@ -19,7 +19,7 @@ spec:
           - name: {{ .Chart.Name }}
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }} 
-            env: 
-              - name: BASE_API_URL
-                value: {{ .Values.baseUrl }}
+            env:
+              - name: COUNT
+                value: {{ .Values.projectCount }}
           restartPolicy: Never
