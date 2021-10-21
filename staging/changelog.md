@@ -1,5 +1,11 @@
 # Staging Changelog
 
+## 20 October 2021
+* Ontology 1.0.29
+ - HCA Ontology Release-1.0.29
+* Validator 0ec3e066-30-06-2021.1625062999
+ - no version change, redeployed to clear ontology cache
+
 ## 20 August 2021
 * Ontology 1.0.27
  - HCA Ontology Release 1.0.26
