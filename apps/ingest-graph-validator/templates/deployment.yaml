@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.gitlab.com/app: {{ .Values.gitlab_app }}
+    app.gitlab.com/env: {{ .Values.gitlab_env }}
+  labels:
+    role: ingestion
+  name: ingest-graph-validator
+  namespace: {{ .Values.environment }}-environment
+spec:
+  selector:
+    matchLabels:
+      app: ingest-graph-validator
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: ingest-graph-validator
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+        app.gitlab.com/app: {{ .Values.gitlab_app }}
+        app.gitlab.com/env: {{ .Values.gitlab_env }}
+    spec:
+      dnsPolicy: Default
+      containers:
+      - env:
+        - name: INGEST_GRAPH_VALIDATOR_INGEST_API_URL
+          value: "http://$(INGEST_CORE_SERVICE_SERVICE_HOST):$(INGEST_CORE_SERVICE_SERVICE_PORT)"
+        # Unset credentials since not needed to access ingest API when running in cluster
+        - name: INGEST_GRAPH_VALIDATOR_GOOGLE_APPLICATION_CREDENTIALS
+          value: ""
+        - name: INGEST_GRAPH_VALIDATOR_INGEST_JWT_AUDIENCE
+          value: ""
+        - name: AMQP_CONNECTION
+          value: "amqp://guest:guest@$(RABBIT_SERVICE_SERVICE_HOST):$(RABBIT_SERVICE_SERVICE_PORT_SERVICE)"
+        - name: INGEST_GRAPH_VALIDATOR_NEO4J_URL
+          value: "bolt://$(NEO4J_SERVICE_SERVICE_HOST)"
+        image: {{ .Values.image }}
+        imagePullPolicy: Always
+        name: ingest-graph-validator
