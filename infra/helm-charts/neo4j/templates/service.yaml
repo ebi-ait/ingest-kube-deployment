@@ -4,20 +4,21 @@ metadata:
   annotations: {}
   labels:
     role: submission
-  name: rabbit-service
+  name: neo4j-service
   namespace: "{{ .Values.namespace }}"
 spec:
   ports:
-  - name: service
-    port: 5672
-    protocol: TCP
-    targetPort: 5672
-  - name: manager
-    port: 15672
-    protocol: TCP
-    targetPort: 15672
+  - name: tcp-bolt
+    port: 7687
+    targetPort: 7687
+  - name: tcp-https
+    port: 7473
+    targetPort: 7473
+  - name: tcp-backup
+    port: 6362
+    targetPort: 6362
   selector:
-    app: rabbit
+    app: neo4j
   sessionAffinity: None
   type: ClusterIP
 status:

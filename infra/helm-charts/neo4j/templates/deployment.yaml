@@ -22,15 +22,11 @@ spec:
         name: neo4j
         ports:
           - name: tcp-http
-            port: 7474
-            targetPort: 7474
+            containerPort: 7474
           - name: tcp-bolt
-            port: 7687
-            targetPort: 7687
+            containerPort: 7687
         env:
           - name: NEO4J_AUTH
-            value: neo4j/password
+            value: "neo4j/password"
           - name: NEO4J_ACCEPT_LICENSE_AGREEMENT
-            value: yes
-        - NEO4J_AUTH=neo4j/password
-        - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+            value: "yes"
