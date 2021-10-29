@@ -1,1 +1,1 @@
-Rabbit service built via a helm chart
+Neo4j service built via a helm chart
