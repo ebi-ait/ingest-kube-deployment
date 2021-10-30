@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  labels:
+    role: submission
+  name: neo4j-service
+  namespace: "{{ .Values.namespace }}"
+spec:
+  ports:
+  - name: tcp-bolt
+    port: 7687
+    targetPort: 7687
+  - name: tcp-https
+    port: 7473
+    targetPort: 7473
+  - name: tcp-backup
+    port: 6362
+    targetPort: 6362
+  selector:
+    app: neo4j
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
