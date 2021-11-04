@@ -12,6 +12,11 @@ $ docker push quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
 ```
 
 ## How to run inside ingest cluster?
+Source environment config and set correct environment context 
+```
+$ source config/environment-dev
+$ kubectx ingest-eks-dev
+```
 
 To create the job and run inside the cluster
 ```
