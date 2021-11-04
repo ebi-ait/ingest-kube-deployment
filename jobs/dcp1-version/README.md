@@ -36,3 +36,4 @@ To delete the job
 helm delete dcp1-version
 ```
 
+Note: It is not possible to update the job spec template (which contains the job image) in Kubernetes. Please see comment in GH issue: [Cannot upgrade a release with Job](https://github.com/helm/helm/issues/7725#issuecomment-617373825) and a related [stackoverflow question](https://stackoverflow.com/questions/57178909/changing-image-of-kubernetes-job)
