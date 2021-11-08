@@ -9,6 +9,7 @@ Please see issue: https://github.com/ebi-ait/dcp-ingest-central/issues/481
 ```bash
 docker build . -t quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
 docker push quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
+```
 
 ## How to run inside ingest cluster?
 Source environment config and set correct environment context 
@@ -23,7 +24,6 @@ helm install dcp1-version . --values ./values.yaml
 ```
 
 To check/monitor the logs:
-
 ```bash
 # find the pod name first
 kubectl get pods | grep dcp1-version
@@ -35,6 +35,7 @@ kubectl get pods | grep dcp1-version
 # follow logs
 kubectl logs -f dcp1-version-lgmj2
 # <logs displayed>
+```
 
 To delete the job
 
