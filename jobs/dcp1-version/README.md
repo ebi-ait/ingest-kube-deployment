@@ -6,10 +6,9 @@ Please see issue: https://github.com/ebi-ait/dcp-ingest-central/issues/481
 
 ## How to build docker image and push to quay.io?
 
-```
-$ docker build . -t quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
-$ docker push quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
-```
+```bash
+docker build . -t quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
+docker push quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
 
 ## How to run inside ingest cluster?
 Source environment config and set correct environment context 
