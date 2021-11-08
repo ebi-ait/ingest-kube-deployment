@@ -5,40 +5,47 @@ The script `populate_dcp_version.py` fixes the missing `dcpVersion` values in th
 Please see issue: https://github.com/ebi-ait/dcp-ingest-central/issues/481
 
 ## How to build docker image and push to quay.io?
-
+build:
 ```bash
 docker build . -t quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
+```
+push:
+```bash
 docker push quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
 ```
 
 ## How to run inside ingest cluster?
-Source environment config and set correct environment context 
+Set environment config variables
 ```bash
 source config/environment-dev
+```
+Set correct environment context
+```bash
 kubectx ingest-eks-dev
 ```
-
-To create the job and run inside the cluster
+Create the job and run inside the cluster
 ```bash
 helm install dcp1-version . --values ./values.yaml
 ```
 
-To check/monitor the logs:
+## How to check/monitor the logs:
+
+find the pod name first
 ```bash
-# find the pod name first
 kubectl get pods | grep dcp1-version
+```
+output will be like:
 
-# output:
-#
-# dcp1-version-lgmj2                                      1/1     Running     0          22s
-
-# follow logs
-kubectl logs -f dcp1-version-lgmj2
-# <logs displayed>
+```bash
+dcp1-version-lgmj2                                      1/1     Running     0          22s
 ```
 
-To delete the job
+follow logs
+```bash
+kubectl logs -f dcp1-version-lgmj2
+```
 
+## How to delete job
 ```bash
 helm delete dcp1-version
 ```
