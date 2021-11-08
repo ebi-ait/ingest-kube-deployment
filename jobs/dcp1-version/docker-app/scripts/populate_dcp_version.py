@@ -10,6 +10,9 @@ logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
 
 DCP1_GS_FILES_LIST = os.environ.get('DCP1_GS_FILES_LIST')
+if not DCP1_GS_FILES_LIST:
+    raise ValueError('The DCP1_GS_FILES_LIST environment variable must be set with file path of the input file.')
+
 DB_HOST = os.environ.get('MONGO_SERVICE_SERVICE_HOST', 'localhost')
 DB_PORT = os.environ.get('MONGO_SERVICE_SERVICE_PORT', 27017)
 
