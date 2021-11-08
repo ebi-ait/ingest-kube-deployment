@@ -6,7 +6,6 @@ from datetime import datetime
 from bson import JAVA_LEGACY, CodecOptions
 from pymongo import MongoClient
 
-logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
 
 DCP1_GS_FILES_LIST = os.environ.get('DCP1_GS_FILES_LIST')
