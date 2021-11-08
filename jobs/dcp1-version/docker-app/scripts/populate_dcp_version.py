@@ -13,7 +13,7 @@ if not DCP1_GS_FILES_LIST:
     raise ValueError('The DCP1_GS_FILES_LIST environment variable must be set with file path of the input file.')
 
 DB_HOST = os.environ.get('MONGO_SERVICE_SERVICE_HOST', 'localhost')
-DB_PORT = os.environ.get('MONGO_SERVICE_SERVICE_PORT', 27017)
+DB_PORT = int(os.environ.get('MONGO_SERVICE_SERVICE_PORT', 27017))
 
 DB_CLIENT = MongoClient(DB_HOST, DB_PORT)
 DB = DB_CLIENT.get_database('admin')
