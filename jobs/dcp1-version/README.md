@@ -12,14 +12,14 @@ docker push quay.io/ebi-ait/ingest-kube-deployment:dcp1-version_20211102.1
 
 ## How to run inside ingest cluster?
 Source environment config and set correct environment context 
-```
-$ source config/environment-dev
-$ kubectx ingest-eks-dev
+```bash
+source config/environment-dev
+kubectx ingest-eks-dev
 ```
 
 To create the job and run inside the cluster
-```
-$ helm install dcp1-version . --values ./values.yaml
+```bash
+helm install dcp1-version . --values ./values.yaml
 ```
 
 To check/monitor the logs:
@@ -27,11 +27,14 @@ To check/monitor the logs:
 ```bash
 # find the pod name first
 kubectl get pods | grep dcp1-version
-dcp1-version-lgmj2                                      1/1     Running     0          22s
+
+# output:
+#
+# dcp1-version-lgmj2                                      1/1     Running     0          22s
 
 # follow logs
 kubectl logs -f dcp1-version-lgmj2
-<logs>
+# <logs displayed>
 
 To delete the job
 
