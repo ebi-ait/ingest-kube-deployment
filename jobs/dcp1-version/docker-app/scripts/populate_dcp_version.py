@@ -115,7 +115,7 @@ def process_path(path: str):
         update = determine_updates(doc, date_obj)
         if update:
             update_dcp_versions(collection, doc, update)
-            LOGGER.info('updated!')
+            LOGGER.info(f'metadata {concrete_entity_type} with uuid {uuid_str} updated!')
     except Exception as e:
         LOGGER.error(f'An error happened while processing line {path}: {str(e)}')
         LOGGER.exception(e)
