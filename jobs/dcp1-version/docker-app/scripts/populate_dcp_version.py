@@ -6,6 +6,7 @@ from datetime import datetime
 from bson import JAVA_LEGACY, CodecOptions
 from pymongo import MongoClient
 
+logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
 
 DCP1_GS_FILES_LIST = os.environ.get('DCP1_GS_FILES_LIST')
@@ -56,7 +57,6 @@ def find_type_uuid_version(line: str):
 
 
 def find_doc_by_uuid(collection: str, uuid_str: str):
-    LOGGER.info(f'finding {uuid_str} in {collection}')
     # need to use java legacy uuid representation
     # https://stackoverflow.com/questions/26712600/mongo-uuid-python-vs-java-format/31061472
     db_collection = DB.get_collection(collection, CodecOptions(uuid_representation=JAVA_LEGACY))
@@ -124,5 +124,5 @@ def process_path(path: str):
 if __name__ == '__main__':
     metadata_file_paths = load_lines_from_file(DCP1_GS_FILES_LIST)
     for file_path in metadata_file_paths:
-        LOGGER.info(f'Processing {file_path}')
         process_path(file_path)
+    LOGGER.info('done!')
