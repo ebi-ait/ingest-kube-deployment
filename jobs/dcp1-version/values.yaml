@@ -6,4 +6,4 @@ replicaCount: 1
 image:
   repository: quay.io/ebi-ait/ingest-kube-deployment
   pullPolicy: IfNotPresent
-  tag: dcp1-version_20211102.2
+  tag: dcp1-version_20211108.2
