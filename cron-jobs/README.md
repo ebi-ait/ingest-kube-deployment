@@ -9,9 +9,9 @@ This is a directory for CRON jobs ran inside the cluster
 
 ## Deploying all jobs
 
-	  ```bash
-	  # run from ingest-kube-deployment root 
-	  source config/environment_<env>
-	  # run from cron-jobs root
-	  ./deploy-all.sh
-	  ```
+```bash
+# run from ingest-kube-deployment root 
+source config/environment_<env>
+# run from cron-jobs root
+./deploy-all.sh
+```
