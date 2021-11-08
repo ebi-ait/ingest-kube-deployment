@@ -35,7 +35,7 @@ kubectl logs -f dcp1-version-lgmj2
 
 To delete the job
 
-```
+```bash
 helm delete dcp1-version
 ```
 
