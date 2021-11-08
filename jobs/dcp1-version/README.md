@@ -24,15 +24,14 @@ $ helm install dcp1-version . --values ./values.yaml
 
 To check/monitor the logs:
 
-```
+```bash
 # find the pod name first
-$ kubectl get pods | grep dcp1-version
+kubectl get pods | grep dcp1-version
 dcp1-version-lgmj2                                      1/1     Running     0          22s
 
 # follow logs
-$ kubectl logs -f dcp1-version-lgmj2
+kubectl logs -f dcp1-version-lgmj2
 <logs>
-```
 
 To delete the job
 
