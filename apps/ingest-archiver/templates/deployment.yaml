@@ -61,6 +61,18 @@ spec:
             secretKeyRef:
               key: biostudies-api-password
               name: api-keys
+        - name: ENA_WEBIN_API_URL
+          value: {{ .Values.enaWebinApiUrl }}
+        - name: ENA_WEBIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: ena-webin-username
+              name: api-keys
+        - name: ENA_WEBIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: ena-webin-password
+              name: api-keys
         - name: AAP_API_USER
           value: {{ .Values.aapUser }}
         image: {{ .Values.image }}
