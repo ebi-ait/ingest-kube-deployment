@@ -46,6 +46,7 @@ aapUser: hca-ingest
 aapDomain: subs.test-team-21
 biostudiesApiUrl: https://wwwdev.ebi.ac.uk/biostudies/submissions/api
 biostudiesStudyUrl: https://wwwdev.ebi.ac.uk/biostudies/studies/
+enaWebinApiUrl: https://wwwdev.ebi.ac.uk/ena/submit/drop-box/submit/
 
 # validator
 fastqImage: quay.io/ebi-ait/fastq_utils:54bcf9f
