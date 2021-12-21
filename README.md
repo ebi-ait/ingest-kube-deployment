@@ -123,12 +123,12 @@ If you would like to change the dashboard for Ingest Monitoring, you must save t
   - The script will replace any references to e.g. prod-environment with the environment you are deploying to. 
 
 ## Deploy CRON jobs
-CRON jobs are located in `jobs/`. Further details for deploying and updating CRON jobs are located in `jobs/README.md` and details on individual CRON jobs are found in their helm chart's READMEs.
+CRON jobs are located in `cron-jobs/`. Further details for deploying and updating CRON jobs are located in `cron-jobs/README.md` and details on individual CRON jobs are found in their helm chart's READMEs.
 
 They can be deployed all at once by running:
 
 1. `source config/environment_ENVNAME`
-2. `cd jobs`
+2. `cd cron-jobs`
 3. `./deploy-all.sh`
 
 ## Deploy and Upgrade Ingest Applications
