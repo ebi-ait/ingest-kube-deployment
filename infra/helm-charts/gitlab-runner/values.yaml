@@ -34,7 +34,7 @@ gitlab-runner:
           mount_path = "/certs/client"
           medium = "Memory"
 
-    tags: "ingest,dind"
+    tags: "ingest,dind,kubernetes"
     runUntagged: true
     name: "Ingest GitLab Runner"
     privileged: true
