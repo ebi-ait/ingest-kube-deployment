@@ -145,7 +145,7 @@ Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but
 
 ### Manually deploy one kubernetes dockerized applications to an environment (aws)
 1. Make sure you have followed the instructions above to create or access an existing eks cluster
-2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
+2. `source config/environment_ENVNAME`
 3. `cd apps`
 4. `make deploy-app-APPNAME image=IMAGE_NAME` where APPNAME is the name of the ingest application. and IMAGE_NAME is the image you want to deploy For example, `make deploy-app-ingest-core image=quay.io/ebi-ait/ingest-core:1c1f6ab9`
 
