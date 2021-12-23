@@ -10,12 +10,6 @@ gitlab-runner:
   ##
   gitlabUrl: https://gitlab.ebi.ac.uk/
 
-  ## The Registration Token for adding new Runners to the GitLab Server. This must
-  ## be retrieved from your GitLab Instance.
-  ## ref: https://docs.gitlab.com/ce/ci/runners/README.html
-  ##
-  runnerRegistrationToken: "" # TODO ADD THIS TO SECRETS
-
   ## Configure the maximum number of concurrent jobs
   ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section
   ##
@@ -41,7 +35,11 @@ gitlab-runner:
           medium = "Memory"
 
     tags: "ingest,dind"
+    runUntagged: true
     name: "Ingest GitLab Runner"
+    privileged: true
+    # The secret containing runner-registration-token
+    secret: aws-keys
 
   rbac:
     create: false
