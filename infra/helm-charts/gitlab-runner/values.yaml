@@ -36,7 +36,8 @@ gitlab-runner:
 
     # NOTE: IN order to run integration tests
     # The ingest-eks-node-{ENV} role must have access to perform secrets:GetSecretValue on:
-    # ingest/dev/secrets, hca/util/aws-access-keys, and ingest/dev/gcp-credentials.json
+    # ingest/dev/secrets, hca/util/aws-access-keys, and ingest/dev/gcp-credentials.json 
+    # The "secrets-access-for-integration-tests-runner" role the appropriate access
     tags: "ingest,dind,kubernetes,ingest-integration-tests"
     runUntagged: true
     name: "Ingest GitLab Runner"
