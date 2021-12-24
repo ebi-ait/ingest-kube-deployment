@@ -34,7 +34,10 @@ gitlab-runner:
           mount_path = "/certs/client"
           medium = "Memory"
 
-    tags: "ingest,dind,kubernetes"
+    # NOTE: IN order to run integration tests
+    # The ingest-eks-node-{ENV} role must have access to perform secrets:GetSecretValue on:
+    # ingest/dev/secrets, hca/util/aws-access-keys, and ingest/dev/gcp-credentials.json
+    tags: "ingest,dind,kubernetes,ingest-integration-tests"
     runUntagged: true
     name: "Ingest GitLab Runner"
     privileged: true
