@@ -1,0 +1,3 @@
+gitlab-runner:
+  runners:
+    name: "ingest-eks-dev runner"

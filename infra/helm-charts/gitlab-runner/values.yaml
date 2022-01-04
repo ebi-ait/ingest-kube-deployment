@@ -1,0 +1,50 @@
+gitlab-runner:
+  ## How many runner pods to launch.
+  ##
+  ## Note: Using more than one replica is not supported with a runnerToken. Use a runnerRegistrationToken
+  ## to create multiple runner replicas.
+  replicas: 1
+
+  ## The GitLab Server URL (with protocol) that want to register the runner against
+  ## ref: https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-register
+  ##
+  gitlabUrl: https://gitlab.ebi.ac.uk/
+
+  ## Configure the maximum number of concurrent jobs
+  ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section
+  ##
+  concurrent: 10
+
+  ## Configuration for the Pods that the runner launches for each new job
+  ##
+  runners:
+    # runner configuration, where the multi line strings is evaluated as
+    # template so you can specify helm values inside of it.
+    #
+    # tpl: https://helm.sh/docs/howto/charts_tips_and_tricks/#using-the-tpl-function
+    # runner configuration: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
+    config: |
+      [[runners]]
+        [runners.kubernetes]
+          namespace = "gitlab-ci"
+          image = "ubuntu:20.04"
+          privileged = true
+        [[runners.kubernetes.volumes.empty_dir]]
+          name = "docker-certs"
+          mount_path = "/certs/client"
+          medium = "Memory"
+
+    # NOTE: IN order to run integration tests
+    # The ingest-eks-node-{ENV} role must have access to perform secrets:GetSecretValue on:
+    # ingest/dev/secrets, hca/util/aws-access-keys, and ingest/dev/gcp-credentials.json 
+    # The "secrets-access-for-integration-tests-runner" role the appropriate access
+    tags: "ingest,dind,kubernetes,ingest-integration-tests"
+    runUntagged: true
+    name: "Ingest GitLab Runner"
+    privileged: true
+    # The secret containing runner-registration-token
+    secret: aws-keys
+
+  rbac:
+    create: false
+    serviceAccountName: gitlab-admin
