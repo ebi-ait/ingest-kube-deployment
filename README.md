@@ -6,7 +6,7 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
 ### Mac
 1. `git clone <this-repo-url>`
-2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html) 13.5:
+2. Install [terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) 13.5:
     - `brew install warrensbox/tap/tfswitch`
     - `tfswitch 0.13.5`
 3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
@@ -20,7 +20,7 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 
 ### Ubuntu
 1. `git clone <this-repo-url>`
-2. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html).
+2. Install terraform with the [terraform instructions](https://learn.hashicorp.com/tutorials/terraform/install-cli).
   - If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
