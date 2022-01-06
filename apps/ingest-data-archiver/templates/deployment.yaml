@@ -57,6 +57,11 @@ spec:
             secretKeyRef:
               key: ena-webin-password
               name: api-keys
+        - name: ARCHIVER_DATA_DIR
+          value: /data
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-data-archiver
+        volumeMounts:
+        - mountPath: /data
+          name: archiver-data
