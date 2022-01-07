@@ -48,6 +48,8 @@ aapDomain: subs.team-2
 biostudiesApiUrl: https://www.ebi.ac.uk/biostudies/submissions/api
 biostudiesStudyUrl: https://www.ebi.ac.uk/biostudies/studies/
 enaWebinApiUrl: https://www.ebi.ac.uk/ena/submit/drop-box/submit/
+enaFtpHost: webin.ebi.ac.uk
+enaFtpDir: prod
 
 # validator
 fastqImage: quay.io/ebi-ait/fastq_utils:d2020-09-07.1

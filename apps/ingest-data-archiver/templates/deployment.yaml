@@ -45,8 +45,10 @@ spec:
             secretKeyRef:
               key: exporter-access-key-secret
               name: aws-keys
-        - name: ENA_WEBIN_API_URL
-          value: {{ .Values.enaWebinApiUrl }}
+        - name: ENA_FTP_HOST
+          value: {{ .Values.enaFtpHost }}
+        - name: ENA_FTP_DIR
+          value: {{ .Values.enaFtpDir }}
         - name: ENA_WEBIN_USERNAME
           valueFrom:
             secretKeyRef:
