@@ -29,8 +29,10 @@ spec:
       - env:
         - name: INGEST_API
           value: http://$(INGEST_CORE_SERVICE_SERVICE_HOST):$(INGEST_CORE_SERVICE_SERVICE_PORT)
-        - name: RABBIT_URL
-          value: amqp://$(RABBIT_SERVICE_SERVICE_HOST):$(RABBIT_SERVICE_SERVICE_PORT_SERVICE)
+        - name: INGEST_S3_BUCKET
+          value: {{ .Values.ingestS3BucketName }}
+        - name: INGEST_S3_REGION
+          value: {{ .Values.ingestS3Region }}
         - name: RABBIT_HOST
           value: $(RABBIT_SERVICE_SERVICE_HOST)
         - name: RABBIT_PORT
@@ -45,8 +47,10 @@ spec:
             secretKeyRef:
               key: exporter-access-key-secret
               name: aws-keys
-        - name: ENA_WEBIN_API_URL
-          value: {{ .Values.enaWebinApiUrl }}
+        - name: ENA_FTP_HOST
+          value: {{ .Values.enaFtpHost }}
+        - name: ENA_FTP_DIR
+          value: {{ .Values.enaFtpDir }}
         - name: ENA_WEBIN_USERNAME
           valueFrom:
             secretKeyRef:
@@ -57,6 +61,11 @@ spec:
             secretKeyRef:
               key: ena-webin-password
               name: api-keys
+        - name: ARCHIVER_DATA_DIR
+          value: /data
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-data-archiver
+        volumeMounts:
+        - mountPath: /data
+          name: archiver-data
