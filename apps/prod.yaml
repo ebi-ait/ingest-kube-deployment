@@ -53,3 +53,7 @@ enaFtpDir: prod
 
 # validator
 fastqImage: quay.io/ebi-ait/fastq_utils:d2020-09-07.1
+
+# s3 bucket
+ingestS3Region: us-east-1
+ingestS3BucketName: org-hca-data-archive-upload-prod

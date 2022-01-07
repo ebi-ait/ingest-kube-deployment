@@ -52,3 +52,7 @@ enaFtpDir: staging
 
 # validator
 fastqImage: quay.io/ebi-ait/fastq_utils:54bcf9f
+
+# s3 bucket
+ingestS3Region: us-east-1
+ingestS3BucketName: org-hca-data-archive-upload-staging
