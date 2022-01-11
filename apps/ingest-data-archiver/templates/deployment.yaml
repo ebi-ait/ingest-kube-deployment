@@ -66,6 +66,6 @@ spec:
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-data-archiver
-        volumeMounts:
-        - mountPath: /data
-          name: archiver-data
+#        volumeMounts:
+#        - mountPath: /data
+#          name: archiver-data
