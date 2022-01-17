@@ -29,6 +29,7 @@ gitlab-runner:
           namespace = "gitlab-ci"
           image = "ubuntu:20.04"
           privileged = true
+          memory_limit = "4G"
         [[runners.kubernetes.volumes.empty_dir]]
           name = "docker-certs"
           mount_path = "/certs/client"
