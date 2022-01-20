@@ -3,7 +3,7 @@ set -a
 
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-ONTOLOGY_REF=1.0.31
+ONTOLOGY_REF=1.0.32
 FASTQ_VALIDATOR_IMAGE=quay.io/ebi-ait/fastq_utils:54bcf9f
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
