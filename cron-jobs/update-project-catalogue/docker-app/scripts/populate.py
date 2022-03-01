@@ -38,8 +38,9 @@ def get_publications_journal(project):
                 "title": publication['title'],
                 "authors": publication['authors']
             })
-        except:
+        except Exception as e:
             logging.error(f"Something went wrong retrieving metainformation for publication {publication['doi']} for project {project['uuid']['uuid']}")
+            logging.error(f"Error: {e}")
     return results
 
 
