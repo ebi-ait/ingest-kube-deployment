@@ -73,7 +73,7 @@ def patch_project(uuid, project, token=None):
         if "publications" in project["content"]:
             publications_info = get_publications_journal(project)
 
-            if "publicationsInfo" not in project or publications_info != project['publicationsInfo']:
+            if "publicationsInfo" not in project or publications_info != project['publicationsInfo'] and len(publications_info) > 0:
                 project_patch["publicationsInfo"] = publications_info
                 
                 # Remove all publicationsInfo first
