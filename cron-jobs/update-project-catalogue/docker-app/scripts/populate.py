@@ -25,7 +25,7 @@ def get_publications_journal(project):
 
             if len(crossref['container-title']) > 0:
                 journal_title = crossref['container-title'][0]
-            elif "name" in crossref['institution']:
+            elif 'institution' in crossref and 'name' in crossref['institution']:
                 # BioRxiv is listed under institution
                 journal_title = crossref['institution']['name']
             else:
@@ -38,8 +38,9 @@ def get_publications_journal(project):
                 "title": publication['title'],
                 "authors": publication['authors']
             })
-        except:
+        except Exception as e:
             logging.error(f"Something went wrong retrieving metainformation for publication {publication['doi']} for project {project['uuid']['uuid']}")
+            logging.error(f"Error: {e}")
     return results
 
 
@@ -72,7 +73,7 @@ def patch_project(uuid, project, token=None):
         if "publications" in project["content"]:
             publications_info = get_publications_journal(project)
 
-            if "publicationsInfo" not in project or publications_info != project['publicationsInfo']:
+            if "publicationsInfo" not in project or publications_info != project['publicationsInfo'] and len(publications_info) > 0:
                 project_patch["publicationsInfo"] = publications_info
                 
                 # Remove all publicationsInfo first

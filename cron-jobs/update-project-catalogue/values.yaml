@@ -7,4 +7,4 @@ image:
   tag: provide_through_set_flag
   pullPolicy: Always
 schedule: 0 22 * * *
-projectCount: 100
+projectCount: 1000
