@@ -80,3 +80,8 @@ spec:
         name: ingest-archiver
         ports:
         - containerPort: 5000
+        resources:
+          limits:
+            memory: 95Mi
+          requests:
+            memory: 60Mi

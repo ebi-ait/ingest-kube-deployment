@@ -48,3 +48,8 @@ spec:
         ports:
         - containerPort: 4200
       dnsPolicy: Default
+      resources:
+          limits:
+            memory: 20Mi
+          requests:
+            memory: 15Mi
