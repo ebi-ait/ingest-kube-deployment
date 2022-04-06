@@ -35,3 +35,4 @@ spec:
       resources:
         requests:
           storage: 10Gi
+          memory: 2.7Gi
