@@ -84,15 +84,10 @@ upgrade-infra-helm-chart-ingest-monitoring:
 	./scripts/deploy_monitoring.sh --upgrade
 
 install-infra-helm-chart-vertical-autoscaling:
-	cd helm-charts && helm dependency update vertical-autoscaling && helm package vertical-autoscaling
-	cd helm-charts && helm upgrade --values vertical-autoscaling/values.yaml vertical-autoscaling ./vertical-autoscaling --install
-	cd helm-charts && rm *.tgz
-	kubectl label ns $(deployment_stage)-environment goldilocks.fairwinds.com/enabled=true --overwrite
+	./scripts/deploy_vertical_autoscaling.sh
 
-	@if [$(deployment_stage) = "dev"]; then\
-		echo "Turning on auto VPA update";\
-		kubectl label ns $(deployment_stage)-environment goldilocks.fairwinds.com/vpa-update-mode="auto" --overwrite
-	fi
+upgrade-infra-helm-chart-vertical-autoscaling:
+	./scripts/deploy_vertical_autoscaling.sh --upgrade
 
 install-infra-helm-chart-%:
 	cd helm-charts && helm dependency update $(*) && helm package $(*)
