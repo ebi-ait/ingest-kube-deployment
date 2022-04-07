@@ -1,3 +1,11 @@
+vpa:
+  recommender:
+    extraArgs:
+      prometheus-address: localhost
+      storage: prometheus
+  admissionController:
+    enabled: true
+
 goldilocks:
   dashboard:
     replicaCount: 1
