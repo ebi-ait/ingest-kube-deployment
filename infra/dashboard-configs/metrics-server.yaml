@@ -78,7 +78,7 @@ spec:
     spec:
       serviceAccountName: metrics-server
       volumes:
-      # mount in tmp so we can safely use from-scratch images and/or read-only containers
+      # mount in tmp so we can safely use from-sratch images and/or read-only containers
       - name: tmp-dir
         emptyDir: {}
       containers:
@@ -88,6 +88,10 @@ spec:
         args:
           - --cert-dir=/tmp
           - --secure-port=4443
+          - --kubelet-insecure-tls
+          - --kubelet-preferred-address-types=InternalIP
+          - /metrics-server
+          - --v=2
         ports:
         - name: main-port
           containerPort: 4443
