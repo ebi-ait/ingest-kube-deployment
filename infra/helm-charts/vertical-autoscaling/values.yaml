@@ -1,0 +1,4 @@
+goldilocks:
+  dashboard:
+    replicaCount: 1
+  
