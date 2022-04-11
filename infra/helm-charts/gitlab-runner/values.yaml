@@ -13,7 +13,7 @@ gitlab-runner:
   ## Configure the maximum number of concurrent jobs
   ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section
   ##
-  concurrent: 10
+  concurrent: 5
 
   ## Configuration for the Pods that the runner launches for each new job
   ##
@@ -29,7 +29,7 @@ gitlab-runner:
           namespace = "gitlab-ci"
           image = "ubuntu:20.04"
           privileged = true
-          memory_limit = "4G"
+          memory_limit = "2G"
           memory_request = "500M"
         [[runners.kubernetes.volumes.empty_dir]]
           name = "docker-certs"
