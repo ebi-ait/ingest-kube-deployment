@@ -1,0 +1,13 @@
+apiVersion: v2
+name: ingest-vertical-autoscaling
+description: Chart for vertically autoscaling resources and providing a UI to manage it
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+dependencies:
+  - name: "vpa"
+    version: 1.3.0
+    repository: "https://charts.fairwinds.com/stable"
+  - name: "goldilocks"
+    version: 6.1.1
+    repository: "https://charts.fairwinds.com/stable"

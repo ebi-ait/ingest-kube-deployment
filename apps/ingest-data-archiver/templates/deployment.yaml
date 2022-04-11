@@ -69,3 +69,8 @@ spec:
 #        volumeMounts:
 #        - mountPath: /data
 #          name: archiver-data
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            memory: 40Mi

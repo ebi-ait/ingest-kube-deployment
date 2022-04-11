@@ -55,3 +55,8 @@ spec:
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-validator
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            memory: 140Mi

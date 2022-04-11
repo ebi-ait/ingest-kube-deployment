@@ -40,3 +40,8 @@ spec:
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-staging-manager
+        resources:
+          limits:
+            memory: 40Mi
+          requests:
+            memory: 30Mi

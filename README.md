@@ -122,6 +122,9 @@ If you would like to change the dashboard for Ingest Monitoring, you must save t
 4. `cd infra && make upgrade upgrade-infra-helm-chart-ingest-monitoring` 
   - The script will replace any references to e.g. prod-environment with the environment you are deploying to. 
 
+### Vertical autoscaling
+Vertical autoscaling can be deployed to give recommendations on CPU and memory constraints for containers. See `infra/vertical-autoscaling/README.md`.
+
 ## Deploy CRON jobs
 CRON jobs are located in `cron-jobs/`. Further details for deploying and updating CRON jobs are located in `cron-jobs/README.md` and details on individual CRON jobs are found in their helm chart's READMEs.
 
