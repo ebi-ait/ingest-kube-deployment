@@ -43,3 +43,8 @@ spec:
         name: ingest-state-tracking
         ports:
           - containerPort: 8999
+        resources:
+          limits:
+            memory: 700Mi
+          requests:
+            memory: 500Mi

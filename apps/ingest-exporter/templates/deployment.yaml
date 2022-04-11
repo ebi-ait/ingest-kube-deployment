@@ -70,4 +70,9 @@ spec:
             readOnly: true
         imagePullPolicy: Always
         name: ingest-exporter
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            memory: 70Mi
       dnsPolicy: Default

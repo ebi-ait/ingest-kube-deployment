@@ -83,6 +83,12 @@ install-infra-helm-chart-ingest-monitoring:
 upgrade-infra-helm-chart-ingest-monitoring:
 	./scripts/deploy_monitoring.sh --upgrade
 
+install-infra-helm-chart-vertical-autoscaling:
+	./scripts/deploy_vertical_autoscaling.sh
+
+upgrade-infra-helm-chart-vertical-autoscaling:
+	./scripts/deploy_vertical_autoscaling.sh --upgrade
+
 install-infra-helm-chart-%:
 	cd helm-charts && helm dependency update $(*) && helm package $(*)
 	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade --values $(*)/values.yaml --values $(*)/environments/$(deployment_stage).yaml $(*) ./$(*) --force --install

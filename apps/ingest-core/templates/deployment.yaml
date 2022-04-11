@@ -78,3 +78,8 @@ spec:
             port: http
           initialDelaySeconds: 60
           periodSeconds: 3
+        resources:
+          limits:
+            memory: 2.5Gi # 2560Mi
+          requests:
+            memory: 1.4Gi # 1434 Mi
