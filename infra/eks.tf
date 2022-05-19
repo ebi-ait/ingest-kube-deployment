@@ -467,6 +467,12 @@ data:
       username: ops-user
       groups:
         - system:masters
+  mapUsers: |
+    - groups:
+        - system:masters
+      userarn: arn:aws:iam::871979166454:user/sa-ait-hca-eks-admin
+      username: ops-user
+
 CONFIGMAPAWSAUTH
 
 }
