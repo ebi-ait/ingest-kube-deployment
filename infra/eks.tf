@@ -230,8 +230,38 @@ resource "aws_iam_role_policy_attachment" "ingest_eks_service_policy" {
   role       = aws_iam_role.ingest_eks_cluster.name
 }
 
+resource "aws_iam_role" "ingest_eks_node_group" {
+  name = "ingest-eks-node-group-${var.deployment_stage}"
+
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }]
+    Version = "2012-10-17"
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ingest_eks_node_group-AmazonEKSWorkerNodePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role       = aws_iam_role.ingest_eks_node_group.name
+}
+
+resource "aws_iam_role_policy_attachment" "ingest_eks_node_group-AmazonEKS_CNI_Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.ingest_eks_node_group.name
+}
+
+resource "aws_iam_role_policy_attachment" "ingest_eks_node_group-AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.ingest_eks_node_group.name
+}
+
 ////
-// Cluster and Node setup
+// Cluster setup
 //
 
 resource "aws_eks_cluster" "ingest_eks" {
@@ -255,6 +285,30 @@ resource "aws_eks_cluster" "ingest_eks" {
     ignore_changes = ["tags"]
   }
 
+}
+
+////
+// Node Group setup
+//
+resource "aws_eks_node_group" "ingest_eks" {
+  cluster_name    = aws_eks_cluster.ingest_eks.name
+  node_group_name = "ingest-eks-${var.deployment_stage}-node-group"
+  node_role_arn   = aws_iam_role.ingest_eks_node_group.arn
+  subnet_ids      = aws_subnet.ingest_eks.*.id
+
+  scaling_config {
+    desired_size = var.node_count
+    max_size     = 4
+    min_size     = var.node_count
+  }
+
+  # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
+  # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
+  depends_on = [
+    aws_iam_role_policy_attachment.ingest_eks_node_group-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.ingest_eks_node_group-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.ingest_eks_node_group-AmazonEC2ContainerRegistryReadOnly,
+  ]
 }
 
 ////
@@ -419,23 +473,6 @@ resource "aws_launch_configuration" "ingest_eks" {
 
   lifecycle {
     create_before_destroy = true
-  }
-}
-
-resource "aws_eks_node_group" "ingest_eks" {
-  cluster_name    = "ingest-eks-${var.deployment_stage}"
-  node_group_name = "ingest-eks-${var.deployment_stage}-node-group"
-  # Ensure ingest-devops has the following policies:
-  #   aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy,
-  #   aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
-  #   aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
-  node_role_arn   = aws_iam_role.ingest_eks_cluster.arn
-  subnet_ids      = aws_subnet.ingest_eks.*.id
-
-  scaling_config {
-    desired_size = var.node_count
-    max_size     = 4
-    min_size     = var.node_count
   }
 }
 
