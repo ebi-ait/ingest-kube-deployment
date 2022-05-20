@@ -1,27 +1,58 @@
 uploadScheme: https
 uploadPort: 443
-upload: upload.integration.data.humancellatlas.org
+upload: upload.integration.archive.data.humancellatlas.org
 dss: dss.integration.data.humancellatlas.org
 schema: schema.integration.data.humancellatlas.org
-ingest: api.integration.archive.data.humancellatlas.org
+ingest: api.ingest.integration.archive.data.humancellatlas.org
 broker: ingest.integration.archive.data.humancellatlas.org
-ui: ui.integration.archive.data.humancellatlas.org
+ui: integration.contribute.data.humancellatlas.org
 
 # config values
-gcpProjectWhitelist: "hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com,broad-dsde-mint-integration.iam.gserviceaccount.com"
+gcpProjectWhitelist: "ingest-service-301110.iam.gserviceaccount.com"
 svcAuthAudience: https://dev.data.humancellatlas.org/
 usrAuthAudience: https://dev.data.humancellatlas.org/
 
 # ui
-domainWhitelist: "api.integration.archive.data.humancellatlas.org,ingest.integration.archive.data.humancellatlas.org"
-authDomain: "auth.integration.data.humancellatlas.org"
+domainWhitelist: "api.ingest.integration.archive.data.humancellatlas.org,ingest.integration.archive.data.humancellatlas.org"
+securedEndpoints: '\/auth\/.*,\/user\/.*,\/submissionEnvelopes$,\/projects$'
+aaiClientId: "e2041c2d-9449-4468-856e-e84711cebd21"
+aaiAuthority: "https://login.elixir-czech.org/oidc/"
 
 olsUrl: "https://ontology.integration.archive.data.humancellatlas.org"
 
 # exporter
-terraBucketName: broad-dsp-monster-hca-dev-ebi-staging
+terraBucketName: broad-dsp-monster-hca-dev-ebi-integration
 terraBucketPrefix: integration
 terraGcpProject: broad-dsp-monster-hca-dev
+gcsNotificationTopic: broad-dsp-monster-hca-dev.integration-transfer-notifications.ebi
+gcsNotificationSub: ebi-writer
+
+# core
+debug: false
+notifications:
+  smtp:
+    host: email-smtp.us-east-1.amazonaws.com
+    port: "587"
+    wranglerEmails: hca-notifications-test@ebi.ac.uk
+    projectNotificationsFromAddress: hca-notifications-test@ebi.ac.uk
+  amqp:
+    sendExchange: ingest.notifications.exchange
+    sendRoutingKey: ingest.notifications.new
+
+# archiver
+dspUrl: https://submission-test.ebi.ac.uk
+aapUrl: https://explore.api.aai.ebi.ac.uk/auth
+aapUser: hca-ingest
+aapDomain: subs.test-team-21
+biostudiesApiUrl: https://wwwdev.ebi.ac.uk/biostudies/submissions/api
+biostudiesStudyUrl: https://wwwdev.ebi.ac.uk/biostudies/studies/
+enaWebinApiUrl: https://wwwdev.ebi.ac.uk/ena/submit/drop-box/submit/
+enaFtpHost: webin.ebi.ac.uk
+enaFtpDir: integration
 
 # validator
 fastqImage: quay.io/ebi-ait/fastq_utils:54bcf9f
+
+# s3 bucket
+ingestS3Region: us-east-1
+ingestS3BucketName: org-hca-data-archive-upload-integration
