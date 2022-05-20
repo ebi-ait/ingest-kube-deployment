@@ -84,6 +84,11 @@ resource "aws_vpc" "ingest_eks" {
     }
 	)
 
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
+
 }
 
 resource "aws_subnet" "ingest_eks" {
@@ -101,6 +106,11 @@ resource "aws_subnet" "ingest_eks" {
     }
 	)
 
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
+
 }
 
 resource "aws_internet_gateway" "ingest_eks" {
@@ -112,6 +122,11 @@ resource "aws_internet_gateway" "ingest_eks" {
 		  "Name" = "ingest-eks-${var.deployment_stage}"
     }
 	)
+
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }
 
 resource "aws_route_table" "ingest_eks" {
@@ -123,6 +138,11 @@ resource "aws_route_table" "ingest_eks" {
   }
 
   tags = local.default_tags
+
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }
 
 // no tags support
@@ -151,6 +171,11 @@ resource "aws_security_group" "ingest_eks_cluster" {
 		  "Name" = "ingest-eks-${var.deployment_stage}"
     }
 	)
+
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }
 
 // no tags support
@@ -187,6 +212,10 @@ resource "aws_iam_role" "ingest_eks_cluster" {
 POLICY
 
   tags = local.default_tags
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 
 }
 
@@ -221,6 +250,11 @@ resource "aws_eks_cluster" "ingest_eks" {
 
   tags = local.default_tags
 
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
+
 }
 
 ////
@@ -246,6 +280,10 @@ resource "aws_iam_role" "ingest_eks_node" {
 POLICY
 
   tags = local.default_tags
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 
 }
 
@@ -294,6 +332,10 @@ resource "aws_security_group" "ingest_eks_node" {
 			"ingest-eks-${var.deployment_stage}" = "owned"
     }
 	)
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 
 }
 
@@ -431,6 +473,11 @@ resource "aws_autoscaling_group" "ingest_eks" {
       value     = tag.value
       propagate_at_launch = true 
     }
+  }
+
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
   }
 
 }
