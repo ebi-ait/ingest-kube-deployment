@@ -422,64 +422,21 @@ resource "aws_launch_configuration" "ingest_eks" {
   }
 }
 
-resource "aws_autoscaling_group" "ingest_eks" {
-  desired_capacity     = var.node_count
-  enabled_metrics           = [
-    "GroupAndWarmPoolDesiredCapacity",
-    "GroupAndWarmPoolTotalCapacity",
-    "GroupDesiredCapacity",
-    "GroupInServiceCapacity",
-    "GroupInServiceInstances",
-    "GroupMaxSize",
-    "GroupMinSize",
-    "GroupPendingCapacity",
-    "GroupPendingInstances",
-    "GroupStandbyCapacity",
-    "GroupStandbyInstances",
-    "GroupTerminatingCapacity",
-    "GroupTerminatingInstances",
-    "GroupTotalCapacity",
-    "GroupTotalInstances",
-    "WarmPoolDesiredCapacity",
-    "WarmPoolMinSize",
-    "WarmPoolPendingCapacity",
-    "WarmPoolTerminatingCapacity",
-    "WarmPoolTotalCapacity",
-    "WarmPoolWarmedCapacity",
-  ]
+resource "aws_eks_node_group" "ingest_eks" {
+  cluster_name    = "ingest-eks-${var.deployment_stage}"
+  node_group_name = "ingest-eks-${var.deployment_stage}-node-group"
+  # Ensure ingest-devops has the following policies:
+  #   aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy,
+  #   aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
+  #   aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
+  node_role_arn   = aws_iam_role.ingest_eks_cluster.arn
+  subnet_ids      = aws_subnet.ingest_eks.*.id
 
-  launch_configuration = aws_launch_configuration.ingest_eks.id
-  max_size             = 4
-  min_size             = var.node_count
-  name                 = "ingest-eks-${var.deployment_stage}"
-  vpc_zone_identifier  = aws_subnet.ingest_eks.*.id
-
-  tag {
-    key                 = "Name"
-    value               = "ingest-eks-${var.deployment_stage}"
-    propagate_at_launch = true
+  scaling_config {
+    desired_size = var.node_count
+    max_size     = 4
+    min_size     = var.node_count
   }
-  
-  tag {
-    key                 = "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}"
-    value               = "owned"
-    propagate_at_launch = true
-  }
-
-  dynamic "tag" {
-    for_each = local.default_tags
-    content { 
-      key       = tag.key
-      value     = tag.value
-      propagate_at_launch = true 
-    }
-  }
-
-  #This is very important, as it tells terraform to not mess with tags created outside of terraform
-  lifecycle {
-    ignore_changes = ["tags"]
-  }
-
 }
 
 ////
