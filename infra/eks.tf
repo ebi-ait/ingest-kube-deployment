@@ -315,8 +315,8 @@ resource "aws_eks_node_group" "ingest_eks" {
   }
   scaling_config {
     desired_size = var.node_count
-    max_size     = 4
-    min_size     = var.node_count
+    max_size     = 5
+    min_size     = 1
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
