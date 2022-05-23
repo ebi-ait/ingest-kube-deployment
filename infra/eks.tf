@@ -47,6 +47,8 @@ locals {
     Env         = "${var.deployment_stage}"
     CreatedBy   = "terraform"
   }
+
+  cluster_name =  "ingest-eks-${var.deployment_stage}"
 }
 
 
@@ -264,9 +266,8 @@ resource "aws_iam_role_policy_attachment" "ingest_eks_node_group-AmazonEC2Contai
 ////
 // Cluster setup
 //
-
 resource "aws_eks_cluster" "ingest_eks" {
-  name     = "ingest-eks-${var.deployment_stage}"
+  name     = local.cluster_name
   role_arn = aws_iam_role.ingest_eks_cluster.arn
 
   vpc_config {
@@ -277,6 +278,7 @@ resource "aws_eks_cluster" "ingest_eks" {
   depends_on = [
     aws_iam_role_policy_attachment.ingest_eks_cluster_policy,
     aws_iam_role_policy_attachment.ingest_eks_service_policy,
+    aws_cloudwatch_log_group.eks_cluster_cloudwatch
   ]
 
   tags = local.default_tags
@@ -286,6 +288,17 @@ resource "aws_eks_cluster" "ingest_eks" {
     ignore_changes = ["tags"]
   }
 
+  enabled_cluster_log_types = ["api", "audit"]
+
+}
+
+resource "aws_cloudwatch_log_group" "eks_cluster_cloudwatch" {
+  # The log group name format is /aws/eks/<cluster-name>/cluster
+  # Reference: https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html
+  name              = "/aws/eks/${local.cluster_name}/cluster"
+  retention_in_days = 30
+
+  # ... potentially other configuration ...
 }
 
 ////
@@ -318,7 +331,7 @@ resource "aws_eks_node_group" "ingest_eks" {
 resource "aws_launch_template" "ingest_eks" {
   name_prefix                 = "ingest-eks-${var.deployment_stage}"
 
-  image_id = data.aws_ami.eks_worker.id
+  image_id = data.aws_ssm_parameter.eksami.value
   instance_type = var.node_size
   key_name                    = aws_key_pair.ingest_eks.key_name
   vpc_security_group_ids =  [aws_security_group.ingest_eks_node.id]
@@ -334,14 +347,8 @@ resource "aws_launch_template" "ingest_eks" {
   }
 }
 
-data "aws_ami" "eks_worker" {
-  filter {
-    name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.ingest_eks.version}-v*"]
-  }
-
-  most_recent = true
-  owners      = ["602401143452"] # Amazon EKS AMI Account ID
+data "aws_ssm_parameter" "eksami" {
+  name=format("/aws/service/eks/optimized-ami/%s/amazon-linux-2/recommended/image_id", data.aws_eks_cluster.eks_cluster.version)
 }
 
 locals {
