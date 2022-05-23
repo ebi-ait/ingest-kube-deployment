@@ -321,66 +321,36 @@ resource "aws_launch_template" "ingest_eks" {
   image_id = data.aws_ami.eks_worker.id
   instance_type = var.node_size
   key_name                    = aws_key_pair.ingest_eks.key_name
+  vpc_security_group_ids =  [aws_security_group.ingest_eks_node.id]
 
   monitoring {
     enabled = true
   }
 
-  vpc_security_group_ids =  [aws_security_group.ingest_eks_node.id]
-
   user_data = base64encode(local.ingest-node-userdata)
-}
 
-////
-// Worker node IAM setup
-//
-
-resource "aws_iam_role" "ingest_eks_node" {
-  name = "ingest-eks-node-${var.deployment_stage}"
-
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-POLICY
-
-  tags = local.default_tags
-  #This is very important, as it tells terraform to not mess with tags created outside of terraform
   lifecycle {
-    ignore_changes = ["tags"]
+    create_before_destroy=true
+  }
+}
+
+data "aws_ami" "eks_worker" {
+  filter {
+    name   = "name"
+    values = ["amazon-eks-node-${aws_eks_cluster.ingest_eks.version}-v*"]
   }
 
+  most_recent = true
+  owners      = ["602401143452"] # Amazon EKS AMI Account ID
 }
 
-// no tags required for policy attachment resource type
-resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEKSWorkerNodePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.ingest_eks_node.name
-}
+locals {
+  ingest-node-userdata = <<USERDATA
+#!/bin/bash
+set -o xtrace
+/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.ingest_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.ingest_eks.certificate_authority[0].data}' 'ingest-eks-${var.deployment_stage}' --kubelet-extra-args "--kube-reserved cpu=250m,memory=1Gi,ephemeral-storage=1Gi --system-reserved cpu=250m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard memory.available<0.2Gi,nodefs.available<10%"
+USERDATA
 
-resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEKS_CNI_Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.ingest_eks_node.name
-}
-
-resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEC2ContainerRegistryReadOnly" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.ingest_eks_node.name
-}
-
-// no tags support
-resource "aws_iam_instance_profile" "ingest_eks_node" {
-  name = "terraform-eks-node-${var.deployment_stage}"
-  role = aws_iam_role.ingest_eks_node.name
 }
 
 ////
@@ -455,32 +425,6 @@ resource "aws_security_group_rule" "ingest_eks_cluster_allow_ssh" {
 }
 
 ////
-// Worker Node Instance Setup
-//
-
-data "aws_region" "current" {
-}
-
-data "aws_ami" "eks_worker" {
-  filter {
-    name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.ingest_eks.version}-v*"]
-  }
-
-  most_recent = true
-  owners      = ["602401143452"] # Amazon EKS AMI Account ID
-}
-
-locals {
-  ingest-node-userdata = <<USERDATA
-#!/bin/bash
-set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.ingest_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.ingest_eks.certificate_authority[0].data}' 'ingest-eks-${var.deployment_stage}' --kubelet-extra-args "--kube-reserved cpu=250m,memory=1Gi,ephemeral-storage=1Gi --system-reserved cpu=250m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard memory.available<0.2Gi,nodefs.available<10%"
-USERDATA
-
-}
-
-////
 // Config Outputs
 //
 
@@ -527,7 +471,7 @@ metadata:
   namespace: kube-system
 data:
   mapRoles: |
-    - rolearn: ${aws_iam_role.ingest_eks_node.arn}
+    - rolearn: ${aws_iam_role.ingest_eks_node_group.arn}
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
