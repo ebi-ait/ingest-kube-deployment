@@ -5,6 +5,8 @@ ingress:
     hosts:
       - service: ingest-ui-service
         hostname: integration.contribute.data.humancellatlas.org
+      - service: ingest-monitoring-grafana
+        hostname: monitoring.ingest.integration.archive.data.humancellatlas.org
 
 ingress-nginx:
   controller:
