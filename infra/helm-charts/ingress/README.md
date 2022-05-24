@@ -30,11 +30,11 @@ Through Kubernetes configuration, HTTPS can be strictly implemented by redirecti
 
 Once all of the related ingress components have been deployed through Helm release, especially when a new service is mapped through ingress rules, domain names managed through AWS need to be mapped to dispatch request to the NGINX ingress controller. The first step in achieving this is to take note of the hostname assigned by AWS to the ingress controller load balancer. One way to retrieve this is by traversing the JSON returned by `kubectl`:
 
-    kubectl get services -o jsonpath="{$.items[?(@.metadata.name=='ingress-nginx-ingress-controller')].status.loadBalancer.ingress[0].hostname}"
+    kubectl get services -o jsonpath="{$.items[?(@.metadata.name=='ingress-ingress-nginx-controller')].status.loadBalancer.ingress[0].hostname}"
 
 The result of this command can be piped to the clipboard using utilities like `pbcopy` for macOS.
 
-The ingress controller hostname can then be assigned to all domain names in the proper hosted zone through the AWS console:
+The ingress controller hostnam  e can then be assigned to all domain names in the proper hosted zone through the AWS console:
 
 1. Using the AWS console, open the Route53 interface.
 1. Locate the hosted zone for the deployment environment, for example, `dev.data.humancellatlas.org`.

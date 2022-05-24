@@ -1,24 +1,29 @@
-apiVersion: networking.k8s.io/v1beta1
+{{- $defaultPath := .Values.ingress.ingest.defaultPath -}}
+{{- $defaultServicePort := .Values.ingress.ingest.defaultServicePort -}}
+{{ range .Values.ingress.ingest.hosts }}
+{{ $service := .service }}
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingest-ingress
+  name: {{ $service }}-ingress
   annotations:
-    # specifically target NGINX ingress controller
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/proxy-body-size: 500m
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      # specifically target NGINX ingress controller
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/proxy-body-size: 500m
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
-  {{- $defaultPath := .Values.ingress.ingest.defaultPath -}}
-  {{- $defaultServicePort := .Values.ingress.ingest.defaultServicePort -}}
-  {{ range .Values.ingress.ingest.hosts }}
-  {{ $service := .service }}
-    - host: {{ .hostname  }}
-      http:
-        paths:
-          - path: {{ .path | default $defaultPath }}
-            backend:
-              serviceName: {{ $service }}
-              servicePort: {{ .port | default $defaultServicePort }}
-  {{ end }}
+  - host:  {{ .hostname  }}
+    http:
+      paths:
+      - path: {{ .path | default $defaultPath }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $service }}
+            port:
+              number: {{ .port | default $defaultServicePort }}
+  ingressClassName: nginx
+---
+{{ end }}

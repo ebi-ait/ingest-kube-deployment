@@ -3,9 +3,10 @@ kind: ConfigMap
 metadata:
   labels:
     app: ingest-ingress
-  name: ingress-nginx-ingress-controller
+  name: ingress-ingress-nginx-controller
   namespace: "{{ .Values.namespace }}"
 data:
+  ssl-redirect: "false"
   hsts: "true"
   server-tokens: "false"
   use-forwarded-headers: "true"

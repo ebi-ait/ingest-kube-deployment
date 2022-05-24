@@ -1,16 +1,16 @@
-ingress:
-  enabled: "false"      
-
-# for subchart stable/nginx-ingress
-
-nginx-ingress:
+ingress-nginx:
   controller:
     service:
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
         service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
         service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+        service.beta.kubernetes.io/aws-load-balancer-type: nlb
       targetPorts:
-          https: http
+        https: http
   rbac:
     create: "true"
+  metrics:
+    enabled: true
+  defaultBackend:
+    enabled: true

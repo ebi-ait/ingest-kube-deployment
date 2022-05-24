@@ -3,17 +3,11 @@ ingress:
     defaultPath: /
     defaultServicePort: 80
     hosts:
-      - service: ingest-core-service
-        hostname: api.integration.archive.data.humancellatlas.org
-      - service: ingest-broker-service
-        hostname: ingest.integration.archive.data.humancellatlas.org
-      - service: ontology-service
-        hostname: ontology.integration.archive.data.humancellatlas.org
       - service: ingest-ui-service
-        hostname: ui.integration.archive.data.humancellatlas.org
+        hostname: integration.contribute.data.humancellatlas.org
 
-nginx-ingress:
+ingress-nginx:
   controller:
     service:
       annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/8fde7fc5-d336-4c99-8a83-48788a8774d3
+        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/307fff35-9111-4df2-9945-2333dc5d26d2
