@@ -52,13 +52,6 @@ grafana:
           uploadImage: false
           url: https://hooks.slack.com/services/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
 
-loki:
-  service:
-    clusterIP: 172.20.245.170
-
 promtail:
   config:
-    lokiAddress: http://172.20.245.170:3100/loki/api/v1/push
-
-lokiIP: 172.20.245.170
-prometheusIP: localhost
+    lokiAddress: http://{{ .Release.Name }}-loki{{ .Release.Namespace }}.svc.cluster.local:3100/loki/api/v1/push
