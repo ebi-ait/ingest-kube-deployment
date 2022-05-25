@@ -54,7 +54,7 @@ deploy-all:
 	$(MAKE) deploy-app-ingest-validator image=${INGEST_VALIDATOR_INITIAL_IMAGE}
 	$(MAKE) deploy-app-ingest-data-archiver image=${INGEST_DATA_ARCHIVER_INITIAL_IMAGE}
 	$(MAKE) deploy-app-ingest-graph-validator image=${INGEST_GRAPH_VALIDATOR_INITIAL_IMAGE}
-	$(MAKE) deploy-app-ingest-archiver image=${INGEST-ARCHIVER_INITIAL_IMAGE}
+	$(MAKE) deploy-app-ingest-archiver image=${INGEST_ARCHIVER_INITIAL_IMAGE}
 
 deploy-ontology:
 	$(MAKE) deploy-app-ontology image=$(ontology)
