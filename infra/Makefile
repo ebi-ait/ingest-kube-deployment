@@ -19,6 +19,7 @@ deploy-backend-services-%:
 	$(MAKE) install-infra-helm-chart-rabbit
 	$(MAKE) install-infra-helm-chart-redis
 	$(MAKE) install-infra-helm-chart-ingest-monitoring
+	$(MAKE) install-infra-helm-chart-vertical-autoscaling
 	$(MAKE) setup-ingress-$(*)
 
 modify-cluster-%:
