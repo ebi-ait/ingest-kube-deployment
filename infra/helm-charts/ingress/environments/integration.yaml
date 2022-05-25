@@ -7,6 +7,14 @@ ingress:
         hostname: integration.contribute.data.humancellatlas.org
       - service: ingest-monitoring-grafana
         hostname: monitoring.ingest.integration.archive.data.humancellatlas.org
+      - service: ingest-core-service
+        hostname: api.ingest.integration.archive.data.humancellatlas.org
+      - service: ingest-broker-service
+        hostname: ingest.integration.archive.data.humancellatlas.org
+      - service: ontology-service
+        hostname: ontology.integration.archive.data.humancellatlas.org
+      - service: ingest-archiver-service
+        hostname: archiver.ingest.integration.archive.data.humancellatlas.org
 
 ingress-nginx:
   controller:
