@@ -44,6 +44,7 @@ deploy-app-%:
 	rm *.tgz
 
 deploy-all:
+	$(MAKE) deploy-secrets
 	$(MAKE) deploy-ontology
 	$(MAKE) deploy-app-ingest-state-tracking image=${INGEST_STATE_TRACKING_INITIAL_IMAGE}
 	$(MAKE) deploy-app-ingest-core image=${INGEST_CORE_INITIAL_IMAGE}
