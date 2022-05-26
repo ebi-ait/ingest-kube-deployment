@@ -105,17 +105,6 @@ These steps assumes you have the correct aws credentials and local environment t
 			--secret-string file://$ENV_secrets.json && \
 	rm $ENV_secrets.json
 	```
-1. `cd infra`
-1. `cp helm-charts/ingress/environments/dev.yaml helm-charts/ingress/environments/$ENV.yaml`
-1. Edit `helm-charts/ingress/environments/$ENV.yaml` to have values corresponding to `$ENV`
-1. `make create-cluster-$ENV`
-	- Ensure the terraform changes are correct before applying
-1. Configure new DNS records:
-	1. Navigate to [Route53](https://us-east-1.console.aws.amazon.com/route53/v2/hostedzones#)
-	1. Copy the result of `kubectl get svc ingress-ingress-nginx-controller -o=jsonpath="{.status.loadBalancer.ingress[0].hostname}"` to your clipboard
-	1. Configure new DNS records to match those you created in `helm-charts/ingress/environments/$ENV.yaml` pointing to the address you copied above
-1. Create a new certificate for your new domains from the [AWS certificate manager](https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list) and replace the value for the ARN in `helm-charts/ingress/environments/$ENV.yaml` with your new ARN
-1. `make setup-ingress-$ENV`
 1. Duplicate the secrets from `ingest/dev/secrets`. You may want to change the values of these secrets later on
 	```bash
 	aws secretsmanager get-secret-value \
@@ -127,6 +116,19 @@ These steps assumes you have the correct aws credentials and local environment t
 		--secret-string file://$ENV_secrets.json && \
 	rm $ENV_secrets.json
 	```
+1. `cd apps`
+1. `make deploy-secrets`
+1. `cd ../infra`
+1. `cp helm-charts/ingress/environments/dev.yaml helm-charts/ingress/environments/$ENV.yaml`
+1. Edit `helm-charts/ingress/environments/$ENV.yaml` to have values corresponding to `$ENV`
+1. `make create-cluster-$ENV`
+	- Ensure the terraform changes are correct before applying
+1. Configure new DNS records:
+	1. Navigate to [Route53](https://us-east-1.console.aws.amazon.com/route53/v2/hostedzones#)
+	1. Copy the result of `kubectl get svc ingress-ingress-nginx-controller -o=jsonpath="{.status.loadBalancer.ingress[0].hostname}"` to your clipboard
+	1. Configure new DNS records to match those you created in `helm-charts/ingress/environments/$ENV.yaml` pointing to the address you copied above
+1. Create a new certificate for your new domains from the [AWS certificate manager](https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list) and replace the value for the ARN in `helm-charts/ingress/environments/$ENV.yaml` with your new ARN
+1. `make setup-ingress-$ENV`
 1. `cd ../apps`
 1. `cp `dev.yaml $ENV.yaml`
 1. Edit `$ENV.yaml` to correspond to your new environment
