@@ -1,7 +1,7 @@
 vpa:
   recommender:
     extraArgs:
-      prometheus-address: localhost
+      prometheus-address: http://{{ .Release.Name }}-prometheus-server.{{ .Release.Namespace }}.svc.cluster.local 
       storage: prometheus
   admissionController:
     enabled: true
