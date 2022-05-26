@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#! /usr/bin/env zsh
 
 deployment_stage=$1
 
@@ -12,6 +12,8 @@ helm package .
 
 . ../../../config/environment_${deployment_stage}
 
-helm upgrade mongo ./ --wait --install --force -f values.yaml -f environments/${deployment_stage}.yaml --set ingestbackup.secret.aws.accessKey=${access_key_id},ingestbackup.secret.aws.secretAccessKey=${access_key_secret},ingestbackup.verification.slack.webhookUrl=${slack_alert_webhook}
+helm upgrade mongo ./ --wait --install --force -f values.yaml \
+    --set ingestbackup.secret.aws.accessKey=${access_key_id},ingestbackup.secret.aws.secretAccessKey=${access_key_secret},ingestbackup.verification.slack.webhookUrl=${slack_alert_webhook} \
+    --set ingestbackup.aws.s3.directory=${deployment_stage}
 
 rm *.tgz

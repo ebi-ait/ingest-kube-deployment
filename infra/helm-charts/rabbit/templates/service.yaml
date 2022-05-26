@@ -5,7 +5,7 @@ metadata:
   labels:
     role: submission
   name: rabbit-service
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
 spec:
   ports:
   - name: service

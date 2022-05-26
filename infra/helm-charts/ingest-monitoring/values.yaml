@@ -14,8 +14,8 @@ grafana:
       host: email-smtp.us-east-1.amazonaws.com:587
       from_address: "hca-notifications@ebi.ac.uk"
     server:
-      domain: "{{ .Values.url }}"
-      root_url: https://{{ .Values.url }}
+      domain: provided_through_set_flag
+      root_url: provided_through_set_flag
       serve_from_sub_path: false
   smtp:
     existingSecret: "aws-keys"
