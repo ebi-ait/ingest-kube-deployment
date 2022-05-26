@@ -83,6 +83,28 @@ These steps assumes you have the correct aws credentials and local environment t
 1. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
 	- You can check existing VPC IPs in the IPv4 CIDR section of the [VPC dashboard](https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:)
 1. `source config/environment_$ENV`
+1. Duplicate mongo s3 access secrets from dev (this is used to restore the mongodb)
+	```bash
+	aws secretsmanager get-secret-value \
+		--secret-id ingest/dev/mongo-backup/s3-access \
+		--query SecretString \
+		--output text > $ENV_secrets.json  && \
+	aws secretsmanager create-secret \
+			--name ingest/$ENV/mongo-backup/s3-access \
+			--secret-string file://$ENV_secrets.json && \
+	rm $ENV_secrets.json
+	```
+1. Duplicate webhook url alerts (you may want to change this value afterwards)
+	```bash
+	aws secretsmanager get-secret-value \
+		--secret-id ingest/dev/alerts \
+		--query SecretString \
+		--output text > $ENV_secrets.json  && \
+	aws secretsmanager create-secret \
+			--name ingest/$ENV/alerts \
+			--secret-string file://$ENV_secrets.json && \
+	rm $ENV_secrets.json
+	```
 1. `cd infra`
 1. `cp helm-charts/ingress/environments/dev.yaml helm-charts/ingress/environments/$ENV.yaml`
 1. Edit `helm-charts/ingress/environments/$ENV.yaml` to have values corresponding to `$ENV`
@@ -99,7 +121,7 @@ These steps assumes you have the correct aws credentials and local environment t
 	aws secretsmanager get-secret-value \
 		 --secret-id ingest/dev/secrets \
 		 --query SecretString \
-		 --output text > [](https://us-east-1.console.aws.amazon.com/route53/v2/hostedzones#%2FListRecordSets%2FZ107YJ00D5CUZR)$ENV_secrets.json  && \
+		 --output text > $ENV_secrets.json  && \
 	aws secretsmanager create-secret \
 		--name ingest/$ENV/secrets \
 		--secret-string file://$ENV_secrets.json && \
