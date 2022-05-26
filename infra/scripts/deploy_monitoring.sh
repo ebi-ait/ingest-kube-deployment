@@ -41,14 +41,14 @@ then
     echo "Performing upgrade..."
     helm upgrade ingest-monitoring helm-charts/ingest-monitoring\
         --values helm-charts/ingest-monitoring/values.yaml\
-        --set grafana.grafana.ini.server.domain=${login_url}\
-        --set grafana.grafana.ini.server.root_url=https://${login_url}\
+        --set grafana.'grafana\.ini'.server.domain=${login_url}\
+        --set grafana.'grafana\.ini'.server.root_url=https://${login_url}\
         --install
 else
     helm upgrade ingest-monitoring helm-charts/ingest-monitoring\
         --values helm-charts/ingest-monitoring/values.yaml\
-        --set grafana.grafana.ini.server.domain=${login_url}\
-        --set grafana.grafana.ini.server.root_url=https://${login_url}\
+        --set grafana.'grafana\.ini'.server.domain=${login_url}\
+        --set grafana.'grafana\.ini'.server.root_url=https://${login_url}\
         --force --install
 fi
 
