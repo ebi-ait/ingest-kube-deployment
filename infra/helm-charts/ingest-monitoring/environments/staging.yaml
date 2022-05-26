@@ -1,7 +1,0 @@
-grafana:
-  grafana.ini:
-    server:
-      domain: monitoring.ingest.dev.archive.data.humancellatlas.org
-      root_url: https://monitoring.ingest.staging.archive.data.humancellatlas.org
-      serve_from_sub_path: false
-environment: staging-environment
