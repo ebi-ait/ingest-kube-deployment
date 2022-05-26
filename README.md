@@ -78,6 +78,7 @@ These steps assumes you have the correct aws credentials and local environment t
 
 1. `ENV=<YOUR NEW ENVIRONMENT NAME`> (e.g. `ENV=testing`)
 1. `cp config/environment_template config/environment_$ENV`
+1. `cp config/replicas/environment_template config/replicas/environment_$ENV`
 1. Replace all values in  `config/environment_$ENV` marked as 'PROVIDE...' with the appropriate value
 1. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
 	- You can check existing VPC IPs in the IPv4 CIDR section of the [VPC dashboard](https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:)
