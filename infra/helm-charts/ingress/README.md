@@ -34,7 +34,7 @@ Once all of the related ingress components have been deployed through Helm relea
 
 The result of this command can be piped to the clipboard using utilities like `pbcopy` for macOS.
 
-The ingress controller hostnam  e can then be assigned to all domain names in the proper hosted zone through the AWS console:
+The ingress controller hostname can then be assigned to all domain names in the proper hosted zone through the AWS console:
 
 1. Using the AWS console, open the Route53 interface.
 1. Locate the hosted zone for the deployment environment, for example, `dev.data.humancellatlas.org`.
