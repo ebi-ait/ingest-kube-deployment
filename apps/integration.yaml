@@ -51,7 +51,7 @@ enaFtpHost: webin.ebi.ac.uk
 enaFtpDir: integration
 
 # validator
-fastqImage: quay.io/ebi-ait/fastq_utils:54bcf9f
+fastqImage: quay.io/ebi-ait/fastq_utils:d2020-09-07.1
 
 # s3 bucket
 ingestS3Region: us-east-1
