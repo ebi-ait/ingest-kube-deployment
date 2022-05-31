@@ -295,3 +295,18 @@ For more info on the restoring data, please refer to https://github.com/ebi-ait/
 ```
 $ rm -rf 2020-05-21T00_00
 ```
+
+## Helpful Resources
+- [AWS EKS Workshop](https://www.eksworkshop.com/010_introduction/)
+- [Helm getting started guide](https://helm.sh/docs/chart_template_guide/getting_started/)
+- [EKS fundamentals](https://medium.com/the-programmer/aws-eks-fundamentals-core-components-for-absolute-beginners-part1-9b16e19cedb3)
+- [k8s ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
+- [k8s Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [k8s CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)
+
+## K8s tooling
+- [K9s - beautiful CLI tool for k8s management](https://k9scli.io/)
+- [Stern - log aggregation](https://github.com/wercker/stern)
+- [kubectx - switch kubectl contexts](https://github.com/ahmetb/kubectx)
+- [kops - kubectl for clusters](https://github.com/kubernetes/kops)
+- [ekctl - provision EKS clusters quickly](https://eksctl.io/)
