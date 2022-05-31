@@ -76,7 +76,7 @@ These steps assumes you have the correct aws credentials and local environment t
 **NOTE**: You may want to skip some of these steps if the same cluster has been created previously and not completely destroyed
 
 
-1. `ENV=<YOUR NEW ENVIRONMENT NAME`> (e.g. `ENV=testing`)
+1. `export ENV=<YOUR NEW ENVIRONMENT NAME`> (e.g. `ENV=testing`)
 1. `cp config/environment_template config/environment_$ENV`
 1. `cp config/replicas/environment_template config/replicas/environment_$ENV`
 1. Replace all values in  `config/environment_$ENV` marked as 'PROVIDE...' with the appropriate value
