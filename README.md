@@ -132,7 +132,7 @@ These steps assumes you have the correct aws credentials and local environment t
 1. `cd ../infra`
 1. `make install-infra-helm-chart-ingest-monitoring`
 1. `cd ../apps`
-1. `cp `dev.yaml $ENV.yaml`
+1. `cp dev.yaml $ENV.yaml`
 1. Edit `$ENV.yaml` to correspond to your new environment
 1. `make deploy-all`
 	- This will deploy all images specified in `apps/Makefile`, you may want to deploy different images
