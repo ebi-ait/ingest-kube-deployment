@@ -32,6 +32,7 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html): `brew install aws-iam-authenticator`
+ - Ensure version `0.5.0`
 5. Install kubectl: `brew install kubernetes-cli`
 6. Install kubectx (kubens included): `brew install kubectx`
 7. Install [helm](https://github.com/kubernetes/helm): `brew install kubernetes-helm`
@@ -44,6 +45,7 @@ We have migrated to helm 3, make sure to install the correct package version (>=
 	- `tfswitch 0.12.25`
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
+	- Ensure version `0.5.0`
 5. Install kubectl: `sudo snap install kubectl --classic`
 6. Install [kubectx and kubens](https://github.com/ahmetb/kubectx).
 7. Install helm: `sudo snap install helm --classic`
