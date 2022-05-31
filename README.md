@@ -196,7 +196,7 @@ If you would like to change the dashboard for Ingest Monitoring, you must save t
 GitLab runners can be deployed to run ingest CI/CD jobs. At the time of writing they are only deployed to the `ingest-eks-dev` cluster.
 
 #### Deploy (optional)
-1. Ensure the `gitlab_group_runner_token` exists in `ingest/<ENV>/secrets
+1. Ensure the `gitlab_group_runner_token` exists in `ingest/<ENV>/secrets`
 	1. If not, you can get the value from the "Set up a group runner manually" section in [GitLab's CI/CD section](https://gitlab.ebi.ac.uk/groups/hca/-/settings/ci_cd)
 1. `source config/environment_<ENV>`
 1. `make install-infra-helm-chart-gitlab-runner`
