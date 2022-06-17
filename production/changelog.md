@@ -1,5 +1,11 @@
 # Production Changelog
 
+## 17 June 2022
+* Ontology 1.0.37
+- HCA Ontology Release-1.0.37
+* Validator prod-0ec3e066-14-04-2022.1649922784
+- no version change, redeployed to clear ontology cache
+
 ## 18 November 2021
 * Ontology 1.0.30
  - HCA Ontology Release-1.0.30
