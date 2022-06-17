@@ -296,7 +296,44 @@ For more info on the restoring data, please refer to https://github.com/ebi-ait/
 $ rm -rf 2020-05-21T00_00
 ```
 
-## Helpful Resources
+## Accessing our PostgreSQL DB instance on AWS
+
+### Installing a PostgreSQL client to your local computer
+You can use the open-source tool pgAdmin to connect to your RDS for PostgreSQL DB instance.
+You can download and install pgAdmin from http://www.pgadmin.org/.
+
+### Get the connection details for our PostgreSQL DB instance from AWS Secrets Manager
+
+1. Sign in to the [AWS Management Console](https://embl-ebi.awsapps.com/start#/) and open the AWS Secrets Manager
+2. In the filter type `database` and select the secret that corresponds with the environment you would like to connect to.
+For example: if you would like to connect to the PostgreSQL DB that is running in the `dev` cluster then select `dcp/upload/dev/database`
+3. Go to the `Secret value` box and click on the `Retrieve secret value` button
+4. We are interested in the value in the `pgbouncer_uri` field.
+You are going to see something similar: `postgresql://username:password@hostname/database_name`
+5. Please note down the above 4 values (`username`, `password`, `hostname`, `database_name`) from this field
+ 
+### Using pgAdmin to connect to a RDS for PostgreSQL DB instance
+
+1. Launch the pgAdmin application on your computer.
+2. On the Dashboard tab, choose Add New Server.
+3. In the Create - Server dialog box, type a name on the General tab to identify the server in pgAdmin.
+4. On the Connection tab, type the following information from your DB instance using the 4 values you noted down above:
+   1. Add the `hostname` to the `Hostname/address` field
+   2. The port is the default value for PostgreSQL DB: 5432
+   3. Add the `database_name` to the `Maintenance database` field
+   4. Add the `username` to the `Username` field
+   5. Add the `password` to the `Password` field
+   6. Choose Save.
+5. To access a database in the pgAdmin browser, expand Servers, the DB instance, and Databases.
+   Choose the DB instance's database name.
+
+   ![](./images/Postgres-Connect02.png)
+6. To open a panel where you can enter SQL commands, choose Tools, Query Tool.
+
+There is also an article about how to connect to PostgreSQL DB instances running on AWS here: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToPostgreSQLInstance.html
+
+
+# Helpful Resources
 - [AWS EKS Workshop](https://www.eksworkshop.com/010_introduction/)
 - [Helm getting started guide](https://helm.sh/docs/chart_template_guide/getting_started/)
 - [EKS fundamentals](https://medium.com/the-programmer/aws-eks-fundamentals-core-components-for-absolute-beginners-part1-9b16e19cedb3)
@@ -304,7 +341,7 @@ $ rm -rf 2020-05-21T00_00
 - [k8s Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - [k8s CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)
 
-## K8s tooling
+# K8s tooling
 - [K9s - beautiful CLI tool for k8s management](https://k9scli.io/)
 - [Stern - log aggregation](https://github.com/wercker/stern)
 - [kubectx - switch kubectl contexts](https://github.com/ahmetb/kubectx)
