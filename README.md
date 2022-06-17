@@ -296,3 +296,5 @@ You are going to see something similar: `postgresql://username:password@hostname
 
    ![](./images/Postgres-Connect02.png)
 6. To open a panel where you can enter SQL commands, choose Tools, Query Tool.
+
+There is also an article about how to connect to PostgreSQL DB instances running on AWS here: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToPostgreSQLInstance.html
