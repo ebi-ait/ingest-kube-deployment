@@ -19,13 +19,13 @@ tmp_path='./tmp-dashboard.json'
 cp helm-charts/ingest-monitoring/dashboards/ingest-monitoring.json $tmp_path
 
 # 2. Replace <ENV>-environment with {{ .Values.environment }} so it is properly replaced with the environment in the values/<ENVIRONMENT.yaml> file
-sed -i -E "s/(dev|prod|staging)-environment/{{ .Values.environment }}/" $tmp_path
+sed -i.bak -r "s/(dev|prod|staging)-environment/{{ .Values.environment }}/" $tmp_path
 
 # 3. Replace {{ deployment }} with {{ "{{" }} deployment {{ "}}" }} so it is properly escaped in the YAML file
-sed -i 's/{{ deployment }}/{{ "{{" }} deployment {{ "}}" }}/' $tmp_path
+sed -i.bak -r 's/{{ deployment }}/{{ "{{" }} deployment {{ "}}" }}/' $tmp_path
 
 # 4. Add proper indentation for configmap
-sed -i -E 's/^/     /'  $tmp_path
+sed -i.bak -r 's/^/     /'  $tmp_path
 
 # 5. Create the configmap
 echo '{{- template "ingest-monitoring.dashboardConfigMapHeader" }}' > $dashboard_config_map
