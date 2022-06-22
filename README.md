@@ -79,65 +79,76 @@ These steps assumes you have the correct aws credentials and local environment t
 
 
 1. `export ENV=<YOUR NEW ENVIRONMENT NAME`> (e.g. `ENV=testing`)
-1. `cp config/environment_template config/environment_$ENV`
-1. `cp config/replicas/environment_template config/replicas/environment_$ENV`
-1. Replace all values in  `config/environment_$ENV` marked as 'PROVIDE...' with the appropriate value
-1. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
-	- You can check existing VPC IPs in the IPv4 CIDR section of the [VPC dashboard](https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:)
-1. `source config/environment_$ENV`
-1. Duplicate mongo s3 access secrets from dev (this is used to restore the mongodb)
-	```bash
-	aws secretsmanager get-secret-value \
-		--secret-id ingest/dev/mongo-backup/s3-access \
-		--query SecretString \
-		--output text > $ENV_secrets.json  && \
-	aws secretsmanager create-secret \
-			--name ingest/$ENV/mongo-backup/s3-access \
-			--secret-string file://$ENV_secrets.json && \
-	rm $ENV_secrets.json
-	```
-1. Duplicate webhook url alerts (you may want to change this value afterwards)
-	```bash
-	aws secretsmanager get-secret-value \
-		--secret-id ingest/dev/alerts \
-		--query SecretString \
-		--output text > $ENV_secrets.json  && \
-	aws secretsmanager create-secret \
-			--name ingest/$ENV/alerts \
-			--secret-string file://$ENV_secrets.json && \
-	rm $ENV_secrets.json
-	```
-1. Duplicate the secrets from `ingest/dev/secrets`. You may want to change the values of these secrets later on
-	```bash
-	aws secretsmanager get-secret-value \
-		 --secret-id ingest/dev/secrets \
-		 --query SecretString \
-		 --output text > $ENV_secrets.json  && \
-	aws secretsmanager create-secret \
-		--name ingest/$ENV/secrets \
-		--secret-string file://$ENV_secrets.json && \
-	rm $ENV_secrets.json
-	```
-1. `cd infra`
-1. `cp helm-charts/ingress/environments/dev.yaml helm-charts/ingress/environments/$ENV.yaml`
-1. Edit `helm-charts/ingress/environments/$ENV.yaml` to have values corresponding to `$ENV`
-1. `make create-cluster-$ENV`
-	- Ensure the terraform changes are correct before applying
-1. Configure new DNS records:
-	1. Navigate to [Route53](https://us-east-1.console.aws.amazon.com/route53/v2/hostedzones#)
-	1. Copy the result of `kubectl get svc ingress-ingress-nginx-controller -o=jsonpath="{.status.loadBalancer.ingress[0].hostname}"` to your clipboard
-	1. Configure new DNS records to match those you created in `helm-charts/ingress/environments/$ENV.yaml` pointing to the address you copied above
-1. Create a new certificate for your new domains from the [AWS certificate manager](https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list) and replace the value for the ARN in `helm-charts/ingress/environments/$ENV.yaml` with your new ARN
-1. `make setup-ingress-$ENV`
-1. `cd ../apps`
-1. `make deploy-secrets`
-1. `cd ../infra`
-1. `make install-infra-helm-chart-ingest-monitoring`
-1. `cd ../apps`
-1. `cp dev.yaml $ENV.yaml`
-1. Edit `$ENV.yaml` to correspond to your new environment
-1. `make deploy-all`
-	- This will deploy all images specified in `apps/Makefile`, you may want to deploy different images
+2. `cp config/environment_template config/environment_$ENV`
+3. `cp config/replicas/environment_template config/replicas/environment_$ENV`
+4. Replace all values in  `config/environment_$ENV` marked as 'PROVIDE...' with the appropriate value
+5. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
+    - You can check existing VPC IPs in the IPv4 CIDR section of the [VPC dashboard](https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:)
+6. `source config/environment_$ENV`
+7. Duplicate mongo s3 access secrets from dev (this is used to restore the mongodb)
+    ```bash
+    aws secretsmanager get-secret-value \
+        --secret-id ingest/dev/mongo-backup/s3-access \
+        --query SecretString \
+        --output text > $ENV_secrets.json  && \
+    aws secretsmanager create-secret \
+            --name ingest/$ENV/mongo-backup/s3-access \
+            --secret-string file://$ENV_secrets.json && \
+    rm $ENV_secrets.json
+    ```
+8. Duplicate webhook url alerts (you may want to change this value afterwards)
+    ```bash
+    aws secretsmanager get-secret-value \
+        --secret-id ingest/dev/alerts \
+        --query SecretString \
+        --output text > $ENV_secrets.json  && \
+    aws secretsmanager create-secret \
+            --name ingest/$ENV/alerts \
+            --secret-string file://$ENV_secrets.json && \
+    rm $ENV_secrets.json
+    ```
+9. Duplicate the secrets from `ingest/dev/secrets`. You may want to change the values of these secrets later on
+    ```bash
+    aws secretsmanager get-secret-value \
+         --secret-id ingest/dev/secrets \
+         --query SecretString \
+         --output text > $ENV_secrets.json  && \
+    aws secretsmanager create-secret \
+        --name ingest/$ENV/secrets \
+        --secret-string file://$ENV_secrets.json && \
+    rm $ENV_secrets.json
+    ```
+10. `cd infra`
+11. `cp helm-charts/ingress/environments/dev.yaml helm-charts/ingress/environments/$ENV.yaml`
+12. Edit `helm-charts/ingress/environments/$ENV.yaml` to have values corresponding to `$ENV`
+13. `make create-cluster-$ENV`
+     - Ensure the terraform changes are correct before applying
+14. Configure new DNS records:
+     1. Navigate to [Route53](https://us-east-1.console.aws.amazon.com/route53/v2/hostedzones#)
+     2. Copy the result of `kubectl get svc ingress-ingress-nginx-controller -o=jsonpath="{.status.loadBalancer.ingress[0].hostname}"` to your clipboard
+     3. Configure new DNS records to match those you created in `helm-charts/ingress/environments/$ENV.yaml` pointing to the address you copied above
+        1. Create a Hosted zone with the name: $ENV.archive.data.humancellatlas.org
+        2. Create records with the following names: `ingest`, `api`, `archiver`, `monitoring` and `ontology` with the details of
+           1. Record Type: A
+           2. Value: Alias
+           3. Endpoint: Alias to Network Load Balancer
+           4. Region: us-east-1
+           5. Network Load Balancer: Paste the value from your clipboard that you generated in step ii.
+           6. Routing Policy: Simple
+        3. Create all the records for the record names listed in step b.
+15. Create a new certificate for your new domains from the 
+[AWS certificate manager](https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list)
+and replace the value for the ARN in `helm-charts/ingress/environments/$ENV.yaml` with your new ARN
+16. `make setup-ingress-$ENV`
+17. `cd ../apps`
+18. `make deploy-secrets`
+19. `cd ../infra`
+20. `make install-infra-helm-chart-ingest-monitoring`
+21. `cd ../apps`
+22. `cp dev.yaml $ENV.yaml`
+23. Edit `$ENV.yaml` to correspond to your new environment
+24. `make deploy-all`
+     - This will deploy all images specified in `apps/Makefile`, you may want to deploy different images
 
 ### Modify and deploy updated EKS and AWS infrastructure
 These steps assumes you have the correct aws credentials + local environment tools set up correctly and that you have followed the instructions to access the existing cluster.
@@ -152,7 +163,7 @@ These steps assumes you have the correct aws credentials + local environment too
 
 These steps will bring down the entire infrastructure and all the resources for your ingest kubernetes cluster and environment. This goes all the way up to the VPC that was created for this environment's cluster.
 
-1. `ENV=<ENVIRONMENT NAME TO REMOVE`> (e.g. `ENV=testing`)
+1. `export ENV=<ENVIRONMENT NAME TO REMOVE`> (e.g. `ENV=testing`)
 1. `source config/environment_$ENV`
 1. `cd infra`
 1. `make destroy-cluster-$ENV`
