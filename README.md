@@ -128,7 +128,7 @@ These steps assumes you have the correct aws credentials and local environment t
      2. Copy the result of `kubectl get svc ingress-ingress-nginx-controller -o=jsonpath="{.status.loadBalancer.ingress[0].hostname}"` to your clipboard
      3. Configure new DNS records to match those you created in `helm-charts/ingress/environments/$ENV.yaml` pointing to the address you copied above
         1. Create a Hosted zone with the name: $ENV.archive.data.humancellatlas.org
-        2. Create records with the following names: `ingest`, `api`, `archiver`, `monitoring` and `ontology` with the details of
+        2. Create records with the following names: `ingest`, `api.ingest`, `archiver`, `monitoring.ingest` and `ontology` with the details of
            1. Record Type: A
            2. Value: Alias
            3. Endpoint: Alias to Network Load Balancer
