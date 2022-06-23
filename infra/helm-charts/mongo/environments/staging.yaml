@@ -1,6 +1,0 @@
-namespace: staging-environment
-image: mongo:4.2
-ingestbackup:
-  aws:
-    s3:
-      directory: staging

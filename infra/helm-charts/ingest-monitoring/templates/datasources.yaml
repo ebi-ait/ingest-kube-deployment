@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ingest-datasources
+  name: {{ .Release.Name }}-datasources
   labels:
      grafana_datasource: "1"
 data:
@@ -10,12 +10,12 @@ data:
     datasources:
       - name: Prometheus
         type: prometheus
-        url: http://{{ .Values.prometheusIP }}:80
+        url: http://{{ .Release.Name }}-prometheus-server.{{ .Release.Namespace }}.svc.cluster.local 
         access: proxy
         isDefault: false
         editable: true
       - name: Loki
         type: loki
-        url: http://{{ .Values.lokiIP }}:3100
+        url: http://{{ .Release.Name }}-loki.{{ .Release.Namespace }}.svc.cluster.local:3100
         isDefault: true
         editable: true

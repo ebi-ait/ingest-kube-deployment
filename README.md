@@ -2,35 +2,57 @@
 
 Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
 
-## Set up local environment
+## Repository structure
+- `/apps`
+	-  ingest "applications" - deployments that provide functionality to our end users
+- `/infra`
+	- deployments, roles, service accounts, stateful sets etc. that support ingest "applications". These include things like mongo, monitoring, neo4j etc.
+	- terraform configuration for provisioning an ingest cluster
+- `/jobs`
+	-  one off jobs that can be ran
+- `/cron-jobs`
+	- regular jobs that are scheduled
+- `/config`
+	- Global configuration files used to deploy to each environment
+
+## About the cluster configuration
+- Our cluster is deployed to Amazon EKS
+- Each cluster is named `ingest-eks-<ENV>` e.g. `ingest-eks-dev`
+- The type of node and number of nodes is configured in `config/environment_<ENV>`  via `TF_VAR_node_size` and `TF_VAR_node_count`
+- Everything is deployed under one namespace of the form `<ENV>-environment` (e.g. `dev-environment`)
+
+## Development setup
+### Local environment
 We have migrated to helm 3, make sure to install the correct package version (>=3) on your system.
-### Mac
+#### Mac
 1. `git clone <this-repo-url>`
-2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html) 13.5:
+2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html) 0.12.25:
     - `brew install warrensbox/tap/tfswitch`
-    - `tfswitch 0.13.5`
+    - `tfswitch 0.12.25`
 3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html): `brew install aws-iam-authenticator`
+ - Ensure version `0.5.0`
 5. Install kubectl: `brew install kubernetes-cli`
 6. Install kubectx (kubens included): `brew install kubectx`
 7. Install [helm](https://github.com/kubernetes/helm): `brew install kubernetes-helm`
 8. `mkdir ~/.kube`
 9. Install [jq](https://stedolan.github.io/jq/) `brew install jq`
 
-### Ubuntu
+#### Ubuntu
 1. `git clone <this-repo-url>`
-2. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html).
-  - If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
+2. Install terraform via [tfswitch](https://tfswitch.warrensbox.com/Install/)
+	- `tfswitch 0.12.25`
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
+	- Ensure version `0.5.0`
 5. Install kubectl: `sudo snap install kubectl --classic`
 6. Install [kubectx and kubens](https://github.com/ahmetb/kubectx).
 7. Install helm: `sudo snap install helm --classic`
 8. `mkdir ~/.kube`
 9. Install [jq](https://stedolan.github.io/jq), if required. `sudo apt-get install jq`
 
-## Configuring AWS connection
+### Configuring AWS connection
 1. `aws configure --profile embl-ebi`
 	- See [Quickly Configure ASW CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) for `AWS Access Key ID` & `AWS Secret Access Key`
 	- Set region to `us-east-1`
@@ -41,57 +63,114 @@ role_arn = arn:aws:iam::871979166454:role/ingest-devops
 source_profile = ebi
 region = us-east-1
 ```
-
-
-## Access/Create/Modify/Destroy EKS Clusters
-
-### Access existing ingest eks cluster (aws)
+### Access existing cluster
 These steps assumes you have the correct aws credentials and local environment tools set up correctly. This only has to be run one time.
-1. `source config/environment_ENVNAME` where ENVNAME is the name of the environment you are trying to access
+
+1. `source config/environment_<ENV>` (e.g. `source config/environment_dev`)
 2. `cd infra`
-3. `make retrieve-kubeconfig-ENVNAME` where ENVNAME is the name of the environment you are trying to access
-4. `kubectl`, `kubens`, `kubectx`, and `helm` will now be tied to the cluster you have sourced in the step above.
+3. `make retrieve-kubeconfig-<ENV>` 
+4. `kubectx`
+	- Should now show `ingest-eks-<ENV>`
 
-### How to access dashboard
-These steps assumes you have the correct aws credentials + local environment tools set up correctly and that you have followed the instructions to access the existing cluster.
-1. `kubectx ingest-eks-ENVNAME` where ENVNAME is the name of the cluster environment you are trying to access
-2. Generate token:
-	`kubectl -n kube-system describe secrets/$(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
-3. Start the proxy:
-	`kubectl proxy`
-4. Browse to the dashboard endpoint at http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/overview?namespace=default
-5. Choose Token and paste token from step 2 above
-
-### Create new ingest eks cluster (aws)
+### Create new cluster
 These steps assumes you have the correct aws credentials and local environment tools set up correctly.
-These steps will set up a new ingest environment from scratch via terraform and will also apply all kubernetes monitoring and dashboard configs, RBAC role and aws auth setup.
-1. `cp config/environment_template config/environment_ENVNAME` where envname should reflect the name of the environment you are trying to create.
-2. Replace all values marked as 'PROVIDE...' with the appropriate value
-3. Ensure the aws profile name in this config is mapped to the name of the aws profile in your ~/.aws/config or ~/.aws/credentials/ path that has admin access to the relevant aws account.
-4. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
-5. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
-6. `cd infra`
-7. `make create-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to create. This step will also deploy the backend services (mongo, redis, rabbit)
-8. Follow the steps to access the kubernetes dashboard. Note that there is no server-side component (tiller) in helm 3.
-9. Follow instructions below to deploy applications.
+
+**NOTE**: You may want to skip some of these steps if the same cluster has been created previously and not completely destroyed
+
+
+1. `export ENV=<YOUR NEW ENVIRONMENT NAME`> (e.g. `ENV=testing`)
+2. `cp config/environment_template config/environment_$ENV`
+3. `cp config/replicas/environment_template config/replicas/environment_$ENV`
+4. Replace all values in  `config/environment_$ENV` marked as 'PROVIDE...' with the appropriate value
+5. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
+    - You can check existing VPC IPs in the IPv4 CIDR section of the [VPC dashboard](https://us-east-1.console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:)
+6. `source config/environment_$ENV`
+7. Duplicate mongo s3 access secrets from dev (this is used to restore the mongodb)
+    ```bash
+    aws secretsmanager get-secret-value \
+        --secret-id ingest/dev/mongo-backup/s3-access \
+        --query SecretString \
+        --output text > $ENV_secrets.json  && \
+    aws secretsmanager create-secret \
+            --name ingest/$ENV/mongo-backup/s3-access \
+            --secret-string file://$ENV_secrets.json && \
+    rm $ENV_secrets.json
+    ```
+8. Duplicate webhook url alerts (you may want to change this value afterwards)
+    ```bash
+    aws secretsmanager get-secret-value \
+        --secret-id ingest/dev/alerts \
+        --query SecretString \
+        --output text > $ENV_secrets.json  && \
+    aws secretsmanager create-secret \
+            --name ingest/$ENV/alerts \
+            --secret-string file://$ENV_secrets.json && \
+    rm $ENV_secrets.json
+    ```
+9. Duplicate the secrets from `ingest/dev/secrets`. You may want to change the values of these secrets later on
+    ```bash
+    aws secretsmanager get-secret-value \
+         --secret-id ingest/dev/secrets \
+         --query SecretString \
+         --output text > $ENV_secrets.json  && \
+    aws secretsmanager create-secret \
+        --name ingest/$ENV/secrets \
+        --secret-string file://$ENV_secrets.json && \
+    rm $ENV_secrets.json
+    ```
+10. `cd infra`
+11. `cp helm-charts/ingress/environments/dev.yaml helm-charts/ingress/environments/$ENV.yaml`
+12. Edit `helm-charts/ingress/environments/$ENV.yaml` to have values corresponding to `$ENV`
+13. `make create-cluster-$ENV`
+     - Ensure the terraform changes are correct before applying
+14. Configure new DNS records:
+     1. Navigate to [Route53](https://us-east-1.console.aws.amazon.com/route53/v2/hostedzones#)
+     2. Copy the result of `kubectl get svc ingress-ingress-nginx-controller -o=jsonpath="{.status.loadBalancer.ingress[0].hostname}"` to your clipboard
+     3. Configure new DNS records to match those you created in `helm-charts/ingress/environments/$ENV.yaml` pointing to the address you copied above
+        1. Create a Hosted zone with the name: $ENV.archive.data.humancellatlas.org
+        2. Create records with the following names: `ingest`, `api.ingest`, `archiver`, `monitoring.ingest` and `ontology` with the details of
+           1. Record Type: A
+           2. Value: Alias
+           3. Endpoint: Alias to Network Load Balancer
+           4. Region: us-east-1
+           5. Network Load Balancer: Paste the value from your clipboard that you generated in step ii.
+           6. Routing Policy: Simple
+        3. Create all the records for the record names listed in step b.
+15. Create a new certificate for your new domains from the 
+[AWS certificate manager](https://us-east-1.console.aws.amazon.com/acm/home?region=us-east-1#/certificates/list)
+and replace the value for the ARN in `helm-charts/ingress/environments/$ENV.yaml` with your new ARN
+16. `make setup-ingress-$ENV`
+17. `cd ../apps`
+18. `make deploy-secrets`
+19. `cd ../infra`
+20. `make install-infra-helm-chart-ingest-monitoring`
+21. `cd ../apps`
+22. `cp dev.yaml $ENV.yaml`
+23. Edit `$ENV.yaml` to correspond to your new environment
+24. `make deploy-all`
+     - This will deploy all images specified in `apps/Makefile`, you may want to deploy different images
 
 ### Modify and deploy updated EKS and AWS infrastructure
 These steps assumes you have the correct aws credentials + local environment tools set up correctly and that you have followed the instructions to access the existing cluster.
-1. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment you are trying to modify.
-2. Update infra/eks.tf as desired.
-2. `cd infra`
-3. `make modify-cluster-ENVNAME` where ENVNAME reflects the name of the environment you are trying to modify.
+
+1. `source config/environment_<ENV>`
+1. Update infra/eks.tf as desired
+1. `cd infra`
+1. `make modify-cluster-<ENV>` 
 
 ### Destroy ingest eks cluster (aws)
 These steps assumes you have the correct aws credentials + local environment tools set up correctly and that you have followed the instructions to access the existing cluster.
-These steps will bring down the entire infrastructure and all the resources for your ingest kubernetes cluster and environment. This goes all the way up to the VPC that was created for this environment's cluster.
-1. Follow setups 2-5 in 'Create new ingest eks cluster (aws)' if config/environment_ENVNAME does not exist where ENVNAME is the environment you are trying to destroy
-2. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
-3. `cd infra`
-4. `make destroy-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to destroy
-*Note*: The system could encounter an error (most likely a timeout) during the destroy operation. Failing to remove some resources such as the VPC, network interfaces, etc. can be tolerated if the ultimate goal is to rebuild the cluster. In the case VPC, for example, the EKS cluster will just reuse it once recreated.
 
-#### Reusing Undeleted Network Components
+These steps will bring down the entire infrastructure and all the resources for your ingest kubernetes cluster and environment. This goes all the way up to the VPC that was created for this environment's cluster.
+
+1. `export ENV=<ENVIRONMENT NAME TO REMOVE`> (e.g. `ENV=testing`)
+1. `source config/environment_$ENV`
+1. `cd infra`
+1. `make destroy-cluster-$ENV`
+	*Note*: The system could encounter an error (most likely a timeout) during the destroy operation. Failing to remove some resources such as the VPC, network interfaces, etc. can be tolerated if the ultimate goal is to rebuild the cluster. In the case VPC, for example, the EKS cluster will just reuse it once recreated.
+1. `aws secretsmanager delete-secret --secret-id `ingest/$ENV/secrets`
+
+### Reusing Undeleted Network Components
 
 The Terraform manifest declares some network components like the VPC and subnets, that for some reason refuse to get delete during the destroy operation. This operation needs some work to improve, but at the meantime, a workaround is suggested below.
 
@@ -101,40 +180,44 @@ For example, in dev, the CIDR is set to `10.40.0.0/16`. The Terraform manifest a
 
     cidr_block        = "10.40.${count.index}.0/24"
 
-
-## Install and Upgrade Core Ingest Backend Services (mongo, redis, rabbit)
-
-### Install backend services (mongo, redis, rabbit)
+### Install all backend services (mongo, redis, rabbit, ingest-monitoring, etc)
 1. `cd infra`
-2. `make deploy-backend-services-ENVNAME` where ENVNAME is the name of the environment you are trying to create.
+2. `make deploy-backend-services-<ENV>`
 
-### Upgrade backend services (mongo, redis, rabbit)
-Coming soon
-
-## Install Ingest Monitoring Dashboard (Grafana, Prometheus)
-1. `source config/environment_ENVNAME`
+### Ingest Monitoring
+#### Install
+1. `source config/environment_<ENV>`
 2. `cd infra`
 3. `make install-infra-helm-chart-ingest-monitoring`
 4. `kubectl get secret aws-keys -o jsonpath="{.data.grafana-admin-password}" | base64 --decode`
   - Copy the result to your clipboard
-5. Navigate to `https://monitoring.ingest.ENVNAME.archive.data.humancellatlas.org`
+5. Navigate to `https://monitoring.ingest.<ENV>.archive.data.humancellatlas.org`
   - Login with `admin` and the result from step 4
 
-### Upgrading Ingest Monitoring Dashboard
+#### Upgrade
 If you would like to change the dashboard for Ingest Monitoring, you must save the JSON file in this repo and deploy it.
 
 1. Make the changes to the dashboard in any environment
 2. Copy the dashboard's JSON model to the clipboard
   - dashboard settings (cog at top) -> JSON model
 3. Replace the contents of `infra/helm-charts/ingest-monitoring/dashboards/ingest-monitoring.json` with the contents of your clipboard
-4. `source config/environment_ENVNAME`
+4. `source config/environment_<ENV>`
 4. `cd infra && make upgrade upgrade-infra-helm-chart-ingest-monitoring` 
   - The script will replace any references to e.g. prod-environment with the environment you are deploying to. 
+
+### GitLab Runner
+GitLab runners can be deployed to run ingest CI/CD jobs. At the time of writing they are only deployed to the `ingest-eks-dev` cluster.
+
+#### Deploy (optional)
+1. Ensure the `gitlab_group_runner_token` exists in `ingest/<ENV>/secrets`
+	1. If not, you can get the value from the "Set up a group runner manually" section in [GitLab's CI/CD section](https://gitlab.ebi.ac.uk/groups/hca/-/settings/ci_cd)
+1. `source config/environment_<ENV>`
+1. `make install-infra-helm-chart-gitlab-runner`
 
 ### Vertical autoscaling
 Vertical autoscaling can be deployed to give recommendations on CPU and memory constraints for containers. See `infra/vertical-autoscaling/README.md`.
 
-## Deploy CRON jobs
+### Deploy CRON jobs
 CRON jobs are located in `cron-jobs/`. Further details for deploying and updating CRON jobs are located in `cron-jobs/README.md` and details on individual CRON jobs are found in their helm chart's READMEs.
 
 They can be deployed all at once by running:
@@ -143,65 +226,26 @@ They can be deployed all at once by running:
 2. `cd cron-jobs`
 3. `./deploy-all.sh`
 
-## Deploy and Upgrade Ingest Applications
+### Deploy and Upgrade Ingest Applications
 Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but you can still manually deploy if required (see below). However, `ontology` is not deployed by Gitlab but there is a special command for deploying ontology (see below).
 
-### Manually deploy one kubernetes dockerized applications to an environment (aws)
-1. Make sure you have followed the instructions above to create or access an existing eks cluster
-2. `source config/environment_ENVNAME`
-3. `cd apps`
-4. `make deploy-app-APPNAME image=IMAGE_NAME` where APPNAME is the name of the ingest application. and IMAGE_NAME is the image you want to deploy For example, `make deploy-app-ingest-core image=quay.io/ebi-ait/ingest-core:1c1f6ab9`
+### Manually deploy one ingest application
+1 `source config/environment_<ENV>`
+1. `cd apps`
+1. `make deploy-app-APPNAME image=IMAGE_NAME` E.g. `make deploy-app-ingest-core image=quay.io/ebi-ait/ingest-core:1c1f6ab9`
 
 ### Deploy ontology
-1. Make sure you have followed the instructions above to create or access an existing eks cluster
-2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
-3. `cd apps`
-4. `make deploy-ontology`
+1. Change the branch or tag in `config/environment_<ENV>`
+1. `cd apps`
+1. `make deploy-ontology`
 
-
-
-**Notes on Fresh Installation**
-
-Before running the script to redeploy all ingest components, make sure that secrets have been properly defined in the AWS security manager. At the time of writing, the following secrets are required to be defined in `dcp/ingest/<deployment_env>/secrets` to ensure that deployments go smoothly:
-
-* `emails`
-* `staging_api_key` (retrieve this from `dcp/upload/staging/secrets`)
-* `exporter_auth_info`
-*  `ingest-monitoring`
----
-
-1. Make sure you have followed the instructions above to create or access an existing eks cluster
-2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
-3. `cd apps`
-4. `make deploy-all-apps` where APPNAME is the name of the ingest application.
-
-### After Deployment
-
-All requests to the Ingest cluster go through the Ingress controller. Any outward facing service needs to be mapped to the Ingress service for it to work correctly. This is set through the AWS Route 53 mapping.
-
-1. The first step is to retrieve the external IP of the Ingress service load balancer. This can be done using `kubectl get services -l app=nginx-ingress`.
-2. Copy the external IP and go the Route 53 service dashboard on the AWS Web console.
-3. From the Hosted Zones, search for `<deployment_env>.data.humancellatlas.org` and search for Ingest related records.
-4. Update each record to use the Ingress load balancer external IP as alias.
-5. To ensure that each record are set correctly, run a quick test using the Test Record Set facility on the AWS Web console.
-
-## Deploy cloudwatch log exporter
+### Deploy cloudwatch log exporter
 1. Make sure you have followed the instructions above to create or access an existing eks cluster
 2. Source the configuration file for the environment
 3. Make sure the secrets api-keys and aws-keys are deployed substituted with valid base64 encoded values
 4. `cd infra` and `make install-infra-helm-chart-fluentd-cloudwatch`
 
-## CI/CD Setup
-
-### Promote one application environment configurations to another (ie dev => integration)
-Coming soon
-
-## Local Setup
-
-### Local deployment with Minikube
-Coming soon
-
-## Accessing RabbitMQ Management UI
+### Accessing RabbitMQ Management UI
 tldr: Use this command: `kubectl port-forward rabbit-0 15672:15672`
 
 `kubectl port-forward <localhost-port>:15672`
@@ -214,14 +258,14 @@ https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-
 3. Access the RabbitMQ Management UI
 `kubectl port-forward rabbit-0 15672:15672`
 
-## Accessing Mongo DB container
-### SSH into the container
+### Mongo help
+#### SSH into the container
 
 ```bash
 kubectl exec -it mongo-0 -- sh
 ```
 
-### Using a MongoDB Client
+#### Using a MongoDB Client
 
 1. setup port forwarding
 ```bash
@@ -230,7 +274,7 @@ kubectl port-forward mongo-0 27017:27017
 
 2. connect to `mongodb://localhost:27017/admin`
 
-### Restoring Mongo DB backup
+#### Restoring Mongo DB backup
 
 1. Download the latest compressed directory of backup from s3 bucket `ingest-db-backup`
 2. Copy the backup to the mongo pod.
@@ -298,3 +342,19 @@ You are going to see something similar: `postgresql://username:password@hostname
 6. To open a panel where you can enter SQL commands, choose Tools, Query Tool.
 
 There is also an article about how to connect to PostgreSQL DB instances running on AWS here: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToPostgreSQLInstance.html
+
+
+# Helpful Resources
+- [AWS EKS Workshop](https://www.eksworkshop.com/010_introduction/)
+- [Helm getting started guide](https://helm.sh/docs/chart_template_guide/getting_started/)
+- [EKS fundamentals](https://medium.com/the-programmer/aws-eks-fundamentals-core-components-for-absolute-beginners-part1-9b16e19cedb3)
+- [k8s ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
+- [k8s Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [k8s CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/)
+
+# K8s tooling
+- [K9s - beautiful CLI tool for k8s management](https://k9scli.io/)
+- [Stern - log aggregation](https://github.com/wercker/stern)
+- [kubectx - switch kubectl contexts](https://github.com/ahmetb/kubectx)
+- [kops - kubectl for clusters](https://github.com/kubernetes/kops)
+- [ekctl - provision EKS clusters quickly](https://eksctl.io/)

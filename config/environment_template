@@ -6,10 +6,11 @@ set -a
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
 ONTOLOGY_REF=PROVIDE_IMAGE_OR_BRANCH_NAME
+FASTQ_VALIDATOR_IMAGE=quay.io/ebi-ait/fastq_utils:54bcf9f
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
-AWS_PROFILE=PROVIDE_YOUR_OWN_VALUE
-TF_VAR_ops_role=PROVIDE_YOUR_OWN_VALUE
+AWS_PROFILE=embl-ebi
+TF_VAR_ops_role=ingest-devops
 # Make sure the vpc ip below is unique
 TF_VAR_vpc_cidr_block=PROVIDE_UNIQUE_VPC_IP_VALUE
 

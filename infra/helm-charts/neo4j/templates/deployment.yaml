@@ -5,7 +5,7 @@ metadata:
   labels:
     role: ingestion
   name: neo4j
-  namespace: "{{ .Values.namespace }}"
+  namespace: "{{ .Release.Namespace }}"
 spec:
   replicas: 1
   selector:

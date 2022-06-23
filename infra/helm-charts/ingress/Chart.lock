@@ -1,6 +1,6 @@
 dependencies:
-- name: nginx-ingress
-  repository: https://charts.helm.sh/stable
-  version: 1.37.0
-digest: sha256:065c9ff88eb5fe72ae5da62b24cc1c79131ae123c0e2ac32e5044afbb1f651a0
-generated: "2021-05-17T13:30:23.032380803+02:00"
+- name: ingress-nginx
+  repository: https://kubernetes.github.io/ingress-nginx
+  version: 4.1.1
+digest: sha256:a203b1d9480c8de921481385737e5441c7c227924e4540df51b09cbf10c8d94d
+generated: "2022-05-23T15:50:26.934400156+01:00"

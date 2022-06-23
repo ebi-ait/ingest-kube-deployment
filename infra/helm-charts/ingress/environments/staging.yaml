@@ -16,7 +16,7 @@ ingress:
       - service: ingest-monitoring-grafana
         hostname: monitoring.ingest.staging.archive.data.humancellatlas.org
 
-nginx-ingress:
+ingress-nginx:
   controller:
     service:
       annotations:

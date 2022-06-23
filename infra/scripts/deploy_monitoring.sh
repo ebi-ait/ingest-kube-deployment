@@ -1,7 +1,4 @@
 #!/bin/bash
-
-prometheus_IP=$(kubectl get svc -n gitlab-managed-apps -o jsonpath="{.items[?(@.metadata.name=='prometheus-prometheus-server')].spec.clusterIP}")
-
 login_username=$(kubectl get secret aws-keys -o jsonpath="{.data.grafana-admin-username}" | base64 --decode)
 login_password=$(kubectl get secret aws-keys -o jsonpath="{.data.grafana-admin-password}" | base64 --decode)
 login_url="https://monitoring.ingest.${DEPLOYMENT_STAGE}.archive.data.humancellatlas.org"
@@ -22,13 +19,13 @@ tmp_path='./tmp-dashboard.json'
 cp helm-charts/ingest-monitoring/dashboards/ingest-monitoring.json $tmp_path
 
 # 2. Replace <ENV>-environment with {{ .Values.environment }} so it is properly replaced with the environment in the values/<ENVIRONMENT.yaml> file
-sed -i -E "s/(dev|prod|staging)-environment/{{ .Values.environment }}/" $tmp_path
+sed -i.bak -r "s/(dev|prod|staging)-environment/{{ .Values.environment }}/" $tmp_path
 
 # 3. Replace {{ deployment }} with {{ "{{" }} deployment {{ "}}" }} so it is properly escaped in the YAML file
-sed -i 's/{{ deployment }}/{{ "{{" }} deployment {{ "}}" }}/' $tmp_path
+sed -i.bak -r 's/{{ deployment }}/{{ "{{" }} deployment {{ "}}" }}/' $tmp_path
 
 # 4. Add proper indentation for configmap
-sed -i -E 's/^/     /'  $tmp_path
+sed -i.bak -r 's/^/     /'  $tmp_path
 
 # 5. Create the configmap
 echo '{{- template "ingest-monitoring.dashboardConfigMapHeader" }}' > $dashboard_config_map
@@ -36,28 +33,29 @@ echo '{{- template "ingest-monitoring.dashboardConfigMapHeader" }}' > $dashboard
 # 6. Append the dashboard JSON to the config map
 cat $tmp_path >> $dashboard_config_map
 
+helm dependency update helm-charts/ingest-monitoring
+helm package helm-charts/ingest-monitoring
 
 if [[ $* == '--upgrade' ]]
 then
     echo "Performing upgrade..."
     helm upgrade ingest-monitoring helm-charts/ingest-monitoring\
-        --set prometheusIP=$prometheus_IP\
         --values helm-charts/ingest-monitoring/values.yaml\
-        --values helm-charts/ingest-monitoring/environments/$DEPLOYMENT_STAGE.yaml\
+        --set grafana.'grafana\.ini'.server.domain=${login_url}\
+        --set grafana.'grafana\.ini'.server.root_url=https://${login_url}\
         --install
 else
     helm upgrade ingest-monitoring helm-charts/ingest-monitoring\
-        --set prometheusIP=$prometheus_IP\
         --values helm-charts/ingest-monitoring/values.yaml\
-        --values helm-charts/ingest-monitoring/environments/$DEPLOYMENT_STAGE.yaml\
+        --set grafana.'grafana\.ini'.server.domain=${login_url}\
+        --set grafana.'grafana\.ini'.server.root_url=https://${login_url}\
         --force --install
 fi
 
 # Remove the temporarily created config map and JSON file
 rm $dashboard_config_map
 rm $tmp_path
-
-
+rm *.tgz
 
 echo "Monitoring deployed!"
 echo "===================="

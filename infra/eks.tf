@@ -47,6 +47,8 @@ locals {
     Env         = "${var.deployment_stage}"
     CreatedBy   = "terraform"
   }
+
+  cluster_name =  "ingest-eks-${var.deployment_stage}"
 }
 
 
@@ -84,14 +86,20 @@ resource "aws_vpc" "ingest_eks" {
     }
 	)
 
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
+
 }
 
 resource "aws_subnet" "ingest_eks" {
   count = 2
 
   availability_zone = var.availability_zones[count.index]
-  cidr_block        = "${cidrhost(var.vpc_cidr_block, 256 * count.index + 1)}/24"
+  cidr_block        = "${cidrhost(var.vpc_cidr_block, 256 * count.index)}/24"
   vpc_id            = aws_vpc.ingest_eks.id
+  map_public_ip_on_launch = true
 
   tags = merge(
 	  local.default_tags,
@@ -100,6 +108,11 @@ resource "aws_subnet" "ingest_eks" {
 			"kubernetes.io/cluster/ingest-eks-${var.deployment_stage}"  = "shared"
     }
 	)
+
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 
 }
 
@@ -112,6 +125,11 @@ resource "aws_internet_gateway" "ingest_eks" {
 		  "Name" = "ingest-eks-${var.deployment_stage}"
     }
 	)
+
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }
 
 resource "aws_route_table" "ingest_eks" {
@@ -123,6 +141,11 @@ resource "aws_route_table" "ingest_eks" {
   }
 
   tags = local.default_tags
+
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }
 
 // no tags support
@@ -151,6 +174,11 @@ resource "aws_security_group" "ingest_eks_cluster" {
 		  "Name" = "ingest-eks-${var.deployment_stage}"
     }
 	)
+
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 }
 
 // no tags support
@@ -187,6 +215,10 @@ resource "aws_iam_role" "ingest_eks_cluster" {
 POLICY
 
   tags = local.default_tags
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 
 }
 
@@ -201,12 +233,41 @@ resource "aws_iam_role_policy_attachment" "ingest_eks_service_policy" {
   role       = aws_iam_role.ingest_eks_cluster.name
 }
 
-////
-// Cluster and Node setup
-//
+resource "aws_iam_role" "ingest_eks_node_group" {
+  name = "ingest-eks-node-group-${var.deployment_stage}"
 
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "ec2.amazonaws.com"
+      }
+    }]
+    Version = "2012-10-17"
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ingest_eks_node_group-AmazonEKSWorkerNodePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role       = aws_iam_role.ingest_eks_node_group.name
+}
+
+resource "aws_iam_role_policy_attachment" "ingest_eks_node_group-AmazonEKS_CNI_Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.ingest_eks_node_group.name
+}
+
+resource "aws_iam_role_policy_attachment" "ingest_eks_node_group-AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.ingest_eks_node_group.name
+}
+
+////
+// Cluster setup
+//
 resource "aws_eks_cluster" "ingest_eks" {
-  name     = "ingest-eks-${var.deployment_stage}"
+  name     = local.cluster_name
   role_arn = aws_iam_role.ingest_eks_cluster.arn
 
   vpc_config {
@@ -217,58 +278,86 @@ resource "aws_eks_cluster" "ingest_eks" {
   depends_on = [
     aws_iam_role_policy_attachment.ingest_eks_cluster_policy,
     aws_iam_role_policy_attachment.ingest_eks_service_policy,
+    aws_cloudwatch_log_group.eks_cluster_cloudwatch
   ]
 
   tags = local.default_tags
 
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
+
+  enabled_cluster_log_types = ["api", "audit"]
+
+}
+
+resource "aws_cloudwatch_log_group" "eks_cluster_cloudwatch" {
+  # The log group name format is /aws/eks/<cluster-name>/cluster
+  # Reference: https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html
+  name              = "/aws/eks/${local.cluster_name}/cluster"
+  retention_in_days = 30
+
+  # ... potentially other configuration ...
 }
 
 ////
-// Worker node IAM setup
+// Node Group setup
 //
+resource "aws_eks_node_group" "ingest_eks" {
+  cluster_name    = aws_eks_cluster.ingest_eks.name
+  node_group_name = "ingest-eks-${var.deployment_stage}-node-group"
+  node_role_arn   = aws_iam_role.ingest_eks_node_group.arn
+  subnet_ids      = aws_subnet.ingest_eks[*].id
+  launch_template {
+    name = aws_launch_template.ingest_eks.name
+    version = "$Latest"
+  }
+  scaling_config {
+    desired_size = var.node_count
+    max_size     = 5
+    min_size     = 1
+  }
 
-resource "aws_iam_role" "ingest_eks_node" {
-  name = "ingest-eks-node-${var.deployment_stage}"
-
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
+  # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
+  # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
+  depends_on = [
+    aws_iam_role_policy_attachment.ingest_eks_node_group-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.ingest_eks_node_group-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.ingest_eks_node_group-AmazonEC2ContainerRegistryReadOnly,
   ]
 }
-POLICY
 
-  tags = local.default_tags
+resource "aws_launch_template" "ingest_eks" {
+  name_prefix                 = "ingest-eks-${var.deployment_stage}"
 
+  image_id = data.aws_ssm_parameter.eksami.value
+  instance_type = var.node_size
+  key_name                    = aws_key_pair.ingest_eks.key_name
+  vpc_security_group_ids =  [aws_security_group.ingest_eks_node.id]
+
+  monitoring {
+    enabled = true
+  }
+
+  user_data = base64encode(local.ingest-node-userdata)
+
+  lifecycle {
+    create_before_destroy=true
+  }
 }
 
-// no tags required for policy attachment resource type
-resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEKSWorkerNodePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.ingest_eks_node.name
+data "aws_ssm_parameter" "eksami" {
+  name=format("/aws/service/eks/optimized-ami/%s/amazon-linux-2/recommended/image_id", aws_eks_cluster.ingest_eks.version)
 }
 
-resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEKS_CNI_Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.ingest_eks_node.name
-}
+locals {
+  ingest-node-userdata = <<USERDATA
+#!/bin/bash
+set -o xtrace
+/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.ingest_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.ingest_eks.certificate_authority[0].data}' 'ingest-eks-${var.deployment_stage}' --kubelet-extra-args "--kube-reserved cpu=250m,memory=1Gi,ephemeral-storage=1Gi --system-reserved cpu=250m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard memory.available<0.2Gi,nodefs.available<10%"
+USERDATA
 
-resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEC2ContainerRegistryReadOnly" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.ingest_eks_node.name
-}
-
-// no tags support
-resource "aws_iam_instance_profile" "ingest_eks_node" {
-  name = "terraform-eks-node-${var.deployment_stage}"
-  role = aws_iam_role.ingest_eks_node.name
 }
 
 ////
@@ -294,6 +383,10 @@ resource "aws_security_group" "ingest_eks_node" {
 			"ingest-eks-${var.deployment_stage}" = "owned"
     }
 	)
+  #This is very important, as it tells terraform to not mess with tags created outside of terraform
+  lifecycle {
+    ignore_changes = ["tags"]
+  }
 
 }
 
@@ -339,79 +432,6 @@ resource "aws_security_group_rule" "ingest_eks_cluster_allow_ssh" {
 }
 
 ////
-// Worker Node Instance Setup
-//
-
-data "aws_region" "current" {
-}
-
-data "aws_ami" "eks_worker" {
-  filter {
-    name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.ingest_eks.version}-v*"]
-  }
-
-  most_recent = true
-  owners      = ["602401143452"] # Amazon EKS AMI Account ID
-}
-
-locals {
-  ingest-node-userdata = <<USERDATA
-#!/bin/bash
-set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.ingest_eks.endpoint}' --b64-cluster-ca '${aws_eks_cluster.ingest_eks.certificate_authority[0].data}' 'ingest-eks-${var.deployment_stage}' --kubelet-extra-args "--kube-reserved cpu=250m,memory=1Gi,ephemeral-storage=1Gi --system-reserved cpu=250m,memory=0.2Gi,ephemeral-storage=1Gi --eviction-hard memory.available<0.2Gi,nodefs.available<10%"
-USERDATA
-
-}
-
-// no tags support for resource type; identify by name prefix
-resource "aws_launch_configuration" "ingest_eks" {
-  associate_public_ip_address = true
-  iam_instance_profile        = aws_iam_instance_profile.ingest_eks_node.name
-  image_id                    = data.aws_ami.eks_worker.id
-  instance_type               = var.node_size
-  name_prefix                 = "ingest-eks-${var.deployment_stage}"
-  security_groups             = [aws_security_group.ingest_eks_node.id]
-  user_data_base64            = base64encode(local.ingest-node-userdata)
-  key_name                    = aws_key_pair.ingest_eks.key_name
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_autoscaling_group" "ingest_eks" {
-  desired_capacity     = var.node_count
-  launch_configuration = aws_launch_configuration.ingest_eks.id
-  max_size             = 4
-  min_size             = var.node_count
-  name                 = "ingest-eks-${var.deployment_stage}"
-  vpc_zone_identifier  = aws_subnet.ingest_eks.*.id
-
-  tag {
-    key                 = "Name"
-    value               = "ingest-eks-${var.deployment_stage}"
-    propagate_at_launch = true
-  }
-  
-  tag {
-    key                 = "kubernetes.io/cluster/ingest-eks-${var.deployment_stage}"
-    value               = "owned"
-    propagate_at_launch = true
-  }
-
-  dynamic "tag" {
-    for_each = local.default_tags
-    content { 
-      key       = tag.key
-      value     = tag.value
-      propagate_at_launch = true 
-    }
-  }
-
-}
-
-////
 // Config Outputs
 //
 
@@ -435,7 +455,7 @@ users:
 - name: ingest-eks-${var.deployment_stage}
   user:
     exec:
-      apiVersion: client.authentication.k8s.io/v1alpha1
+      apiVersion: client.authentication.k8s.io/v1beta1
       command: aws-iam-authenticator
       args:
         - "token"
@@ -458,7 +478,7 @@ metadata:
   namespace: kube-system
 data:
   mapRoles: |
-    - rolearn: ${aws_iam_role.ingest_eks_node.arn}
+    - rolearn: ${aws_iam_role.ingest_eks_node_group.arn}
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
@@ -467,6 +487,12 @@ data:
       username: ops-user
       groups:
         - system:masters
+  mapUsers: |
+    - groups:
+        - system:masters
+      userarn: arn:aws:iam::871979166454:user/sa-ait-hca-eks-admin
+      username: ops-user
+
 CONFIGMAPAWSAUTH
 
 }

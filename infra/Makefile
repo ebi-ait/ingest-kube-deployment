@@ -18,6 +18,7 @@ deploy-backend-services-%:
 	$(MAKE) install-infra-helm-chart-mongo
 	$(MAKE) install-infra-helm-chart-rabbit
 	$(MAKE) install-infra-helm-chart-redis
+	$(MAKE) install-infra-helm-chart-vertical-autoscaling
 	$(MAKE) setup-ingress-$(*)
 
 modify-cluster-%:
@@ -91,7 +92,7 @@ upgrade-infra-helm-chart-vertical-autoscaling:
 
 install-infra-helm-chart-%:
 	cd helm-charts && helm dependency update $(*) && helm package $(*)
-	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade --values $(*)/values.yaml --values $(*)/environments/$(deployment_stage).yaml $(*) ./$(*) --force --install
+	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade --values $(*)/values.yaml  $(*) ./$(*) --force --install
 	cd helm-charts && rm *.tgz
 
 apply-dashboard-configs-%:
