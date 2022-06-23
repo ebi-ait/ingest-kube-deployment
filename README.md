@@ -153,23 +153,7 @@ Deployments are automatically handled by [Gitlab](https://gitlab.ebi.ac.uk/) but
 4. `make deploy-app-APPNAME image=IMAGE_NAME` where APPNAME is the name of the ingest application. and IMAGE_NAME is the image you want to deploy For example, `make deploy-app-ingest-core image=quay.io/ebi-ait/ingest-core:1c1f6ab9`
 
 ### Deploy ontology
-1. configure your aws credentials
-2. create a [personal access token in gitlab](https://gitlab.ebi.ac.uk/-/profile/personal_access_tokens)
-3. run for dev environment
-```bash
-cd ./infra
-./scripts/deploy_ontology.sh -v $ONTOLOGY_VERSION -e dev -g $GITLAB_TOKEN
-```
-4. check integration tests are successful
-5. repeat steps 3-4 for staging and prod
-```bash
-cd ./infra
-./scripts/deploy_ontology.sh -v $ONTOLOGY_VERSION -e staging -g $GITLAB_TOKEN
-./scripts/deploy_ontology.sh -v $ONTOLOGY_VERSION -e prod -g $GITLAB_TOKEN
-6. update status of new ontology ticket on the Ops board.
-```
-
-
+See [docs](https://github.com/ebi-ait/hca-ebi-dev-team/blob/master/docs/operations_tasks/HCAO-release.md)
 
 **Notes on Fresh Installation**
 
