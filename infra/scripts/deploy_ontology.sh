@@ -75,7 +75,7 @@ echo -e "${GRN}Commit and push your config and release notes${NC}"
 
 git add ../config/environment_${DEPLOYMENT_STAGE}
 
-git commit -m "install HCA ontology ${ONTOLOGY_VERSION}"
+git commit -m "install HCA ontology ${ONTOLOGY_VERSION} ${DEPLOYMENT_STAGE}"
 
 if [[ "${GITLAB_TOKEN}" != "" ]]
 then
