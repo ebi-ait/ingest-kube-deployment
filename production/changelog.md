@@ -1,5 +1,11 @@
 # Production Changelog
 
+## 10 August 2022
+- Ontology 1.0.41
+  - HCA Ontology Release-1.0.41
+- Validator quay.io/ebi-ait/ingest-validator:prod-0ec3e066-14-04-2022.1649922784
+  - no version change, redeployed to clear ontology cache
+
 ## 29 July 2022
 - Ontology 1.0.40
   - HCA Ontology Release-1.0.40
