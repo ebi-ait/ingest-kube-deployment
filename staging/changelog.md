@@ -1,5 +1,11 @@
 # Staging Changelog
 
+## 23 January 2023
+- Ontology 1.0.47
+  - HCA Ontology Release-1.0.47
+- Validator quay.io/ebi-ait/ingest-validator:staging-0ec3e066-11-04-2022.1649691632
+  - no version change, redeployed to clear ontology cache
+
 ## 20 December 2022
 - Ontology 1.0.46
   - HCA Ontology Release-1.0.46
