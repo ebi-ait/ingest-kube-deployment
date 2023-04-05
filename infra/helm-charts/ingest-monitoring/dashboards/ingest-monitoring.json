@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1625225709784,
+  "iteration": 1680707331496,
   "links": [],
   "panels": [
     {
@@ -1038,8 +1037,8 @@
       "scopedVars": {
         "containers": {
           "selected": true,
-          "text": "ingest-ui",
-          "value": "ingest-ui"
+          "text": "ingest-core",
+          "value": "ingest-core"
         }
       },
       "title": "Container Stats",
@@ -1105,13 +1104,13 @@
       "scopedVars": {
         "containers": {
           "selected": true,
-          "text": "ingest-ui",
-          "value": "ingest-ui"
+          "text": "ingest-core",
+          "value": "ingest-core"
         }
       },
       "targets": [
         {
-          "expr": "count_over_time(({container=\"$containers\", stream=~\"stderr|stdout\"} |~ \"error\")[24h])",
+          "expr": "count_over_time(({container=\"$containers\", stream=~\"stderr|stdout\"} |~ \"error|ERROR\")[24h])",
           "instant": true,
           "range": false,
           "refId": "A"
@@ -1185,13 +1184,13 @@
       "scopedVars": {
         "containers": {
           "selected": true,
-          "text": "ingest-ui",
-          "value": "ingest-ui"
+          "text": "ingest-core",
+          "value": "ingest-core"
         }
       },
       "targets": [
         {
-          "expr": "count_over_time(({container=\"$containers\"} |= \"error\")[1m])",
+          "expr": "count_over_time(({container=\"$containers\"} |~ \"error|ERROR\")[1m])",
           "instant": false,
           "range": true,
           "refId": "A"
@@ -1252,8 +1251,8 @@
       "scopedVars": {
         "containers": {
           "selected": true,
-          "text": "ingest-ui",
-          "value": "ingest-ui"
+          "text": "ingest-core",
+          "value": "ingest-core"
         }
       },
       "targets": [
@@ -1320,8 +1319,8 @@
       "scopedVars": {
         "containers": {
           "selected": true,
-          "text": "ingest-ui",
-          "value": "ingest-ui"
+          "text": "ingest-core",
+          "value": "ingest-core"
         }
       },
       "targets": [
@@ -1379,8 +1378,8 @@
       "scopedVars": {
         "containers": {
           "selected": true,
-          "text": "ingest-ui",
-          "value": "ingest-ui"
+          "text": "ingest-core",
+          "value": "ingest-core"
         }
       },
       "seriesOverrides": [],
@@ -1402,8 +1401,8 @@
       "timeShift": null,
       "title": "Memory usage",
       "tooltip": {
-        "shared": true,
-        "sort": 0,
+        "shared": false,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -1482,8 +1481,8 @@
       "scopedVars": {
         "containers": {
           "selected": true,
-          "text": "ingest-ui",
-          "value": "ingest-ui"
+          "text": "ingest-core",
+          "value": "ingest-core"
         }
       },
       "seriesOverrides": [],
@@ -1505,8 +1504,8 @@
       "timeShift": null,
       "title": "Max memory usage",
       "tooltip": {
-        "shared": true,
-        "sort": 0,
+        "shared": false,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
@@ -1549,7 +1548,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 93
       },
       "id": 10,
       "panels": [],
@@ -1566,7 +1565,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 94
       },
       "id": 6,
       "options": {
@@ -1579,7 +1578,8 @@
       "pluginVersion": "7.5.5",
       "targets": [
         {
-          "expr": "{container=\"$containers\"} |=\"error\"",
+          "expr": "{container=\"$containers\"} |~ \"error|ERROR\"",
+          "hide": false,
           "refId": "A"
         }
       ],
@@ -1596,7 +1596,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 100
       },
       "id": 2,
       "options": {
@@ -1627,7 +1627,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 107
       },
       "id": 42,
       "panels": [],
@@ -1686,7 +1686,7 @@
         "h": 5,
         "w": 6,
         "x": 0,
-        "y": 46
+        "y": 108
       },
       "hiddenSeries": false,
       "id": 44,
@@ -1829,7 +1829,7 @@
         "h": 5,
         "w": 6,
         "x": 6,
-        "y": 46
+        "y": 108
       },
       "hiddenSeries": false,
       "id": 24,
@@ -1975,7 +1975,7 @@
         "h": 5,
         "w": 6,
         "x": 12,
-        "y": 46
+        "y": 108
       },
       "hiddenSeries": false,
       "id": 47,
@@ -2115,7 +2115,7 @@
         "h": 5,
         "w": 6,
         "x": 18,
-        "y": 46
+        "y": 108
       },
       "hiddenSeries": false,
       "id": 57,
@@ -2217,9 +2217,9 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
-          "text": "ingest-ui",
-          "value": "ingest-ui"
+          "selected": true,
+          "text": "ingest-core",
+          "value": "ingest-core"
         },
         "datasource": "Prometheus",
         "definition": "label_values(kube_pod_container_info{namespace=\"prod-environment\"},container)",
@@ -2248,12 +2248,12 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Ingest Monitoring",
   "uid": "j_WfRUjGk",
-  "version": 37
+  "version": 1
 }
