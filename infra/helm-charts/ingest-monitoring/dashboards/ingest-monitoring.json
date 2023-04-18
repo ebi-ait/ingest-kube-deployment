@@ -1597,7 +1597,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "CPU util",
+      "title": "CPU usage",
       "tooltip": {
         "shared": true,
         "sort": 0,
