@@ -20,9 +20,19 @@ TF_VAR_node_count="2"
 
 
 #VARIABLES BELOW SHOULD NEVER CHANGE.
-FILE_NAME="environment_staging"
+if [ ! -z ${ZSH_VERSION+x} ]; then
+  SOURCE_FILE=${(%):-%x}
+  FILE_NAME=${SOURCE_FILE:t}
+  PROJECT_ROOT="$( cd "$( dirname "${SOURCE_FILE}" )"/.. && pwd )"
+elif [ ! -z ${BASH_VERSION+x} ]; then
+FILE_NAME=$(basename $BASH_SOURCE)
 DEPLOYMENT_STAGE=${FILE_NAME#*_}
-PROJECT_ROOT="/Users/enrique/HumanCellAtlas/ingest-kube-deployment"
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+else
+  echo "shell not recognized"
+  exit 1
+fi
+DEPLOYMENT_STAGE=${FILE_NAME#*_}
 KUBECONFIG_PATH=$PROJECT_ROOT/config/cluster-secrets/kubeconfig_${DEPLOYMENT_STAGE}
 TF_VAR_terraform_key=ingest/eks-${DEPLOYMENT_STAGE}.tfstate
 TF_VAR_aws_profile=${AWS_PROFILE}

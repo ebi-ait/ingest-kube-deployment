@@ -80,3 +80,6 @@ _local
 *.pyc
 *.bak
 *.tmp
+# Ignore dynaconf secret files
+.secrets.*
+.venv/

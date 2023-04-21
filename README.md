@@ -26,7 +26,7 @@ brew install jq
   - If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
 4. Install [aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
-5. Install kubectl: `sudo snap install kubectl --classic`
+5. Install kubectl 1.22: `sudo snap install kubectl@1.22 --classic`
 6. Install [kubectx and kubens](https://github.com/ahmetb/kubectx).
 7. Install helm: `sudo snap install helm --classic`
 8. `mkdir ~/.kube`
@@ -57,11 +57,11 @@ These steps assumes you have the correct aws credentials and local environment t
 ### How to access dashboard
 These steps assumes you have the correct aws credentials + local environment tools set up correctly and that you have followed the instructions to access the existing cluster.
 1. `kubectx ingest-eks-ENVNAME` where ENVNAME is the name of the cluster environment you are trying to access
-2. Generate token:
-	`kubectl -n kube-system describe secrets/$(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
+2. Generate token (it will be copied to the clipboard):
+	`kubectl -n kube-system describe secrets/$(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}') | grep token: | cut -d: -f2 | xargs | pbcopy`
 3. Start the proxy:
 	`kubectl proxy`
-4. Browse to the dashboard endpoint at http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/overview?namespace=default
+4. Browse to the [dashboard endpoint](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/overview?namespace=default)
 5. Choose Token and paste token from step 2 above
 
 ### Create new ingest eks cluster (aws)

@@ -34,7 +34,7 @@ destroy-cluster-%:
 	$(MAKE) delete-kubeconfig-(*)
 
 retrieve-kubeconfig-%:
-	# delete exissting env config in ./kube/config before retrieving new config
+	# delete existing env config in ./kube/config before retrieving new config
 	$(MAKE) delete-kubeconfig-$(*)
 	# confirm environment here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
