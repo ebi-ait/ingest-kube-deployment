@@ -66,6 +66,8 @@ spec:
           value: {{ .Values.notifications.amqp.sendExchange }}
         - name: NOTIFICATIONS_AMQP_SEND_ROUTING_KEY
           value: {{ .Values.notifications.amqp.sendRoutingKey }}
+        - name: INGEST_UI
+          value: https://{{ .Values.ui }}
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-core
@@ -78,6 +80,7 @@ spec:
             port: http
           initialDelaySeconds: 60
           periodSeconds: 3
+          timeoutSeconds: 2
         resources:
           limits:
             memory: 2.5Gi # 2560Mi
