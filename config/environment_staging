@@ -3,7 +3,7 @@ set -a
 
 FORCE_REFRESH=TRUE
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-ONTOLOGY_REF=1.0.48
+ONTOLOGY_REF=1.0.50
 FASTQ_VALIDATOR_IMAGE=quay.io/ebi-ait/fastq_utils:54bcf9f
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
@@ -20,9 +20,9 @@ TF_VAR_node_count="2"
 
 
 #VARIABLES BELOW SHOULD NEVER CHANGE.
-FILE_NAME=$(basename $BASH_SOURCE)
+FILE_NAME="environment_staging"
 DEPLOYMENT_STAGE=${FILE_NAME#*_}
-PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+PROJECT_ROOT="/Users/enrique/HumanCellAtlas/ingest-kube-deployment"
 KUBECONFIG_PATH=$PROJECT_ROOT/config/cluster-secrets/kubeconfig_${DEPLOYMENT_STAGE}
 TF_VAR_terraform_key=ingest/eks-${DEPLOYMENT_STAGE}.tfstate
 TF_VAR_aws_profile=${AWS_PROFILE}
