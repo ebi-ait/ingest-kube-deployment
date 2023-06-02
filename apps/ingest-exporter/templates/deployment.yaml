@@ -63,6 +63,8 @@ spec:
             secretKeyRef:
               key: exporter-access-key-secret
               name: aws-keys
+        - name: METADATA_SERVICE_PAGE_SIZE
+          value: '10'
         image: {{ .Values.image }}
         volumeMounts:
           - name: secret-volume
@@ -72,7 +74,7 @@ spec:
         name: ingest-exporter
         resources:
           limits:
-            memory: 800Mi
+            memory: 1200Mi
           requests:
-            memory: 400Mi
+            memory: 600Mi
       dnsPolicy: Default
