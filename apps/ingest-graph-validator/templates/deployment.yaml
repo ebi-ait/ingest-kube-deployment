@@ -41,7 +41,7 @@ spec:
         name: ingest-graph-validator
         resources:
           limits:
-            memory: 1Gi # 1024 Mib
+            memory: 1.5Gi
             cpu: 200m
           requests:
             memory: 400Mi
