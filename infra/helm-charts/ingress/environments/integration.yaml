@@ -12,7 +12,7 @@ ingress:
       - service: ingest-ui-service
         hostname: ui.integration.archive.data.humancellatlas.org
 
-nginx-ingress:
+ingress-nginx:
   controller:
     service:
       annotations:

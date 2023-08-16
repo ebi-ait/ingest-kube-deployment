@@ -14,9 +14,9 @@ in the `apps` directory. This assumes that all local environment variables are a
 
 ### Configuration
 
-Ingress rules for specific environment can be configured through the respective deployment environment value file. For example, the ingress rules for dev environment are defined in `dev.yaml`. To add a new set of configuration for another environment, a new value file can be created. For general configuration that applies to all environments, the settings can be modified or added in `values.yaml`.
+Ingress rules for specific environment can be configured through the respective deployment environment value file. For example, the ingress rules for dev environment are defined in [`dev.yaml`](./environments/dev.yaml). To add a new set of configuration for another environment, a new value file can be created. For general configuration that applies to all environments, the settings can be modified or added in [`values.yaml`](./values.yaml).
 
-Environment-specific value file follows a DSL-like configuration pattern specified in `templates/ingress.yaml`. At the minimum, an ingress rule entry under `hosts` configuration requires an Ingest service name and the domain it's mapped to.
+Environment-specific value file follows a DSL-like configuration pattern specified in [`templates/ingress.yaml`](templates/ingress.yaml). At the minimum, an ingress rule entry under `hosts` configuration requires an Ingest service name and the domain it's mapped to.
 
 ### SSL Certificate
 

@@ -1,9 +1,9 @@
 ingress:
-  enabled: "false"      
+  enabled: "false"
 
-# for subchart stable/nginx-ingress
+# for subchart ingress-nginx
 
-nginx-ingress:
+ingress-nginx:
   controller:
     service:
       annotations:

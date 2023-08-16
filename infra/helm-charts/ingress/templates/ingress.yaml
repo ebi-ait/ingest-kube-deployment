@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingest-ingress
@@ -18,7 +18,10 @@ spec:
       http:
         paths:
           - path: {{ .path | default $defaultPath }}
+            pathType: ImplementationSpecific
             backend:
-              serviceName: {{ $service }}
-              servicePort: {{ .port | default $defaultServicePort }}
+              service:
+                name: {{ $service }}
+                port:
+                  number: {{ .port | default $defaultServicePort }}
   {{ end }}
