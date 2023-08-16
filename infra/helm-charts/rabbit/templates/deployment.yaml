@@ -18,7 +18,7 @@ spec:
         app: rabbit
     spec:
       containers:
-      - image: rabbitmq:3-management-alpine
+      - image: rabbitmq:3.8.5-management-alpine
         name: rabbit
         ports:
           - name: http
