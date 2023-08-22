@@ -6,6 +6,7 @@ metadata:
   name: ingress-nginx-ingress-controller
   namespace: "{{ .Values.namespace }}"
 data:
+  ssl-redirect: "false"
   hsts: "true"
   server-tokens: "false"
   use-forwarded-headers: "true"

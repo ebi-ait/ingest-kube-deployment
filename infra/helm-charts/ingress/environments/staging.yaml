@@ -19,3 +19,4 @@ ingress-nginx:
     service:
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/5a03d751-d116-4480-8a05-1d7767862c58
+        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: Env=staging,CreatedBy=helm
