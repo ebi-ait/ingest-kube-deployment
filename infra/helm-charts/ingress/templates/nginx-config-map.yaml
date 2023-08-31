@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   labels:
     app: ingest-ingress
-  name: ingress-nginx-ingress-controller
+  name: {{ include "ingress-nginx.controller.fullname" . }}
   namespace: "{{ .Values.namespace }}"
 data:
   ssl-redirect: "false"

@@ -37,10 +37,11 @@ The result of this command can be piped to the clipboard using utilities like `p
 The ingress controller hostname can then be assigned to all domain names in the proper hosted zone through the AWS console:
 
 1. Using the AWS console, open the Route53 interface.
-1. Locate the hosted zone for the deployment environment, for example, `dev.data.humancellatlas.org`.
-1. Within the hosted zone, locate the domain name original mapped to the service, for example, `api.ingest.dev.data.humancellatlas.org`.
-1. Usually, this domain name would be set up as an alias type mapped to a specific load balancer for a specific Ingest service. Replace the alias target with the domain name for the ingress controller that was previously noted. Alternatively, to create a new service intended to pass through the ingress controller, a new record set with type alias should be created.
-1. Save the record set, and optionally test it through the `Test Record Set` option on AWS console.
+2. Locate the hosted zone for the deployment environment, for example, `_env_.data.humancellatlas.org`.
+3. Within the hosted zone, locate A records where the the domain name originally mapped to the service, for example, `api.ingest_env_.data.humancellatlas.org`.
+4. Usually, this domain name would be set up as an alias type mapped to a specific load balancer for a specific Ingest service. Replace the alias target with the domain name for the ingress controller that was previously noted. Alternatively, to create a new service intended to pass through the ingress controller, a new A record set with type alias should be created.
+5. Save the record set, and optionally test it through the `Test Record Set` option on AWS console.
+6. Do the same for the environment's A records in the `contribute.data.humancellatlas.org` hosted zone.
 
 ## Helm
 
@@ -50,13 +51,23 @@ Components to implement ingress are packaged through Helm. While a convenience m
 
 To do a fresh install:
 
-    helm install -f ingress/values.yaml -f ingess/<env_config>.yaml -n ingress ingress
+```bash
+helm install -f ingress/values.yaml -f ingess/<env_config>.yaml -n ingress ingress
+```
 
 ### Upgrade
 
 To upgrade an existent release:
 
-	helm upgrade -f ingress/values.yaml -f ingess/<env_config>.yaml ingress ingress
+```bash
+helm upgrade -f ingress/values.yaml -f ingess/<env_config>.yaml ingress ingress
+```
+
+To delete:
+
+```bash
+helm uninstall ingress
+```
 
 In case an error like the following occurs:
 
@@ -64,4 +75,6 @@ In case an error like the following occurs:
 
 a quick fix could be:
 
-    helm dependency update ingress
+```bash
+helm dependency update ingress
+```
