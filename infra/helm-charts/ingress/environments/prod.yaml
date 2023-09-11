@@ -16,8 +16,9 @@ ingress:
       - service: ingest-monitoring-grafana
         hostname: monitoring.ingest.archive.data.humancellatlas.org
 
-nginx-ingress:
+ingress-nginx:
   controller:
     service:
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:871979166454:certificate/3465ac2b-b7e5-475b-9ab5-3bc72fb98b84
+        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: Env=prod,CreatedBy=helm
