@@ -4,6 +4,7 @@ ingress:
 # for subchart ingress-nginx
 
 ingress-nginx:
+  labels:
   controller:
     service:
       annotations:
@@ -13,5 +14,17 @@ ingress-nginx:
         service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
       targetPorts:
           https: http
+    config:
+      ssl-redirect: "false"
+      hsts: "true"
+      server-tokens: "false"
+      use-forwarded-headers: "true"
+      http-snippet: |
+        server {
+          listen 8000 proxy_protocol;
+          server_tokens off;
+          return 301 https://$host$request_uri;
+        }
   rbac:
     create: "true"
+
