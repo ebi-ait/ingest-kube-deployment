@@ -52,7 +52,7 @@ spec:
               key: exporter-access-key-secret
               name: aws-keys
         - name: INGEST_API_JWT_AUDIENCE
-          value: https://data.humancellatlas.org/
+          value: {{ .Values.svcAuthAudience }}
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: "/etc/secrets/terra-gcp-svc-account.json"
         image: {{ .Values.image }}
