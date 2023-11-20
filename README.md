@@ -176,7 +176,7 @@ Before running the script to redeploy all ingest components, make sure that secr
 
 All requests to the Ingest cluster go through the Ingress controller. Any outward facing service needs to be mapped to the Ingress service for it to work correctly. This is set through the AWS Route 53 mapping.
 
-1. The first step is to retrieve the external IP of the Ingress service load balancer. This can be done using `kubectl get services -l app=nginx-ingress`.
+1. The first step is to retrieve the external IP of the Ingress service load balancer. This can be done using `kubectl get services -l app=ingress-nginx`.
 2. Copy the external IP and go the Route 53 service dashboard on the AWS Web console.
 3. From the Hosted Zones, search for `<deployment_env>.data.humancellatlas.org` and search for Ingest related records.
 4. Update each record to use the Ingress load balancer external IP as alias.
