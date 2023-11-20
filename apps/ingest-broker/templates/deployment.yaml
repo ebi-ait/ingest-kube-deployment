@@ -27,6 +27,12 @@ spec:
       - name: spreadsheet-storage
         persistentVolumeClaim:
           claimName: spreadsheet-storage-claim
+      - name: secret-volume
+        secret:
+          secretName: api-keys
+          items:
+            - key: exporter-terra-auth-info
+              path: terra-gcp-svc-account.json
       containers:
       - env:
         - name: INGEST_UI
@@ -45,6 +51,10 @@ spec:
             secretKeyRef:
               key: exporter-access-key-secret
               name: aws-keys
+        - name: INGEST_API_JWT_AUDIENCE
+          value: https://data.humancellatlas.org/
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/etc/secrets/terra-gcp-svc-account.json"
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-broker
@@ -53,6 +63,9 @@ spec:
         volumeMounts:
         - mountPath: /data/spreadsheets
           name: spreadsheet-storage
+        - name: secret-volume
+          mountPath: "/etc/secrets"
+          readOnly: true
         resources:
           limits:
             memory: 1.5Gi # 1536 Mib
