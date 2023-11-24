@@ -59,7 +59,8 @@ spec:
         imagePullPolicy: Always
         name: ingest-broker
         ports:
-        - containerPort: 5000
+        - name: http
+	  containerPort: 5000
         volumeMounts:
         - mountPath: /data/spreadsheets
           name: spreadsheet-storage
