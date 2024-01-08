@@ -23,6 +23,13 @@ spec:
         app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
       dnsPolicy: Default
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: api-keys
+          items:
+            - key: ingest-service-account-auth-info
+              path: ingest-svc-account.json
       containers:
       - env:
         - name: INGEST_SCHEME
@@ -52,6 +59,10 @@ spec:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
+        - name: INGEST_API_JWT_AUDIENCE
+          value: {{ .Values.svcAuthAudience }}
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/etc/secrets/ingest-svc-account.json"
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-validator
@@ -60,3 +71,14 @@ spec:
             memory: 400Mi
           requests:
             memory: 200Mi
+        volumeMounts:
+          - name: secret-volume
+            mountPath: "/etc/secrets"
+            readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 60
+          periodSeconds: 3
+          timeoutSeconds: 2
