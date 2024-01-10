@@ -24,6 +24,13 @@ spec:
         app.gitlab.com/app: {{ .Values.gitlab_app }}
         app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: api-keys
+          items:
+            - key: ingest-service-account-auth-info
+              path: ingest-svc-account.json
       containers:
       - env:
         - name: RABBIT_HOST
@@ -38,11 +45,19 @@ spec:
           value: $(REDIS_SERVICE_SERVICE_HOST)
         - name: REDIS_PORT
           value: $(REDIS_SERVICE_SERVICE_PORT)
+        - name: INGEST_API_JWT_AUDIENCE
+          value: {{ .Values.svcAuthAudience }}
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/etc/secrets/ingest-svc-account.json"
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-state-tracking
         ports:
           - containerPort: 8999
+        volumeMounts:
+          - name: secret-volume
+            mountPath: "/etc/secrets"
+            readOnly: true
         resources:
           limits:
             memory: 700Mi
