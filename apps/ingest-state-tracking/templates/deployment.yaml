@@ -48,7 +48,7 @@ spec:
         - name: INGEST_API_JWT_AUDIENCE
           value: {{ .Values.svcAuthAudience }}
         - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: "/etc/secrets/ingest-svc-account.json"
+          value: "file:///etc/secrets/ingest-svc-account.json"
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-state-tracking
