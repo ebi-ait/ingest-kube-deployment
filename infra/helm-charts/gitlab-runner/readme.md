@@ -8,8 +8,14 @@ The chart uses the `aws-keys` secret to acquire the gitlab runner registration t
 Troubleshooting:
 
 - runner fails to start - check pod logs
-- When gitlab is upgraded, make sure chart version is compatible with gitlab app version. Serach for the matching
+- When gitlab is upgraded (follow #gitlab and £announcements channels on slack), make sure chart version is compatible with gitlab app version. Serach for the matching
   version by running the following command.
 ```bash
 helm search repo -l gitlab/gitlab-runner
 ```
+- upgrade the chart version in `Chart.yaml` and run
+```bash
+cd infra
+make install-infra-helm-chart-gitlab-runner
+```
+- in case there are errors, you might need to clean up some k8s objects manually
