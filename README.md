@@ -38,6 +38,8 @@ brew install jq
 	- Set region to `us-east-1`
 2. Edit your `./aws/config` to look like this:
 ```
+[profile ebi]
+
 [profile embl-ebi]
 role_arn = arn:aws:iam::871979166454:role/ingest-devops
 source_profile = ebi
