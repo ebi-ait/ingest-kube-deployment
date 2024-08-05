@@ -104,6 +104,18 @@ setup-ingress-%:
 	cd helm-charts && helm dependency update ingress
 	cd helm-charts && helm upgrade -f ingress/values.yaml --values ingress/environments/$(*).yaml ingress ./ingress --force --install
 
+setup-load-balancer-%:
+	$(MAKE) set-context-$(*)
+	#   ingest-devops role needs permissions to change dns records
+	envsubst < dns-record-change.json > b.json
+	aws route53 change-resource-record-sets --hosted-zone-id $(hosted_zone_id) --change-batch file://b.json
+	nslookup api.ingest.$(deploy_stage).archive.data.humancellatlas.org
+
+clean-ingress-%:
+	$(MAKE) set-context-$(*)
+	cd helm-charts && helm uninstall ingress
+	kubectl get service | grep ingress | awk '{print $1}' | xargs -t kubectl delete service
+
 setup-retained-storage-%:
 	$(MAKE) set-context-$(*)
 	cd helm-charts && helm dependency update retained-fs-storage

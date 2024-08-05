@@ -22,6 +22,14 @@ spec:
         app.gitlab.com/app: {{ .Values.gitlab_app }}
         app.gitlab.com/env: {{ .Values.gitlab_env }}
     spec:
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: api-keys
+            items:
+              - key: ingest-service-account-auth-info
+                path:
+                  ingest-svc-account.json
       dnsPolicy: Default
       containers:
       - env:
@@ -29,9 +37,9 @@ spec:
           value: "http://$(INGEST_CORE_SERVICE_SERVICE_HOST):$(INGEST_CORE_SERVICE_SERVICE_PORT)"
         # Unset credentials since not needed to access ingest API when running in cluster
         - name: INGEST_GRAPH_VALIDATOR_GOOGLE_APPLICATION_CREDENTIALS
-          value: ""
+          value: "/etc/secrets/ingest-svc-account.json"
         - name: INGEST_GRAPH_VALIDATOR_INGEST_JWT_AUDIENCE
-          value: ""
+          value: {{ .Values.svcAuthAudience }}
         - name: AMQP_CONNECTION
           value: "amqp://guest:guest@$(RABBIT_SERVICE_SERVICE_HOST):$(RABBIT_SERVICE_SERVICE_PORT_SERVICE)"
         - name: INGEST_GRAPH_VALIDATOR_NEO4J_URL
@@ -39,6 +47,10 @@ spec:
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-graph-validator
+        volumeMounts:
+          - name: secret-volume
+            mountPath: "/etc/secrets"
+            readOnly: true
         resources:
           limits:
             memory: 1.5Gi

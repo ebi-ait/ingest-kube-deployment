@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingest-ingress
@@ -12,7 +12,10 @@ spec:
       http:
         paths:
           - path: /
+            pathType: ImplementationSpecific
             backend:
-              serviceName: ingest-core-service
-              servicePort: 80
-          
+              service:
+                name: ingest-core-service
+                port:
+                  number: 80
+

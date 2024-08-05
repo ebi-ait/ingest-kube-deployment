@@ -27,6 +27,12 @@ spec:
       - name: spreadsheet-storage
         persistentVolumeClaim:
           claimName: spreadsheet-storage-claim
+      - name: secret-volume
+        secret:
+          secretName: api-keys
+          items:
+            - key: ingest-service-account-auth-info
+              path: ingest-svc-account.json
       containers:
       - env:
         - name: INGEST_UI
@@ -45,14 +51,29 @@ spec:
             secretKeyRef:
               key: exporter-access-key-secret
               name: aws-keys
+        - name: INGEST_API_JWT_AUDIENCE
+          value: {{ .Values.svcAuthAudience }}
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/etc/secrets/ingest-svc-account.json"
         image: {{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-broker
         ports:
-        - containerPort: 5000
+        - name: http
+          containerPort: 5000
         volumeMounts:
         - mountPath: /data/spreadsheets
           name: spreadsheet-storage
+        - name: secret-volume
+          mountPath: "/etc/secrets"
+          readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 60
+          periodSeconds: 3
+          timeoutSeconds: 2
         resources:
           limits:
             memory: 1.5Gi # 1536 Mib

@@ -1,16 +1,30 @@
 ingress:
-  enabled: "false"      
+  enabled: "false"
 
-# for subchart stable/nginx-ingress
+# for subchart ingress-nginx
 
-nginx-ingress:
+ingress-nginx:
+  labels:
   controller:
     service:
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
         service.beta.kubernetes.io/aws-load-balancer-ssl-ports: https
         service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
       targetPorts:
           https: http
+    config:
+      ssl-redirect: "false"
+      hsts: "true"
+      server-tokens: "false"
+      use-forwarded-headers: "true"
+      http-snippet: |
+        server {
+          listen 8000 proxy_protocol;
+          server_tokens off;
+          return 301 https://$host$request_uri;
+        }
   rbac:
     create: "true"
+
