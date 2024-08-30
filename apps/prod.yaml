@@ -19,7 +19,7 @@ authDomain: "auth.data.humancellatlas.org"
 aaiClientId: "e2041c2d-9449-4468-856e-e84711cebd21"
 aaiAuthority: "https://login.elixir-czech.org/oidc/"
 
-olsUrl: "https://ontology.archive.data.humancellatlas.org"
+olsUrl: "https://www.ebi.ac.uk/ols4"
 
 # exporter
 terraBucketName: broad-dsp-monster-hca-prod-ebi-storage
