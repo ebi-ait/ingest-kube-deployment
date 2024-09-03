@@ -14,7 +14,8 @@ usrAuthAudience: https://dev.data.humancellatlas.org/
 
 # ui
 domainWhitelist: "api.ingest.dev.archive.data.humancellatlas.org,ingest.dev.archive.data.humancellatlas.org"
-securedEndpoints: '\/auth\/.*,\/user\/.*,\/submissionEnvelopes\/?.*,\/projects$'
+securedEndpoints: '\/auth\/.*,\/user\/.*,\/submissionEnvelopes\/?.*,\/projects$,\/(?:biomaterials|processes|protocols|files|bundleManifests)\/.*'
+
 aaiClientId: "e2041c2d-9449-4468-856e-e84711cebd21"
 aaiAuthority: "https://login.elixir-czech.org/oidc/"
 
