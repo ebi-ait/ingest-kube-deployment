@@ -124,6 +124,8 @@ Coming soon
 5. Navigate to `https://monitoring.ingest.ENVNAME.archive.data.humancellatlas.org`
   - Login with `admin` and the result from step 4
 
+See[help on the LogQL query syntax](https://grafana.com/docs/loki/latest/logql/log_queries)
+
 ### Upgrading Ingest Monitoring Dashboard
 If you would like to change the dashboard for Ingest Monitoring, you must save the JSON file in this repo and deploy it.
 
