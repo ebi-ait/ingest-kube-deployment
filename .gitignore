@@ -83,3 +83,5 @@ _local
 # Ignore dynaconf secret files
 .secrets.*
 .venv/
+
+.DS_Store
