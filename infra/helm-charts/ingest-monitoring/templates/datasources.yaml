@@ -19,3 +19,17 @@ data:
         url: http://{{ .Values.lokiIP }}:3100
         isDefault: true
         editable: true
+        jsonData:
+          derivedFields:
+            # Field with internal link pointing to data source in Grafana.
+            # Right now, Grafana supports only Jaeger and Zipkin data sources as link targets.
+            - datasourceUid: submission_uuid # not a uid, bug
+              matcherRegex: "submission_uuid:(\\W+)"
+              name: submission_uuid
+              # url will be interpreted as query for the datasource
+              url: "{{ .Values.lokiIP }}/submissionEnvelopes/search/findByUuidUuid?uuid=$${__value.raw}"
+            - datasourceUid: project_uuid # not a uid, bug
+              matcherRegex: "project_uuid:(\\W+)"
+              name: project_uuid
+              # url will be interpreted as query for the datasource
+              url: "$${__value.raw}"
