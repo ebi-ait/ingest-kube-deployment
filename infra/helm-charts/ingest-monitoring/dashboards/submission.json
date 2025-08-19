@@ -1,0 +1,207 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 22,
+  "iteration": 1720799673234,
+  "links": [],
+  "panels": [
+    {
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "title": "Row title",
+      "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 18,
+        "x": 0,
+        "y": 1
+      },
+      "id": 5,
+      "options": {
+        "dedupStrategy": "none",
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "expr": "{app=~\"ingest-.*\"} |= \"${submission_uuid}\" \n|= \"SubmissionStateListener\"",
+          "hide": false,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Submission Statuses",
+      "type": "logs"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 6,
+      "options": {
+        "dedupStrategy": "none",
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "expr": "{app=~\"ingest-.*\"} |= \"${submission_id}\" |= \"MessageHandler\"",
+          "hide": false,
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Metadata State Update",
+      "type": "logs"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 2,
+      "options": {
+        "dedupStrategy": "none",
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": false
+      },
+      "pluginVersion": "7.5.5",
+      "targets": [
+        {
+          "expr": "{app=~\"ingest-.*\"} |= \"${submission_uuid}\"",
+          "hide": false,
+          "refId": "A"
+        },
+        {
+          "expr": "{app=~\"ingest-.*\"} |= \"${submission_id}\"",
+          "hide": false,
+          "refId": "B"
+        },
+        {
+          "expr": "{app=~\"ingest-.*\"} |~ \"ERROR|Error|error|Exception\"",
+          "hide": true,
+          "refId": "C"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Submission Logs",
+      "type": "logs"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [
+    "wip"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "1ab4dec0-504f-41c3-bbc0-4c0c4ef4e6fb",
+          "value": "1ab4dec0-504f-41c3-bbc0-4c0c4ef4e6fb"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "label": "Submission UUID",
+        "name": "submission_uuid",
+        "options": [
+          {
+            "selected": false,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "1ab4dec0-504f-41c3-bbc0-4c0c4ef4e6fb",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "669151aeeabbc6206ca55d3a",
+          "value": "669151aeeabbc6206ca55d3a"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "label": "Submission ID",
+        "name": "submission_id",
+        "options": [
+          {
+            "selected": false,
+            "text": "",
+            "value": ""
+          }
+        ],
+        "query": "669151aeeabbc6206ca55d3a",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Submission Analysis",
+  "uid": "0UyrCGsIk",
+  "version": 10
+}
