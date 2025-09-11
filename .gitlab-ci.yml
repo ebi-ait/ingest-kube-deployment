@@ -72,4 +72,3 @@ update_secret_in_k8s:
   environment:
     name: $ENVIRONMENT_NAME
   needs: ["rotate_secret"]
-4
