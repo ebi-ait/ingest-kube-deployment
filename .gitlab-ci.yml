@@ -37,7 +37,8 @@ stages:
   when: manual
 
 .update_secret_in_k8s:
-  image: quay.io/ebi-ait/ingest-base-images:dtzar_helm-kubectl-3.5.0
+  # image: quay.io/ebi-ait/ingest-base-images:dtzar_helm-kubectl-3.5.0
+  image: finbourne/helm-kubectl-aws:0.0.49
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
   script:
