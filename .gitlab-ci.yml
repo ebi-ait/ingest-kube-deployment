@@ -15,8 +15,7 @@ variables:
 stages:
   - maintenance
 
-rotate_secret:
-  stage: maintenance  
+.rotate_secret:
   image: amazon/aws-cli:2.15.0
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
@@ -37,8 +36,7 @@ rotate_secret:
       echo "✅ Secret '$SECRET_NAME' updated successfully."
   when: manual
 
-update_secret_in_k8s:
-  stage: maintenance  
+.update_secret_in_k8s:
   image: quay.io/ebi-ait/ingest-base-images:dtzar_helm-kubectl-3.5.0
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
@@ -54,5 +52,24 @@ update_secret_in_k8s:
     - cd k8s/apps
     - make deploy-secrets
     - kubectl rollout restart deployment ingest-exporter
-  needs: ["rotate_secret"]
 
+rotate_secret:
+  extends: .rotate_secret
+  parallel:
+    matrix:
+      - ENVIRONMENT_NAME: ["dev", "staging", "prod"]
+  environment:
+    name: $ENVIRONMENT_NAME
+  when: manual
+
+update_secret_in_k8s:
+  extends: .update_secret_in_k8s
+  parallel:
+    matrix:
+      - ENVIRONMENT_NAME: dev
+        BRANCH_NAME: dev
+      - ENVIRONMENT_NAME: ["staging", "prod"]
+        BRANCH_NAME: master
+  environment:
+    name: $ENVIRONMENT_NAME
+  needs: ["rotate_secret"]
