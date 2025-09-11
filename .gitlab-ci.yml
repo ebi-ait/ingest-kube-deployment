@@ -16,7 +16,7 @@ stages:
   - maintenance
 
 rotate_secret:
-  stage: rotate_secret  
+  stage: maintenance  
   image: amazon/aws-cli:2.15.0
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
