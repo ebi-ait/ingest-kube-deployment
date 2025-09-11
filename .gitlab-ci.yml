@@ -1,19 +1,55 @@
-stages:
-  - deploy
+variables:
+  ENVIRONMENT_NAME: 
+    value: "dev"
+    options:
+      - "dev"
+      - "staging" 
+      - "prod"
+  SECRET_VALUE: ""
+  INGEST_KUBE_DEPLOYMENT_REPO: https://github.com/ebi-ait/ingest-kube-deployment.git
 
-deploy_ingest:
-  stage: deploy
-  tags:
-    - ingest-kube-deployment
+
+stages:
+  - maintenance
+
+rotate_secret:
+  stage: maintenance
+  image: amazon/aws-cli:2.15.0
+  variables:
+    SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
   script:
-    - >
-      if [[ "$ENV" =~ ^(dev|integration|staging|prod)$ ]]; then
-        echo "Deploying on $ENV"
-        source config/environment_$ENV
-        cd infra
-        make retrieve-kubeconfig-$ENV
-        kubectx ingest-eks-$ENV
-        cd ../apps
-        for APP in ${APPS}; do make deploy-app-${APP}; done
+    - |
+      if [[ -z "${SECRET_NAME:-}" ]]; then
+        echo "❌ ERROR: SECRET_NAME environment variable is not set."
+        exit 1
       fi
+      if [[ -z "${SECRET_VALUE:-}" ]]; then
+        echo "❌ ERROR: SECRET_VALUE environment variable is not set."
+        exit 1
+      fi
+      echo "Updating secret: $SECRET_NAME"
+      aws secretsmanager put-secret-value \
+          --secret-id "$SECRET_NAME" \
+          --secret-string "$SECRET_VALUE"
+      echo "✅ Secret '$SECRET_NAME' updated successfully."
   when: manual
+
+update_secret_in_k8s:
+  stage: maintenance  
+  image: quay.io/ebi-ait/ingest-base-images:dtzar_helm-kubectl-3.5.0
+  variables:
+    SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
+  script:
+    - |
+      if [[ -z "${SECRET_NAME:-}" ]]; then
+        echo "❌ ERROR: SECRET_NAME environment variable is not set."
+        exit 1
+      fi
+      echo "Updating secret: $SECRET_NAME"
+    - git clone --branch $BRANCH_NAME --single-branch $INGEST_KUBE_DEPLOYMENT_REPO k8s
+    - source k8s/config/environment_$ENVIRONMENT_NAME
+    - cd k8s/apps
+    - make deploy-secrets
+    - kubectl rollout restart deployment ingest-exporter
+  when: manual
+
