@@ -53,6 +53,7 @@ stages:
     - kubectl rollout restart deployment ingest-exporter
 
 rotate_secret:
+  stage: maintenance
   extends: .rotate_secret
   parallel:
     matrix:
@@ -62,6 +63,7 @@ rotate_secret:
   when: manual
 
 update_secret_in_k8s:
+  stage: maintenance
   extends: .update_secret_in_k8s
   parallel:
     matrix:
