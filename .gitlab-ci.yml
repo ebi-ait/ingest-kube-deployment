@@ -1,12 +1,15 @@
 variables:
   ENVIRONMENT_NAME: 
     value: "dev"
+    description: "The environment to update the secret in"
     options:
       - "dev"
       - "staging" 
       - "prod"
-  SECRET_VALUE: ""
-  INGEST_KUBE_DEPLOYMENT_REPO: https://github.com/ebi-ait/ingest-kube-deployment.git
+  SECRET_VALUE: 
+    description: "The value of the secret to update"
+    value: ""
+  INGEST_KUBE_DEPLOYMENT_REPO: "https://github.com/ebi-ait/ingest-kube-deployment.git"
 
 
 stages:
