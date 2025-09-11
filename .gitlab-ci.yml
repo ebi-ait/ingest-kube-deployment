@@ -16,7 +16,7 @@ stages:
   - maintenance
 
 rotate_secret:
-  stage: maintenance
+  stage: rotate_secret  
   image: amazon/aws-cli:2.15.0
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
@@ -54,5 +54,5 @@ update_secret_in_k8s:
     - cd k8s/apps
     - make deploy-secrets
     - kubectl rollout restart deployment ingest-exporter
-  when: manual
+  needs: ["rotate_secret"]
 
