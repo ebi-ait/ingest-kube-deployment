@@ -88,11 +88,11 @@ stages:
       fi
       echo "Updating secret: $SECRET_NAME"
 
-    - source config/environment_$ENVIRONMENT_NAME
-    - cd apps
-    - set -vx
-    - ./scripts/deploy_secrets
-    - kubectl rollout restart deployment ingest-exporter
+      source config/environment_$ENVIRONMENT_NAME
+      cd apps
+      set -vx
+      ./scripts/deploy_secrets
+      kubectl rollout restart deployment ingest-exporter
 
 rotate_secret:
   stage: rotate_secret
