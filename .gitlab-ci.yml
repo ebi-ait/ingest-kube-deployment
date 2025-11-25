@@ -27,7 +27,7 @@ stages:
     - aws configure set profile.embl-ebi.role_arn "arn:aws:iam::871979166454:role/ingest-devops"
     - export AWS_PROFILE=embl-ebi
 
-.rotate_secret:
+.rotate_secret_in_aws:
   image: noose/kubectl-helm-aws:1.31.0-3.16.3-2.21.0
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
@@ -94,9 +94,9 @@ stages:
       ./scripts/deploy_secrets
       kubectl rollout restart deployment ingest-exporter
 
-rotate_secret:
+rotate_secret_in_aws:
   stage: rotate_secret
-  extends: .rotate_secret
+  extends: .rotate_secret_in_aws
   parallel:
     matrix:
       - ENVIRONMENT_NAME: 
@@ -120,4 +120,4 @@ update_secret_in_k8s:
     name: $ENVIRONMENT_NAME
     kubernetes:
       namespace: "$ENVIRONMENT_NAME-environment"
-  needs: ["rotate_secret"]
+  needs: ["rotate_secret_in_aws"]
