@@ -17,10 +17,21 @@ stages:
   - rotate_secret
   - contributor_account
 
+.aws_config:
+  script:
+    - aws configure set profile.embl-ebi.region us-east-1
+    - aws configure set profile.embl-ebi.output json
+    - aws configure set profile.ebi.aws_access_key_id "$AWS_ACCESS_KEY_ID"
+    - aws configure set profile.ebi.aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
+    - aws configure set profile.embl-ebi.source_profile ebi
+    - aws configure set profile.embl-ebi.role_arn "arn:aws:iam::871979166454:role/ingest-devops"
+    - export AWS_PROFILE=embl-ebi
+
 .rotate_secret:
   image: noose/kubectl-helm-aws:1.31.0-3.16.3-2.21.0
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
+  extends: .aws_config
   script:
     - |
       if [[ -z "${SECRET_NAME:-}" ]]; then
@@ -63,10 +74,12 @@ stages:
       echo "✅ Secret '$SECRET_NAME' updated successfully. Only ingest_exporter_terra_svc_account field was modified."
   when: manual
 
+
 .update_secret_in_k8s:
   image: noose/kubectl-helm-aws:1.31.0-3.16.3-2.21.0
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
+  extends: .aws_config
   script:
     - |
       if [[ -z "${SECRET_NAME:-}" ]]; then
@@ -74,12 +87,6 @@ stages:
         exit 1
       fi
       echo "Updating secret: $SECRET_NAME"
-    - aws configure set profile.embl-ebi.region us-east-1
-    - aws configure set profile.embl-ebi.output json
-    - aws configure set profile.ebi.aws_access_key_id "$AWS_ACCESS_KEY_ID"
-    - aws configure set profile.ebi.aws_secret_access_key "$AWS_SECRET_ACCESS_KEY"
-    - aws configure set profile.embl-ebi.source_profile ebi
-    - aws configure set profile.embl-ebi.role_arn "arn:aws:iam::871979166454:role/ingest-devops"
 
     - source config/environment_$ENVIRONMENT_NAME
     - cd apps
