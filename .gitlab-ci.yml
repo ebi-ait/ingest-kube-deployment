@@ -7,7 +7,7 @@ variables:
       - "staging" 
       - "prod"
   SECRET_VALUE: 
-    description: "The value of the secret to update"
+    description: "The value of the secret to update, usually sent by email or slack"
     value: ""
   INGEST_KUBE_DEPLOYMENT_REPO: "https://github.com/ebi-ait/ingest-kube-deployment.git"
 
@@ -15,9 +15,10 @@ variables:
 stages:
   # rotate gcp secret, see https://github.com/ebi-ait/dcp-ingestcentral#dcp-1074
   - rotate_secret
+  - contributor_account
 
 .rotate_secret:
-  image: amazon/aws-cli:2.15.0
+  image: noose/kubectl-helm-aws:1.31.0-3.16.3-2.21.0
   variables:
     SECRET_NAME: "ingest/$ENVIRONMENT_NAME/secrets"
   script:
@@ -30,11 +31,36 @@ stages:
         echo "❌ ERROR: SECRET_VALUE environment variable is not set."
         exit 1
       fi
-      echo "Updating secret: $SECRET_NAME in aws secrets manager"
+      echo "Getting current secret: $SECRET_NAME"
+      # Get the current secret
+      CURRENT_SECRET=$(aws secretsmanager get-secret-value \
+          --secret-id "$SECRET_NAME" \
+          --query SecretString \
+          --output text)
+      
+      if [[ -z "$CURRENT_SECRET" ]]; then
+        echo "❌ ERROR: Could not retrieve current secret."
+        exit 1
+      fi
+      
+      # Backup the current secret before updating
+      BACKUP_SECRET_NAME="${SECRET_NAME}-backup-$(date +%Y%m%d-%H%M%S)"
+      echo "Creating backup: $BACKUP_SECRET_NAME"
+      aws secretsmanager create-secret \
+          --name "$BACKUP_SECRET_NAME" \
+          --secret-string "$CURRENT_SECRET" \
+          --description "Backup of $SECRET_NAME created before update on $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+      echo "✅ Backup created: $BACKUP_SECRET_NAME"
+      
+      echo "Updating ingest_exporter_terra_svc_account field in secret: $SECRET_NAME"
+      # Update only the ingest_exporter_terra_svc_account field
+      UPDATED_SECRET=$(echo "$CURRENT_SECRET" | jq --arg new_value "$SECRET_VALUE" '.ingest_exporter_terra_svc_account = $new_value')
+      
+      # Put the updated secret back
       aws secretsmanager put-secret-value \
           --secret-id "$SECRET_NAME" \
-          --secret-string "$SECRET_VALUE"
-      echo "✅ Secret '$SECRET_NAME' updated successfully."
+          --secret-string "$UPDATED_SECRET"
+      echo "✅ Secret '$SECRET_NAME' updated successfully. Only ingest_exporter_terra_svc_account field was modified."
   when: manual
 
 .update_secret_in_k8s:
