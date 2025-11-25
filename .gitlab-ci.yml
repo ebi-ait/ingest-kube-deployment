@@ -18,7 +18,7 @@ stages:
   - contributor_account
 
 .aws_config:
-  script:
+  before_script:
     - aws configure set profile.embl-ebi.region us-east-1
     - aws configure set profile.embl-ebi.output json
     - aws configure set profile.ebi.aws_access_key_id "$AWS_ACCESS_KEY_ID"
