@@ -9,11 +9,9 @@ variables:
   SECRET_VALUE: 
     description: "The value of the secret to update, usually sent by email or slack"
     value: ""
-  INGEST_KUBE_DEPLOYMENT_REPO: "https://github.com/ebi-ait/ingest-kube-deployment.git"
 
-
+# rotate gcp secret, see https://github.com/ebi-ait/dcp-ingestcentral#dcp-1074
 stages:
-  # rotate gcp secret, see https://github.com/ebi-ait/dcp-ingestcentral#dcp-1074
   - rotate_secret
   - contributor_account
 
@@ -97,12 +95,6 @@ stages:
 rotate_secret_in_aws:
   stage: rotate_secret
   extends: .rotate_secret_in_aws
-  parallel:
-    matrix:
-      - ENVIRONMENT_NAME: 
-        - "dev"
-        # - "staging"
-        # - "prod"
   environment:
     name: $ENVIRONMENT_NAME
   when: manual
@@ -110,12 +102,6 @@ rotate_secret_in_aws:
 update_secret_in_k8s:
   stage: rotate_secret
   extends: .update_secret_in_k8s
-  parallel:
-    matrix:
-      - ENVIRONMENT_NAME: dev
-        BRANCH_NAME: dev
-      # - ENVIRONMENT_NAME: ["staging", "prod"]
-        # BRANCH_NAME: master
   environment:
     name: $ENVIRONMENT_NAME
     kubernetes:
